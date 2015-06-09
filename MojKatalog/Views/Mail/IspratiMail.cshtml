@@ -1,0 +1,135 @@
+﻿@model MojKatalog.Models.ViewModels.ViewPoraki
+
+@{
+    ViewBag.Title = "IspratiMail";
+    var mod = Model;
+    
+}
+
+<h3 class="page-title">Kреирај Порака <small>креирање на нова порака</small></h3>
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Mail")">Пошта</a></li>
+    <li class="active">Креирај Порака</li>
+</ul>
+<input type="hidden" id="activeLink" value="mailLink" />
+<div class="well bs-component">
+    @using (@Html.BeginForm("IspratiMail", "Mail", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <legend>Порака</legend>
+            <div class="form-group">
+                @Html.Label("To", new { @class = "col-lg-1 col-md-2 control-label" })
+                <div class="col-lg-10">
+                    <p class="bs-component btn-create btnkatalog">
+                        <a role="button" class="btn btn-default btn-lg btn-block btn-contacts"><span class="glyphicon glyphicon-user"></span></a>
+                    </p>
+
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Subject, new { @class = "col-lg-1 col-md-2 control-label" })
+                <div class="col-lg-10">
+                    @Html.TextBoxFor(model => model.Subject, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Subject)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Body, new { @class = "col-lg-1 col-md-2 control-label" })
+                <div class="col-lg-10">
+                    @Html.TextAreaFor(model => model.Body, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Body)
+                </div>
+            </div>
+            <div id="modalKontakti" class="modal">
+                <div class="modal-dialog modal-contacts">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title">Контакти</h4>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <input type="checkbox" /></th>
+                                        <th>
+                                            <span class="input-group input-group-sm">
+                                                <input type="text" class="form-control serachStringInput">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default btn-search-contacts" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                                                </span>
+                                            </span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var klientiGroup in Model.KlientiGrupirani)
+                                    {
+                                        <tr class="letter-row">
+                                            <td colspan="2">@klientiGroup.Karakter</td>
+                                        </tr>
+                                        foreach (var klient in klientiGroup.Klienti)
+                                        {
+                                         <tr>
+                                                <td>
+                                                    <input type="checkbox" name="selectedKlients" value="@klient.IdKlienti"/>
+                                                </td>
+                                                <td>
+                                                    <label>@klient.Ime</label>
+                                                    <label>@klient.Prezime</label>
+                                                    <br />
+                                                    <small>@klient.Mail</small>
+                                                </td>
+                                        </tr>
+                                        }   
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <br />
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-1 col-md-offset-2">
+                    <button type="submit" class="btn btn-primary">Креирај </button>
+                </div>
+            </div>
+        </fieldset>
+    }
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".btn-contacts").click(function () {
+                $("#modalKontakti").modal("show");
+            });
+            $(".btn-search-contacts").click(function () {
+                var searchStringInput=$(".serachStringInput").val();
+                $.get("/Mail/PrebarajKlienti/", { searchString: searchStringInput }, function (dataBack) {
+                    $(".modal-body").replaceWith(dataBack);
+                });
+            });
+
+        });
+    </script>
+}

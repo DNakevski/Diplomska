@@ -1,0 +1,585 @@
+﻿.nav-container
+{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    padding-top: 0px !important;
+    height: 100% !important;
+    background-color: #395168 !important;
+}
+
+    .nav-container .nav-menu
+    {
+        max-width: none !important;
+        margin-top: 50px !important;
+    }
+
+    .nav-container .glyphicon
+    {
+        margin-right: 10px !important;
+    }
+
+    .nav-container li a:hover,
+    .nav-container li a:focus
+    {
+        background-color: #2c3e50 !important;
+    }
+
+    .nav-container li.active > a,
+    .nav-container li.active > a:hover
+    {
+        background-color: #18bc9c !important;
+    }
+
+    .nav-container li
+    {
+        margin-top: 0px !important;
+    }
+
+.cont-container
+{
+    height: 100% !important;
+    background-color: #ffffff !important;
+}
+
+    .cont-container .breadcrumb
+    {
+        border-radius: 0px !important;
+    }
+
+.nav-user .open .dropdown-toggle
+{
+    background-color: #2c3e50 !important;
+}
+
+.nav-user li a:hover,
+.nav-user li a:focus
+{
+    color: #ffffff !important;
+}
+
+.username-dropdown
+{
+    display: inline-block;
+    padding-top: 5px !important;
+    padding-bottom: 0px !important;
+}
+
+.glyphicon-user-css
+{
+    font-size: 50px;
+    color: #95a5a6;
+    background-color: white;
+    margin-right: 10px;
+    top: 0px !important;
+    margin-bottom: 5px !important;
+    line-height: 1.1;
+    vertical-align: middle;
+}
+
+.nav-container .glyphicon
+{
+    font-size: 12px !important;
+}
+
+.nav-menu > li > a
+{
+    border-top: 1px solid #2c3e50 !important;
+}
+
+.nav-submenu
+{
+    display: none;
+}
+
+.panl-heading
+{
+    border-radius: 0px !important;
+}
+
+.glyphicon-dropdown-css
+{
+    margin-right: 5px !important;
+}
+
+.btn-create a
+{
+    border-radius: 0px !important;
+    font-size: 17px !important;
+    height: 38px !important;
+    padding-top: 7px !important;
+    padding-right: 0px !important;
+}
+
+.btn-delete
+{
+    border-radius: 0px !important;
+    color: #2c3e50 !important;
+    float: right !important;
+    padding: 0px 0px !important;
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
+
+.panel-accordion .navbar-katalog
+{
+    text-decoration: none !important;
+    color: #2C3E50 !important;
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+    padding-left: 0px !important;
+}
+/*.panel-accordion .navbar-katalog .glyphicon-chevron-left*/
+.displayNone
+{
+    display: none;
+}
+
+.navbar-katalog-chevron
+{
+    color: #18bc9c !important;
+    margin-right: 5px !important;
+}
+
+.panel-accordion .navbar-katalog:hover
+{
+    text-decoration: none !important;
+    color: #95a5a6 !important;
+}
+
+.panel-accordion .navbar-katalog:focus
+{
+    text-decoration: none !important;
+}
+
+.panel-accordion .navbar-right a
+{
+    text-decoration: none !important;
+    color: #18bc9c !important;
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+}
+
+    .panel-accordion .navbar-right a:hover
+    {
+        text-decoration: none !important;
+        color: #95A5A6 !important;
+    }
+
+.panel-accordion .navbar
+{
+    min-height: 20px !important;
+}
+
+.panel
+{
+    border-radius: 0px !important;
+}
+
+.table-container
+{
+    display: table;
+    padding-left: 0px;
+    padding-right: 0px;
+    min-height: 600px !important;
+}
+
+    .table-container .table-row
+    {
+        height: 100%;
+        display: table-row;
+    }
+
+        .table-container .table-row .table-col
+        {
+            display: table-cell;
+            float: none;
+            vertical-align: top;
+        }
+
+.navigation-bar
+{
+    height: 65px !important;
+    border-radius: 0px !important;
+}
+
+.table-container .row:before,
+.table-container .row:after
+{
+    content: none !important;
+}
+
+.table-container
+{
+    width: 100% !important;
+}
+
+.btn
+{
+    border-radius: 0px;
+}
+/*Begin Thumbnail hover*/
+
+
+.thumbnail-proizvodi,
+.thumbnail-image-edit
+{
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    background-color: #F9F9F9;
+    padding: 0px !important;
+    border-radius: 0px !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 167px;
+}
+
+    .thumbnail-proizvodi .caption
+    {
+        position: absolute;
+        bottom: -100%;
+        right: 0;
+        background: rgba(44, 62, 80, 0.75);
+        width: 100%;
+        height: 60%;
+        padding: 2%;
+        text-align: center;
+        color: #fff !important;
+        z-index: 2;
+        -webkit-transition: all 0.5s ease-in-out;
+        -moz-transition: all 0.5s ease-in-out;
+        -o-transition: all 0.5s ease-in-out;
+        -ms-transition: all 0.5s ease-in-out;
+        transition: all 0.5s ease-in-out;
+    }
+
+    .thumbnail-proizvodi:hover .caption
+    {
+        bottom: 0%;
+    }
+
+    .thumbnail-proizvodi .glyphicon-picture
+    {
+        /*margin-bottom:15px !important;
+    margin-top:2px !important;*/
+        font-size: 150px;
+        color: #18bc9c;
+    }
+
+    .thumbnail-proizvodi img
+    {
+        margin-bottom: 15px !important;
+        margin-top: 2px !important;
+    }
+
+.kategorijaLink
+{
+    color: white !important;
+}
+
+    .kategorijaLink:hover,
+    .kategorijaLink:focus
+    {
+        color: #ECF0F1 !important;
+        text-decoration: none !important;
+    }
+/*End Thumbnail hover*/
+.table-kategorii
+{
+    min-width: 40px !important;
+}
+
+    .table-kategorii thead th
+    {
+        color: #95a5a6 !important;
+        font-weight: lighter !important;
+        font-size: small;
+    }
+
+    .table-kategorii tbody
+    {
+        background-color: white !important;
+        border-color: white !important;
+    }
+
+        .table-kategorii tbody span
+        {
+            color: #18bc9c !important;
+        }
+
+        .table-kategorii tbody tr
+        {
+            background-color: white !important;
+        }
+
+            .table-kategorii tbody tr:hover,
+            .table-kategorii tbody tr:focus
+            {
+                background-color: #ECF0F1 !important;
+                cursor: pointer !important;
+            }
+
+.podkategoriiLink
+{
+    text-decoration: none !important;
+}
+
+    .podkategoriiLink span
+    {
+        margin-left: 6px;
+        color: #2c3e50!important;
+    }
+
+        .podkategoriiLink span:nth-of-type(2)
+        {
+            color: #2c3e50!important;
+        }
+
+        .podkategoriiLink span:nth-of-type(3)
+        {
+            background-color: #F39C12 !important;
+            color: white!important;
+        }
+
+        .podkategoriiLink span:nth-of-type(4)
+        {
+            background-color: #E74C3C !important;
+            color: white!important;
+        }
+
+.podkategorii-nav
+{
+    height: 800px;
+    border-left: 2px solid #b3c5c6 !important;
+    padding-left: 0px !important;
+}
+
+.table-kategorii-head
+{
+    padding-left: 30px !important;
+}
+
+.noAct
+{
+    color: #ECF0F1 !important;
+    text-decoration: none !important;
+}
+/*Begin Input File*/
+.btn-file
+{
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+    .btn-file input[type=file]
+    {
+        position: absolute !important;
+        top: 0 !important;
+        right: 0 !important;
+        min-width: 100% !important;
+        min-height: 100% !important;
+        font-size: 100px !important;
+        text-align: right !important;
+        filter: alpha(opacity=0) !important;
+        opacity: 0 !important;
+        background: red !important;
+        cursor: inherit !important;
+        display: block !important;
+    }
+
+input[readonly]
+{
+    background-color: white !important;
+    cursor: text !important;
+}
+/*End Input File*/
+.form-control
+{
+    border-radius: 0px !important;
+}
+
+.well
+{
+    border-radius: 0px !important;
+}
+
+.thumbnail-image-edit
+{
+    height: 200px !important;
+    width: 200px;
+    border: 3px solid #dce4ec;
+}
+/*Begin Mail*/
+.mail-container
+{
+    width: 100% !important;
+}
+
+    .mail-container .nav-tabs .glyphicon:not(.no-margin)
+    {
+        margin-right: 10px;
+    }
+
+    .mail-container .tab-pane .list-group-item:first-child
+    {
+        border-top-right-radius: 0px;
+        border-top-left-radius: 0px;
+    }
+
+    .mail-container .tab-pane .list-group-item:last-child
+    {
+        border-bottom-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+    }
+
+    .mail-container .tab-pane .list-group .checkbox
+    {
+        display: inline-block;
+        margin: 0px;
+    }
+
+    .mail-container .tab-pane .list-group input[type="checkbox"]
+    {
+        margin-top: 2px;
+    }
+
+    .mail-container .tab-pane .list-group .glyphicon
+    {
+        margin-right: 5px;
+    }
+
+        .mail-container .tab-pane .list-group .glyphicon:hover
+        {
+            color: #FFBC00;
+        }
+
+    .mail-container a.list-group-item.read
+    {
+        color: #222;
+        background-color: #F3F3F3;
+    }
+
+    .mail-container hr
+    {
+        margin-top: 5px;
+        margin-bottom: 10px;
+    }
+
+    .mail-container .nav-pills > li > a
+    {
+        padding: 5px 10px;
+    }
+
+    .mail-container .ad
+    {
+        padding: 5px;
+        background: #F5F5F5;
+        color: #222;
+        font-size: 80%;
+        border: 1px solid #E5E5E5;
+    }
+
+        .mail-container .ad a.title
+        {
+            color: #15C;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 110%;
+        }
+
+        .mail-container .ad a.url
+        {
+            color: #093;
+            text-decoration: none;
+        }
+
+    .mail-container .mail-actions
+    {
+        padding: 0px !important;
+    }
+
+        .mail-container .mail-actions li
+        {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            vertical-align: middle;
+            padding-top: 15px;
+            padding-right: 0px;
+            font-size: 15px;
+        }
+
+            .mail-container .mail-actions li:last-child
+            {
+                display: inline-block;
+                width: 200px;
+                height: 50px;
+                text-align: center;
+                vertical-align: middle;
+                padding-top: 12px;
+                padding-right: 0px;
+                font-size: 15px;
+            }
+
+.checkbox-input
+{
+    margin: 2px 0 0 !important;
+}
+
+.btn-danger .glyphicon
+{
+    margin-right: 8px !important;
+}
+/*End Mail*/
+/*Begin Modal*/
+.modal-contacts
+{
+    width: 400px !important;
+}
+
+    .modal-contacts .modal-content
+    {
+        border-radius: 0px !important;
+    }
+
+    .modal-contacts .btn
+    {
+        border-radius: 0px !important;
+    }
+
+    .modal-contacts th:first-child
+    {
+        vertical-align: middle !important;
+    }
+    .modal-contacts thead,
+    .modal-contacts tbody
+    {
+        display:block;
+    }
+    .modal-contacts tbody
+    {
+        max-height: 400px !important;
+        overflow-y: auto;
+    }
+    .modal-contacts tr td:last-child
+    {
+        width: 300px !important;
+    }
+    .modal-contacts tr th:last-child
+    {
+        width: 300px !important;
+        padding-right:0px !important;
+    }
+    .modal-contacts .letter-row
+    {
+        text-align:center !important;
+        background-color: #DDE4E6 !important;
+        
+    }
+
+/*End Modal*/
+
+
+

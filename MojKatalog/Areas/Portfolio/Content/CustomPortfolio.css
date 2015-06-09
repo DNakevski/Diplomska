@@ -1,0 +1,291 @@
+﻿
+@font-face {
+    font-family: 'PTSansNarrow';
+    src: url('Fonts/PT Sans/PTN57F.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'OpenSansLight';
+    src: url('Fonts/Open Sans/OpenSans-Light.ttf') format('truetype');
+}
+
+body {
+    font-family: PTSansNarrow;
+    /*margin-top:60px;*/
+    background-color: white;
+    color: #1a242f;
+}
+
+section{
+    min-height: 200px;
+    text-align: center;
+    padding-top: 60px;
+}
+#pocetna{
+    background-color: white;
+    padding-top: 0px !important;
+}
+#zanas .row{
+    background-color: white;
+    padding-left: 60px;
+    padding-right: 60px;
+}
+#portfolio{
+    min-height: 434px !important;
+    background-color: white;
+}
+#contact{
+    background-color: #1a242f;
+    color:white !important;
+    padding-bottom: 60px !important;
+}
+.brand{
+  float: left;
+  padding: 19.5px 0px;
+  font-size: 25px;
+  line-height: 21px;
+  height: 60px;
+  color: #1a242f;
+}
+.textcolorInverse {
+    color: #18bc9c;
+}
+.main-menu{
+    background-color: #f7f9f7;
+    opacity: 0.95;
+    box-shadow: 0 1px 4px rgba(26, 36, 47, 0.40);
+}
+.main-menu  .navbar-nav > li > a{
+     color: #1a242f;
+}
+.main-menu .navbar-nav > .active > a,
+.main-menu .navbar-nav > .active > a:hover, 
+.main-menu .navbar-nav > .active > a:focus{
+    color: #18bc9c !important;
+    background-color: transparent !important;
+}
+.main-menu .container-fluid{
+    padding-left: 60px !important;
+    padding-right: 60px !important;
+}
+.main-menu .nav{
+    font-size: 18px !important;
+    font-weight: 400 !important;
+    text-transform: uppercase;
+}
+section h2 {
+  font: 400 37px "PTSansNarrow", Arial, sans-serif;
+  margin:0px 0px 10px 0px;
+  text-transform: uppercase;
+  text-align: center;
+}
+section h2 span {
+    display:inline-block;
+}
+section h2 span h::after{
+    content: " ";
+    display: block;
+    padding-top: 7px;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: #1a242f;
+    width: 50%;
+    margin: 0px auto;
+    opacity: 0.50;
+}
+.zanas-content{
+    font-family: "PTSansNarrow" !important;
+    font-size: 18px !important;
+    line-height: 25.7142868041992px !important;
+    margin-bottom: 35px !important;
+    color: rgb(44, 62, 80) !important;
+    text-align: center !important;
+text-decoration: none !important;
+}
+.fill-screen{
+    background-size: cover !important;
+    background-repeat:no-repeat;
+    background-position:0px 0px;
+}
+.fill-screen h2{
+   position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+/*CarouselAndThumbnailGallery*/
+#portfolio .thumbnail {
+  display: block;
+  padding: 4px;
+  margin-bottom: 20px;
+  line-height: 1.42857143;
+  -webkit-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+  border-radius: 0;
+  border: none;
+  background-color: none;
+}
+#portfolio .carousel-control {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 15%;
+  opacity: .5;
+  font-size: 20px;
+  color: #fff;
+  text-align: center;
+  text-shadow: none;
+}
+#portfolio .carousel-control.left {
+	background-image: none;
+}
+#portfolio .carousel-control.right {
+  left: auto;
+  right: 0;
+  background-image: none;
+}
+#portfolio .carousel-control {
+  padding-top:10.25%;
+  width:5%;
+}
+#portfolio .carousel{
+    height: 374px !important;
+}
+#portfolio .glyphicon-chevron-left,
+#portfolio .glyphicon-chevron-right
+{
+    color: red !important;
+}
+/*Begin Thumbnail hover*/
+
+#portfolio .col{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+.thumbnail-proizvodi,
+.thumbnail-image-edit
+{
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    background-color: #F9F9F9;
+    padding: 0px !important;
+    border-radius: 0px !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 167px;
+}
+
+    .thumbnail-proizvodi .caption
+    {
+        position: absolute;
+        bottom: -100%;
+        right: 0;
+        background: rgba(44, 62, 80, 0.75);
+        width: 100%;
+        height: 60%;
+        padding: 2%;
+        text-align: center;
+        color: #fff !important;
+        z-index: 2;
+        -webkit-transition: all 0.5s ease-in-out;
+        -moz-transition: all 0.5s ease-in-out;
+        -o-transition: all 0.5s ease-in-out;
+        -ms-transition: all 0.5s ease-in-out;
+        transition: all 0.5s ease-in-out;
+    }
+
+    .thumbnail-proizvodi:hover .caption
+    {
+        bottom: 0%;
+    }
+
+    .thumbnail-proizvodi .glyphicon-picture
+    {
+        font-size: 150px;
+        color: #18bc9c;
+    }
+
+    .thumbnail-proizvodi img
+    {
+        margin-bottom: 15px !important;
+        margin-top: 2px !important;
+    }
+
+.kategorijaLink
+{
+    color: white !important;
+}
+
+    .kategorijaLink:hover,
+    .kategorijaLink:focus
+    {
+        color: #ECF0F1 !important;
+        text-decoration: none !important;
+    }
+/*End Thumbnail hover*/
+/*Tabbable Begin*/
+#portfolio .tabbable-footer{
+    border-bottom: 1px solid #ecf0f1;
+}
+#portfolio  .tabbable{
+    font-size:18px !important;
+}
+#portfolio .well-none{
+    min-height: 374px !important;
+}
+/*Tabbable End*/
+/*Affix*/
+header .affix{
+   position: fixed !important;
+   top: 0 !important;
+   width:100% !important;
+   z-index:10 !important;
+}
+/*Affix End*/
+/*Input Spinner Begin*/
+.spinner {
+  width: 100px;
+}
+.spinner input {
+  text-align: right;
+}
+.input-group-btn-vertical {
+  position: relative;
+  white-space: nowrap;
+  width: 1%;
+  vertical-align: middle;
+  display: table-cell;
+}
+.input-group-btn-vertical > .btn {
+  display: block;
+  float: none;
+  width: 100%;
+  max-width: 100%;
+  padding: 8px;
+  margin-left: -1px;
+  position: relative;
+  border-radius: 0;
+}
+.input-group-btn-vertical > .btn:first-child {
+  border-top-right-radius: 4px;
+}
+.input-group-btn-vertical > .btn:last-child {
+  margin-top: -2px;
+  border-bottom-right-radius: 4px;
+}
+.input-group-btn-vertical i{
+  position: absolute;
+  top: 0;
+  left: 4px;
+}
+.spinner .glyphicon{
+    line-height:1.5 !important;
+}
+.spinner .btn-default{
+    height:23px !important;
+    width:23px !important;
+}
+/*Input Spinner End*/

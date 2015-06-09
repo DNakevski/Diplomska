@@ -1,0 +1,42 @@
+﻿@model IEnumerable<MojKatalog.Models.ViewModels.ViewKlienti>
+<div class="modal-body">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    <input type="checkbox" /></th>
+                <th>
+                    <span class="input-group input-group-sm">
+                        <input type="text" class="form-control serachStringInput" value="@ViewBag.SearchString"/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default btn-search-contacts" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                        </span>
+                    </span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var klientiGroup in Model)
+            {
+                <tr class="letter-row">
+                    <td colspan="2">@klientiGroup.Karakter</td>
+                </tr>
+                foreach (var klient in klientiGroup.Klienti)
+                {
+                <tr>
+                    <td>
+                        <input type="checkbox" name="selectedKlients" value="@klient.IdKlienti"/>
+                    </td>
+                    <td>
+                        <label>@klient.Ime</label>
+                        <label>@klient.Prezime</label>
+                        <br />
+                        <small>@klient.Mail</small>
+                    </td>
+                </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+

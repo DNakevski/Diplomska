@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="dbKatalogModelStoreContainer" CdmEntityContainer="dbKatalogEntities">
+    <EntitySetMapping Name="Katalozi">
+      <EntityTypeMapping TypeName="dbKatalogModel.Katalozi">
+        <MappingFragment StoreEntitySet="Katalozi">
+          <ScalarProperty Name="IdKatalozi" ColumnName="IdKatalozi" />
+          <ScalarProperty Name="NazivNaKatalog" ColumnName="NazivNaKatalog" />
+          <ScalarProperty Name="OpisNaKatalog" ColumnName="OpisNaKatalog" />
+          <ScalarProperty Name="DataNaKreiranje" ColumnName="DataNaKreiranje" />
+          <ScalarProperty Name="IdPoedinci" ColumnName="IdPoedinci" />
+          <ScalarProperty Name="IdKompanii" ColumnName="IdKompanii" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kategorii">
+      <EntityTypeMapping TypeName="dbKatalogModel.Kategorii">
+        <MappingFragment StoreEntitySet="Kategorii">
+          <ScalarProperty Name="IdKategorii" ColumnName="IdKategorii" />
+          <ScalarProperty Name="NazivNaKategorija" ColumnName="NazivNaKategorija" />
+          <ScalarProperty Name="RoditelId" ColumnName="RoditelId" />
+          <ScalarProperty Name="IdKatalozi" ColumnName="IdKatalozi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Klienti">
+      <EntityTypeMapping TypeName="dbKatalogModel.Klienti">
+        <MappingFragment StoreEntitySet="Klienti">
+          <ScalarProperty Name="IdKlienti" ColumnName="IdKlienti" />
+          <ScalarProperty Name="Ime" ColumnName="Ime" />
+          <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+          <ScalarProperty Name="NazivNaFirma" ColumnName="NazivNaFirma" />
+          <ScalarProperty Name="Mail" ColumnName="Mail" />
+          <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kompanii">
+      <EntityTypeMapping TypeName="dbKatalogModel.Kompanii">
+        <MappingFragment StoreEntitySet="Kompanii">
+          <ScalarProperty Name="IdKompanii" ColumnName="IdKompanii" />
+          <ScalarProperty Name="NazivNaKompanija" ColumnName="NazivNaKompanija" />
+          <ScalarProperty Name="KorisnickoIme" ColumnName="KorisnickoIme" />
+          <ScalarProperty Name="Lozinka" ColumnName="Lozinka" />
+          <ScalarProperty Name="Mail" ColumnName="Mail" />
+          <ScalarProperty Name="LogoNaKompanija" ColumnName="LogoNaKompanija" />
+          <ScalarProperty Name="OpisNaKompanija" ColumnName="OpisNaKompanija" />
+          <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Poedineci">
+      <EntityTypeMapping TypeName="dbKatalogModel.Poedineci">
+        <MappingFragment StoreEntitySet="Poedineci">
+          <ScalarProperty Name="IdPoedineci" ColumnName="IdPoedineci" />
+          <ScalarProperty Name="Ime" ColumnName="Ime" />
+          <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+          <ScalarProperty Name="KorisnickoIme" ColumnName="KorisnickoIme" />
+          <ScalarProperty Name="Lozinka" ColumnName="Lozinka" />
+          <ScalarProperty Name="Mail" ColumnName="Mail" />
+          <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Poraki">
+      <EntityTypeMapping TypeName="dbKatalogModel.Poraki">
+        <MappingFragment StoreEntitySet="Poraki">
+          <ScalarProperty Name="IdPoraki" ColumnName="IdPoraki" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="Body" ColumnName="Body" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Proizvodi">
+      <EntityTypeMapping TypeName="dbKatalogModel.Proizvodi">
+        <MappingFragment StoreEntitySet="Proizvodi">
+          <ScalarProperty Name="IdProizvodi" ColumnName="IdProizvodi" />
+          <ScalarProperty Name="NazivNaProizvod" ColumnName="NazivNaProizvod" />
+          <ScalarProperty Name="Specifikacija" ColumnName="Specifikacija" />
+          <ScalarProperty Name="Cena" ColumnName="Cena" />
+          <ScalarProperty Name="Popust" ColumnName="Popust" />
+          <ScalarProperty Name="SlikaNaProizvod" ColumnName="SlikaNaProizvod" />
+          <ScalarProperty Name="Dostapnost" ColumnName="Dostapnost" />
+          <ScalarProperty Name="IdKategorii" ColumnName="IdKategorii" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="KompaniiKlienti" TypeName="dbKatalogModel.KompaniiKlienti" StoreEntitySet="KompaniiKlienti">
+      <EndProperty Name="Klienti">
+        <ScalarProperty Name="IdKlienti" ColumnName="IdKlienti" />
+      </EndProperty>
+      <EndProperty Name="Kompanii">
+        <ScalarProperty Name="IdKompanii" ColumnName="IdKompanii" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PoedinciKlienti" TypeName="dbKatalogModel.PoedinciKlienti" StoreEntitySet="PoedinciKlienti">
+      <EndProperty Name="Klienti">
+        <ScalarProperty Name="IdKlienti" ColumnName="IdKlienti" />
+      </EndProperty>
+      <EndProperty Name="Poedineci">
+        <ScalarProperty Name="IdPoedineci" ColumnName="IdPoedinci" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PorakiKlienti" TypeName="dbKatalogModel.PorakiKlienti" StoreEntitySet="PorakiKlienti">
+      <EndProperty Name="Klienti">
+        <ScalarProperty Name="IdKlienti" ColumnName="IdKlienti" />
+      </EndProperty>
+      <EndProperty Name="Poraki">
+        <ScalarProperty Name="IdPoraki" ColumnName="IdPoraki" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

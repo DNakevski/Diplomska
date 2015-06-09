@@ -1,0 +1,313 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbKatalogModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Katalozi">
+    <Key>
+      <PropertyRef Name="IdKatalozi" />
+    </Key>
+    <Property Name="IdKatalozi" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NazivNaKatalog" Type="nvarchar" MaxLength="50" />
+    <Property Name="OpisNaKatalog" Type="nvarchar(max)" />
+    <Property Name="DataNaKreiranje" Type="datetime" />
+    <Property Name="IdPoedinci" Type="int" />
+    <Property Name="IdKompanii" Type="int" />
+  </EntityType>
+  <EntityType Name="Kategorii">
+    <Key>
+      <PropertyRef Name="IdKategorii" />
+    </Key>
+    <Property Name="IdKategorii" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NazivNaKategorija" Type="nvarchar" MaxLength="50" />
+    <Property Name="RoditelId" Type="int" />
+    <Property Name="IdKatalozi" Type="int" />
+  </EntityType>
+  <EntityType Name="Klienti">
+    <Key>
+      <PropertyRef Name="IdKlienti" />
+    </Key>
+    <Property Name="IdKlienti" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ime" Type="nvarchar" MaxLength="100" />
+    <Property Name="Prezime" Type="nvarchar" MaxLength="100" />
+    <Property Name="NazivNaFirma" Type="nvarchar" MaxLength="50" />
+    <Property Name="Mail" Type="nvarchar" MaxLength="50" />
+    <Property Name="Telefon" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Kompanii">
+    <Key>
+      <PropertyRef Name="IdKompanii" />
+    </Key>
+    <Property Name="IdKompanii" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NazivNaKompanija" Type="nvarchar" MaxLength="100" />
+    <Property Name="KorisnickoIme" Type="nvarchar" MaxLength="50" />
+    <Property Name="Lozinka" Type="nvarchar" MaxLength="50" />
+    <Property Name="Mail" Type="nvarchar" MaxLength="50" />
+    <Property Name="LogoNaKompanija" Type="nvarchar(max)" />
+    <Property Name="OpisNaKompanija" Type="nvarchar(max)" />
+    <Property Name="Telefon" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="KompaniiKlienti">
+    <Key>
+      <PropertyRef Name="IdKlienti" />
+      <PropertyRef Name="IdKompanii" />
+    </Key>
+    <Property Name="IdKlienti" Type="int" Nullable="false" />
+    <Property Name="IdKompanii" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PoedinciKlienti">
+    <Key>
+      <PropertyRef Name="IdKlienti" />
+      <PropertyRef Name="IdPoedinci" />
+    </Key>
+    <Property Name="IdKlienti" Type="int" Nullable="false" />
+    <Property Name="IdPoedinci" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Poedineci">
+    <Key>
+      <PropertyRef Name="IdPoedineci" />
+    </Key>
+    <Property Name="IdPoedineci" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ime" Type="nvarchar" MaxLength="100" />
+    <Property Name="Prezime" Type="nvarchar" MaxLength="100" />
+    <Property Name="KorisnickoIme" Type="nvarchar" MaxLength="50" />
+    <Property Name="Lozinka" Type="nvarchar" MaxLength="50" />
+    <Property Name="Mail" Type="nvarchar" MaxLength="50" />
+    <Property Name="Telefon" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Poraki">
+    <Key>
+      <PropertyRef Name="IdPoraki" />
+    </Key>
+    <Property Name="IdPoraki" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="100" />
+    <Property Name="Body" Type="nvarchar(max)" />
+    <Property Name="Date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="PorakiKlienti">
+    <Key>
+      <PropertyRef Name="IdPoraki" />
+      <PropertyRef Name="IdKlienti" />
+    </Key>
+    <Property Name="IdPoraki" Type="int" Nullable="false" />
+    <Property Name="IdKlienti" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Proizvodi">
+    <Key>
+      <PropertyRef Name="IdProizvodi" />
+    </Key>
+    <Property Name="IdProizvodi" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NazivNaProizvod" Type="nvarchar" MaxLength="50" />
+    <Property Name="Specifikacija" Type="nvarchar(max)" />
+    <Property Name="Cena" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Popust" Type="int" />
+    <Property Name="SlikaNaProizvod" Type="nvarchar(max)" />
+    <Property Name="Dostapnost" Type="bit" />
+    <Property Name="IdKategorii" Type="int" />
+  </EntityType>
+  <Association Name="FK_Katalozi_Kompanii">
+    <End Role="Kompanii" Type="Self.Kompanii" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Katalozi" Type="Self.Katalozi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kompanii">
+        <PropertyRef Name="IdKompanii" />
+      </Principal>
+      <Dependent Role="Katalozi">
+        <PropertyRef Name="IdKompanii" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Katalozi_Poedineci">
+    <End Role="Poedineci" Type="Self.Poedineci" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Katalozi" Type="Self.Katalozi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Poedineci">
+        <PropertyRef Name="IdPoedineci" />
+      </Principal>
+      <Dependent Role="Katalozi">
+        <PropertyRef Name="IdPoedinci" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kategorii_Katalozi">
+    <End Role="Katalozi" Type="Self.Katalozi" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Kategorii" Type="Self.Kategorii" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Katalozi">
+        <PropertyRef Name="IdKatalozi" />
+      </Principal>
+      <Dependent Role="Kategorii">
+        <PropertyRef Name="IdKatalozi" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kategorii_Kategorii">
+    <End Role="Kategorii" Type="Self.Kategorii" Multiplicity="0..1" />
+    <End Role="Kategorii1" Type="Self.Kategorii" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kategorii">
+        <PropertyRef Name="IdKategorii" />
+      </Principal>
+      <Dependent Role="Kategorii1">
+        <PropertyRef Name="RoditelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_KompaniiKlienti_Klienti">
+    <End Role="Klienti" Type="Self.Klienti" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="KompaniiKlienti" Type="Self.KompaniiKlienti" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Klienti">
+        <PropertyRef Name="IdKlienti" />
+      </Principal>
+      <Dependent Role="KompaniiKlienti">
+        <PropertyRef Name="IdKlienti" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_KompaniiKlienti_Kompanii">
+    <End Role="Kompanii" Type="Self.Kompanii" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="KompaniiKlienti" Type="Self.KompaniiKlienti" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kompanii">
+        <PropertyRef Name="IdKompanii" />
+      </Principal>
+      <Dependent Role="KompaniiKlienti">
+        <PropertyRef Name="IdKompanii" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PoedinciKlienti_Klienti">
+    <End Role="Klienti" Type="Self.Klienti" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="PoedinciKlienti" Type="Self.PoedinciKlienti" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Klienti">
+        <PropertyRef Name="IdKlienti" />
+      </Principal>
+      <Dependent Role="PoedinciKlienti">
+        <PropertyRef Name="IdKlienti" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PoedinciKlienti_Poedineci">
+    <End Role="Poedineci" Type="Self.Poedineci" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="PoedinciKlienti" Type="Self.PoedinciKlienti" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Poedineci">
+        <PropertyRef Name="IdPoedineci" />
+      </Principal>
+      <Dependent Role="PoedinciKlienti">
+        <PropertyRef Name="IdPoedinci" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PorakiKlienti_Klienti">
+    <End Role="Klienti" Type="Self.Klienti" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="PorakiKlienti" Type="Self.PorakiKlienti" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Klienti">
+        <PropertyRef Name="IdKlienti" />
+      </Principal>
+      <Dependent Role="PorakiKlienti">
+        <PropertyRef Name="IdKlienti" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PorakiKlienti_Poraki">
+    <End Role="Poraki" Type="Self.Poraki" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="PorakiKlienti" Type="Self.PorakiKlienti" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Poraki">
+        <PropertyRef Name="IdPoraki" />
+      </Principal>
+      <Dependent Role="PorakiKlienti">
+        <PropertyRef Name="IdPoraki" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Proizvodi_Kategorii">
+    <End Role="Kategorii" Type="Self.Kategorii" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Proizvodi" Type="Self.Proizvodi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kategorii">
+        <PropertyRef Name="IdKategorii" />
+      </Principal>
+      <Dependent Role="Proizvodi">
+        <PropertyRef Name="IdKategorii" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="dbKatalogModelStoreContainer">
+    <EntitySet Name="Katalozi" EntityType="Self.Katalozi" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Kategorii" EntityType="Self.Kategorii" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Klienti" EntityType="Self.Klienti" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Kompanii" EntityType="Self.Kompanii" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="KompaniiKlienti" EntityType="Self.KompaniiKlienti" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PoedinciKlienti" EntityType="Self.PoedinciKlienti" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Poedineci" EntityType="Self.Poedineci" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Poraki" EntityType="Self.Poraki" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PorakiKlienti" EntityType="Self.PorakiKlienti" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Proizvodi" EntityType="Self.Proizvodi" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Katalozi_Kompanii" Association="Self.FK_Katalozi_Kompanii">
+      <End Role="Kompanii" EntitySet="Kompanii" />
+      <End Role="Katalozi" EntitySet="Katalozi" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Katalozi_Poedineci" Association="Self.FK_Katalozi_Poedineci">
+      <End Role="Poedineci" EntitySet="Poedineci" />
+      <End Role="Katalozi" EntitySet="Katalozi" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kategorii_Katalozi" Association="Self.FK_Kategorii_Katalozi">
+      <End Role="Katalozi" EntitySet="Katalozi" />
+      <End Role="Kategorii" EntitySet="Kategorii" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kategorii_Kategorii" Association="Self.FK_Kategorii_Kategorii">
+      <End Role="Kategorii" EntitySet="Kategorii" />
+      <End Role="Kategorii1" EntitySet="Kategorii" />
+    </AssociationSet>
+    <AssociationSet Name="FK_KompaniiKlienti_Klienti" Association="Self.FK_KompaniiKlienti_Klienti">
+      <End Role="Klienti" EntitySet="Klienti" />
+      <End Role="KompaniiKlienti" EntitySet="KompaniiKlienti" />
+    </AssociationSet>
+    <AssociationSet Name="FK_KompaniiKlienti_Kompanii" Association="Self.FK_KompaniiKlienti_Kompanii">
+      <End Role="Kompanii" EntitySet="Kompanii" />
+      <End Role="KompaniiKlienti" EntitySet="KompaniiKlienti" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PoedinciKlienti_Klienti" Association="Self.FK_PoedinciKlienti_Klienti">
+      <End Role="Klienti" EntitySet="Klienti" />
+      <End Role="PoedinciKlienti" EntitySet="PoedinciKlienti" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PoedinciKlienti_Poedineci" Association="Self.FK_PoedinciKlienti_Poedineci">
+      <End Role="Poedineci" EntitySet="Poedineci" />
+      <End Role="PoedinciKlienti" EntitySet="PoedinciKlienti" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PorakiKlienti_Klienti" Association="Self.FK_PorakiKlienti_Klienti">
+      <End Role="Klienti" EntitySet="Klienti" />
+      <End Role="PorakiKlienti" EntitySet="PorakiKlienti" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PorakiKlienti_Poraki" Association="Self.FK_PorakiKlienti_Poraki">
+      <End Role="Poraki" EntitySet="Poraki" />
+      <End Role="PorakiKlienti" EntitySet="PorakiKlienti" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Proizvodi_Kategorii" Association="Self.FK_Proizvodi_Kategorii">
+      <End Role="Kategorii" EntitySet="Kategorii" />
+      <End Role="Proizvodi" EntitySet="Proizvodi" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

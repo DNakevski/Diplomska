@@ -1,0 +1,91 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Test</title>
+    <style>
+        body {
+            background: white;
+            text-align: center;
+        }
+
+        div {
+            min-width: 320px;
+            min-height: 240px;
+            display: inline-block;
+            font-family: sans-serif;
+            border: 2px solid #aaa;
+        }
+
+        p {
+            opacity: 0.6;
+            background: #fff;
+            padding: 5px;
+            font-weight: bold;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    @*Upload Begin*@
+    <input type="file" id="FileUpload1" accept=".jpg,.png,.gif" />
+    <br />
+    <br />
+    <table border="0" cellpadding="0" cellspacing="5">
+        <tr>
+            <td>
+                <img id="Image1" src="" alt="" style="display: none" />
+            </td>
+            <td>
+                <canvas id="canvas" height="5" width="5"></canvas>
+            </td>
+        </tr>
+    </table>
+    <br />
+  
+    @*Upload End*@
+
+
+    @*Draggable Begin*@
+    <div id="default" style="background:url('http://pipsum.com/640x480.jpg')">default</div>
+    <div id="unbounded" style="background:url('http://pipsum.com/640x480.jpg')">bound: false</div>
+    <br><br>
+    <div id="x" style="background:url('http://pipsum.com/2560x240.jpg')">axis: 'x'</div>
+    <div id="y" style="background:url('http://pipsum.com/320x1600.jpg')">axis: 'y'</div>
+    @*Draggable End*@
+    <script src="~/Scripts/jquery-2.1.1.min.js"></script>
+    <script src="~/Areas/Portfolio/Scripts/draggable_background.js"></script>
+    <script>
+        $(function () {
+            //Upload Begin
+            $('#FileUpload1').change(function () {
+                $('#Image1').hide();
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#Image1').show();
+                    $('#Image1').attr("src", e.target.result);
+                   
+                }
+                reader.readAsDataURL($(this)[0].files[0]);
+            });
+
+            //Upload End
+            //Draggable Begin
+        $('#default').backgroundDraggable();
+      
+        $('div').each(function () {
+            var $this = $(this),
+                html = $this.html();
+            $this.empty().append($('<p>').html(html))
+        });
+            //Draggable End
+    });
+    </script>
+</body>
+</html>

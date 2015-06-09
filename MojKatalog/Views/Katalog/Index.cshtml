@@ -1,0 +1,73 @@
+﻿@model IEnumerable<MojKatalog.Models.ViewModels.ViewKataloziKategorii>
+
+@{
+    ViewBag.Title = "Index";
+}
+<input type="hidden" id="activeLink" value="katalogLink" />
+
+<h3 class="page-title">Каталози <small>управување со каталози, внесување производи</small></h3>
+<ul class="breadcrumb">
+    <li class="active">Каталози</li>
+</ul>
+
+<p class="bs-component btn-create btnkatalog">
+    <a href="/Katalog/DodadiKatalog/" role="button" class="btn btn-default btn-lg btn-block">Креирај Каталог</a>
+</p>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ViewKatalozi.NazivNaKatalog)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ViewKatalozi.OpisNaKatalog)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ViewKatalozi.DataNaKreiranje)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ViewKategorii)
+            </th>
+            <th>Акции</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ViewKatalozi.NazivNaKatalog)
+                </td>
+                <td>
+                    @FormatString(item.ViewKatalozi.OpisNaKatalog)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ViewKatalozi.DataNaKreiranje)
+                </td>
+                <td>
+                    @FormatString(item.ViewKategorii)
+                </td>
+                <td>
+                    <a href="@Url.Action("IzmeniKatalog", new { id = item.ViewKatalozi.IdKatalozi })" title="Измени"><span class="glyphicon glyphicon-edit"></span></a>&nbsp 
+                    <a href="@Url.Action("IzbrisiKatalog", new { id = item.ViewKatalozi.IdKatalozi })" onClick="if(!confirm('Дали сте сигурни?')) return false;" title="Избриши"><span class="glyphicon glyphicon-trash"></span></a>&nbsp 
+                    <a href="@Url.Action("PregledajKatalog", new { id = item.ViewKatalozi.IdKatalozi })" title="Прегледај"><span class="glyphicon glyphicon-eye-open"></span></a>
+                </td>
+            </tr>
+           
+        }
+
+    </tbody>
+
+</table>
+@helper FormatString(string val)
+{
+    if (val.Length > 45)
+    {
+    <text>@val.Substring(0, 45)...</text>
+    }
+    else
+    {
+    <text>@val</text>
+    }
+}

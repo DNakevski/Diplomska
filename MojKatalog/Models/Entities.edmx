@@ -1,0 +1,676 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="dbKatalogModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Katalozi">
+          <Key>
+            <PropertyRef Name="IdKatalozi" />
+          </Key>
+          <Property Name="IdKatalozi" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NazivNaKatalog" Type="nvarchar" MaxLength="50" />
+          <Property Name="OpisNaKatalog" Type="nvarchar(max)" />
+          <Property Name="DataNaKreiranje" Type="datetime" />
+          <Property Name="IdPoedinci" Type="int" />
+          <Property Name="IdKompanii" Type="int" />
+        </EntityType>
+        <EntityType Name="Kategorii">
+          <Key>
+            <PropertyRef Name="IdKategorii" />
+          </Key>
+          <Property Name="IdKategorii" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NazivNaKategorija" Type="nvarchar" MaxLength="50" />
+          <Property Name="RoditelId" Type="int" />
+          <Property Name="IdKatalozi" Type="int" />
+        </EntityType>
+        <EntityType Name="Klienti">
+          <Key>
+            <PropertyRef Name="IdKlienti" />
+          </Key>
+          <Property Name="IdKlienti" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ime" Type="nvarchar" MaxLength="100" />
+          <Property Name="Prezime" Type="nvarchar" MaxLength="100" />
+          <Property Name="NazivNaFirma" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mail" Type="nvarchar" MaxLength="50" />
+          <Property Name="Telefon" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Kompanii">
+          <Key>
+            <PropertyRef Name="IdKompanii" />
+          </Key>
+          <Property Name="IdKompanii" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NazivNaKompanija" Type="nvarchar" MaxLength="100" />
+          <Property Name="KorisnickoIme" Type="nvarchar" MaxLength="50" />
+          <Property Name="Lozinka" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mail" Type="nvarchar" MaxLength="50" />
+          <Property Name="LogoNaKompanija" Type="nvarchar(max)" />
+          <Property Name="OpisNaKompanija" Type="nvarchar(max)" />
+          <Property Name="Telefon" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="KompaniiKlienti">
+          <Key>
+            <PropertyRef Name="IdKlienti" />
+            <PropertyRef Name="IdKompanii" />
+          </Key>
+          <Property Name="IdKlienti" Type="int" Nullable="false" />
+          <Property Name="IdKompanii" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PoedinciKlienti">
+          <Key>
+            <PropertyRef Name="IdKlienti" />
+            <PropertyRef Name="IdPoedinci" />
+          </Key>
+          <Property Name="IdKlienti" Type="int" Nullable="false" />
+          <Property Name="IdPoedinci" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Poedineci">
+          <Key>
+            <PropertyRef Name="IdPoedineci" />
+          </Key>
+          <Property Name="IdPoedineci" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ime" Type="nvarchar" MaxLength="100" />
+          <Property Name="Prezime" Type="nvarchar" MaxLength="100" />
+          <Property Name="KorisnickoIme" Type="nvarchar" MaxLength="50" />
+          <Property Name="Lozinka" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mail" Type="nvarchar" MaxLength="50" />
+          <Property Name="Telefon" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Poraki">
+          <Key>
+            <PropertyRef Name="IdPoraki" />
+          </Key>
+          <Property Name="IdPoraki" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="100" />
+          <Property Name="Body" Type="nvarchar(max)" />
+          <Property Name="Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PorakiKlienti">
+          <Key>
+            <PropertyRef Name="IdPoraki" />
+            <PropertyRef Name="IdKlienti" />
+          </Key>
+          <Property Name="IdPoraki" Type="int" Nullable="false" />
+          <Property Name="IdKlienti" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Proizvodi">
+          <Key>
+            <PropertyRef Name="IdProizvodi" />
+          </Key>
+          <Property Name="IdProizvodi" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NazivNaProizvod" Type="nvarchar" MaxLength="50" />
+          <Property Name="Specifikacija" Type="nvarchar(max)" />
+          <Property Name="Cena" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Popust" Type="int" />
+          <Property Name="SlikaNaProizvod" Type="nvarchar(max)" />
+          <Property Name="Dostapnost" Type="bit" />
+          <Property Name="IdKategorii" Type="int" />
+        </EntityType>
+        <Association Name="FK_Katalozi_Kompanii">
+          <End Role="Kompanii" Type="Self.Kompanii" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Katalozi" Type="Self.Katalozi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kompanii">
+              <PropertyRef Name="IdKompanii" />
+            </Principal>
+            <Dependent Role="Katalozi">
+              <PropertyRef Name="IdKompanii" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Katalozi_Poedineci">
+          <End Role="Poedineci" Type="Self.Poedineci" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Katalozi" Type="Self.Katalozi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Poedineci">
+              <PropertyRef Name="IdPoedineci" />
+            </Principal>
+            <Dependent Role="Katalozi">
+              <PropertyRef Name="IdPoedinci" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kategorii_Katalozi">
+          <End Role="Katalozi" Type="Self.Katalozi" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Kategorii" Type="Self.Kategorii" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Katalozi">
+              <PropertyRef Name="IdKatalozi" />
+            </Principal>
+            <Dependent Role="Kategorii">
+              <PropertyRef Name="IdKatalozi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kategorii_Kategorii">
+          <End Role="Kategorii" Type="Self.Kategorii" Multiplicity="0..1" />
+          <End Role="Kategorii1" Type="Self.Kategorii" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategorii">
+              <PropertyRef Name="IdKategorii" />
+            </Principal>
+            <Dependent Role="Kategorii1">
+              <PropertyRef Name="RoditelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KompaniiKlienti_Klienti">
+          <End Role="Klienti" Type="Self.Klienti" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="KompaniiKlienti" Type="Self.KompaniiKlienti" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Klienti">
+              <PropertyRef Name="IdKlienti" />
+            </Principal>
+            <Dependent Role="KompaniiKlienti">
+              <PropertyRef Name="IdKlienti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KompaniiKlienti_Kompanii">
+          <End Role="Kompanii" Type="Self.Kompanii" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="KompaniiKlienti" Type="Self.KompaniiKlienti" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kompanii">
+              <PropertyRef Name="IdKompanii" />
+            </Principal>
+            <Dependent Role="KompaniiKlienti">
+              <PropertyRef Name="IdKompanii" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PoedinciKlienti_Klienti">
+          <End Role="Klienti" Type="Self.Klienti" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PoedinciKlienti" Type="Self.PoedinciKlienti" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Klienti">
+              <PropertyRef Name="IdKlienti" />
+            </Principal>
+            <Dependent Role="PoedinciKlienti">
+              <PropertyRef Name="IdKlienti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PoedinciKlienti_Poedineci">
+          <End Role="Poedineci" Type="Self.Poedineci" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PoedinciKlienti" Type="Self.PoedinciKlienti" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Poedineci">
+              <PropertyRef Name="IdPoedineci" />
+            </Principal>
+            <Dependent Role="PoedinciKlienti">
+              <PropertyRef Name="IdPoedinci" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PorakiKlienti_Klienti">
+          <End Role="Klienti" Type="Self.Klienti" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PorakiKlienti" Type="Self.PorakiKlienti" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Klienti">
+              <PropertyRef Name="IdKlienti" />
+            </Principal>
+            <Dependent Role="PorakiKlienti">
+              <PropertyRef Name="IdKlienti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PorakiKlienti_Poraki">
+          <End Role="Poraki" Type="Self.Poraki" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PorakiKlienti" Type="Self.PorakiKlienti" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Poraki">
+              <PropertyRef Name="IdPoraki" />
+            </Principal>
+            <Dependent Role="PorakiKlienti">
+              <PropertyRef Name="IdPoraki" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Proizvodi_Kategorii">
+          <End Role="Kategorii" Type="Self.Kategorii" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Proizvodi" Type="Self.Proizvodi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategorii">
+              <PropertyRef Name="IdKategorii" />
+            </Principal>
+            <Dependent Role="Proizvodi">
+              <PropertyRef Name="IdKategorii" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbKatalogModelStoreContainer">
+          <EntitySet Name="Katalozi" EntityType="Self.Katalozi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kategorii" EntityType="Self.Kategorii" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Klienti" EntityType="Self.Klienti" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kompanii" EntityType="Self.Kompanii" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KompaniiKlienti" EntityType="Self.KompaniiKlienti" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PoedinciKlienti" EntityType="Self.PoedinciKlienti" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Poedineci" EntityType="Self.Poedineci" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Poraki" EntityType="Self.Poraki" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PorakiKlienti" EntityType="Self.PorakiKlienti" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Proizvodi" EntityType="Self.Proizvodi" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Katalozi_Kompanii" Association="Self.FK_Katalozi_Kompanii">
+            <End Role="Kompanii" EntitySet="Kompanii" />
+            <End Role="Katalozi" EntitySet="Katalozi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Katalozi_Poedineci" Association="Self.FK_Katalozi_Poedineci">
+            <End Role="Poedineci" EntitySet="Poedineci" />
+            <End Role="Katalozi" EntitySet="Katalozi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kategorii_Katalozi" Association="Self.FK_Kategorii_Katalozi">
+            <End Role="Katalozi" EntitySet="Katalozi" />
+            <End Role="Kategorii" EntitySet="Kategorii" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kategorii_Kategorii" Association="Self.FK_Kategorii_Kategorii">
+            <End Role="Kategorii" EntitySet="Kategorii" />
+            <End Role="Kategorii1" EntitySet="Kategorii" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KompaniiKlienti_Klienti" Association="Self.FK_KompaniiKlienti_Klienti">
+            <End Role="Klienti" EntitySet="Klienti" />
+            <End Role="KompaniiKlienti" EntitySet="KompaniiKlienti" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KompaniiKlienti_Kompanii" Association="Self.FK_KompaniiKlienti_Kompanii">
+            <End Role="Kompanii" EntitySet="Kompanii" />
+            <End Role="KompaniiKlienti" EntitySet="KompaniiKlienti" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PoedinciKlienti_Klienti" Association="Self.FK_PoedinciKlienti_Klienti">
+            <End Role="Klienti" EntitySet="Klienti" />
+            <End Role="PoedinciKlienti" EntitySet="PoedinciKlienti" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PoedinciKlienti_Poedineci" Association="Self.FK_PoedinciKlienti_Poedineci">
+            <End Role="Poedineci" EntitySet="Poedineci" />
+            <End Role="PoedinciKlienti" EntitySet="PoedinciKlienti" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PorakiKlienti_Klienti" Association="Self.FK_PorakiKlienti_Klienti">
+            <End Role="Klienti" EntitySet="Klienti" />
+            <End Role="PorakiKlienti" EntitySet="PorakiKlienti" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PorakiKlienti_Poraki" Association="Self.FK_PorakiKlienti_Poraki">
+            <End Role="Poraki" EntitySet="Poraki" />
+            <End Role="PorakiKlienti" EntitySet="PorakiKlienti" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Proizvodi_Kategorii" Association="Self.FK_Proizvodi_Kategorii">
+            <End Role="Kategorii" EntitySet="Kategorii" />
+            <End Role="Proizvodi" EntitySet="Proizvodi" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbKatalogModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Katalozi">
+          <Key>
+            <PropertyRef Name="IdKatalozi" />
+          </Key>
+          <Property Name="IdKatalozi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NazivNaKatalog" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OpisNaKatalog" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DataNaKreiranje" Type="DateTime" Precision="3" />
+          <Property Name="IdPoedinci" Type="Int32" />
+          <Property Name="IdKompanii" Type="Int32" />
+          <NavigationProperty Name="Kompanii" Relationship="Self.FK_Katalozi_Kompanii" FromRole="Katalozi" ToRole="Kompanii" />
+          <NavigationProperty Name="Poedineci" Relationship="Self.FK_Katalozi_Poedineci" FromRole="Katalozi" ToRole="Poedineci" />
+          <NavigationProperty Name="Kategorii" Relationship="Self.FK_Kategorii_Katalozi" FromRole="Katalozi" ToRole="Kategorii" />
+        </EntityType>
+        <EntityType Name="Kategorii">
+          <Key>
+            <PropertyRef Name="IdKategorii" />
+          </Key>
+          <Property Name="IdKategorii" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NazivNaKategorija" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RoditelId" Type="Int32" />
+          <Property Name="IdKatalozi" Type="Int32" />
+          <NavigationProperty Name="Katalozi" Relationship="Self.FK_Kategorii_Katalozi" FromRole="Kategorii" ToRole="Katalozi" />
+          <NavigationProperty Name="Kategorii1" Relationship="Self.FK_Kategorii_Kategorii" FromRole="Kategorii" ToRole="Kategorii1" />
+          <NavigationProperty Name="Kategorii2" Relationship="Self.FK_Kategorii_Kategorii" FromRole="Kategorii1" ToRole="Kategorii" />
+          <NavigationProperty Name="Proizvodi" Relationship="Self.FK_Proizvodi_Kategorii" FromRole="Kategorii" ToRole="Proizvodi" />
+        </EntityType>
+        <EntityType Name="Klienti">
+          <Key>
+            <PropertyRef Name="IdKlienti" />
+          </Key>
+          <Property Name="IdKlienti" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ime" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Prezime" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NazivNaFirma" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Kompanii" Relationship="Self.KompaniiKlienti" FromRole="Klienti" ToRole="Kompanii" />
+          <NavigationProperty Name="Poedineci" Relationship="Self.PoedinciKlienti" FromRole="Klienti" ToRole="Poedineci" />
+          <NavigationProperty Name="Poraki" Relationship="Self.PorakiKlienti" FromRole="Klienti" ToRole="Poraki" />
+        </EntityType>
+        <EntityType Name="Kompanii">
+          <Key>
+            <PropertyRef Name="IdKompanii" />
+          </Key>
+          <Property Name="IdKompanii" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NazivNaKompanija" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="KorisnickoIme" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Lozinka" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LogoNaKompanija" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OpisNaKompanija" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Katalozi" Relationship="Self.FK_Katalozi_Kompanii" FromRole="Kompanii" ToRole="Katalozi" />
+          <NavigationProperty Name="Klienti" Relationship="Self.KompaniiKlienti" FromRole="Kompanii" ToRole="Klienti" />
+        </EntityType>
+        <EntityType Name="Poedineci">
+          <Key>
+            <PropertyRef Name="IdPoedineci" />
+          </Key>
+          <Property Name="IdPoedineci" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ime" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Prezime" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="KorisnickoIme" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Lozinka" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Katalozi" Relationship="Self.FK_Katalozi_Poedineci" FromRole="Poedineci" ToRole="Katalozi" />
+          <NavigationProperty Name="Klienti" Relationship="Self.PoedinciKlienti" FromRole="Poedineci" ToRole="Klienti" />
+        </EntityType>
+        <EntityType Name="Poraki">
+          <Key>
+            <PropertyRef Name="IdPoraki" />
+          </Key>
+          <Property Name="IdPoraki" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Subject" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Klienti" Relationship="Self.PorakiKlienti" FromRole="Poraki" ToRole="Klienti" />
+        </EntityType>
+        <EntityType Name="Proizvodi">
+          <Key>
+            <PropertyRef Name="IdProizvodi" />
+          </Key>
+          <Property Name="IdProizvodi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NazivNaProizvod" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Specifikacija" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Cena" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Popust" Type="Int32" />
+          <Property Name="SlikaNaProizvod" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Dostapnost" Type="Boolean" />
+          <Property Name="IdKategorii" Type="Int32" />
+          <NavigationProperty Name="Kategorii" Relationship="Self.FK_Proizvodi_Kategorii" FromRole="Proizvodi" ToRole="Kategorii" />
+        </EntityType>
+        <Association Name="FK_Katalozi_Kompanii">
+          <End Role="Kompanii" Type="Self.Kompanii" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Katalozi" Type="Self.Katalozi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kompanii">
+              <PropertyRef Name="IdKompanii" />
+            </Principal>
+            <Dependent Role="Katalozi">
+              <PropertyRef Name="IdKompanii" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Katalozi_Poedineci">
+          <End Role="Poedineci" Type="Self.Poedineci" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Katalozi" Type="Self.Katalozi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Poedineci">
+              <PropertyRef Name="IdPoedineci" />
+            </Principal>
+            <Dependent Role="Katalozi">
+              <PropertyRef Name="IdPoedinci" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kategorii_Katalozi">
+          <End Role="Katalozi" Type="Self.Katalozi" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Kategorii" Type="Self.Kategorii" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Katalozi">
+              <PropertyRef Name="IdKatalozi" />
+            </Principal>
+            <Dependent Role="Kategorii">
+              <PropertyRef Name="IdKatalozi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kategorii_Kategorii">
+          <End Role="Kategorii" Type="Self.Kategorii" Multiplicity="0..1" />
+          <End Role="Kategorii1" Type="Self.Kategorii" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategorii">
+              <PropertyRef Name="IdKategorii" />
+            </Principal>
+            <Dependent Role="Kategorii1">
+              <PropertyRef Name="RoditelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Proizvodi_Kategorii">
+          <End Role="Kategorii" Type="Self.Kategorii" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Proizvodi" Type="Self.Proizvodi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategorii">
+              <PropertyRef Name="IdKategorii" />
+            </Principal>
+            <Dependent Role="Proizvodi">
+              <PropertyRef Name="IdKategorii" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="KompaniiKlienti">
+          <End Role="Klienti" Type="Self.Klienti" Multiplicity="*" />
+          <End Role="Kompanii" Type="Self.Kompanii" Multiplicity="*" />
+        </Association>
+        <Association Name="PoedinciKlienti">
+          <End Role="Klienti" Type="Self.Klienti" Multiplicity="*" />
+          <End Role="Poedineci" Type="Self.Poedineci" Multiplicity="*" />
+        </Association>
+        <Association Name="PorakiKlienti">
+          <End Role="Klienti" Type="Self.Klienti" Multiplicity="*" />
+          <End Role="Poraki" Type="Self.Poraki" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="dbKatalogEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Katalozi" EntityType="Self.Katalozi" />
+          <EntitySet Name="Kategorii" EntityType="Self.Kategorii" />
+          <EntitySet Name="Klienti" EntityType="Self.Klienti" />
+          <EntitySet Name="Kompanii" EntityType="Self.Kompanii" />
+          <EntitySet Name="Poedineci" EntityType="Self.Poedineci" />
+          <EntitySet Name="Poraki" EntityType="Self.Poraki" />
+          <EntitySet Name="Proizvodi" EntityType="Self.Proizvodi" />
+          <AssociationSet Name="FK_Katalozi_Kompanii" Association="Self.FK_Katalozi_Kompanii">
+            <End Role="Kompanii" EntitySet="Kompanii" />
+            <End Role="Katalozi" EntitySet="Katalozi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Katalozi_Poedineci" Association="Self.FK_Katalozi_Poedineci">
+            <End Role="Poedineci" EntitySet="Poedineci" />
+            <End Role="Katalozi" EntitySet="Katalozi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kategorii_Katalozi" Association="Self.FK_Kategorii_Katalozi">
+            <End Role="Katalozi" EntitySet="Katalozi" />
+            <End Role="Kategorii" EntitySet="Kategorii" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kategorii_Kategorii" Association="Self.FK_Kategorii_Kategorii">
+            <End Role="Kategorii" EntitySet="Kategorii" />
+            <End Role="Kategorii1" EntitySet="Kategorii" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Proizvodi_Kategorii" Association="Self.FK_Proizvodi_Kategorii">
+            <End Role="Kategorii" EntitySet="Kategorii" />
+            <End Role="Proizvodi" EntitySet="Proizvodi" />
+          </AssociationSet>
+          <AssociationSet Name="KompaniiKlienti" Association="Self.KompaniiKlienti">
+            <End Role="Klienti" EntitySet="Klienti" />
+            <End Role="Kompanii" EntitySet="Kompanii" />
+          </AssociationSet>
+          <AssociationSet Name="PoedinciKlienti" Association="Self.PoedinciKlienti">
+            <End Role="Klienti" EntitySet="Klienti" />
+            <End Role="Poedineci" EntitySet="Poedineci" />
+          </AssociationSet>
+          <AssociationSet Name="PorakiKlienti" Association="Self.PorakiKlienti">
+            <End Role="Klienti" EntitySet="Klienti" />
+            <End Role="Poraki" EntitySet="Poraki" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbKatalogModelStoreContainer" CdmEntityContainer="dbKatalogEntities">
+          <EntitySetMapping Name="Katalozi">
+            <EntityTypeMapping TypeName="dbKatalogModel.Katalozi">
+              <MappingFragment StoreEntitySet="Katalozi">
+                <ScalarProperty Name="IdKatalozi" ColumnName="IdKatalozi" />
+                <ScalarProperty Name="NazivNaKatalog" ColumnName="NazivNaKatalog" />
+                <ScalarProperty Name="OpisNaKatalog" ColumnName="OpisNaKatalog" />
+                <ScalarProperty Name="DataNaKreiranje" ColumnName="DataNaKreiranje" />
+                <ScalarProperty Name="IdPoedinci" ColumnName="IdPoedinci" />
+                <ScalarProperty Name="IdKompanii" ColumnName="IdKompanii" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kategorii">
+            <EntityTypeMapping TypeName="dbKatalogModel.Kategorii">
+              <MappingFragment StoreEntitySet="Kategorii">
+                <ScalarProperty Name="IdKategorii" ColumnName="IdKategorii" />
+                <ScalarProperty Name="NazivNaKategorija" ColumnName="NazivNaKategorija" />
+                <ScalarProperty Name="RoditelId" ColumnName="RoditelId" />
+                <ScalarProperty Name="IdKatalozi" ColumnName="IdKatalozi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Klienti">
+            <EntityTypeMapping TypeName="dbKatalogModel.Klienti">
+              <MappingFragment StoreEntitySet="Klienti">
+                <ScalarProperty Name="IdKlienti" ColumnName="IdKlienti" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+                <ScalarProperty Name="NazivNaFirma" ColumnName="NazivNaFirma" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kompanii">
+            <EntityTypeMapping TypeName="dbKatalogModel.Kompanii">
+              <MappingFragment StoreEntitySet="Kompanii">
+                <ScalarProperty Name="IdKompanii" ColumnName="IdKompanii" />
+                <ScalarProperty Name="NazivNaKompanija" ColumnName="NazivNaKompanija" />
+                <ScalarProperty Name="KorisnickoIme" ColumnName="KorisnickoIme" />
+                <ScalarProperty Name="Lozinka" ColumnName="Lozinka" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="LogoNaKompanija" ColumnName="LogoNaKompanija" />
+                <ScalarProperty Name="OpisNaKompanija" ColumnName="OpisNaKompanija" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Poedineci">
+            <EntityTypeMapping TypeName="dbKatalogModel.Poedineci">
+              <MappingFragment StoreEntitySet="Poedineci">
+                <ScalarProperty Name="IdPoedineci" ColumnName="IdPoedineci" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+                <ScalarProperty Name="KorisnickoIme" ColumnName="KorisnickoIme" />
+                <ScalarProperty Name="Lozinka" ColumnName="Lozinka" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Poraki">
+            <EntityTypeMapping TypeName="dbKatalogModel.Poraki">
+              <MappingFragment StoreEntitySet="Poraki">
+                <ScalarProperty Name="IdPoraki" ColumnName="IdPoraki" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Proizvodi">
+            <EntityTypeMapping TypeName="dbKatalogModel.Proizvodi">
+              <MappingFragment StoreEntitySet="Proizvodi">
+                <ScalarProperty Name="IdProizvodi" ColumnName="IdProizvodi" />
+                <ScalarProperty Name="NazivNaProizvod" ColumnName="NazivNaProizvod" />
+                <ScalarProperty Name="Specifikacija" ColumnName="Specifikacija" />
+                <ScalarProperty Name="Cena" ColumnName="Cena" />
+                <ScalarProperty Name="Popust" ColumnName="Popust" />
+                <ScalarProperty Name="SlikaNaProizvod" ColumnName="SlikaNaProizvod" />
+                <ScalarProperty Name="Dostapnost" ColumnName="Dostapnost" />
+                <ScalarProperty Name="IdKategorii" ColumnName="IdKategorii" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="KompaniiKlienti" TypeName="dbKatalogModel.KompaniiKlienti" StoreEntitySet="KompaniiKlienti">
+            <EndProperty Name="Klienti">
+              <ScalarProperty Name="IdKlienti" ColumnName="IdKlienti" />
+            </EndProperty>
+            <EndProperty Name="Kompanii">
+              <ScalarProperty Name="IdKompanii" ColumnName="IdKompanii" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="PoedinciKlienti" TypeName="dbKatalogModel.PoedinciKlienti" StoreEntitySet="PoedinciKlienti">
+            <EndProperty Name="Klienti">
+              <ScalarProperty Name="IdKlienti" ColumnName="IdKlienti" />
+            </EndProperty>
+            <EndProperty Name="Poedineci">
+              <ScalarProperty Name="IdPoedineci" ColumnName="IdPoedinci" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="PorakiKlienti" TypeName="dbKatalogModel.PorakiKlienti" StoreEntitySet="PorakiKlienti">
+            <EndProperty Name="Klienti">
+              <ScalarProperty Name="IdKlienti" ColumnName="IdKlienti" />
+            </EndProperty>
+            <EndProperty Name="Poraki">
+              <ScalarProperty Name="IdPoraki" ColumnName="IdPoraki" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

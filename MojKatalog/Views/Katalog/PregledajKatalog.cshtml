@@ -1,0 +1,94 @@
+﻿@model MojKatalog.Models.Katalozi
+
+@{
+    ViewBag.Title = "PregledajKatalog";
+    int idnew = Model.IdKatalozi;
+}
+
+<h3 class="page-title">Прегледај Каталог <small>детален преглед на Каталог</small></h3>
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Katalog")">Каталози</a></li>
+    <li class="active">Прегледај Каталог</li>
+</ul>
+
+<div class="well bs-component">
+    <form class="form-horizontal">
+        <fieldset>
+            <legend>Каталог</legend>
+            @Html.HiddenFor(model=>model.IdKatalozi)
+            <div class="form-group">
+                @Html.LabelFor(model => model.NazivNaKatalog, new { @class = "col-lg-1 col-md-2 control-label" })
+                <div class="col-lg-10" style="padding-top:12px;">
+                    <text>@Model.NazivNaKatalog</text>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.OpisNaKatalog, new { @class = "col-lg-1 col-md-2 control-label" })
+                <div class="col-lg-10" style="padding-top:12px;">
+                    <text>@Model.OpisNaKatalog</text>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-1 col-md-2 control-label">Креиран на</label>
+                <div class="col-lg-10" style="padding-top:12px;">
+                     @if (Model.DataNaKreiranje.HasValue)
+                    {
+                        <text> @Model.DataNaKreiranje.Value.ToString("dd/MM/yyyy hh:mm") </text>
+                    }
+                    else
+                    {
+                        <text> / </text>
+                    }
+                </div>
+            </div>
+
+
+        </fieldset>
+    </form>
+</div>
+<div class="bs-example">
+    <div class="panel-group panel-accordion" id="accordion">
+<div class="panel panel-default">
+    <div class="panel-heading navbar navbar-default">
+        <ul class="nav navbar-nav">
+        <li>
+            <a class="navbar-katalog collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse" aria-expanded="false">Категории</a>
+        </li>
+            </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li> <a>Категории:</a></li>
+            <li><a class="dodadi" id="dodadi5" href="#">Додади</a></li>
+            <li><a class="izmeni" id="izmeni5" href="#">Измени</a></li>
+            <li><a class="izbrisi" id="izbrisi5" href="#">Избриши</a></li>
+        </ul>
+    </div>
+    <div id="collapse" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+        <div class="panel-body">
+          
+                <div id="treeContainer">
+                    <div id="jstree@(idnew)">
+                         <div style="margin-top: 100px;"></div>
+                </div>
+        </div>
+    </div>
+</div>
+            </div>
+    </div>
+      </div>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+@section KategorijaIndexStyles
+{
+    <link rel="stylesheet" href="~/Plugins/jstree/dist/themes/default/style.min.css" />
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script src="~/Plugins/jstree/dist/jstree.min.js"></script>
+    <script src="~/Scripts/Katalog/PregledajKatalogJs.js"></script>
+}

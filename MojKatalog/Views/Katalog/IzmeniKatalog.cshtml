@@ -1,0 +1,107 @@
+﻿@model MojKatalog.Models.Katalozi
+
+@{
+    ViewBag.Title = "IzmeniKatalog";
+    int idnew = Model.IdKatalozi;
+    string hrefvar = "#collapse" + idnew;
+    string idvar = "collapse" + idnew;
+}
+
+<h3 class="page-title">Измени Каталог <small>едитирање на постоечки каталог</small></h3>
+<ul class="breadcrumb">
+    <li class="active"><a href="@Url.Action("Index", "Katalog")">Каталози</a></li>
+    <li class="active">Измени Каталог</li>
+</ul>
+
+<div class="well bs-component">
+    @using (Html.BeginForm("IzmeniKatalog", "Katalog", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <legend>Каталог</legend>
+
+            @Html.HiddenFor(model => model.IdKatalozi)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.NazivNaKatalog, new { @class = "col-lg-1 col-md-2 control-label" })
+                <div class="col-lg-10">
+                    @Html.TextBoxFor(model => model.NazivNaKatalog, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.NazivNaKatalog)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.OpisNaKatalog, new { @class = "col-lg-1 col-md-2 control-label" })
+                <div class="col-lg-10">
+                    @Html.TextAreaFor(model => model.OpisNaKatalog, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.OpisNaKatalog)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-1 col-md-2"></div>
+                <div class="col-lg-10">
+                    @Html.LabelFor(model => model.DataNaKreiranje, new { @class = "control-label" }): 
+                    @if (Model.DataNaKreiranje.HasValue)
+                    {
+                        <text> @Model.DataNaKreiranje.Value.ToString("dd/MM/yyyy hh:mm") </text>
+                    }
+                    else
+                    {
+                        <text> / </text>
+                    }
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-1 col-md-offset-2">
+                    <button type="submit" class="btn btn-primary">Измени </button>
+                </div>
+            </div>
+        </fieldset>
+    }
+</div>
+
+<div class="bs-example">
+    <div class="panel-group panel-accordion" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading navbar navbar-default">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a class="navbar-katalog collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse" aria-expanded="false">Категории</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a>Категории:</a></li>
+                    <li><a class="dodadi" id="dodadi5" href="#">Додади</a></li>
+                    <li><a class="izmeni" id="izmeni5" href="#">Измени</a></li>
+                    <li><a class="izbrisi" id="izbrisi5" href="#">Избриши</a></li>
+                </ul>
+            </div>
+            <div id="collapse" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                <div class="panel-body">
+
+                    <div id="treeContainer">
+                        <div id="jstree@(idnew)">
+                            <div style="margin-top: 100px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section KategorijaIndexStyles
+{
+    <link rel="stylesheet" href="~/Plugins/jstree/dist/themes/default/style.min.css" />
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Plugins/jstree/dist/jstree.min.js"></script>
+    <script src="~/Scripts/Katalog/IzmeniKatalogJs.js"></script>
+}

@@ -1,0 +1,71 @@
+﻿@model IEnumerable<MojKatalog.Models.Klienti>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<input type="hidden" id="activeLink" value="klientLink" />
+
+<h3 class="page-title">Клиенти <small>управување со клиенти</small></h3>
+<ul class="breadcrumb">
+    <li class="active">Клиенти</li>
+</ul>
+
+
+<p class="bs-component btn-create btnkatalog">
+    <a href="/Klient/DodadiKlient/" role="button" class="btn btn-default btn-lg btn-block">Додади Клиент</a>
+</p>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Ime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prezime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NazivNaFirma)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Telefon)
+            </th>
+            <th>Акции</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prezime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NazivNaFirma)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefon)
+                </td>
+                <td>
+                    <a href="@Url.Action("IzmeniKlient", new { id = item.IdKlienti })" title="Измени"><span class="glyphicon glyphicon-edit"></span></a>&nbsp 
+                    <a href="@Url.Action("IzbrisiKlient", new { id = item.IdKlienti })" onClick="if(!confirm('Дали сте сигурни?')) return false;" title="Избриши"><span class="glyphicon glyphicon-trash"></span></a>&nbsp
+                </td>
+            </tr>
+       
+        }
+    </tbody>
+
+</table>

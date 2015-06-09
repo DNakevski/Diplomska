@@ -1,0 +1,107 @@
+﻿@model MojKatalog.Models.Kategorii
+
+@{
+    ViewBag.Title = "PregledajProizvodi";
+    List<MojKatalog.Models.ViewModels.ViewBreadcrumb> breadcrumb = ViewBag.BreadCrumb;
+    int breadcrumbLength = breadcrumb.ToList().Count;
+    string slikaUrl = "";
+}
+
+<input type="hidden" id="activeLink" value="proizvodLink" />
+<h3 class="page-title">Производи <small>управување со производи и нивно категоризирање</small></h3>
+<ul class="breadcrumb">
+    <li class="active"><a href="@Url.Action("Index", "Proizvod")">Производи</a></li>
+    @if (breadcrumbLength >= 4)
+    {
+        <li class="active"><a href="@Url.Action("PregledajProizvodi", "Proizvod", new { id = breadcrumb[3].Id })">...</a></li>
+        for (int i = 2; i > 0; i--)
+        {
+        <li class="active"><a href="@Url.Action("PregledajProizvodi", "Proizvod", new { id = breadcrumb[i].Id })">@breadcrumb[i].Name</a></li>
+        }
+    }
+    else
+    {
+        for (int i = breadcrumbLength - 1; i > 0; i--)
+        {
+        <li class="active"><a href="@Url.Action("PregledajProizvodi", "Proizvod", new { id = breadcrumb[i].Id })">@breadcrumb[i].Name</a></li>
+        }
+    }
+    <li class="active">@breadcrumb[0].Name</li>
+
+
+
+</ul>
+<div class="row">
+    <div class="col-lg-9 proizvodi-con">
+        <p class="bs-component btn-create btnproizvod">
+            <a href="/Proizvod/DodadiProizvod/@(Model.IdKategorii)" role="button" class="btn btn-default btn-lg btn-block">Креирај Производ</a>
+        </p>
+        <div class="row">
+            @foreach (var proizvod in Model.Proizvodi)
+            {
+                if (proizvod.SlikaNaProizvod == null)
+                {
+                    slikaUrl = "/Images/UserImages/NoImage.jpg";
+                }
+                else
+                {
+                    slikaUrl = proizvod.SlikaNaProizvod;
+                }
+                <div class="col-xs-6 col-sm-4 col-md-3" style="margin-right: 0px;">
+                    <div class="thumbnail thumbnail-proizvodi"  style="background-image: url('@slikaUrl');">
+                        <div class="caption">
+                            <h4>@proizvod.NazivNaProizvod</h4>
+                            <p>
+                                <a href="@Url.Action("IzmeniProizvod", new { idProizvod = proizvod.IdProizvodi, idKategorija = Model.IdKategorii })" title="Измени">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </a>&nbsp 
+                                <a href="@Url.Action("IzbrisiProizvod", new { id = proizvod.IdProizvodi })" onClick="if(!confirm('Дали сте сигурни?')) return false;" title="Избриши">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </a>&nbsp 
+                                <a href="@Url.Action("PregledajProizvod", new { idProizvod = proizvod.IdProizvodi, idKategorija = Model.IdKategorii })" title="Прегледај">
+                                    <span class="glyphicon glyphicon-eye-open"></span>
+                                </a>
+                            </p>
+                        </div>
+                        @* @if(proizvod.SlikaNaProizvod==null){
+                       <span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
+                        }*@
+
+
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="col-lg-3 podkategorii-nav">
+        <table class="table table-striped table-hover table-kategorii">
+            <thead>
+                <tr>
+                    <th><span class="table-kategorii-head">Подкатегории</span></th>
+                </tr>
+            </thead>
+            @foreach (var kategorija in Model.Kategorii1)
+            {
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="/Proizvod/PregledajProizvodi/@(kategorija.IdKategorii)" class="podkategoriiLink">
+                                <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+                                <span>@kategorija.NazivNaKategorija</span>
+                                <span class="badge">@kategorija.Kategorii1.Count()</span>
+                                <span class="badge">@kategorija.Proizvodi.Count()</span>
+                            </a>
+                        </td>
+
+                    </tr>
+                </tbody>
+            }
+        </table>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/Scripts/jquery.bearings.js"></script>
+
+
+}
+

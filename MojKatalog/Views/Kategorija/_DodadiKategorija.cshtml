@@ -1,0 +1,43 @@
+﻿@{
+    int idnew = ViewBag.PanelId.idkatalozi;
+    string hrefvar = "#collapse" + idnew;
+    string idvar = "collapse" + idnew;
+    string jstreeId = "jstree" + idnew;
+}
+<div class="panel panel-default">
+    <div class="panel-heading navbar navbar-default">
+        <ul class="nav navbar-nav">
+            <li>
+                <a class="navbar-katalog" data-toggle="collapse" data-parent="#accordion" href="@hrefvar">
+                    <span class="glyphicon glyphicon-chevron-right navbar-katalog-chevron"></span>
+                    <span class="glyphicon glyphicon-chevron-down navbar-katalog-chevron displayNone"></span>
+                    <span>@ViewBag.PanelId.naziv</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a class="dodadi" id="dodadi@(idnew)" title="Додади категорија">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </a>
+            </li>   
+            <li>
+                <a class="izbrisi" id="izbrisi@(idnew)" title="Избриши категории">
+                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div id="@idvar" class="panel-collapse collapse in">
+        <div class="panel-body">
+
+            <div id="treeContainer@(idnew)">
+                <div id="@jstreeId">
+                </div>
+                <div style="margin-top: 100px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

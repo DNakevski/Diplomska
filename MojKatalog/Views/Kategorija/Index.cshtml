@@ -1,0 +1,37 @@
+﻿@using MojKatalog.Models
+@{
+    ViewBag.Title = "Index";
+    int length = ViewBag.DistinctKatalozi.Length;
+}
+<input type="hidden" id="activeLink" value="kategorijaLink" />
+<div class="content-header">
+
+    <h3 class="page-title">Категории <small>управување со категории</small>
+    </h3>
+    <ul class="breadcrumb">
+        <li class="active">Категории</li>
+    </ul>
+</div>
+<input type="text" id="search_q" value="" class="input" style="margin: 0em auto 1em auto; display: block; padding: 4px; border-radius: 4px; border: 1px solid silver;">  
+ 
+                    
+<div class="bs-example">
+    <div class="panel-group panel-accordion" id="accordion">
+       @for (var i = 0; i < length; i++)
+       {
+           ViewBag.PanelId = ViewBag.DistinctKatalozi[i];
+           @Html.Partial("_DodadiKategorija")
+       }
+    </div>
+</div> 
+
+@section KategorijaIndexStyles
+{
+    <link rel="stylesheet" href="~/Plugins/jstree/dist/themes/default/style.min.css" />
+}
+
+@section KategorijaIndexScripts
+{
+    <script src="~/Plugins/jstree/dist/jstree.min.js"></script>
+    <script src="~/Scripts/Kategorija/IndexJs.js"></script>
+}

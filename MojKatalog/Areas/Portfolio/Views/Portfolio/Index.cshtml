@@ -1,0 +1,369 @@
+﻿@{
+    Layout = null;
+    int numberOfElements = 14;
+    int numberOfItems = 0;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="~/Content/bootstrap/css/bootstrap-theme-flaty.css" rel="stylesheet" />
+    <link href="~/Areas/Portfolio/Content/CustomPortfolio.css" rel="stylesheet" />
+    <title>Index</title>
+</head>
+<body>
+    <section id="pocetna" class="container-fluid">
+        <div class="row">
+
+            <div id ="default" class="fill-screen" style="background-image: url(../../../../Areas/Portfolio/Images/HomeBackgroundImage.jpg)">
+                <header>
+                    <nav class="navbar navbar-default main-menu navbar-static-top">
+                        <div class="container-fluid">
+                            <!-- Brand and toggle get grouped for better mobile display -->
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <span class="brand"><b>ИМЕ<span class="textcolorInverse">ПРЕЗИМЕ</span></b></span>
+                            </div>
+                            <!-- Collect the nav links, forms, and other content for toggling -->
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li class="active"><a href="#pocetna">Почетна</a></li>
+                                    <li><a href="#zanas">За нас</a></li>
+                                    <li><a href="#portfolio">Портфолио</a></li>
+                                    <li><a href="#contact">Контакт</a></li>
+                                </ul>
+                            </div><!-- /.navbar-collapse -->
+                        </div><!-- /.container-fluid -->
+                    </nav>
+                </header>
+            </div>
+        </div>
+    </section>
+    <section id="zanas" class="container-fluid">
+        <div class="row">
+            <h2>
+                <span>
+                    За <span class="textcolorInverse">нас</span>
+                    <h />
+                </span>
+            </h2>
+            <span class="zanas-content">
+                Коста Солев Рацин (1908 - 1943) е една од најистакнатите интелектуалци што ги дала Македонија во периодот помеѓу двете светски војни, но и воопшто. Најпознат е по својата збирка песни „Бели мугри“, поради која се смета за основоположник на современата македонската литература, но Рацин беше многу повеќе од само наш најдобар поет помеѓу двете светски војни - неговата активност како истакнат работнички и комунистички деец обично се потиснува во втор план, но сликата на Рацин без овој елемент не соодветствува на реалноста.
+            </span>
+        </div>
+    </section>
+    <section id="footerZaNas" class="container-fluid">
+        <div class="row">
+            <div class="fill-screen" style="background-image: url(../../../../Areas/Portfolio/Images/AboutFooter.jpg)">
+                <h2>
+                    THE DETAILS ARE NOT THE DETAILS
+                    <br /> <strong><span class="textcolorInverse">THEY MAKE THE DESIGN</span></strong>
+                    <br /> <em>KEEN THEMES</em>
+                </h2>
+            </div>
+        </div>
+    </section>
+    <section id="portfolio" class="container-fluid">
+        <!--TabBable  Begin-->
+        <div class="row">
+            <h2>
+                <span>
+                    Портфолио
+                    <h />
+                </span>
+            </h2>
+            <div class="tabbable">
+                <!-- Only required for left/right tabs -->
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab1" data-toggle="tab">Категорија 1</a></li>
+                    <li><a href="#tab2" data-toggle="tab">Категорија 2</a></li>
+                </ul>
+                <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ecf0f1;">
+                    <div class="tab-pane active" id="tab1">
+                        <p>Категорија 1</p>
+                        <!--Well Begin-->
+                        <div class="well-none">
+                            <div id="myCarousel" class="carousel slide">
+                                <!-- Carousel items -->
+                                <div class="carousel-inner">
+                                    @for (int i = 0; i < numberOfElements; i++)
+                                    {
+                                        <div class="col col-xs-6 col-sm-4 col-md-3 col-lg-2 flex-thumbnail">
+                                            <div class="thumbnail thumbnail-proizvodi" style="background-image: url(../../../../Areas/Portfolio/Images/AboutFooter.jpg)">
+                                                <div class="caption">
+                                                    <h4>Proizvod</h4>
+                                                    <p>
+                                                        link
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    <!--/item-->
+                                    <!--/item-->
+                                    <!--/item-->
+                                </div>
+                                <!--/carousel-inner-->
+                                <a class="left carousel-control" href="#myCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+
+                                <a class="right carousel-control" href="#myCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                            </div>
+                            <!--/myCarousel-->
+                        </div>
+                        <!--/well-->
+                        <p><em>Подкатегории</em></p>
+
+                        <div class="tabbable" style="margin-left:20px; margin-right:20px;">
+                            <!-- Only required for left/right tabs -->
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#tab2_1" data-toggle="tab">Категорија 2-1</a></li>
+                                <li><a href="#tab2_2" data-toggle="tab">Категорија 2-2</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tab2_1">
+                                    <p>Kategorija 2_1.</p>
+                                    <!--Well Begin-->
+                                    <div class="well-none">
+                                        <div id="myCarousel1" class="carousel slide">
+                                            <!-- Carousel items -->
+                                            <div class="carousel-inner">
+                                                @for (int i = 0; i < numberOfElements; i++)
+                                                {
+                                                    <div class="col col-xs-6 col-sm-4 col-md-3 col-lg-2 flex1-thumbnail">
+                                                        <div class="thumbnail thumbnail-proizvodi" style="background-image: url(../../../../Areas/Portfolio/Images/AboutFooter.jpg)">
+                                                            <div class="caption">
+                                                                <h4>Proizvod</h4>
+                                                                <p>
+                                                                    link
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                <!--/item-->
+                                                <!--/item-->
+                                                <!--/item-->
+                                            </div>
+                                            <!--/carousel-inner-->
+                                            <a class="left carousel-control" href="#myCarousel1" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+
+                                            <a class="right carousel-control" href="#myCarousel1" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                                        </div>
+                                        <!--/myCarousel-->
+                                    </div>
+                                    <!--/well-->
+                                </div>
+                                <div class="tab-pane" id="tab2_2">
+                                    <p>Категорија 2_2.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab2">
+                        <p>Категорија 1_2.</p>
+                        <div class="tabbable" style="margin-left:20px; margin-right:20px;">
+                            <!-- Only required for left/right tabs -->
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#tab2_1" data-toggle="tab">Section 1</a></li>
+                                <li><a href="#tab2_2" data-toggle="tab">Section 2</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tab2_1">
+                                    <p>I'm in Section 2_1.</p>
+                                </div>
+                                <div class="tab-pane" id="tab2_2">
+                                    <p>Howdy, I'm in Section 2_2.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--TabBable  End-->
+    </section>
+    <section id="footerPortfolio" class="container-fluid">
+        <div class="row">
+            <div class="fill-screen" style="background-image: url(../../../../Areas/Portfolio/Images/AboutFooter.jpg)">
+                <h2>
+                    THE DETAILS ARE NOT THE DETAILS
+                    <br /> <strong><span class="textcolorInverse">THEY MAKE THE DESIGN</span></strong>
+                    <br /> <em>KEEN THEMES</em>
+                </h2>
+            </div>
+        </div>
+    </section>
+    <section id="contact" class="container-fluid">
+        <div class="row">
+            <h2>
+                <span>
+                    Контакт
+                    <h />
+                </span>
+            </h2>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="text-right scroll-in-animation" data-animation="fadeInLeft">
+                    <p class="big-font uppercase">
+                        Tel: <strong class="highlight">+7 (781) 503-1810</strong>
+                    </p>
+                    <p class="big-font uppercase">
+                        500 Unicorn Park Dr, 21st Floor
+                        <br /> Woburn, MA 01801, United States
+                    </p>
+                    <p class="big-font">
+                        <b>
+                            <a href="mailto:info@ouraddress.com">info@ouraddress.com</a><br />
+                            <a href="http://www.ouraddress.com/">www.ouraddress.com</a>
+                        </b>
+                    </p>
+                    <p class="big-font">
+                        <a target="_blank" href="https://twitter.com/"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x heading"></i><i class="fa fa-twitter fa-stack-1x text-background"></i></span></a>
+                        <a target="_blank" href="https://www.facebook.com/"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x heading"></i><i class="fa fa-facebook fa-stack-1x text-background"></i></span></a>
+                        <a target="_blank" href="http://www.youtube.com/"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x heading"></i><i class="fa fa-youtube fa-stack-1x text-background"></i></span></a>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="text-left scroll-in-animation" data-animation="fadeInRight">
+                    <form action="#" method="post" novalidate="novalidate">
+                        <div class="row">
+                            <div class="col-md-6 control-group">
+                                <div class="alt-placeholder">Name</div>
+                                <input type="text" name="your-name" value="" size="40" placeholder="Name" data-validation-required-message="Please fill the required field." required>
+                                <div class="help-block"></div>
+                            </div>
+                            <div class="col-md-6 control-group">
+                                <div class="alt-placeholder">Email</div>
+                                <input type="email" name="your-email" value="" size="40" placeholder="Email" data-validation-required-message="Please fill the required field." required>
+                                <div class="help-block"></div>
+                            </div>
+                            <div class="col-md-12 control-group">
+                                <div class="alt-placeholder">Message</div>
+                                <textarea name="your-message" placeholder="Message" data-validation-required-message="Please fill the required field." required></textarea>
+                                <div class="help-block"></div>
+                            </div>
+                            <div class="col-md-12 form-actions">
+                                <input class="button" type="submit" value="Send">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer><h2>FOOTER</h2></footer>
+
+    <script src="~/Scripts/jquery-2.1.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Areas/Portfolio/Scripts/draggable_background.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //Draggable Begin
+            $('#default').backgroundDraggable();
+            $('#default').backgroundDraggable({
+                done: function() {
+                    backgroundPosition = $('div').css('background-position');
+                    console.log(backgroundPosition);
+                }
+            });
+
+            //Affix
+            $('.navbar').affix({
+                offset: {
+                    top: window.innerHeight
+                }
+            });
+            //Scrollspy
+            $("body").scrollspy({
+                target: ".navbar",
+                offset: 60
+            });
+
+            $("header").css("padding-top",window.innerHeight-60);
+
+
+            //SmoothScrolling
+            $('.main-menu a[href*=#]:not([href=#])').click(function (e) {
+                if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                    var target = $(this.hash);
+                    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                    if (target.length) {
+                        $('body').animate({
+                            scrollTop: target.offset().top - 59
+                        }, 1000);
+                        $(this).blur();
+                        return false;
+                    }
+                }
+            });
+
+            //SetDivToWindowInnerHeight
+            $(window).on("load resize", function () {
+                $(".fill-screen").css("height", window.innerHeight);
+            });
+            //CarouselAndThumbnailGallery
+            $('[id^="myCarousel"]').carousel({
+                interval: 0
+            })
+
+            $('[id^="myCarousel"]').on('slid.bs.carousel', function () {
+                //alert("slid");
+            });
+
+            initializeTiles();
+        }); //END of document.ready
+
+        function initializeTiles() {
+            var elementsInGroup = getNumberOfItems();
+            var thumbnails = $(".flex-thumbnail");
+
+            for(var i = 0; i < thumbnails.length; i+=elementsInGroup) {
+                var active = (i == 0) ? " active" : "";
+                thumbnails.slice(i, i+elementsInGroup).wrapAll('<div class="item'+ active +'"><div class="row"></div></div>');
+            }
+            thumbnails = $(".flex1-thumbnail");
+            for(var i = 0; i < thumbnails.length; i+=elementsInGroup) {
+                var active = (i == 0) ? " active" : "";
+                thumbnails.slice(i, i+elementsInGroup).wrapAll('<div class="item'+ active +'"><div class="row"></div></div>');
+            }
+        }
+
+        function getNumberOfItems(){
+            var numberOfElements = @numberOfElements;
+            var numberOfItems = 0;
+            var elementsInGroup = 0;
+            //VisualBreakpoint=xs
+            if (window.matchMedia("(max-width: 767px)").matches) {
+                numberOfItems = Math.ceil(numberOfElements/4);
+                elementsInGroup = 4;
+            };
+            //VisualBreakpoint=sm
+            if (window.matchMedia("(min-width: 768px)").matches) {
+                numberOfItems = Math.ceil(numberOfElements/6);
+                elementsInGroup = 6;
+            };
+            //VisualBreakpoint=md
+            if (window.matchMedia("(min-width: 992px)").matches) {
+                numberOfItems = Math.ceil(numberOfElements/8);
+                elementsInGroup = 8;
+            };
+            //VisualBreakpoint=lg
+            if (window.matchMedia("(min-width: 1200px)").matches) {
+                numberOfItems = Math.ceil(numberOfElements/12);
+                elementsInGroup = 12;
+            };
+            return(elementsInGroup);
+        }
+    </script>
+</body>
+</html>

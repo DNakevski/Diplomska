@@ -1,0 +1,74 @@
+﻿@model MojKatalog.Models.Klienti
+
+@{
+    ViewBag.Title = "IzmeniKlient";
+}
+
+<input type="hidden" id="activeLink" value="klientLink" />
+<h3 class="page-title">Измени Клиент <small>промена на податоци</small></h3>
+<ul class="breadcrumb">
+    <li class="active"><a href="@Url.Action("Index", "Klient")">Клиенти</a></li>
+    <li class="active">Измени Клиент</li>
+</ul>
+<div class="well bs-component">
+    @using (Html.BeginForm("IzmeniKlient", "Klient", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <legend>Клиент</legend>
+            @Html.HiddenFor(model => model.IdKlienti)
+            <div class="form-group">
+                @Html.LabelFor(model => model.Ime, new { @class = "col-lg-1 col-md-2 control-label" })
+                <div class="col-lg-10">
+                    @Html.TextBoxFor(model => model.Ime, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Ime)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Prezime, new { @class = "col-lg-1 col-md-2 control-label" })
+                <div class="col-lg-10">
+                    @Html.TextBoxFor(model => model.Prezime, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Prezime)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.NazivNaFirma, new { @class = "col-lg-1 col-md-2 control-label" })
+                <div class="col-lg-10">
+                    @Html.TextBoxFor(model => model.NazivNaFirma, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.NazivNaFirma)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Mail, new { @class = "col-lg-1 col-md-2 control-label" })
+                <div class="col-lg-10">
+                    @Html.TextBoxFor(model => model.Mail, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Mail)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Telefon, new { @class = "col-lg-1 col-md-2 control-label" })
+                <div class="col-lg-10">
+                    @Html.TextBoxFor(model => model.Telefon, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Telefon)
+                </div>
+            </div>
+
+            <br />
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-1 col-md-offset-2">
+                    <button type="submit" class="btn btn-primary">Измени </button>
+                </div>
+            </div>
+        </fieldset>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

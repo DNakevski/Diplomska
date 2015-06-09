@@ -1,0 +1,93 @@
+﻿<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap/css/bootstrap-theme-flaty.css" rel="stylesheet" />
+    <link href="~/Content/custom.css" rel="stylesheet" />
+     @RenderSection("KategorijaIndexStyles", false)
+</head>
+<body>
+    <div class="navbar navbar-default navigation-bar">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="../" class="navbar-brand">Bootswatch</a>
+
+            </div>
+            <div class="navbar-collapse collapse" id="navbar-main">
+                <ul class="nav navbar-nav navbar-right nav-user">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle username-dropdown" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-user glyphicon-user-css" aria-hidden="true"></span>
+                            <span class="username">UserName
+                            </span>
+                            <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><span class="glyphicon glyphicon-user glyphicon-dropdown-css" aria-hidden="true"></span>Мој профил</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#"><span class="glyphicon glyphicon-off glyphicon-dropdown-css" aria-hidden="true"></span>Одлогирај се</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid table-container">
+        <div class="row table-row">
+            <div class="col-lg-2 nav-container table-col">
+                <ul class="nav nav-pills nav-stacked nav-menu">
+                    <li role="presentation" id="katalogLink">
+                         <a href='@(Url.Action("Index", "Katalog"))'> 
+                             <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+                             Kаталози
+                        </a>
+
+                    </li>
+                    <li role="presentation" id="kategorijaLink">
+                        <a href='@(Url.Action("Index", "Kategorija"))'>
+                             <span class="glyphicon glyphicon-indent-left" aria-hidden="true"></span>
+                            Категории
+                        </a>
+
+                    </li>
+                    <li role="presentation" id="proizvodLink">
+                        <a href='@(Url.Action("Index", "Proizvod"))'>
+                            <span class="glyphicon glyphicon-barcode" aria-hidden="true"></span>
+                            Производи
+                        </a>
+
+                    </li>
+                     <li role="presentation" id="klientLink">
+                        <a href='@(Url.Action("Index", "Klient"))'>
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                            Клиенти
+                        </a>
+                    </li>
+                     <li role="presentation" id="mailLink">
+                        <a href='@(Url.Action("Index", "Mail"))'>
+                            <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                            Мејл
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-10 cont-container table-col">
+                @RenderBody()
+            </div>
+        </div>
+
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/Layout/LayoutJs.js"></script>
+    @RenderSection("KategorijaIndexScripts", false)
+     @RenderSection("KatalogIzmeniKatalogScripts", false)
+    @RenderSection("KatalogDodadiKatalogScripts", false)
+    @RenderSection("Scripts", false)
+
+</body>
+</html>
