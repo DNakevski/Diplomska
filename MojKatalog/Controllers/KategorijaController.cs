@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using MojKatalog.Models;
 using MojKatalog.Queries;
 using Newtonsoft.Json;
+using MojKatalog.Models.ViewModels;
 
 namespace MojKatalog.Controllers
 {
@@ -18,8 +19,20 @@ namespace MojKatalog.Controllers
         QKatalog katalog = new QKatalog();
         public ActionResult Index()
         {
-            ViewBag.DistinctKatalozi = katalog.kataloziIdINaziv();
-            KataloziIdINaziv [] lista = katalog.kataloziIdINaziv();
+            var poedinec = (LogiranPoedinecViewModel)Session["Poedinec"];
+            var kompanija = (LogiranaKompanijaViewModel)Session["Kompanija"];
+            KataloziIdINaziv[] m = katalog.KataloziIdINaziv(1, Helpers.Enumerations.LogedUserTypeEnum.Kompanija);
+            //if (poedinec != null)
+            //{
+            //    m = katalog.KataloziIdINaziv(1, Helpers.Enumerations.LogedUserTypeEnum.Poedinec);
+            //}
+            //else
+            //{
+            //    m = katalog.KataloziIdINaziv(1, Helpers.Enumerations.LogedUserTypeEnum.Kompanija);
+            //}
+            
+            ViewBag.DistinctKatalozi = m;
+            KataloziIdINaziv [] lista = m;
             return View();
         }
      /*   [HttpGet]
@@ -30,7 +43,7 @@ namespace MojKatalog.Controllers
         [HttpPost]
         public int DodadiKategorija(string naziv, int? roditel, int katalogId)
         {
-            int lastId = model.dodadi(new Kategorii()
+            int lastId = model.DodadiKategorija(new Kategorii()
             {
                 NazivNaKategorija = naziv,
                 RoditelId = (roditel == 0) ? null : roditel,
@@ -42,18 +55,29 @@ namespace MojKatalog.Controllers
         [HttpPost]
         public void IzmeniKategorija(int id, string naziv)
         {
-            model.izmeni(id, naziv);
+            model.IzmeniKategorija(id, naziv);
         }
         [HttpGet]
         public void IzbrisiKategorija(int id)
         {
-            model.izbrisi(id);
+            model.IzbrisiKategorija(id);
         }
 
         [HttpGet]
         public ActionResult IzlistajKategorii()
         {
-            return Json(model.izlistaj(), JsonRequestBehavior.AllowGet);
+            var poedinec = (LogiranPoedinecViewModel)Session["Poedinec"];
+            var kompanija = (LogiranaKompanijaViewModel)Session["Kompanija"];
+
+            //if(poedinec != null)
+            //{
+            //    return View(_model.IzlistajKatalozi(poedinec.IdPoedinec, Helpers.Enumerations.LogedUserTypeEnum.Poedinec));
+            //} 
+            //else
+            //{
+            //    return View(_model.IzlistajKatalozi(kompanija.IdKompanija, Helpers.Enumerations.LogedUserTypeEnum.Kompanija));
+            //}
+            return Json(model.IzlistajKatalozi(1, Helpers.Enumerations.LogedUserTypeEnum.Kompanija), JsonRequestBehavior.AllowGet);
         }
 
     }

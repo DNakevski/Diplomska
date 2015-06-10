@@ -22,7 +22,7 @@ namespace MojKatalog.Controllers
         public ActionResult IspratiMail()
         {
             ViewPoraki poraka = new ViewPoraki();
-            poraka = poraki.inicijalizirajViewPoraki(1);
+            poraka = poraki.InicijalizirajViewPoraki(1);
             return View(poraka);
         }
 
@@ -32,14 +32,14 @@ namespace MojKatalog.Controllers
             Poraki novaPoraka = new Poraki();
             novaPoraka.Subject = vporaka.Subject;
             novaPoraka.Body = vporaka.Body;
-            novaPoraka.Klienti = klienti.listaNaKlientiSporedId(selectedKlients);
-            poraki.isprati(novaPoraka);
+            novaPoraka.Klienti = klienti.ListaNaKlientiSporedId(selectedKlients);
+            poraki.IspratiPoraka(novaPoraka);
             return RedirectToAction("Index");
         }
         public ActionResult PrebarajKlienti(string searchString)
         {
             ViewBag.SearchString = searchString;
-            List<ViewKlienti> klienti = poraki.prebarajKontakti(1, searchString);
+            List<ViewKlienti> klienti = poraki.PrebarajKontakti(1, searchString);
             return PartialView("_UpdateModalKlienti",klienti);
         }
 

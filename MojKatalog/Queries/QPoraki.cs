@@ -12,7 +12,7 @@ namespace MojKatalog.Queries
     {
         dbKatalogEntities _db = new dbKatalogEntities();
 
-        public ViewPoraki inicijalizirajViewPoraki(int userId)
+        public ViewPoraki InicijalizirajViewPoraki(int userId)
         {
             List<ViewKlienti> klienti = _db.Klienti.GroupBy(k => k.Ime.Substring(0, 1)).Select(kl => new ViewKlienti { 
                 Karakter=kl.Key.ToUpper(),
@@ -25,7 +25,7 @@ namespace MojKatalog.Queries
                 KlientiGrupirani = klienti
             };
         }
-        public List<ViewKlienti> prebarajKontakti(int userId, string searchString)
+        public List<ViewKlienti> PrebarajKontakti(int userId, string searchString)
         {
              return _db.Klienti.Where(pr => pr.Ime.Contains(searchString)).GroupBy(k => k.Ime.Substring(0, 1)).Select(kl => new ViewKlienti
             {
@@ -35,7 +35,7 @@ namespace MojKatalog.Queries
            
           
         }
-        public void isprati(Poraki poraka)
+        public void IspratiPoraka(Poraki poraka)
         {
             string mailUser = "applicationclientsmail@gmail.com";
             string mailUserPwd = "applicationClientsPass";

@@ -200,6 +200,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\DateTimeHelpers.cs" />
+    <Compile Include="Helpers\Enumerations\LogedUserTypeEnum.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Entities.Context.cs">
       <AutoGen>True</AutoGen>
@@ -237,6 +238,8 @@
     <Compile Include="Models\Proizvodi.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\LogiranaKompanijaViewModel.cs" />
+    <Compile Include="Models\ViewModels\LogiranPoedinecViewModel.cs" />
     <Compile Include="Models\ViewModels\ViewBreadcrumb.cs" />
     <Compile Include="Models\ViewModels\ViewKataloziKategorii.cs">
       <SubType>Code</SubType>
@@ -296,6 +299,7 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="DataBaseScripts\SQLQueryDB.sql" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\bootstrap\css\bootstrap-theme.css.map" />

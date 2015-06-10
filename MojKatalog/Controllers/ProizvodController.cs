@@ -20,28 +20,28 @@ namespace MojKatalog.Controllers
         QKategorija kategorija = new QKategorija();
         public ActionResult Index()
         {
-            return View(model.izlistajProizvodiKategorii(0));
+            return View(model.IzlistajProizvodiKategorii(0));
 
         }
         public ActionResult PregledajProizvodi(int id)
         {
-            List<ViewBreadcrumb> list = kategorija.getParentNames(id);
-            ViewBag.BreadCrumb = kategorija.getParentNames(id);
-            var kat = kategorija.vratiKategorijaSporedId(id);
+            List<ViewBreadcrumb> list = kategorija.GetParentNames(id);
+            ViewBag.BreadCrumb = kategorija.GetParentNames(id);
+            var kat = kategorija.VratiKategorijaSporedId(id);
             return View(kat);
         }
         [HttpGet]
         public ActionResult DodadiProizvod(int id)
         {
-            List<ViewBreadcrumb> list = kategorija.getParentNames(id);
-            ViewBag.BreadCrumb = kategorija.getParentNames(id);
+            List<ViewBreadcrumb> list = kategorija.GetParentNames(id);
+            ViewBag.BreadCrumb = kategorija.GetParentNames(id);
             ViewBag.IdKategorija = id;
             return View(new Proizvodi());
         }
         [HttpPost]
         public ActionResult DodadiProizvod(Proizvodi proizvod, HttpPostedFileBase file, int id)
         {
-            model.dodadi(proizvod);
+            model.DodadiProizvod(proizvod);
             if (file != null)
             {
                 string[] allowed = { ".jpg", ".jpeg", ".png", ".gif" };
@@ -54,17 +54,17 @@ namespace MojKatalog.Controllers
                     string tip = file.GetType().ToString();
                     file.SaveAs(NewLocation);
                     string path = CoverPath + "Cover_" + proizvod.IdProizvodi + extension;
-                    model.izmeniPateka(path, proizvod);
+                    model.IzmeniPateka(path, proizvod);
                 }
             }
             return RedirectToAction("PregledajProizvodi", new { id = id });
         }
         public ActionResult PregledajProizvod(int idProizvod, int idKategorija)
         {
-            List<ViewBreadcrumb> list = kategorija.getParentNames(idKategorija);
-            ViewBag.BreadCrumb = kategorija.getParentNames(idKategorija);
+            List<ViewBreadcrumb> list = kategorija.GetParentNames(idKategorija);
+            ViewBag.BreadCrumb = kategorija.GetParentNames(idKategorija);
             ViewBag.IdKategorija = idKategorija;
-            Proizvodi proizvod = model.vratiProizvod(idProizvod);
+            Proizvodi proizvod = model.VratiProizvod(idProizvod);
             return View(proizvod);
         }
         public void IzbrisiProizvod()
@@ -73,10 +73,10 @@ namespace MojKatalog.Controllers
         [HttpGet]
         public ActionResult IzmeniProizvod(int idProizvod, int idKategorija)
         {
-            List<ViewBreadcrumb> list = kategorija.getParentNames(idKategorija);
-            ViewBag.BreadCrumb = kategorija.getParentNames(idKategorija);
+            List<ViewBreadcrumb> list = kategorija.GetParentNames(idKategorija);
+            ViewBag.BreadCrumb = kategorija.GetParentNames(idKategorija);
             ViewBag.IdKategorija = idKategorija;
-            Proizvodi proizvod = model.vratiProizvod(idProizvod);
+            Proizvodi proizvod = model.VratiProizvod(idProizvod);
             return View(proizvod);
         }
         [HttpPost]
@@ -104,7 +104,7 @@ namespace MojKatalog.Controllers
                     file.SaveAs(NewLocation);
                 }
             }
-            model.izmeni(proizvod);
+            model.IzmeniProizvod(proizvod);
             return RedirectToAction("PregledajProizvod", new { idProizvod = proizvod.IdProizvodi, idKategorija= proizvod.IdKategorii});
         }
     }

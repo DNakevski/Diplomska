@@ -15,7 +15,7 @@ namespace MojKatalog.Controllers
         QKlient klient = new QKlient();
         public ActionResult Index()
         {
-            return View(klient.izlistaj());
+            return View(klient.IzlistajKlienti());
         }
         public ActionResult DodadiKlient()
         {
@@ -24,22 +24,22 @@ namespace MojKatalog.Controllers
         [HttpPost]
         public ActionResult DodadiKlient(Klienti newKlient)
         {
-            klient.dodadi(newKlient);
+            klient.DodadiKlient(newKlient);
             return RedirectToAction("Index");
         }
         public ActionResult IzmeniKlient(int id)
         {
-            return View(klient.vratiKlient(id));
+            return View(klient.VratiKlient(id));
         }
         [HttpPost]
         public ActionResult IzmeniKlient(Klienti newKlient)
         {
-            klient.izmeni(newKlient);
+            klient.IzmeniKlient(newKlient);
             return RedirectToAction("Index");
         }
         public ActionResult IzbrisiKlient(int id)
         {
-            klient.izbrisi(id);
+            klient.IzbrisiKlient(id);
             return RedirectToAction("Index");
         }
     }

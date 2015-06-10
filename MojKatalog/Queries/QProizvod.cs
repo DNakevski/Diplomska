@@ -11,43 +11,45 @@ namespace MojKatalog.Queries
     {
         dbKatalogEntities _db = new dbKatalogEntities();
         QKategorija kategorijaQ = new QKategorija();
-        public List<Proizvodi> izlistaj() 
+        public List<Proizvodi> IzlistajProizvodi() 
         {
             return _db.Proizvodi.ToList();
         }
-        public List<Proizvodi> izlistajSporedIdKategorii(int idKategorii) 
+
+        public List<Proizvodi> IzlistajSporedIdKategorii(int idKategorii) 
         {
             return _db.Proizvodi.Where(x => x.IdKategorii == idKategorii).ToList();
         }
-        public List<ViewProizvodiKategorii> izlistajProizvodiKategorii(int roditelId)
+
+        public List<ViewProizvodiKategorii> IzlistajProizvodiKategorii(int roditelId)
         {
             List<ViewProizvodiKategorii> list = new List<ViewProizvodiKategorii>();
-            List<Kategorii> kategorii = kategorijaQ.izlistajSporedRoditelId(roditelId);
+            List<Kategorii> kategorii = kategorijaQ.IzlistajSporedRoditelId(roditelId);
             foreach(Kategorii item in kategorii)
             {
                 list.Add(
                     new ViewProizvodiKategorii()
                     { 
                         MVKategorija=item,
-                        MVVkupnoPodkategorii=kategorijaQ.presmetajKategoriiSporedId(item.IdKategorii),
-                        MVVkupnoProizvodi = kategorijaQ.presmetajProizvodiSporedId(item.IdKategorii)
+                        MVVkupnoPodkategorii=kategorijaQ.PresmetajKategoriiSporedId(item.IdKategorii),
+                        MVVkupnoProizvodi = kategorijaQ.PresmetajProizvodiSporedId(item.IdKategorii)
                     }
                 );
             }
             return list;
         }
-        public void dodadi(Proizvodi proizvod)
+        public void DodadiProizvod(Proizvodi proizvod)
         {
             _db.Proizvodi.Add(proizvod);
             _db.SaveChanges();
         }
-        public void izmeniPateka(string pateka,Proizvodi newProizvod)
+        public void IzmeniPateka(string pateka,Proizvodi newProizvod)
         {
             Proizvodi proizvod = _db.Proizvodi.Find(newProizvod.IdProizvodi);
             proizvod.SlikaNaProizvod = pateka;
             _db.SaveChanges();
         }
-        public void izmeni(Proizvodi newProizvod)
+        public void IzmeniProizvod(Proizvodi newProizvod)
         {
             Proizvodi proizvod = _db.Proizvodi.Find(newProizvod.IdProizvodi);
             proizvod.NazivNaProizvod = newProizvod.NazivNaProizvod;
@@ -59,7 +61,7 @@ namespace MojKatalog.Queries
 
             _db.SaveChanges();
         }
-        public Proizvodi vratiProizvod(int id)
+        public Proizvodi VratiProizvod(int id)
         {
             return _db.Proizvodi.Find(id);
         }
