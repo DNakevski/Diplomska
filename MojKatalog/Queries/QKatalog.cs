@@ -26,22 +26,21 @@ namespace MojKatalog.Queries
             _db.Katalozi.Add(katalog);
             _db.SaveChanges();
         }
+
+
         public List<ViewKataloziKategorii> IzlistajKatalozi(int id, LogedUserTypeEnum userType)
         {
             int idpom;
             string stringpom;
-            int[] kataloziId = AllKatalozi(id, userType);
-            int kataloziIdLength = kataloziId.Length;
+            List<Katalozi> katalozi = AllKatalozi(id, userType);
             List<ViewKataloziKategorii> kataloziIkategorii = new List<ViewKataloziKategorii>();
 
-            for (int i = 0; i < kataloziIdLength; i++)
+            foreach(var katalog in katalozi)
             {
-
-                idpom = kataloziId[i];
-                stringpom = ConvertStringListToString(_db.Kategorii.Where(x => x.IdKatalozi == idpom && x.RoditelId == null).Select(x => x.NazivNaKategorija).ToList());
+                stringpom = ConvertStringListToString(katalog.Kategorii.Where(x => x.RoditelId == null).Select(x => x.NazivNaKategorija).ToList());
                 kataloziIkategorii.Add(new ViewKataloziKategorii
                               {
-                                  ViewKatalozi = _db.Katalozi.Find(kataloziId[i]),
+                                  ViewKatalozi = katalog,
                                   ViewKategorii = stringpom
                               });
             }
@@ -78,15 +77,15 @@ namespace MojKatalog.Queries
                 .ToArray();
 
         }
-        public int[] AllKatalozi(int id, LogedUserTypeEnum userType)
+        public List<Katalozi> AllKatalozi(int id, LogedUserTypeEnum userType)
         {
             if (userType == LogedUserTypeEnum.Poedinec)
             {
-                return _db.Katalozi.Where(x => x.IdPoedinci == id).Select(x => x.IdKatalozi).ToArray();
+                return _db.Katalozi.Include(x => x.Kategorii).Where(x => x.IdPoedinci == id).ToList();
             }
             else
             {
-                return _db.Katalozi.Where(x => x.IdKompanii == id).Select(x => x.IdKatalozi).ToArray();
+                return _db.Katalozi.Include(x => x.Kategorii).Where(x => x.IdKompanii == id).ToList();
             }
             
         }

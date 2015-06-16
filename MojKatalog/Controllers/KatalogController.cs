@@ -32,6 +32,8 @@ namespace MojKatalog.Controllers
             //    return View(_model.IzlistajKatalozi(kompanija.IdKompanija, Helpers.Enumerations.LogedUserTypeEnum.Kompanija));
             //}
 
+
+            //ovoj treba da se izbrishe
             return View(_model.IzlistajKatalozi(1, Helpers.Enumerations.LogedUserTypeEnum.Kompanija));
             
         }
@@ -43,6 +45,19 @@ namespace MojKatalog.Controllers
         [HttpPost]
         public ActionResult DodadiKatalog(Katalozi katalog)
         {
+            var poedinec = (LogiranPoedinecViewModel)Session["Poedinec"];
+            var kompanija = (LogiranaKompanijaViewModel)Session["Kompanija"];
+            //if(poedinec != null)
+            //{
+            //    katalog.IdPoedinci = poedinec.IdPoedinec;
+            //}
+            //else if(kompanija != null)
+            //{
+            //    katalog.IdKompanii = kompanija.IdKompanija;
+            //}
+
+            //ovoj treba da se izbrise
+            katalog.IdKompanii = 1;
             _model.DodadiKatalog(katalog);
             return RedirectToAction("Index");
         }

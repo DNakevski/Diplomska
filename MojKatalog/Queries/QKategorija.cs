@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using MojKatalog.Models;
 using MojKatalog.Models.ViewModels;
 using MojKatalog.Helpers.Enumerations;
+using System.Data.Entity;
 
 namespace MojKatalog.Queries
 {
@@ -91,22 +92,24 @@ namespace MojKatalog.Queries
         }
 
         public KatalogViewModel IzlistajSporedId(int id) {
-            var katalozi = new KatalogViewModel();
-            katalozi= new KatalogViewModel
+            var katalog = _db.Katalozi.Include(x => x.Kategorii).Where(x => x.IdKatalozi == id).FirstOrDefault();
+            if (katalog == null)
+                return new KatalogViewModel();
+
+            var katalogViewModel= new KatalogViewModel
             {
                 IdKatalog = id,
-                NazivNaKatalog = _db.Katalozi.Find(id).NazivNaKatalog,
-                Trees = _db.Kategorii
-                   .Where(x => x.IdKatalozi == id)
+                NazivNaKatalog = katalog.NazivNaKatalog,
+                Trees = katalog.Kategorii
                    .Select(x => new TreeViewModel
                    {
                        id = x.IdKategorii.ToString(),
                        parent = (x.RoditelId == null) ? "#" : x.RoditelId.ToString(),
                        text = x.NazivNaKategorija
                    })
-                   as IEnumerable<TreeViewModel>
+                   .ToList()
             };
-            return katalozi;
+            return katalogViewModel;
         }
         public int?[] DistinctKatalozi()
         {
@@ -120,15 +123,22 @@ namespace MojKatalog.Queries
             else
                 return _db.Katalozi.Where(x => x.IdKompanii == id).Select(x => x.IdKatalozi).ToArray();
         }
-        public List<Kategorii> IzlistajSporedRoditelId(int roditelId)
+        public List<Kategorii> IzlistajSporedRoditelId(int roditelId, int id, LogedUserTypeEnum userType)
         {
             if (roditelId == 0)
             {
-                return _db.Kategorii.Where(x => x.RoditelId == null).ToList();
+                if(userType == LogedUserTypeEnum.Poedinec)
+                    return _db.Kategorii.Include(x => x.Katalozi).Where(x => x.RoditelId == null && x.Katalozi.IdPoedinci == id).ToList();
+                else
+                    return _db.Kategorii.Include(x => x.Katalozi).Where(x => x.RoditelId == null && x.Katalozi.IdKompanii == id).ToList();
             }
             else
             {
-                return _db.Kategorii.Where(x => x.RoditelId == roditelId).ToList();
+                if(userType == LogedUserTypeEnum.Poedinec)
+                    return _db.Kategorii.Include(x => x.Katalozi).Where(x => x.RoditelId == roditelId && x.Katalozi.IdPoedinci == id).ToList();
+                else
+                    return _db.Kategorii.Include(x => x.Katalozi).Where(x => x.RoditelId == roditelId && x.Katalozi.IdKompanii == id).ToList();
+
             }
            
         }

@@ -3,22 +3,61 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using MojKatalog.Models;
+using System.Data.Entity;
 
 namespace MojKatalog.Queries
 {
     public class QKlient
     {
         dbKatalogEntities _db = new dbKatalogEntities();
-        public List<Klienti> IzlistajKlienti()
+        public List<Klienti> IzlistajKlientiZaPoedinec(int poedinecId)
         {
-            return _db.Klienti.ToList();
+            var poedinec = _db.Poedineci
+                .Include(x => x.Klienti)
+                .Where(x => x.IdPoedineci == poedinecId)
+                .FirstOrDefault();
+
+            if (poedinec == null)
+                return new List<Klienti>();
+
+            return poedinec.Klienti.ToList();
         }
 
-        public void DodadiKlient(Klienti klient)
+        public List<Klienti> IzlistajKlientiZaKompanija(int kompanijaId)
         {
-            _db.Klienti.Add(klient);
+            var kompanija = _db.Kompanii
+                .Include(x => x.Klienti)
+                .Where(x => x.IdKompanii == kompanijaId)
+                .FirstOrDefault();
+
+            if (kompanija == null)
+                return new List<Klienti>();
+
+            return kompanija.Klienti.ToList();
+        }
+
+        public void DodadiKlientZaPoedinec(Klienti klient, int poedinecId)
+        {
+            var poedinec = _db.Poedineci.Find(poedinecId);
+
+            if (poedinec == null)
+                return;//vakov poedinec ne e najden...treba da se hendla 
+
+            poedinec.Klienti.Add(klient);
             _db.SaveChanges();
         }
+
+        public void DodadiKlientZaKompanija(Klienti klient, int kompanijaId)
+        {
+            var kompanija = _db.Kompanii.Find(kompanijaId);
+
+            if (kompanija == null)
+                return;//vakva kompanija ne e najdena...treba da se hendla
+
+            kompanija.Klienti.Add(klient);
+            _db.SaveChanges();
+        }
+
         public Klienti VratiKlient(int id)
         {
             return _db.Klienti.Find(id);      

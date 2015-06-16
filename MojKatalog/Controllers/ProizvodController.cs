@@ -20,7 +20,20 @@ namespace MojKatalog.Controllers
         QKategorija kategorija = new QKategorija();
         public ActionResult Index()
         {
-            return View(model.IzlistajProizvodiKategorii(0));
+            var poedinec = (LogiranPoedinecViewModel)Session["Poedinec"];
+            var kompanija = (LogiranaKompanijaViewModel)Session["Kompanija"];
+
+            //if(poedinec != null)
+            //{
+            //    return View(model.IzlistajProizvodiKategorii(0, poedinec.IdPoedinec, Helpers.Enumerations.LogedUserTypeEnum.Poedinec));
+            //}
+            //else
+            //{
+            //    return View(model.IzlistajProizvodiKategorii(0, kompanija.IdKompanija, Helpers.Enumerations.LogedUserTypeEnum.Kompanija));
+            //}
+
+            //ovoj treba da se izbrishe
+            return View(model.IzlistajProizvodiKategorii(0, 1, Helpers.Enumerations.LogedUserTypeEnum.Kompanija));
 
         }
         public ActionResult PregledajProizvodi(int id)
@@ -36,7 +49,7 @@ namespace MojKatalog.Controllers
             List<ViewBreadcrumb> list = kategorija.GetParentNames(id);
             ViewBag.BreadCrumb = kategorija.GetParentNames(id);
             ViewBag.IdKategorija = id;
-            return View(new Proizvodi());
+            return View(new ProizvodViewModel());
         }
         [HttpPost]
         public ActionResult DodadiProizvod(Proizvodi proizvod, HttpPostedFileBase file, int id)
@@ -76,11 +89,11 @@ namespace MojKatalog.Controllers
             List<ViewBreadcrumb> list = kategorija.GetParentNames(idKategorija);
             ViewBag.BreadCrumb = kategorija.GetParentNames(idKategorija);
             ViewBag.IdKategorija = idKategorija;
-            Proizvodi proizvod = model.VratiProizvod(idProizvod);
+            ProizvodViewModel proizvod = model.VratiProizvodViewModel(idProizvod);
             return View(proizvod);
         }
         [HttpPost]
-        public ActionResult IzmeniProizvod(Proizvodi proizvod, HttpPostedFileBase file, int id)
+        public ActionResult IzmeniProizvod(ProizvodViewModel proizvod, HttpPostedFileBase file, int id)
         {
            // System.IO.File.SetAttributes(Server.MapPath("~") + proizvod.SlikaNaProizvod, FileAttributes.Normal);
             if (!String.IsNullOrEmpty(proizvod.SlikaNaProizvod) && file != null)

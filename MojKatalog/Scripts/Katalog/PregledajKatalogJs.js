@@ -2,13 +2,13 @@
     var idKatalog = $("#IdKatalozi").val();
    // alert(idKatalog);
     $.get("/Katalog/VratiDrvoZaKatalog", { id: idKatalog }, function (data) {
-       // alert(JSON.stringify(data.Trees));
         initializeJsTree(idKatalog, data.Trees);
     });
 });
 
 // Pocetok- Inicijaliziranje na drvoto za pretstavuvanje na Kategorii (/Kategorija/Index)
 function initializeJsTree(id, trees) {
+    //alert(JSON.stringify(trees));
     $("#jstree" + id)
                 .jstree({
                     "core": {

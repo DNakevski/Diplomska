@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using MojKatalog.Models;
 using MojKatalog.Models.ViewModels;
+using MojKatalog.Helpers.Enumerations;
 
 namespace MojKatalog.Queries
 {
@@ -21,10 +22,10 @@ namespace MojKatalog.Queries
             return _db.Proizvodi.Where(x => x.IdKategorii == idKategorii).ToList();
         }
 
-        public List<ViewProizvodiKategorii> IzlistajProizvodiKategorii(int roditelId)
+        public List<ViewProizvodiKategorii> IzlistajProizvodiKategorii(int roditelId, int id, LogedUserTypeEnum userType)
         {
             List<ViewProizvodiKategorii> list = new List<ViewProizvodiKategorii>();
-            List<Kategorii> kategorii = kategorijaQ.IzlistajSporedRoditelId(roditelId);
+            List<Kategorii> kategorii = kategorijaQ.IzlistajSporedRoditelId(roditelId, id, userType);
             foreach(Kategorii item in kategorii)
             {
                 list.Add(
@@ -49,7 +50,7 @@ namespace MojKatalog.Queries
             proizvod.SlikaNaProizvod = pateka;
             _db.SaveChanges();
         }
-        public void IzmeniProizvod(Proizvodi newProizvod)
+        public void IzmeniProizvod(ProizvodViewModel newProizvod)
         {
             Proizvodi proizvod = _db.Proizvodi.Find(newProizvod.IdProizvodi);
             proizvod.NazivNaProizvod = newProizvod.NazivNaProizvod;
@@ -64,6 +65,25 @@ namespace MojKatalog.Queries
         public Proizvodi VratiProizvod(int id)
         {
             return _db.Proizvodi.Find(id);
+        }
+
+        public ProizvodViewModel VratiProizvodViewModel(int id)
+        {
+            var proizvod = _db.Proizvodi.Find(id);
+            if (proizvod == null)
+                return new ProizvodViewModel();
+
+            return new ProizvodViewModel
+            {
+                IdProizvodi = proizvod.IdProizvodi,
+                Cena = proizvod.Cena,
+                Dostapnost = proizvod.Dostapnost,
+                IdKategorii = proizvod.IdKategorii,
+                NazivNaProizvod = proizvod.NazivNaProizvod,
+                Popust = proizvod.Popust,
+                SlikaNaProizvod = proizvod.SlikaNaProizvod,
+                Specifikacija = proizvod.Specifikacija
+            };
         }
     }
 }
