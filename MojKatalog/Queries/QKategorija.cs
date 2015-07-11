@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using MojKatalog.Models;
 using MojKatalog.Models.ViewModels;
+using MojKatalog.Helpers.Enumerations;
+using System.Data.Entity;
 
 namespace MojKatalog.Queries
 {
@@ -27,14 +29,14 @@ namespace MojKatalog.Queries
     {
         dbKatalogEntities _db = new dbKatalogEntities();
 
-        public int dodadi(Kategorii kategorija) {
+        public int DodadiKategorija(Kategorii kategorija) {
             _db.Kategorii.Add(kategorija);
 
             _db.SaveChanges();
             return kategorija.IdKategorii;
         }
 
-        public void izmeni(int id, string naziv)
+        public void IzmeniKategorija(int id, string naziv)
         {
             Kategorii kategorija=_db.Kategorii.Find(id);
             kategorija.NazivNaKategorija = naziv;
@@ -58,127 +60,139 @@ namespace MojKatalog.Queries
             _db.Kategorii.Remove(category);
         }
 
-        public void izbrisi(int id)
+        public void IzbrisiKategorija(int id)
         {
             Kategorii kategorija = _db.Kategorii.Find(id);
             DeleteChildCategories(kategorija);
             _db.SaveChanges();
         }
 
-        public List<KatalogViewModel> izlistaj() 
+        public List<KatalogViewModel> IzlistajKatalozi(int id, LogedUserTypeEnum userType) 
         {
-            int [] distinctKataloziId = allKataloziId();//distinctKatalozi();
-           int kataloziIdLength = distinctKataloziId.Length;
-           var katalozi = new List<KatalogViewModel>();
-           for (int i = 0; i < kataloziIdLength; i++) {
-               int ? katalogId = distinctKataloziId[i];
-               katalozi.Add(new KatalogViewModel { 
+            int [] distinctKataloziId = AllKataloziId(id, userType);//distinctKatalozi();
+            int kataloziIdLength = distinctKataloziId.Length;
+            var katalozi = new List<KatalogViewModel>();
+            for (int i = 0; i < kataloziIdLength; i++) {
+                int ? katalogId = distinctKataloziId[i];
+                katalozi.Add(new KatalogViewModel { 
                     IdKatalog = katalogId,
                     NazivNaKatalog=_db.Katalozi.Find(katalogId).NazivNaKatalog,
                     Trees = _db.Kategorii
-                       .Where(x => x.IdKatalozi == katalogId)
-                       .Select(x => new TreeViewModel
-                       {
-                           id = x.IdKategorii.ToString(),
-                           parent = (x.RoditelId == null) ? "#" : x.RoditelId.ToString(),
-                           text = x.NazivNaKategorija
-                       })
-                       as IEnumerable<TreeViewModel>
-               });
-           }
-           return katalozi;
+                        .Where(x => x.IdKatalozi == katalogId)
+                        .Select(x => new TreeViewModel
+                        {
+                            id = x.IdKategorii.ToString(),
+                            parent = (x.RoditelId == null) ? "#" : x.RoditelId.ToString(),
+                            text = x.NazivNaKategorija
+                        })
+                        as IEnumerable<TreeViewModel>
+                });
+            }
+            return katalozi;
         }
 
-        public KatalogViewModel izlistajSporedId(int id) {
-            var katalozi = new KatalogViewModel();
-            katalozi= new KatalogViewModel
+        public KatalogViewModel IzlistajSporedId(int id) {
+            var katalog = _db.Katalozi.Include(x => x.Kategorii).Where(x => x.IdKatalozi == id).FirstOrDefault();
+            if (katalog == null)
+                return new KatalogViewModel();
+
+            var katalogViewModel= new KatalogViewModel
             {
                 IdKatalog = id,
-                NazivNaKatalog = _db.Katalozi.Find(id).NazivNaKatalog,
-                Trees = _db.Kategorii
-                   .Where(x => x.IdKatalozi == id)
+                NazivNaKatalog = katalog.NazivNaKatalog,
+                Trees = katalog.Kategorii
                    .Select(x => new TreeViewModel
                    {
                        id = x.IdKategorii.ToString(),
                        parent = (x.RoditelId == null) ? "#" : x.RoditelId.ToString(),
                        text = x.NazivNaKategorija
                    })
-                   as IEnumerable<TreeViewModel>
+                   .ToList()
             };
-            return katalozi;
+            return katalogViewModel;
         }
-        public int?[] distinctKatalozi()
+        public int?[] DistinctKatalozi()
         {
             return _db.Kategorii.Select(x => x.IdKatalozi).Distinct().ToArray();
         }
 
-        public int[] allKataloziId()
+        public int[] AllKataloziId(int id, LogedUserTypeEnum userType)
         {
-            return _db.Katalozi.Select(x => x.IdKatalozi).ToArray();
+            if(userType == LogedUserTypeEnum.Poedinec)
+                return _db.Katalozi.Where(x => x.IdPoedinci == id).Select(x => x.IdKatalozi).ToArray();
+            else
+                return _db.Katalozi.Where(x => x.IdKompanii == id).Select(x => x.IdKatalozi).ToArray();
         }
-        public List<Kategorii> izlistajSporedRoditelId(int roditelId)
+        public List<Kategorii> IzlistajSporedRoditelId(int roditelId, int id, LogedUserTypeEnum userType)
         {
             if (roditelId == 0)
             {
-                return _db.Kategorii.Where(x => x.RoditelId == null).ToList();
+                if(userType == LogedUserTypeEnum.Poedinec)
+                    return _db.Kategorii.Include(x => x.Katalozi).Where(x => x.RoditelId == null && x.Katalozi.IdPoedinci == id).ToList();
+                else
+                    return _db.Kategorii.Include(x => x.Katalozi).Where(x => x.RoditelId == null && x.Katalozi.IdKompanii == id).ToList();
             }
             else
             {
-                return _db.Kategorii.Where(x => x.RoditelId == roditelId).ToList();
+                if(userType == LogedUserTypeEnum.Poedinec)
+                    return _db.Kategorii.Include(x => x.Katalozi).Where(x => x.RoditelId == roditelId && x.Katalozi.IdPoedinci == id).ToList();
+                else
+                    return _db.Kategorii.Include(x => x.Katalozi).Where(x => x.RoditelId == roditelId && x.Katalozi.IdKompanii == id).ToList();
+
             }
            
         }
 
-        public int presmetajKategoriiSporedId(int idKategorija)
+        public int PresmetajKategoriiSporedId(int idKategorija)
         {
             int vkupno = 0;
             var kategorija = _db.Kategorii.Find(idKategorija);
             if (kategorija != null)
             {
-                vkupno = vkupnoPodkategorii(kategorija);
+                vkupno = VkupnoPodkategorii(kategorija);
             }
 
             return vkupno;
         }
-        private int vkupnoPodkategorii(Kategorii kategorija) 
+        private int VkupnoPodkategorii(Kategorii kategorija) 
         {
             int vkupno = 0;
             foreach (Kategorii podkategorija in kategorija.Kategorii1.ToList())
             {
 
-                vkupno += vkupnoPodkategorii(podkategorija);
+                vkupno += VkupnoPodkategorii(podkategorija);
 
             }
             return vkupno+kategorija.Kategorii1.Count();
         }
-        public int presmetajProizvodiSporedId(int idKategorija)
+        public int PresmetajProizvodiSporedId(int idKategorija)
         {
             int vkupno = 0;
             var kategorija = _db.Kategorii.Find(idKategorija);
             if (kategorija != null)
             {
-                vkupno = vkupnoProizvodi(kategorija);
+                vkupno = VkupnoProizvodi(kategorija);
             }
 
             return vkupno;
         }
-        private int vkupnoProizvodi(Kategorii kategorija)
+        private int VkupnoProizvodi(Kategorii kategorija)
         {
             int vkupno = 0;
             foreach (Kategorii podkategorija in kategorija.Kategorii1.ToList())
             {
 
-                vkupno += vkupnoProizvodi(podkategorija);
+                vkupno += VkupnoProizvodi(podkategorija);
 
             }
             return vkupno + kategorija.Proizvodi.Count();
         }
-        public Kategorii vratiKategorijaSporedId(int idKategorii)
+        public Kategorii VratiKategorijaSporedId(int idKategorii)
         {
             return _db.Kategorii.Find(idKategorii);
         }
 
-        public List<ViewBreadcrumb> getParentNames(int id)
+        public List<ViewBreadcrumb> GetParentNames(int id)
         {
             Kategorii kategorija = _db.Kategorii.Find(id);
             List<ViewBreadcrumb> breadcrumb = new List<ViewBreadcrumb>();

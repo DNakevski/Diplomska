@@ -3,26 +3,66 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using MojKatalog.Models;
+using System.Data.Entity;
 
 namespace MojKatalog.Queries
 {
     public class QKlient
     {
         dbKatalogEntities _db = new dbKatalogEntities();
-        public List<Klienti> izlistaj()
+        public List<Klienti> IzlistajKlientiZaPoedinec(int poedinecId)
         {
-            return _db.Klienti.ToList();
+            var poedinec = _db.Poedineci
+                .Include(x => x.Klienti)
+                .Where(x => x.IdPoedineci == poedinecId)
+                .FirstOrDefault();
+
+            if (poedinec == null)
+                return new List<Klienti>();
+
+            return poedinec.Klienti.ToList();
         }
-        public void dodadi(Klienti klient)
+
+        public List<Klienti> IzlistajKlientiZaKompanija(int kompanijaId)
         {
-            _db.Klienti.Add(klient);
+            var kompanija = _db.Kompanii
+                .Include(x => x.Klienti)
+                .Where(x => x.IdKompanii == kompanijaId)
+                .FirstOrDefault();
+
+            if (kompanija == null)
+                return new List<Klienti>();
+
+            return kompanija.Klienti.ToList();
+        }
+
+        public void DodadiKlientZaPoedinec(Klienti klient, int poedinecId)
+        {
+            var poedinec = _db.Poedineci.Find(poedinecId);
+
+            if (poedinec == null)
+                return;//vakov poedinec ne e najden...treba da se hendla 
+
+            poedinec.Klienti.Add(klient);
             _db.SaveChanges();
         }
-        public Klienti vratiKlient(int id)
+
+        public void DodadiKlientZaKompanija(Klienti klient, int kompanijaId)
+        {
+            var kompanija = _db.Kompanii.Find(kompanijaId);
+
+            if (kompanija == null)
+                return;//vakva kompanija ne e najdena...treba da se hendla
+
+            kompanija.Klienti.Add(klient);
+            _db.SaveChanges();
+        }
+
+        public Klienti VratiKlient(int id)
         {
             return _db.Klienti.Find(id);      
         }
-        public void izmeni(Klienti newKlient)
+        public void IzmeniKlient(Klienti newKlient)
         {
             Klienti klient = _db.Klienti.Find(newKlient.IdKlienti);
             klient.Ime = newKlient.Ime;
@@ -32,13 +72,13 @@ namespace MojKatalog.Queries
             klient.Telefon = newKlient.Telefon;
             _db.SaveChanges();
         }
-        public void izbrisi(int id)
+        public void IzbrisiKlient(int id)
         {
             Klienti klientDel = _db.Klienti.Find(id);
             _db.Klienti.Remove(klientDel);
             _db.SaveChanges();
         }
-        public List<Klienti> listaNaKlientiSporedId(int[] id)
+        public List<Klienti> ListaNaKlientiSporedId(int[] id)
         {
             List<Klienti> pomKlienti=_db.Klienti.Where(x => id.Contains(x.IdKlienti)).ToList();
             return _db.Klienti.Where(x => id.Contains(x.IdKlienti)).ToList();

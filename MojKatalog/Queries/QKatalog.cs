@@ -5,10 +5,12 @@ using System.Web;
 using System.Web.Mvc;
 using MojKatalog.Models.ViewModels;
 using MojKatalog.Models;
+using MojKatalog.Helpers.Enumerations;
+using System.Data.Entity;
 
 namespace MojKatalog.Queries
 {
-    public class KataloziIdINaziv 
+    public class KataloziIdINaziv
     {
         public int idkatalozi { get; set; }
         public string naziv { get; set; }
@@ -19,63 +21,79 @@ namespace MojKatalog.Queries
         // GET: /QKatalog/
         dbKatalogEntities _db = new dbKatalogEntities();
         QKategorija kategorii = new QKategorija();
-        public void dodadi(Katalozi katalog)
+        public void DodadiKatalog(Katalozi katalog)
         {
             _db.Katalozi.Add(katalog);
             _db.SaveChanges();
         }
-        public List<ViewKataloziKategorii> izlistaj()
+
+
+        public List<ViewKataloziKategorii> IzlistajKatalozi(int id, LogedUserTypeEnum userType)
         {
-           int idpom;
-           string stringpom;
-          int [] kataloziId = allKatalozi();
-          int kataloziIdLength = kataloziId.Length;
-          List<ViewKataloziKategorii> kataloziIkategorii = new List<ViewKataloziKategorii>();
-          for (int i = 0; i < kataloziIdLength; i++)
-          {
+            int idpom;
+            string stringpom;
+            List<Katalozi> katalozi = AllKatalozi(id, userType);
+            List<ViewKataloziKategorii> kataloziIkategorii = new List<ViewKataloziKategorii>();
 
-              idpom = kataloziId[i];
-              stringpom=ConvertStringListToString(_db.Kategorii.Where(x => x.IdKatalozi == idpom && x.RoditelId == null).Select(x => x.NazivNaKategorija).ToList());
-              kataloziIkategorii.Add(new ViewKataloziKategorii
-                            {
-                                ViewKatalozi = _db.Katalozi.Find(kataloziId[i]),
-                                ViewKategorii = stringpom
-                            });
-          }
+            foreach(var katalog in katalozi)
+            {
+                stringpom = ConvertStringListToString(katalog.Kategorii.Where(x => x.RoditelId == null).Select(x => x.NazivNaKategorija).ToList());
+                kataloziIkategorii.Add(new ViewKataloziKategorii
+                              {
+                                  ViewKatalozi = katalog,
+                                  ViewKategorii = stringpom
+                              });
+            }
 
-          return kataloziIkategorii.ToList();
+            return kataloziIkategorii.ToList();
         }
-        public Katalozi vratiKatalog(int id) 
+        public Katalozi VratiKatalog(int id)
         {
             return _db.Katalozi.Find(id);
         }
-        public void izmeni(Katalozi newKatalog)
+        public void IzmeniKatalog(Katalozi newKatalog)
         {
-            Katalozi katalog = vratiKatalog(newKatalog.IdKatalozi);
+            Katalozi katalog = VratiKatalog(newKatalog.IdKatalozi);
             katalog.NazivNaKatalog = newKatalog.NazivNaKatalog;
             katalog.OpisNaKatalog = newKatalog.OpisNaKatalog;
             katalog.DataNaKreiranje = newKatalog.DataNaKreiranje;
             _db.SaveChanges();
         }
-        public void izbrisi(int id)
+        public void IzbrisiKatalog(int id)
         {
             Katalozi katalog = _db.Katalozi.Find(id);
             _db.Katalozi.Remove(katalog);
             _db.SaveChanges();
         }
-        public KataloziIdINaziv[] kataloziIdINaziv()
+        public KataloziIdINaziv[] KataloziIdINaziv(int id, LogedUserTypeEnum userType)
         {
-            return _db.Katalozi.Select(x => new KataloziIdINaziv { idkatalozi = x.IdKatalozi, naziv = x.NazivNaKatalog }).ToArray();
+            if(userType == LogedUserTypeEnum.Poedinec)
+                return _db.Katalozi.Where(x => x.IdPoedinci == id)
+                .Select(x => new KataloziIdINaziv { idkatalozi = x.IdKatalozi, naziv = x.NazivNaKatalog })
+                .ToArray();
+            else
+                return _db.Katalozi.Where(x => x.IdKompanii == id)
+                .Select(x => new KataloziIdINaziv { idkatalozi = x.IdKatalozi, naziv = x.NazivNaKatalog })
+                .ToArray();
 
         }
-        public int[] allKatalozi()
+        public List<Katalozi> AllKatalozi(int id, LogedUserTypeEnum userType)
         {
-            return _db.Katalozi.Select(x => x.IdKatalozi).ToArray();
+            if (userType == LogedUserTypeEnum.Poedinec)
+            {
+                return _db.Katalozi.Include(x => x.Kategorii).Where(x => x.IdPoedinci == id).ToList();
+            }
+            else
+            {
+                return _db.Katalozi.Include(x => x.Kategorii).Where(x => x.IdKompanii == id).ToList();
+            }
+            
         }
         private string ConvertStringListToString(List<string> lista)
         {
-            string resultString="";
-            if (lista.Count() == 0) {
+            string resultString = "";
+            if (lista.Count() == 0)
+            {
                 lista.Add("");
             }
             foreach (string elem in lista)
