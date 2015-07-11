@@ -1,0 +1,25 @@
+﻿.main-menu a:hover,
+.main-menu a:focus,
+.main-menu a:active{
+    color: #1A242F !important;
+    background-color: transparent !important;
+}
+.color-2{
+     color: #1A242F !important;
+}
+#pocetna .navbar-default .navbar-nav > li > a:hover, 
+#pocetna .navbar-default .navbar-nav > li > a:focus {
+  color: #1A242F !important;
+  background-color: transparent;
+}
+.main-menu .navbar-nav > .active > a,
+.main-menu .navbar-nav > .active > a:hover, 
+.main-menu .navbar-nav > .active > a:focus{
+    color: #1A242F !important;
+    background-color: transparent !important;
+}
+#portfolio .nav-tabs > li.active > a, 
+#portfolio .nav-tabs > li.active > a:hover, 
+#portfolio .nav-tabs > li.active > a:focus{
+    color: #1A242F !important;
+}

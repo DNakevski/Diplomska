@@ -11,13 +11,504 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link href="~/Content/bootstrap/css/bootstrap-theme-flaty.css" rel="stylesheet" />
     <link href="~/Areas/Portfolio/Content/CustomPortfolio.css" rel="stylesheet" />
+    <link href="" rel="stylesheet" id="style-color1" />
+    <link href="" rel="stylesheet" id="style-color2" />
+
+
     <title>Index</title>
 </head>
 <body>
+    @*Editor Begin*@
+    <div id="editor-button">
+        <a class="background-editor-link">
+            <i class="glyphicon glyphicon-cog"></i>
+        </a>
+    </div>
+    <div id="editor">
+        <div id="editor-container">
+            <div class="modal-header">
+                <a href="#font-content" class="activeNav" data-mnav="font-content"><h5 class="modal-title">ФОНТ</h5></a>
+                <a href="#pozadina-content" data-mnav="pozadina-content"><h5 class="modal-title">ПОЗАДИНА</h5></a>
+            </div>
+            @*Modal Font Content Begin*@
+            <div class="modal-body container-fluid" id="font-content">
+                <div class="row">
+                    <div class="col-xs-4 modal-col-left">
+                        <label class="label-control">Избери фонт:</label>
+                    </div>
+                    <div class="col-xs-8">
+                        <select class="form-control" id="select">
+                            <option value="PTSansNarrow">PT Sans Narrow</option>
+                            <option value="OpenSansLight">Open Sans Light</option>
+                            <option value="OpenSans-Regular">Open Sans Regular</option>
+                            <option value="Raleway-Regular">Raleway Regular</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4 modal-col-left">
+                        <label class="label-control">Избери боја:</label>
+                    </div>
+                    <div class="col-xs-8">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4 modal-col-left">
+                        <label class="label-control">1</label>
+                    </div>
+                    <div class="col-xs-8">
+                        <ul class="color-palet">
+                            <li class="color-darkBlueLighter" data-color="darkBlueLighter"></li>
+                            <li class="color-darkBlueDarker color-active" data-color="darkBlueDarker"></li>
+                            <li class="color-lightBlueLighter" data-color="lightBlueLighter"></li>
+                            <li class="color-lightBlueDarker" data-color="lightBlueDarker"></li>
+                            <li class="color-greenLighter" data-color="greenLighter"></li>
+                            <li class="color-greenDarker" data-color="greenDarker"></li>
+                            <li class="color-orangeLighter" data-color="orangeLighter"></li>
+                            <li class="color-orangeDarker" data-color="orangeDarker"></li>
+                            <li class="color-redLighter" data-color="redLighter"></li>
+                            <li class="color-redDarker" data-color="redDarker"></li>
+                            <li class="color-darkGreyLighter" data-color="darkGreyLighter"></li>
+                            <li class="color-darkGreyDarker" data-color="darkGreyDarker"></li>
+                            <li class="color-lightGreyLighter" data-color="lightGreyLighter"></li>
+                            <li class="color-lightGreyDarker" data-color="lightGreyDarker"></li>
+                            <li color="color-white" data-color="white"></li>
+                            <li class="color-black" data-color="black"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4 modal-col-left">
+                        <label class="label-control">2</label>
+                    </div>
+                    <div class="col-xs-8">
+                        <ul class="color-palet">
+                            <li class="color-darkBlueLighter" data-color="darkBlueLighter"></li>
+                            <li class="color-darkBlueDarker" data-color="darkBlueDarker"></li>
+                            <li class="color-lightBlueLighter" data-color="lightBlueLighter"></li>
+                            <li class="color-lightBlueDarker" data-color="lightBlueDarker"></li>
+                            <li class="color-greenLighter color-active" data-color="greenLighter"></li>
+                            <li class="color-greenDarker" data-color="greenDarker"></li>
+                            <li class="color-orangeLighter" data-color="orangeLighter"></li>
+                            <li class="color-orangeDarker" data-color="orangeDarker"></li>
+                            <li class="color-redLighter" data-color="redLighter"></li>
+                            <li class="color-redDarker" data-color="redDarker"></li>
+                            <li class="color-darkGreyLighter" data-color="darkGreyLighter"></li>
+                            <li class="color-darkGreyDarker" data-color="darkGreyDarker"></li>
+                            <li class="color-lightGreyLighter" data-color="lightGreyLighter"></li>
+                            <li class="color-lightGreyDarker" data-color="lightGreyDarker"></li>
+                            <li color="color-white" data-color="white"></li>
+                            <li class="color-black" data-color="black"></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            @*Modal Font Content End*@
+            @*Modal Background Content Begin*@
+            <div class="modal-body container-fluid" id="pozadina-content">
+                @*Pocetna Begin*@
+                <div class="row pocetna-section">
+                    <div class="row section-header">
+                        <h5><b>Почетна</b></h5>
+                    </div>
+                    <div class="row section-body-color">
+                        <div class="col-xs-4">
+                            @Html.RadioButton("pozadina", "boja", true)
+                            Боја
+                        </div>
+                        <div class="col-xs-8">
+                            <ul class="color-palet" data-section="pocetna">
+                                <li class="color-darkBlueLighter" data-color="darkBlueLighter"></li>
+                                <li class="color-darkBlueDarker" data-color="darkBlueDarker"></li>
+                                <li class="color-lightBlueLighter" data-color="lightBlueLighter"></li>
+                                <li class="color-lightBlueDarker" data-color="lightBlueDarker"></li>
+                                <li class="color-greenLighter color-active" data-color="greenLighter"></li>
+                                <li class="color-greenDarker" data-color="greenDarker"></li>
+                                <li class="color-orangeLighter" data-color="orangeLighter"></li>
+                                <li class="color-orangeDarker" data-color="orangeDarker"></li>
+                                <li class="color-redLighter" data-color="redLighter"></li>
+                                <li class="color-redDarker" data-color="redDarker"></li>
+                                <li class="color-darkGreyLighter" data-color="darkGreyLighter"></li>
+                                <li class="color-darkGreyDarker" data-color="darkGreyDarker"></li>
+                                <li class="color-lightGreyLighter" data-color="lightGreyLighter"></li>
+                                <li class="color-lightGreyDarker" data-color="lightGreyDarker"></li>
+                                <li class="color-white" data-color="white"></li>
+                                <li class="color-black" data-color="black"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row section-body-image">
+                        <div class="col-xs-4">
+                            @Html.RadioButton("pozadina", "slika")
+                            Слика
+                        </div>
+                        <div class="col-xs-8">
+                            <div class="thumbnail">
+                                <div class="image-uploaded Image1" style="background-image: url(../../../../Areas/Portfolio/Images/HomeBackgroundImage.jpg);"></div>
+                                <div class="caption">
+                                    @*Begin Input File*@
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    <span class="btn btn-primary btn-file">
+                                                        Browse…
+                                                        <input class="FileUpload1" type="file" name="file" multiple="" data-section="pocetna">
+                                                    </span>
+                                                </span>
+                                                <input type="text" class="form-control" readonly="" accept=".jpg,.png,.gif">
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    @*End Input File*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*Pocetna End*@
+
+                @*ZaNas Begin*@
+                <div class="row zanas-section">
+                    <div class="row section-header">
+                        <h5><b>За Нас</b></h5>
+                    </div>
+                    <div class="row section-body-color">
+                        <div class="col-xs-4">
+                            @Html.RadioButton("pozadina", "boja", true)
+                            Боја
+                        </div>
+                        <div class="col-xs-8">
+                            <ul class="color-palet" data-section="zanas">
+                                <li class="color-darkBlueLighter" data-color="darkBlueLighter"></li>
+                                <li class="color-darkBlueDarker" data-color="darkBlueDarker"></li>
+                                <li class="color-lightBlueLighter" data-color="lightBlueLighter"></li>
+                                <li class="color-lightBlueDarker" data-color="lightBlueDarker"></li>
+                                <li class="color-greenLighter color-active" data-color="greenLighter"></li>
+                                <li class="color-greenDarker" data-color="greenDarker"></li>
+                                <li class="color-orangeLighter" data-color="orangeLighter"></li>
+                                <li class="color-orangeDarker" data-color="orangeDarker"></li>
+                                <li class="color-redLighter" data-color="redLighter"></li>
+                                <li class="color-redDarker" data-color="redDarker"></li>
+                                <li class="color-darkGreyLighter" data-color="darkGreyLighter"></li>
+                                <li class="color-darkGreyDarker" data-color="darkGreyDarker"></li>
+                                <li class="color-lightGreyLighter" data-color="lightGreyLighter"></li>
+                                <li class="color-lightGreyDarker" data-color="lightGreyDarker"></li>
+                                <li class="color-white" data-color="white"></li>
+                                <li class="color-black" data-color="black"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row section-body-image">
+                        <div class="col-xs-4">
+                            @Html.RadioButton("pozadina", "slika")
+                            Слика
+                        </div>
+                        <div class="col-xs-8">
+                            <div class="thumbnail">
+                                <div class="image-uploaded Image1" style="background-image: url(../../../../Areas/Portfolio/Images/HomeBackgroundImage.jpg);"></div>
+                                <div class="caption">
+                                    @*Begin Input File*@
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    <span class="btn btn-primary btn-file">
+                                                        Browse…
+                                                        <input class="FileUpload1" type="file" name="file" multiple="" data-section="zanas">
+                                                    </span>
+                                                </span>
+                                                <input type="text" class="form-control" readonly="" accept=".jpg,.png,.gif">
+                                            </div>
+                                        </div>
+                                    </form>
+                                    @*End Input File*@
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                @*ZaNas End*@
+
+                @*ZaNasFooter Begin*@
+                <div class="row">
+                    <div class="row section-header">
+                        <h5><b>За Нас Футер</b></h5>
+                    </div>
+                    <div class="row section-body-color">
+                        <div class="col-xs-4">
+                            @Html.RadioButton("pozadina", "boja", true)
+                            Боја
+                        </div>
+                        <div class="col-xs-8">
+                            <ul class="color-palet" data-section="footerZaNas">
+                                <li class="color-darkBlueLighter" data-color="darkBlueLighter"></li>
+                                <li class="color-darkBlueDarker" data-color="darkBlueDarker"></li>
+                                <li class="color-lightBlueLighter" data-color="lightBlueLighter"></li>
+                                <li class="color-lightBlueDarker" data-color="lightBlueDarker"></li>
+                                <li class="color-greenLighter color-active" data-color="greenLighter"></li>
+                                <li class="color-greenDarker" data-color="greenDarker"></li>
+                                <li class="color-orangeLighter" data-color="orangeLighter"></li>
+                                <li class="color-orangeDarker" data-color="orangeDarker"></li>
+                                <li class="color-redLighter" data-color="redLighter"></li>
+                                <li class="color-redDarker" data-color="redDarker"></li>
+                                <li class="color-darkGreyLighter" data-color="darkGreyLighter"></li>
+                                <li class="color-darkGreyDarker" data-color="darkGreyDarker"></li>
+                                <li class="color-lightGreyLighter" data-color="lightGreyLighter"></li>
+                                <li class="color-lightGreyDarker" data-color="lightGreyDarker"></li>
+                                <li class="color-white" data-color="white"></li>
+                                <li class="color-black" data-color="black"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row section-body-image">
+                        <div class="col-xs-4">
+                            @Html.RadioButton("pozadina", "slika")
+                            Слика
+                        </div>
+                        <div class="col-xs-8">
+                            слики
+                        </div>
+                    </div>
+                </div>
+                @*ZaNAsFooter End*@
+
+                @*Section4 Begin*@
+                <div class="row">
+                    <div class="row section-header">
+                        <h5><b>Портфолио</b></h5>
+                    </div>
+                    <div class="row section-body-color">
+                        <div class="col-xs-4">
+                            @Html.RadioButton("pozadina", "boja", true)
+                            Боја
+                        </div>
+                        <div class="col-xs-8">
+                            <ul class="color-palet" data-section="portfolio">
+                                <li class="color-darkBlueLighter" data-color="darkBlueLighter"></li>
+                                <li class="color-darkBlueDarker" data-color="darkBlueDarker"></li>
+                                <li class="color-lightBlueLighter" data-color="lightBlueLighter"></li>
+                                <li class="color-lightBlueDarker" data-color="lightBlueDarker"></li>
+                                <li class="color-greenLighter color-active" data-color="greenLighter"></li>
+                                <li class="color-greenDarker" data-color="greenDarker"></li>
+                                <li class="color-orangeLighter" data-color="orangeLighter"></li>
+                                <li class="color-orangeDarker" data-color="orangeDarker"></li>
+                                <li class="color-redLighter" data-color="redLighter"></li>
+                                <li class="color-redDarker" data-color="redDarker"></li>
+                                <li class="color-darkGreyLighter" data-color="darkGreyLighter"></li>
+                                <li class="color-darkGreyDarker" data-color="darkGreyDarker"></li>
+                                <li class="color-lightGreyLighter" data-color="lightGreyLighter"></li>
+                                <li class="color-lightGreyDarker" data-color="lightGreyDarker"></li>
+                                <li class="color-white" data-color="white"></li>
+                                <li class="color-black" data-color="black"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row section-body-image">
+                        <div class="col-xs-4">
+                            @Html.RadioButton("pozadina", "slika")
+                            Слика
+                        </div>
+                        <div class="col-xs-8">
+                            слики
+                        </div>
+                    </div>
+                </div>
+                @*Section4 End*@
+
+                @*Section5 Begin*@
+                <div class="row">
+                    <div class="row section-header">
+                        <h5><b>Портфолио Футер</b></h5>
+                    </div>
+                    <div class="row section-body-color">
+                        <div class="col-xs-4">
+                            @Html.RadioButton("pozadina", "boja", true)
+                            Боја
+                        </div>
+                        <div class="col-xs-8">
+                            <ul class="color-palet" data-section="footerPortfolio">
+                                <li class="color-darkBlueLighter" data-color="darkBlueLighter"></li>
+                                <li class="color-darkBlueDarker" data-color="darkBlueDarker"></li>
+                                <li class="color-lightBlueLighter" data-color="lightBlueLighter"></li>
+                                <li class="color-lightBlueDarker" data-color="lightBlueDarker"></li>
+                                <li class="color-greenLighter color-active" data-color="greenLighter"></li>
+                                <li class="color-greenDarker" data-color="greenDarker"></li>
+                                <li class="color-orangeLighter" data-color="orangeLighter"></li>
+                                <li class="color-orangeDarker" data-color="orangeDarker"></li>
+                                <li class="color-redLighter" data-color="redLighter"></li>
+                                <li class="color-redDarker" data-color="redDarker"></li>
+                                <li class="color-darkGreyLighter" data-color="darkGreyLighter"></li>
+                                <li class="color-darkGreyDarker" data-color="darkGreyDarker"></li>
+                                <li class="color-lightGreyLighter" data-color="lightGreyLighter"></li>
+                                <li class="color-lightGreyDarker" data-color="lightGreyDarker"></li>
+                                <li class="color-white" data-color="white"></li>
+                                <li class="color-black" data-color="black"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row section-body-image">
+                        <div class="col-xs-4">
+                            @Html.RadioButton("pozadina", "slika")
+                            Слика
+                        </div>
+                        <div class="col-xs-8">
+                            слики
+                        </div>
+                    </div>
+                </div>
+                @*Section5 End*@
+
+                @*Section6 Begin*@
+                <div class="row">
+                    <div class="row section-header">
+                        <h5><b>Контакт</b></h5>
+                    </div>
+                    <div class="row section-body-color">
+                        <div class="col-xs-4">
+                            @Html.RadioButton("pozadina", "boja", true)
+                            Боја
+                        </div>
+                        <div class="col-xs-8">
+                            <ul class="color-palet" data-section="contact">
+                                <li class="color-darkBlueLighter" data-color="darkBlueLighter"></li>
+                                <li class="color-darkBlueDarker" data-color="darkBlueDarker"></li>
+                                <li class="color-lightBlueLighter" data-color="lightBlueLighter"></li>
+                                <li class="color-lightBlueDarker" data-color="lightBlueDarker"></li>
+                                <li class="color-greenLighter color-active" data-color="greenLighter"></li>
+                                <li class="color-greenDarker" data-color="greenDarker"></li>
+                                <li class="color-orangeLighter" data-color="orangeLighter"></li>
+                                <li class="color-orangeDarker" data-color="orangeDarker"></li>
+                                <li class="color-redLighter" data-color="redLighter"></li>
+                                <li class="color-redDarker" data-color="redDarker"></li>
+                                <li class="color-darkGreyLighter" data-color="darkGreyLighter"></li>
+                                <li class="color-darkGreyDarker" data-color="darkGreyDarker"></li>
+                                <li class="color-lightGreyLighter" data-color="lightGreyLighter"></li>
+                                <li class="color-lightGreyDarker" data-color="lightGreyDarker"></li>
+                                <li class="color-white" data-color="white"></li>
+                                <li class="color-black" data-color="black"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row section-body-image">
+                        <div class="col-xs-4">
+                            @Html.RadioButton("pozadina", "slika")
+                            Слика
+                        </div>
+                        <div class="col-xs-8">
+                            слики
+                        </div>
+                    </div>
+                </div>
+                @*Section6 End*@
+
+                @*Section7 Begin*@
+                <div class="row">
+                    <div class="row section-header">
+                        <h5><b>Хедер</b></h5>
+                    </div>
+                    <div class="row section-body-color">
+                        <div class="col-xs-4">
+                            @Html.RadioButton("pozadina", "boja", true)
+                            Боја
+                        </div>
+                        <div class="col-xs-8">
+                            <ul class="color-palet" data-section="header">
+                                <li class="color-darkBlueLighter" data-color="darkBlueLighter"></li>
+                                <li class="color-darkBlueDarker" data-color="darkBlueDarker"></li>
+                                <li class="color-lightBlueLighter" data-color="lightBlueLighter"></li>
+                                <li class="color-lightBlueDarker" data-color="lightBlueDarker"></li>
+                                <li class="color-greenLighter color-active" data-color="greenLighter"></li>
+                                <li class="color-greenDarker" data-color="greenDarker"></li>
+                                <li class="color-orangeLighter" data-color="orangeLighter"></li>
+                                <li class="color-orangeDarker" data-color="orangeDarker"></li>
+                                <li class="color-redLighter" data-color="redLighter"></li>
+                                <li class="color-redDarker" data-color="redDarker"></li>
+                                <li class="color-darkGreyLighter" data-color="darkGreyLighter"></li>
+                                <li class="color-darkGreyDarker" data-color="darkGreyDarker"></li>
+                                <li class="color-lightGreyLighter" data-color="lightGreyLighter"></li>
+                                <li class="color-lightGreyDarker" data-color="lightGreyDarker"></li>
+                                <li class="color-white" data-color="white"></li>
+                                <li class="color-black" data-color="black"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row section-body-image">
+                        <div class="col-xs-4">
+                            @Html.RadioButton("pozadina", "slika")
+                            Слика
+                        </div>
+                        <div class="col-xs-8">
+                            слики
+                        </div>
+                    </div>
+                </div>
+                @*Section7 End*@
+
+                @*Section8 Begin*@
+                <div class="row">
+                    <div class="row section-header">
+                        <h5><b>Футер</b></h5>
+                    </div>
+                    <div class="row section-body-color">
+                        <div class="col-xs-4">
+                            @Html.RadioButton("pozadina", "boja", true)
+                            Боја
+                        </div>
+                        <div class="col-xs-8">
+                            <ul class="color-palet" data-section="footer">
+                                <li class="color-darkBlueLighter" data-color="darkBlueLighter"></li>
+                                <li class="color-darkBlueDarker" data-color="darkBlueDarker"></li>
+                                <li class="color-lightBlueLighter" data-color="lightBlueLighter"></li>
+                                <li class="color-lightBlueDarker" data-color="lightBlueDarker"></li>
+                                <li class="color-greenLighter color-active" data-color="greenLighter"></li>
+                                <li class="color-greenDarker" data-color="greenDarker"></li>
+                                <li class="color-orangeLighter" data-color="orangeLighter"></li>
+                                <li class="color-orangeDarker" data-color="orangeDarker"></li>
+                                <li class="color-redLighter" data-color="redLighter"></li>
+                                <li class="color-redDarker" data-color="redDarker"></li>
+                                <li class="color-darkGreyLighter" data-color="darkGreyLighter"></li>
+                                <li class="color-darkGreyDarker" data-color="darkGreyDarker"></li>
+                                <li class="color-lightGreyLighter" data-color="lightGreyLighter"></li>
+                                <li class="color-lightGreyDarker" data-color="lightGreyDarker"></li>
+                                <li class="color-white" data-color="white"></li>
+                                <li class="color-black" data-color="black"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row section-body-image">
+                        <div class="col-xs-4">
+                            @Html.RadioButton("pozadina", "slika")
+                            Слика
+                        </div>
+                        <div class="col-xs-8">
+                            слики
+                        </div>
+                    </div>
+                </div>
+                @*Section8 End*@
+
+                @*Section9 Begin*@
+                @*Section9 End*@
+
+            </div>
+            @*Modal Background Content End*@
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Откажи</button>
+                <button type="button" class="btn btn-primary">Сочувај</button>
+            </div>
+        </div>
+
+    </div>
+    @*Editor End*@
+
+    @*Begin Section Pocetna*@
     <section id="pocetna" class="container-fluid">
         <div class="row">
-
-            <div id ="default" class="fill-screen" style="background-image: url(../../../../Areas/Portfolio/Images/HomeBackgroundImage.jpg)">
+            <div id="default" class="fill-screen" style="background-image: url(../../../../Areas/Portfolio/Images/HomeBackgroundImage.jpg)">
                 <header>
                     <nav class="navbar navbar-default main-menu navbar-static-top">
                         <div class="container-fluid">
@@ -29,7 +520,7 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-                                <span class="brand"><b>ИМЕ<span class="textcolorInverse">ПРЕЗИМЕ</span></b></span>
+                                <span class="brand"><b><span class="color-1">ИМЕ</span><span class="color-2">ПРЕЗИМЕ</span></b></span>
                             </div>
                             <!-- Collect the nav links, forms, and other content for toggling -->
                             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -46,35 +537,52 @@
             </div>
         </div>
     </section>
+    @*End Section Pocetna*@
+
+    @*Begin Section ZaNas*@
     <section id="zanas" class="container-fluid">
         <div class="row">
-            <h2>
-                <span>
-                    За <span class="textcolorInverse">нас</span>
-                    <h />
-                </span>
-            </h2>
-            <span class="zanas-content">
-                Коста Солев Рацин (1908 - 1943) е една од најистакнатите интелектуалци што ги дала Македонија во периодот помеѓу двете светски војни, но и воопшто. Најпознат е по својата збирка песни „Бели мугри“, поради која се смета за основоположник на современата македонската литература, но Рацин беше многу повеќе од само наш најдобар поет помеѓу двете светски војни - неговата активност како истакнат работнички и комунистички деец обично се потиснува во втор план, но сликата на Рацин без овој елемент не соодветствува на реалноста.
-            </span>
-        </div>
-    </section>
-    <section id="footerZaNas" class="container-fluid">
-        <div class="row">
-            <div class="fill-screen" style="background-image: url(../../../../Areas/Portfolio/Images/AboutFooter.jpg)">
-                <h2>
-                    THE DETAILS ARE NOT THE DETAILS
-                    <br /> <strong><span class="textcolorInverse">THEY MAKE THE DESIGN</span></strong>
-                    <br /> <em>KEEN THEMES</em>
-                </h2>
+            <div id="default" class="fill-screen">
+                <div class="section-content">
+                    <h2>
+                        <span>
+                            <span class="color-1">За</span> <span class="color-2">нас</span>
+                            <h />
+                        </span>
+                    </h2>
+                    <span class="zanas-content">
+                        <span class="color-1">
+                            Коста Солев Рацин (1908 - 1943) е една од најистакнатите интелектуалци што ги дала Македонија во периодот помеѓу двете светски војни, но и воопшто. Најпознат е по својата збирка песни „Бели мугри“, поради која се смета за основоположник на современата македонската литература, но Рацин беше многу повеќе од само наш најдобар поет помеѓу двете светски војни - неговата активност како истакнат работнички и комунистички деец обично се потиснува во втор план, но сликата на Рацин без овој елемент не соодветствува на реалноста.
+                        </span>
+                    </span>
+                </div>
             </div>
         </div>
     </section>
+    @*End Section ZaNas*@
+
+    @*Begin Section FooterZaNas*@
+    <section id="footerZaNas" class="container-fluid">
+        <div class="row">
+            <div class="fill-screen" style="background-image: url(../../../../Areas/Portfolio/Images/AboutFooter.jpg)">
+               <div class="section-content">
+                 <h2>
+                    <span class="color-1">THE DETAILS ARE NOT THE DETAILS</span>
+                    <br /> <strong><span class="color-2">THEY MAKE THE DESIGN</span></strong>
+                    <br /> <em><span class="color-1">KEEN THEMES</span></em>
+                </h2>
+              </div>
+            </div>
+        </div>
+    </section>
+    @*End Section FooterZaNas*@
+
+    @*Begin Section Portfolio*@
     <section id="portfolio" class="container-fluid">
         <!--TabBable  Begin-->
         <div class="row">
             <h2>
-                <span>
+                <span class="color-1">
                     Портфолио
                     <h />
                 </span>
@@ -87,7 +595,7 @@
                 </ul>
                 <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ecf0f1;">
                     <div class="tab-pane active" id="tab1">
-                        <p>Категорија 1</p>
+                        <p><span class="color-1">Категорија 1</span></p>
                         <!--Well Begin-->
                         <div class="well-none">
                             <div id="myCarousel" class="carousel slide">
@@ -118,7 +626,7 @@
                             <!--/myCarousel-->
                         </div>
                         <!--/well-->
-                        <p><em>Подкатегории</em></p>
+                        <p><em><span class="color-1">Подкатегории</span></em></p>
 
                         <div class="tabbable" style="margin-left:20px; margin-right:20px;">
                             <!-- Only required for left/right tabs -->
@@ -128,7 +636,7 @@
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="tab2_1">
-                                    <p>Kategorija 2_1.</p>
+                                    <p><span class="color-1">Kategorija 2_1.</span></p>
                                     <!--Well Begin-->
                                     <div class="well-none">
                                         <div id="myCarousel1" class="carousel slide">
@@ -161,7 +669,7 @@
                                     <!--/well-->
                                 </div>
                                 <div class="tab-pane" id="tab2_2">
-                                    <p>Категорија 2_2.</p>
+                                    <p><span class="color-1">Категорија 2_2.</span></p>
                                 </div>
                             </div>
                         </div>
@@ -176,10 +684,10 @@
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="tab2_1">
-                                    <p>I'm in Section 2_1.</p>
+                                    <p><span class="color-1">I'm in Section 2_1.</span></p>
                                 </div>
                                 <div class="tab-pane" id="tab2_2">
-                                    <p>Howdy, I'm in Section 2_2.</p>
+                                    <p><span class="color-1">Howdy, I'm in Section 2_2.</span></p>
                                 </div>
                             </div>
                         </div>
@@ -190,21 +698,27 @@
         </div>
         <!--TabBable  End-->
     </section>
+    @*End Section Portfolio*@
+
+    @*Begin Section FooterPortfolio*@
     <section id="footerPortfolio" class="container-fluid">
         <div class="row">
             <div class="fill-screen" style="background-image: url(../../../../Areas/Portfolio/Images/AboutFooter.jpg)">
                 <h2>
-                    THE DETAILS ARE NOT THE DETAILS
-                    <br /> <strong><span class="textcolorInverse">THEY MAKE THE DESIGN</span></strong>
-                    <br /> <em>KEEN THEMES</em>
+                    <span class="color-1">THE DETAILS ARE NOT THE DETAILS</span>
+                    <br /> <strong><span class="color-2">THEY MAKE THE DESIGN</span></strong>
+                    <br /> <em><span class="color-1">KEEN THEMES</span></em>
                 </h2>
             </div>
         </div>
     </section>
+    @*End Section FooterPortfolio*@
+
+    @*Begin Section Contact*@
     <section id="contact" class="container-fluid">
         <div class="row">
             <h2>
-                <span>
+                <span class="color-1">
                     Контакт
                     <h />
                 </span>
@@ -214,11 +728,13 @@
             <div class="col-md-6">
                 <div class="text-right scroll-in-animation" data-animation="fadeInLeft">
                     <p class="big-font uppercase">
-                        Tel: <strong class="highlight">+7 (781) 503-1810</strong>
+                        <span class="color-1">  Tel: <strong class="highlight">+7 (781) 503-1810</strong></span>
                     </p>
                     <p class="big-font uppercase">
-                        500 Unicorn Park Dr, 21st Floor
-                        <br /> Woburn, MA 01801, United States
+                        <span class="color-1">
+                            500 Unicorn Park Dr, 21st Floor
+                            <br /> Woburn, MA 01801, United States
+                        </span>
                     </p>
                     <p class="big-font">
                         <b>
@@ -238,17 +754,17 @@
                     <form action="#" method="post" novalidate="novalidate">
                         <div class="row">
                             <div class="col-md-6 control-group">
-                                <div class="alt-placeholder">Name</div>
+                                <div class="alt-placeholder"><span class="color-1">Name</span></div>
                                 <input type="text" name="your-name" value="" size="40" placeholder="Name" data-validation-required-message="Please fill the required field." required>
                                 <div class="help-block"></div>
                             </div>
                             <div class="col-md-6 control-group">
-                                <div class="alt-placeholder">Email</div>
+                                <div class="alt-placeholder"><span class="color-1">Email</span></div>
                                 <input type="email" name="your-email" value="" size="40" placeholder="Email" data-validation-required-message="Please fill the required field." required>
                                 <div class="help-block"></div>
                             </div>
                             <div class="col-md-12 control-group">
-                                <div class="alt-placeholder">Message</div>
+                                <div class="alt-placeholder"><span class="color-1">Message</span></div>
                                 <textarea name="your-message" placeholder="Message" data-validation-required-message="Please fill the required field." required></textarea>
                                 <div class="help-block"></div>
                             </div>
@@ -261,12 +777,32 @@
             </div>
         </div>
     </section>
-    <footer><h2>FOOTER</h2></footer>
+    @*End Section Contact*@
 
-    <script src="~/Scripts/jquery-2.1.1.min.js"></script>
+    <footer><h2><span class="color1">FOOTER</span></h2></footer>
+
+
+    <script src="~/Areas/Portfolio/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Areas/Portfolio/Scripts/jquery-ui.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Areas/Portfolio/Scripts/draggable_background.js"></script>
     <script type="text/javascript">
+        var setColor1=function(color1){
+            $('#style-color1').attr("href","/Areas/Portfolio/Content/TextColor/Color-1/"+color1+".css" );
+        };
+        var setColor2=function(color2){
+            $('#style-color2').attr("href","/Areas/Portfolio/Content/TextColor/Color-2/"+color2+".css" );
+        };
+        var changeColorStyle=function(style,section){
+
+            if($('#'+section+' .fill-screen').length>0){
+                $('section#'+section+' .fill-screen').css("background-image","");
+                $('section#'+section+' .fill-screen').css("background-color",style);
+            }else{
+                $('section#'+section).css("background-color",style);
+
+            }
+        }
         $(document).ready(function () {
             //Draggable Begin
             $('#default').backgroundDraggable();
@@ -309,7 +845,7 @@
 
             //SetDivToWindowInnerHeight
             $(window).on("load resize", function () {
-                $(".fill-screen").css("height", window.innerHeight);
+                $("#pocetna").css("height", window.innerHeight);
             });
             //CarouselAndThumbnailGallery
             $('[id^="myCarousel"]').carousel({
@@ -321,6 +857,127 @@
             });
 
             initializeTiles();
+            //Editor Begin
+            $('.modal-body#font-content').show();
+            $('.modal-body#pozadina-content').hide();
+
+            $('#editor-button').click(function()
+            {
+                $('#editor-button i').toggleClass('glyphicon-remove glyphicon-cog');
+                $('#editor-container').toggle("slide", { direction: "right" }, 1000);
+            });
+            $('.modal-header a').click(function(){
+                $('.activeNav').removeClass('activeNav');
+                $(this).addClass('activeNav');
+                $('.modal-body').hide();
+                $("#"+$(this).attr('data-mnav')).fadeIn("slow");
+
+            });
+            $('#font-content .color-palet:first li').click(function(){
+                $('#font-content .color-palet li.color-active').removeClass('color-active');
+                $(this).addClass('color-active');
+                var color1 =$(this).attr("data-color");
+                setColor1(color1);
+
+
+            });
+            $('#font-content .color-palet:last li').click(function(){
+                $('#font-content .color-palet:last li.color-active').removeClass('color-active');
+                $(this).addClass('color-active');
+                var color2 =$(this).attr("data-color");
+                setColor2(color2);
+
+            });
+            $('#select').change(function(){
+                var fontFamilyValue = $('#select').val();
+                $('body').css('font-family', fontFamilyValue);
+            });
+            //Pocetna
+            $('#pozadina-content .color-palet[data-section="pocetna"] li').click(function(){
+                $('#pozadina-content .color-palet[data-section="pocetna"] li.color-active').removeClass('color-active');
+                $(this).addClass('color-active');
+                var color=$(this).css("background-color");
+                var section = $(this).parent().attr("data-section");
+                changeColorStyle(color,section);
+            });
+            //ZaNas
+            $('#pozadina-content .color-palet[data-section="zanas"] li').click(function(){
+                $('#pozadina-content .color-palet[data-section="zanas"] li.color-active').removeClass('color-active');
+                $(this).addClass('color-active');
+                var color=$(this).css("background-color");
+                var section = $(this).parent().attr("data-section");
+                changeColorStyle(color,section);
+            });
+            //footerZaNas
+            $('#pozadina-content .color-palet[data-section="footerZaNas"] li').click(function(){
+                $('#pozadina-content .color-palet[data-section="footerZaNas"] li.color-active').removeClass('color-active');
+                $(this).addClass('color-active');
+                var color=$(this).css("background-color");
+                var section = $(this).parent().attr("data-section");
+                changeColorStyle(color,section);
+            });
+            //portfolio
+            $('#pozadina-content .color-palet[data-section="portfolio"] li').click(function(){
+                $('#pozadina-content .color-palet[data-section="portfolio"] li.color-active').removeClass('color-active');
+                $(this).addClass('color-active');
+                var color=$(this).css("background-color");
+                var section = $(this).parent().attr("data-section");
+                changeColorStyle(color,section);
+            });
+            //footerPortfolio
+            $('#pozadina-content .color-palet[data-section="footerPortfolio"] li').click(function(){
+                $('#pozadina-content .color-palet[data-section="footerPortfolio"] li.color-active').removeClass('color-active');
+                $(this).addClass('color-active');
+                var color=$(this).css("background-color");
+                var section = $(this).parent().attr("data-section");
+                changeColorStyle(color,section);
+            });
+            //contact
+            $('#pozadina-content .color-palet[data-section="contact"] li').click(function(){
+                $('#pozadina-content .color-palet[data-section="contact"] li.color-active').removeClass('color-active');
+                $(this).addClass('color-active');
+                var color=$(this).css("background-color");
+                var section = $(this).parent().attr("data-section");
+                changeColorStyle(color,section);
+            });
+            //header
+            $('#pozadina-content .color-palet[data-section="header"] li').click(function(){
+
+                $('#pozadina-content .color-palet[data-section="header"] li.color-active').removeClass('color-active');
+                $(this).addClass('color-active');
+                var color=$(this).css("background-color");
+                var section = $(this).parent().attr("data-section");
+                $('header .main-menu').css("background-color",color);
+            });
+            //footer
+            $('#pozadina-content .color-palet[data-section="footer"] li').click(function(){
+                $('#pozadina-content .color-palet[data-section="footer"] li.color-active').removeClass('color-active');
+                $(this).addClass('color-active');
+                var color=$(this).css("background-color");
+                var section = $(this).parent().attr("data-section");
+                $('footer').css("background-color",color);
+            });
+
+            //Thumbnail Image Upload Form
+            $('.FileUpload1').change(function () {
+                var section = $(this).attr("data-section");
+                var imgSelector='.'+section+'-section'+' .Image1';
+                $(imgSelector).hide();
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $(imgSelector).show();
+                    $(imgSelector).css('background-image', 'url(' + e.target.result + ')');
+                    $('#'+section+' .fill-screen').css("background-image",'url(' + e.target.result + ')');
+
+
+                }
+                reader.readAsDataURL($(this)[0].files[0]);
+            });
+
+
+
+
+            //Editor End
         }); //END of document.ready
 
         function initializeTiles() {
@@ -357,13 +1014,37 @@
                 numberOfItems = Math.ceil(numberOfElements/8);
                 elementsInGroup = 8;
             };
-            //VisualBreakpoint=lg
+           //VisualBreakpoint=lg
             if (window.matchMedia("(min-width: 1200px)").matches) {
                 numberOfItems = Math.ceil(numberOfElements/12);
                 elementsInGroup = 12;
             };
             return(elementsInGroup);
         }
+
+
+
+        $(document).on('change', '.btn-file :file', function () {
+            var input = $(this),
+                numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [numFiles, label]);
+        });
+
+        $(document).ready(function () {
+            $('.btn-file :file').on('fileselect', function (event, numFiles, label) {
+
+                var input = $(this).parents('.input-group').find(':text'),
+                    log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+                if (input.length) {
+                    input.val(log);
+                } else {
+                    if (log) alert(log);
+                }
+
+            });
+        });
     </script>
 </body>
 </html>
