@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
 
@@ -9,13 +8,15 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Test</title>
+    <link href="~/Content/bootstrap/css/bootstrap-theme-flaty.css" rel="stylesheet" />
+    <link href="~/Areas/Portfolio/Content/CustomPortfolio.css" rel="stylesheet" />
     <style>
         body {
             background: white;
             text-align: center;
         }
 
-        div {
+        /*div {
             min-width: 320px;
             min-height: 240px;
             display: inline-block;
@@ -29,38 +30,122 @@
             padding: 5px;
             font-weight: bold;
             margin: 0;
-        }
+        }*/
     </style>
 </head>
 <body>
+    <div class="well bs-component">
+        <form class="form-horizontal">
+            <fieldset>
+                <legend>Legend</legend>
+                
+               
+               
+                <div class="form-group">
+                   <label class = "col-lg-2 col-md-3 control-label">Labela</label>
+                    <div class="col-lg-10">
+                        @*Begin Input File*@
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <span class="btn btn-primary btn-file">
+                                    Browse…
+                                    <input type="file" name="file" multiple="">
+                                </span>
+                            </span>
+                            <input type="text" class="form-control" readonly="">
+                        </div>
+                        @*End Input File*@
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+        <div id="source-button" class="btn btn-primary btn-xs" style="display: block;">&lt; &gt;</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <div id="Image1" style="background-image: url(../../../../Areas/Portfolio/Images/HomeBackgroundImage.jpg); width:100%; height:397px; display: none;"></div>
+                <div class="caption">
+                    <div class="well bs-component">
+
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <legend>Каталог</legend>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <span class="btn btn-primary btn-file">
+                                                Browse…
+                                                <input type="file" name="file" multiple="">
+                                            </span>
+                                        </span>
+                                        <input type="text" id="FileUpload1" class="form-control" readonly="" accept=".jpg,.png,.gif">
+                                    </div>
+
+                                </div>
+                            </fieldset>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Slide Begin*@
+    @* <p>Click on any of the buttons</p>
+
+        <button id="hide"> Hide </button>
+        <button id="show"> Show</button>
+
+        <div class="target">
+        </div>*@
+    @*Slide End*@
     @*Upload Begin*@
-    <input type="file" id="FileUpload1" accept=".jpg,.png,.gif" />
-    <br />
-    <br />
-    <table border="0" cellpadding="0" cellspacing="5">
-        <tr>
-            <td>
-                <img id="Image1" src="" alt="" style="display: none" />
-            </td>
-            <td>
-                <canvas id="canvas" height="5" width="5"></canvas>
-            </td>
-        </tr>
-    </table>
-    <br />
-  
+
+    @*<input type="file" id="FileUpload1" accept=".jpg,.png,.gif" />
+        <br />
+        <br />
+        <table border="0" cellpadding="0" cellspacing="5">
+            <tr>
+                <td>
+                    <img id="Image1" src="" alt="" style="display: none" />
+                </td>
+                <td>
+                    <canvas id="canvas" height="5" width="5"></canvas>
+                </td>
+            </tr>
+        </table>
+        <br />*@
+
     @*Upload End*@
 
 
     @*Draggable Begin*@
-    <div id="default" style="background:url('http://pipsum.com/640x480.jpg')">default</div>
-    <div id="unbounded" style="background:url('http://pipsum.com/640x480.jpg')">bound: false</div>
-    <br><br>
-    <div id="x" style="background:url('http://pipsum.com/2560x240.jpg')">axis: 'x'</div>
-    <div id="y" style="background:url('http://pipsum.com/320x1600.jpg')">axis: 'y'</div>
+    @*<div id="default" style="background:url('http://pipsum.com/640x480.jpg')">default</div>
+        <div id="unbounded" style="background:url('http://pipsum.com/640x480.jpg')">bound: false</div>
+        <br><br>
+        <div id="x" style="background:url('http://pipsum.com/2560x240.jpg')">axis: 'x'</div>
+        <div id="y" style="background:url('http://pipsum.com/320x1600.jpg')">axis: 'y'</div>*@
     @*Draggable End*@
     <script src="~/Scripts/jquery-2.1.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Areas/Portfolio/Scripts/draggable_background.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+  
+      <script type="text/javascript" language="javascript">
+
+        @* $(document).ready(function () {
+
+            $("#hide").click(function () {
+                $(".target").toggle("slide", { direction: "left" }, 1000);
+            });
+
+            $("#show").click(function () {
+                $(".target").toggle("slide", { direction: "right" }, 1000);
+            });
+        });*@
+    </script>
     <script>
         $(function () {
             //Upload Begin
@@ -69,23 +154,23 @@
                 var reader = new FileReader();
                 reader.onload = function (e) {
                     $('#Image1').show();
-                    $('#Image1').attr("src", e.target.result);
-                   
+                    $('#Image1').css('background-image', 'url(' + e.target.result + ')');
+
                 }
                 reader.readAsDataURL($(this)[0].files[0]);
             });
 
             //Upload End
             //Draggable Begin
-        $('#default').backgroundDraggable();
-      
+            @*$('#default').backgroundDraggable();
+
         $('div').each(function () {
             var $this = $(this),
                 html = $this.html();
             $this.empty().append($('<p>').html(html))
-        });
+        });*@
             //Draggable End
-    });
+        });
     </script>
 </body>
 </html>

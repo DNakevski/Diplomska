@@ -1,0 +1,12 @@
+﻿.color-1{
+    color: #f39c12 !important;
+}
+.main-menu  .navbar-nav > li > a{
+     color: #f39c12 !important;
+}
+section h2 span h::after {
+    border-bottom-color: #f39c12 !important;
+}
+#portfolio a{
+    color: #f39c12 !important;
+}
