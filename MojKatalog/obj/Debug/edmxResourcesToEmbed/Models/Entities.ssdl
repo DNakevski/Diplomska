@@ -102,6 +102,24 @@
     <Property Name="Dostapnost" Type="bit" />
     <Property Name="IdKategorii" Type="int" />
   </EntityType>
+  <EntityType Name="WebSiteSettings">
+    <Key>
+      <PropertyRef Name="IdKatalozi" />
+    </Key>
+    <Property Name="IdKatalozi" Type="int" Nullable="false" />
+    <Property Name="Naziv" Type="nvarchar(max)" />
+    <Property Name="FontFamily" Type="nvarchar" MaxLength="50" />
+    <Property Name="FontColor1" Type="nvarchar" MaxLength="50" />
+    <Property Name="FontColor2" Type="nvarchar" MaxLength="50" />
+    <Property Name="BGPocetna" Type="nvarchar(max)" />
+    <Property Name="BGZaNas" Type="nvarchar(max)" />
+    <Property Name="BGFZaNas" Type="nvarchar(max)" />
+    <Property Name="BGPortfolio" Type="nvarchar(max)" />
+    <Property Name="BGFPortfolio" Type="nvarchar(max)" />
+    <Property Name="BGContact" Type="nvarchar(max)" />
+    <Property Name="BGMenu" Type="nvarchar(max)" />
+    <Property Name="BGFooter" Type="nvarchar(max)" />
+  </EntityType>
   <Association Name="FK_Katalozi_Kompanii">
     <End Role="Kompanii" Type="Self.Kompanii" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
@@ -254,6 +272,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_WebSiteSettings_Katalozi">
+    <End Role="Katalozi" Type="Self.Katalozi" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="WebSiteSettings" Type="Self.WebSiteSettings" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Katalozi">
+        <PropertyRef Name="IdKatalozi" />
+      </Principal>
+      <Dependent Role="WebSiteSettings">
+        <PropertyRef Name="IdKatalozi" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="dbKatalogModelStoreContainer">
     <EntitySet Name="Katalozi" EntityType="Self.Katalozi" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Kategorii" EntityType="Self.Kategorii" Schema="dbo" store:Type="Tables" />
@@ -265,6 +297,7 @@
     <EntitySet Name="Poraki" EntityType="Self.Poraki" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PorakiKlienti" EntityType="Self.PorakiKlienti" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Proizvodi" EntityType="Self.Proizvodi" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WebSiteSettings" EntityType="Self.WebSiteSettings" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Katalozi_Kompanii" Association="Self.FK_Katalozi_Kompanii">
       <End Role="Kompanii" EntitySet="Kompanii" />
       <End Role="Katalozi" EntitySet="Katalozi" />
@@ -308,6 +341,10 @@
     <AssociationSet Name="FK_Proizvodi_Kategorii" Association="Self.FK_Proizvodi_Kategorii">
       <End Role="Kategorii" EntitySet="Kategorii" />
       <End Role="Proizvodi" EntitySet="Proizvodi" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WebSiteSettings_Katalozi" Association="Self.FK_WebSiteSettings_Katalozi">
+      <End Role="Katalozi" EntitySet="Katalozi" />
+      <End Role="WebSiteSettings" EntitySet="WebSiteSettings" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

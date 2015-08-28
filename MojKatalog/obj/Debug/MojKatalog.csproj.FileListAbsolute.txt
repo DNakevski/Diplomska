@@ -170,7 +170,6 @@ C:\Users\Dragan\Documents\Visual Studio 2013\Projects\MojKatalog\MojKatalog\bin\
 C:\Users\Dragan\Documents\Visual Studio 2013\Projects\MojKatalog\MojKatalog\bin\ru\System.Spatial.resources.dll
 C:\Users\Dragan\Documents\Visual Studio 2013\Projects\MojKatalog\MojKatalog\bin\zh-Hans\System.Spatial.resources.dll
 C:\Users\Dragan\Documents\Visual Studio 2013\Projects\MojKatalog\MojKatalog\bin\zh-Hant\System.Spatial.resources.dll
-C:\Users\Dragan\Documents\Visual Studio 2013\Projects\MojKatalog\MojKatalog\obj\Debug\MojKatalog.csprojResolveAssemblyReference.cache
 C:\Users\Dragan\Documents\Visual Studio 2013\Projects\MojKatalog\MojKatalog\obj\Debug\MojKatalog.dll
 C:\Users\Dragan\Documents\Visual Studio 2013\Projects\MojKatalog\MojKatalog\obj\Debug\MojKatalog.pdb
 C:\Users\asuspc\Documents\Visual Studio 2013\Projects\Diplomska\MojKatalog\bin\MojKatalog.dll.config
@@ -261,3 +260,4 @@ C:\Users\asuspc\Documents\Visual Studio 2013\Projects\Diplomska\MojKatalog\bin\z
 C:\Users\asuspc\Documents\Visual Studio 2013\Projects\Diplomska\MojKatalog\obj\Debug\MojKatalog.csprojResolveAssemblyReference.cache
 C:\Users\asuspc\Documents\Visual Studio 2013\Projects\Diplomska\MojKatalog\obj\Debug\MojKatalog.dll
 C:\Users\asuspc\Documents\Visual Studio 2013\Projects\Diplomska\MojKatalog\obj\Debug\MojKatalog.pdb
+C:\Users\Dragan\Documents\Visual Studio 2013\Projects\MojKatalog\MojKatalog\obj\Debug\MojKatalog.csprojResolveAssemblyReference.cache

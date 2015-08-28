@@ -27,8 +27,8 @@
     <div id="editor">
         <div id="editor-container">
             <div class="modal-header">
-                <a href="#font-content" class="activeNav" data-mnav="font-content"><h5 class="modal-title">ФОНТ</h5></a>
-                <a href="#pozadina-content" data-mnav="pozadina-content"><h5 class="modal-title">ПОЗАДИНА</h5></a>
+                <a class="activeNav" data-mnav="font-content"><h5 class="modal-title">ФОНТ</h5></a>
+                <a data-mnav="pozadina-content"><h5 class="modal-title">ПОЗАДИНА</h5></a>
             </div>
             @*Modal Font Content Begin*@
             <div class="modal-body container-fluid" id="font-content">
@@ -106,8 +106,27 @@
             @*Modal Font Content End*@
             @*Modal Background Content Begin*@
             <div class="modal-body container-fluid" id="pozadina-content">
+
+                <div class="row">
+                    <div class="col-xs-5">
+                        <label class="label-control">Избери секција:</label>
+                    </div>
+                    <div class="col-xs-7">
+                        <select class="form-control" id="select-section">
+                            <option value="pocetna-section">Почетна</option>
+                            <option value="zanas-section">За Нас</option>
+                            <option value="footerZaNas-section">За Нас Футер</option>
+                            <option value="portfolio-section">Портфолио</option>
+                            <option value="footerPortfolio-section">Портфолио Футер</option>
+                            <option value="contact-section">Контакт</option>
+                            <option value="header-section">Мени</option>
+                            <option value="footer-section">Футер</option>
+                        </select>
+                    </div>
+                </div>
+
                 @*Pocetna Begin*@
-                <div class="row pocetna-section">
+                <div class="row section pocetna-section">
                     <div class="row section-header">
                         <h5><b>Почетна</b></h5>
                     </div>
@@ -160,7 +179,6 @@
                                             </div>
                                         </div>
                                     </form>
-
                                     @*End Input File*@
                                 </div>
                             </div>
@@ -170,7 +188,7 @@
                 @*Pocetna End*@
 
                 @*ZaNas Begin*@
-                <div class="row zanas-section">
+                <div class="row section zanas-section">
                     <div class="row section-header">
                         <h5><b>За Нас</b></h5>
                     </div>
@@ -234,7 +252,7 @@
                 @*ZaNas End*@
 
                 @*ZaNasFooter Begin*@
-                <div class="row">
+                <div class="row section footerZaNas-section">
                     <div class="row section-header">
                         <h5><b>За Нас Футер</b></h5>
                     </div>
@@ -270,14 +288,35 @@
                             Слика
                         </div>
                         <div class="col-xs-8">
-                            слики
+                            <div class="thumbnail">
+                                <div class="image-uploaded Image1" style="background-image: url(../../../../Areas/Portfolio/Images/HomeBackgroundImage.jpg);"></div>
+                                <div class="caption">
+                                    @*Begin Input File*@
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    <span class="btn btn-primary btn-file">
+                                                        Browse…
+                                                        <input class="FileUpload1" type="file" name="file" multiple="" data-section="footerZaNas">
+                                                    </span>
+                                                </span>
+                                                <input type="text" class="form-control" readonly="" accept=".jpg,.png,.gif">
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    @*End Input File*@
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                @*ZaNAsFooter End*@
 
-                @*Section4 Begin*@
-                <div class="row">
+                </div>
+                @*ZaNasFooter End*@
+
+                @*Portfolio Begin*@
+                <div class="row section portfolio-section">
                     <div class="row section-header">
                         <h5><b>Портфолио</b></h5>
                     </div>
@@ -313,14 +352,35 @@
                             Слика
                         </div>
                         <div class="col-xs-8">
-                            слики
+                            <div class="thumbnail">
+                                <div class="image-uploaded Image1" style="background-image: url(../../../../Areas/Portfolio/Images/HomeBackgroundImage.jpg);"></div>
+                                <div class="caption">
+                                    @*Begin Input File*@
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    <span class="btn btn-primary btn-file">
+                                                        Browse…
+                                                        <input class="FileUpload1" type="file" name="file" multiple="" data-section="portfolio">
+                                                    </span>
+                                                </span>
+                                                <input type="text" class="form-control" readonly="" accept=".jpg,.png,.gif">
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    @*End Input File*@
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                @*Section4 End*@
 
-                @*Section5 Begin*@
-                <div class="row">
+                </div>
+                @*Portfolio End*@
+
+                @*PortfolioFooter Begin*@
+                <div class="row section footerPortfolio-section">
                     <div class="row section-header">
                         <h5><b>Портфолио Футер</b></h5>
                     </div>
@@ -356,14 +416,35 @@
                             Слика
                         </div>
                         <div class="col-xs-8">
-                            слики
+                            <div class="thumbnail">
+                                <div class="image-uploaded Image1" style="background-image: url(../../../../Areas/Portfolio/Images/HomeBackgroundImage.jpg);"></div>
+                                <div class="caption">
+                                    @*Begin Input File*@
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    <span class="btn btn-primary btn-file">
+                                                        Browse…
+                                                        <input class="FileUpload1" type="file" name="file" multiple="" data-section="footerPortfolio">
+                                                    </span>
+                                                </span>
+                                                <input type="text" class="form-control" readonly="" accept=".jpg,.png,.gif">
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    @*End Input File*@
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                @*Section5 End*@
 
-                @*Section6 Begin*@
-                <div class="row">
+                </div>
+                @*PortfolioFooter End*@
+
+                @*Contact Begin*@
+                <div class="row section contact-section">
                     <div class="row section-header">
                         <h5><b>Контакт</b></h5>
                     </div>
@@ -399,14 +480,33 @@
                             Слика
                         </div>
                         <div class="col-xs-8">
-                            слики
+                            <div class="thumbnail">
+                                <div class="image-uploaded Image1" style="background-image: url(../../../../Areas/Portfolio/Images/HomeBackgroundImage.jpg);"></div>
+                                <div class="caption">
+                                    @*Begin Input File*@
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    <span class="btn btn-primary btn-file">
+                                                        Browse…
+                                                        <input class="FileUpload1" type="file" name="file" multiple="" data-section="contact">
+                                                    </span>
+                                                </span>
+                                                <input type="text" class="form-control" readonly="" accept=".jpg,.png,.gif">
+                                            </div>
+                                        </div>
+                                    </form>
+                                    @*End Input File*@
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                @*Section6 End*@
+                @*Contact End*@
 
-                @*Section7 Begin*@
-                <div class="row">
+                @*Header Begin*@
+                <div class="row section header-section">
                     <div class="row section-header">
                         <h5><b>Хедер</b></h5>
                     </div>
@@ -442,14 +542,34 @@
                             Слика
                         </div>
                         <div class="col-xs-8">
-                            слики
+                            <div class="thumbnail">
+                                <div class="image-uploaded Image1" style="background-image: url(../../../../Areas/Portfolio/Images/HomeBackgroundImage.jpg);"></div>
+                                <div class="caption">
+                                    @*Begin Input File*@
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    <span class="btn btn-primary btn-file">
+                                                        Browse…
+                                                        <input class="FileUpload1" type="file" name="file" multiple="" data-section="header">
+                                                    </span>
+                                                </span>
+                                                <input type="text" class="form-control" readonly="" accept=".jpg,.png,.gif">
+                                            </div>
+                                        </div>
+                                    </form>
+                                    @*End Input File*@
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                @*Section7 End*@
 
-                @*Section8 Begin*@
-                <div class="row">
+                </div>
+                @*Header End*@
+
+                @*Footer Begin*@
+                <div class="row section footer-section">
                     <div class="row section-header">
                         <h5><b>Футер</b></h5>
                     </div>
@@ -485,15 +605,30 @@
                             Слика
                         </div>
                         <div class="col-xs-8">
-                            слики
+                            <div class="thumbnail">
+                                <div class="image-uploaded Image1" style="background-image: url(../../../../Areas/Portfolio/Images/HomeBackgroundImage.jpg);"></div>
+                                <div class="caption">
+                                    @*Begin Input File*@
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    <span class="btn btn-primary btn-file">
+                                                        Browse…
+                                                        <input class="FileUpload1" type="file" name="file" multiple="" data-section="footer">
+                                                    </span>
+                                                </span>
+                                                <input type="text" class="form-control" readonly="" accept=".jpg,.png,.gif">
+                                            </div>
+                                        </div>
+                                    </form>
+                                    @*End Input File*@
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                @*Section8 End*@
-
-                @*Section9 Begin*@
-                @*Section9 End*@
-
+                @*Footer End*@
             </div>
             @*Modal Background Content End*@
             <div class="modal-footer">
@@ -511,28 +646,30 @@
             <div id="default" class="fill-screen" style="background-image: url(../../../../Areas/Portfolio/Images/HomeBackgroundImage.jpg)">
                 <header>
                     <nav class="navbar navbar-default main-menu navbar-static-top">
-                        <div class="container-fluid">
-                            <!-- Brand and toggle get grouped for better mobile display -->
-                            <div class="navbar-header">
-                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                                    <span class="sr-only">Toggle navigation</span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
-                                <span class="brand"><b><span class="color-1">ИМЕ</span><span class="color-2">ПРЕЗИМЕ</span></b></span>
+                        <div id="default" class="fill-screen">
+                            <div class="container-fluid">
+                                <!-- Brand and toggle get grouped for better mobile display -->
+                                <div class="navbar-header">
+                                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>
+                                    <span class="brand"><b><span class="color-1">ИМЕ</span><span class="color-2">ПРЕЗИМЕ</span></b></span>
+                                </div>
+                                <!-- Collect the nav links, forms, and other content for toggling -->
+                                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                    <ul class="nav navbar-nav navbar-right">
+                                        <li class="active"><a href="#pocetna">Почетна</a></li>
+                                        <li><a href="#zanas">За нас</a></li>
+                                        <li><a href="#portfolio">Портфолио</a></li>
+                                        <li><a href="#contact">Контакт</a></li>
+                                    </ul>
+                                </div><!-- /.navbar-collapse -->
+                            </div><!-- /.container-fluid -->
                             </div>
-                            <!-- Collect the nav links, forms, and other content for toggling -->
-                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                                <ul class="nav navbar-nav navbar-right">
-                                    <li class="active"><a href="#pocetna">Почетна</a></li>
-                                    <li><a href="#zanas">За нас</a></li>
-                                    <li><a href="#portfolio">Портфолио</a></li>
-                                    <li><a href="#contact">Контакт</a></li>
-                                </ul>
-                            </div><!-- /.navbar-collapse -->
-                        </div><!-- /.container-fluid -->
-                    </nav>
+</nav>
                 </header>
             </div>
         </div>
@@ -581,27 +718,29 @@
     <section id="portfolio" class="container-fluid">
         <!--TabBable  Begin-->
         <div class="row">
-            <h2>
-                <span class="color-1">
-                    Портфолио
-                    <h />
-                </span>
-            </h2>
-            <div class="tabbable">
-                <!-- Only required for left/right tabs -->
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab1" data-toggle="tab">Категорија 1</a></li>
-                    <li><a href="#tab2" data-toggle="tab">Категорија 2</a></li>
-                </ul>
-                <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ecf0f1;">
-                    <div class="tab-pane active" id="tab1">
-                        <p><span class="color-1">Категорија 1</span></p>
-                        <!--Well Begin-->
-                        <div class="well-none">
-                            <div id="myCarousel" class="carousel slide">
-                                <!-- Carousel items -->
-                                <div class="carousel-inner">
-                                    @for (int i = 0; i < numberOfElements; i++)
+                <div class="fill-screen">
+                        <div class="section-content">
+                          <h2>
+                            <span class="color-1">
+                                Портфолио
+                                <h />
+                            </span>
+                        </h2>
+                          <div class="tabbable">
+                            <!-- Only required for left/right tabs -->
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#tab1" data-toggle="tab">Категорија 1</a></li>
+                                <li><a href="#tab2" data-toggle="tab">Категорија 2</a></li>
+                            </ul>
+                            <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ecf0f1;">
+                                <div class="tab-pane active" id="tab1">
+                                    <p><span class="color-1">Категорија 1</span></p>
+                                    <!--Well Begin-->
+                                    <div class="well-none">
+                                        <div id="myCarousel" class="carousel slide">
+                                            <!-- Carousel items -->
+                                            <div class="carousel-inner">
+                                                @for (int i = 0; i < numberOfElements; i++)
                                     {
                                         <div class="col col-xs-6 col-sm-4 col-md-3 col-lg-2 flex-thumbnail">
                                             <div class="thumbnail thumbnail-proizvodi" style="background-image: url(../../../../Areas/Portfolio/Images/AboutFooter.jpg)">
@@ -614,35 +753,35 @@
                                             </div>
                                         </div>
                                     }
-                                    <!--/item-->
-                                    <!--/item-->
-                                    <!--/item-->
-                                </div>
-                                <!--/carousel-inner-->
-                                <a class="left carousel-control" href="#myCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                                                <!--/item-->
+                                                <!--/item-->
+                                                <!--/item-->
+                                            </div>
+                                            <!--/carousel-inner-->
+                                            <a class="left carousel-control" href="#myCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
 
-                                <a class="right carousel-control" href="#myCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
-                            </div>
-                            <!--/myCarousel-->
-                        </div>
-                        <!--/well-->
-                        <p><em><span class="color-1">Подкатегории</span></em></p>
+                                            <a class="right carousel-control" href="#myCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                                        </div>
+                                        <!--/myCarousel-->
+                                    </div>
+                                    <!--/well-->
+                                    <p><em><span class="color-1">Подкатегории</span></em></p>
 
-                        <div class="tabbable" style="margin-left:20px; margin-right:20px;">
-                            <!-- Only required for left/right tabs -->
-                            <ul class="nav nav-tabs">
-                                <li class="active"><a href="#tab2_1" data-toggle="tab">Категорија 2-1</a></li>
-                                <li><a href="#tab2_2" data-toggle="tab">Категорија 2-2</a></li>
-                            </ul>
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="tab2_1">
-                                    <p><span class="color-1">Kategorija 2_1.</span></p>
-                                    <!--Well Begin-->
-                                    <div class="well-none">
-                                        <div id="myCarousel1" class="carousel slide">
-                                            <!-- Carousel items -->
-                                            <div class="carousel-inner">
-                                                @for (int i = 0; i < numberOfElements; i++)
+                                    <div class="tabbable" style="margin-left:20px; margin-right:20px;">
+                                        <!-- Only required for left/right tabs -->
+                                        <ul class="nav nav-tabs">
+                                            <li class="active"><a href="#tab2_1" data-toggle="tab">Категорија 2-1</a></li>
+                                            <li><a href="#tab2_2" data-toggle="tab">Категорија 2-2</a></li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="tab2_1">
+                                                <p><span class="color-1">Kategorija 2_1.</span></p>
+                                                <!--Well Begin-->
+                                                <div class="well-none">
+                                                    <div id="myCarousel1" class="carousel slide">
+                                                        <!-- Carousel items -->
+                                                        <div class="carousel-inner">
+                                                            @for (int i = 0; i < numberOfElements; i++)
                                                 {
                                                     <div class="col col-xs-6 col-sm-4 col-md-3 col-lg-2 flex1-thumbnail">
                                                         <div class="thumbnail thumbnail-proizvodi" style="background-image: url(../../../../Areas/Portfolio/Images/AboutFooter.jpg)">
@@ -655,47 +794,49 @@
                                                         </div>
                                                     </div>
                                                 }
-                                                <!--/item-->
-                                                <!--/item-->
-                                                <!--/item-->
+                                                            <!--/item-->
+                                                            <!--/item-->
+                                                            <!--/item-->
+                                                        </div>
+                                                        <!--/carousel-inner-->
+                                                        <a class="left carousel-control" href="#myCarousel1" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+
+                                                        <a class="right carousel-control" href="#myCarousel1" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                                                    </div>
+                                                    <!--/myCarousel-->
+                                                </div>
+                                                <!--/well-->
                                             </div>
-                                            <!--/carousel-inner-->
-                                            <a class="left carousel-control" href="#myCarousel1" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
-
-                                            <a class="right carousel-control" href="#myCarousel1" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                                            <div class="tab-pane" id="tab2_2">
+                                                <p><span class="color-1">Категорија 2_2.</span></p>
+                                            </div>
                                         </div>
-                                        <!--/myCarousel-->
                                     </div>
-                                    <!--/well-->
                                 </div>
-                                <div class="tab-pane" id="tab2_2">
-                                    <p><span class="color-1">Категорија 2_2.</span></p>
+                                <div class="tab-pane" id="tab2">
+                                    <p>Категорија 1_2.</p>
+                                    <div class="tabbable" style="margin-left:20px; margin-right:20px;">
+                                        <!-- Only required for left/right tabs -->
+                                        <ul class="nav nav-tabs">
+                                            <li class="active"><a href="#tab2_1" data-toggle="tab">Section 1</a></li>
+                                            <li><a href="#tab2_2" data-toggle="tab">Section 2</a></li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="tab2_1">
+                                                <p><span class="color-1">I'm in Section 2_1.</span></p>
+                                            </div>
+                                            <div class="tab-pane" id="tab2_2">
+                                                <p><span class="color-1">Howdy, I'm in Section 2_2.</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="tab2">
-                        <p>Категорија 1_2.</p>
-                        <div class="tabbable" style="margin-left:20px; margin-right:20px;">
-                            <!-- Only required for left/right tabs -->
-                            <ul class="nav nav-tabs">
-                                <li class="active"><a href="#tab2_1" data-toggle="tab">Section 1</a></li>
-                                <li><a href="#tab2_2" data-toggle="tab">Section 2</a></li>
-                            </ul>
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="tab2_1">
-                                    <p><span class="color-1">I'm in Section 2_1.</span></p>
-                                </div>
-                                <div class="tab-pane" id="tab2_2">
-                                    <p><span class="color-1">Howdy, I'm in Section 2_2.</span></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
             </div>
-        </div>
         <!--TabBable  End-->
     </section>
     @*End Section Portfolio*@
@@ -704,11 +845,13 @@
     <section id="footerPortfolio" class="container-fluid">
         <div class="row">
             <div class="fill-screen" style="background-image: url(../../../../Areas/Portfolio/Images/AboutFooter.jpg)">
-                <h2>
-                    <span class="color-1">THE DETAILS ARE NOT THE DETAILS</span>
-                    <br /> <strong><span class="color-2">THEY MAKE THE DESIGN</span></strong>
-                    <br /> <em><span class="color-1">KEEN THEMES</span></em>
-                </h2>
+                <div class="section-content">
+                    <h2>
+                        <span class="color-1">THE DETAILS ARE NOT THE DETAILS</span>
+                        <br /> <strong><span class="color-2">THEY MAKE THE DESIGN</span></strong>
+                        <br /> <em><span class="color-1">KEEN THEMES</span></em>
+                    </h2>
+                </div>
             </div>
         </div>
     </section>
@@ -717,69 +860,82 @@
     @*Begin Section Contact*@
     <section id="contact" class="container-fluid">
         <div class="row">
-            <h2>
-                <span class="color-1">
-                    Контакт
-                    <h />
-                </span>
-            </h2>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="text-right scroll-in-animation" data-animation="fadeInLeft">
-                    <p class="big-font uppercase">
-                        <span class="color-1">  Tel: <strong class="highlight">+7 (781) 503-1810</strong></span>
-                    </p>
-                    <p class="big-font uppercase">
-                        <span class="color-1">
-                            500 Unicorn Park Dr, 21st Floor
-                            <br /> Woburn, MA 01801, United States
-                        </span>
-                    </p>
-                    <p class="big-font">
-                        <b>
-                            <a href="mailto:info@ouraddress.com">info@ouraddress.com</a><br />
-                            <a href="http://www.ouraddress.com/">www.ouraddress.com</a>
-                        </b>
-                    </p>
-                    <p class="big-font">
-                        <a target="_blank" href="https://twitter.com/"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x heading"></i><i class="fa fa-twitter fa-stack-1x text-background"></i></span></a>
-                        <a target="_blank" href="https://www.facebook.com/"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x heading"></i><i class="fa fa-facebook fa-stack-1x text-background"></i></span></a>
-                        <a target="_blank" href="http://www.youtube.com/"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x heading"></i><i class="fa fa-youtube fa-stack-1x text-background"></i></span></a>
-                    </p>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="text-left scroll-in-animation" data-animation="fadeInRight">
-                    <form action="#" method="post" novalidate="novalidate">
-                        <div class="row">
-                            <div class="col-md-6 control-group">
-                                <div class="alt-placeholder"><span class="color-1">Name</span></div>
-                                <input type="text" name="your-name" value="" size="40" placeholder="Name" data-validation-required-message="Please fill the required field." required>
-                                <div class="help-block"></div>
-                            </div>
-                            <div class="col-md-6 control-group">
-                                <div class="alt-placeholder"><span class="color-1">Email</span></div>
-                                <input type="email" name="your-email" value="" size="40" placeholder="Email" data-validation-required-message="Please fill the required field." required>
-                                <div class="help-block"></div>
-                            </div>
-                            <div class="col-md-12 control-group">
-                                <div class="alt-placeholder"><span class="color-1">Message</span></div>
-                                <textarea name="your-message" placeholder="Message" data-validation-required-message="Please fill the required field." required></textarea>
-                                <div class="help-block"></div>
-                            </div>
-                            <div class="col-md-12 form-actions">
-                                <input class="button" type="submit" value="Send">
+            <div class="fill-screen">
+                <div class="section-content">
+                    <div class="row">
+
+                        <h2>
+                            <span class="color-1">
+                                Контакт
+                                <h />
+                            </span>
+                        </h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="text-right scroll-in-animation" data-animation="fadeInLeft">
+                                <p class="big-font uppercase">
+                                    <span class="color-1">  Tel: <strong class="highlight">+7 (781) 503-1810</strong></span>
+                                </p>
+                                <p class="big-font uppercase">
+                                    <span class="color-1">
+                                        500 Unicorn Park Dr, 21st Floor
+                                        <br /> Woburn, MA 01801, United States
+                                    </span>
+                                </p>
+                                <p class="big-font">
+                                    <b>
+                                        <a href="mailto:info@ouraddress.com">info@ouraddress.com</a><br />
+                                        <a href="http://www.ouraddress.com/">www.ouraddress.com</a>
+                                    </b>
+                                </p>
+                                <p class="big-font">
+                                    <a target="_blank" href="https://twitter.com/"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x heading"></i><i class="fa fa-twitter fa-stack-1x text-background"></i></span></a>
+                                    <a target="_blank" href="https://www.facebook.com/"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x heading"></i><i class="fa fa-facebook fa-stack-1x text-background"></i></span></a>
+                                    <a target="_blank" href="http://www.youtube.com/"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x heading"></i><i class="fa fa-youtube fa-stack-1x text-background"></i></span></a>
+                                </p>
                             </div>
                         </div>
-                    </form>
+                        <div class="col-md-6">
+                            <div class="text-left scroll-in-animation" data-animation="fadeInRight">
+                                <form action="#" method="post" novalidate="novalidate">
+                                    <div class="row">
+                                        <div class="col-md-6 control-group">
+                                            <div class="alt-placeholder"><span class="color-1">Name</span></div>
+                                            <input type="text" name="your-name" value="" size="40" placeholder="Name" data-validation-required-message="Please fill the required field." required>
+                                            <div class="help-block"></div>
+                                        </div>
+                                        <div class="col-md-6 control-group">
+                                            <div class="alt-placeholder"><span class="color-1">Email</span></div>
+                                            <input type="email" name="your-email" value="" size="40" placeholder="Email" data-validation-required-message="Please fill the required field." required>
+                                            <div class="help-block"></div>
+                                        </div>
+                                        <div class="col-md-12 control-group">
+                                            <div class="alt-placeholder"><span class="color-1">Message</span></div>
+                                            <textarea name="your-message" placeholder="Message" data-validation-required-message="Please fill the required field." required></textarea>
+                                            <div class="help-block"></div>
+                                        </div>
+                                        <div class="col-md-12 form-actions">
+                                            <input class="button" type="submit" value="Send">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 </div>
             </div>
-        </div>
-    </section>
+</section>
     @*End Section Contact*@
 
-    <footer><h2><span class="color1">FOOTER</span></h2></footer>
+    <footer class="container-fluid">
+        <div class="row">
+            <div class="fill-screen">
+                    <h2><span class="color1">FOOTER</span></h2>
+            </div>
+        </div>
+</footer>
 
 
     <script src="~/Areas/Portfolio/Scripts/jquery-1.10.2.js"></script>
@@ -799,11 +955,13 @@
                 $('section#'+section+' .fill-screen').css("background-image","");
                 $('section#'+section+' .fill-screen').css("background-color",style);
             }else{
-                $('section#'+section).css("background-color",style);
+                $(section+' .fill-screen').css("background-image","");
+                $(section+' .fill-screen').css("background-color",style);
 
             }
         }
         $(document).ready(function () {
+            $("body").css("overflow-x", "hidden");
             //Draggable Begin
             $('#default').backgroundDraggable();
             $('#default').backgroundDraggable({
@@ -873,90 +1031,101 @@
                 $("#"+$(this).attr('data-mnav')).fadeIn("slow");
 
             });
-            $('#font-content .color-palet:first li').click(function(){
-                $('#font-content .color-palet li.color-active').removeClass('color-active');
-                $(this).addClass('color-active');
-                var color1 =$(this).attr("data-color");
-                setColor1(color1);
+                //Font
+                $('#font-content .color-palet:first li').click(function(){
+                    $('#font-content .color-palet li.color-active').removeClass('color-active');
+                    $(this).addClass('color-active');
+                    var color1 =$(this).attr("data-color");
+                    setColor1(color1);
 
 
-            });
-            $('#font-content .color-palet:last li').click(function(){
-                $('#font-content .color-palet:last li.color-active').removeClass('color-active');
-                $(this).addClass('color-active');
-                var color2 =$(this).attr("data-color");
-                setColor2(color2);
+                });
+                $('#font-content .color-palet:last li').click(function(){
+                    $('#font-content .color-palet:last li.color-active').removeClass('color-active');
+                    $(this).addClass('color-active');
+                    var color2 =$(this).attr("data-color");
+                    setColor2(color2);
 
-            });
-            $('#select').change(function(){
-                var fontFamilyValue = $('#select').val();
-                $('body').css('font-family', fontFamilyValue);
-            });
-            //Pocetna
-            $('#pozadina-content .color-palet[data-section="pocetna"] li').click(function(){
-                $('#pozadina-content .color-palet[data-section="pocetna"] li.color-active').removeClass('color-active');
-                $(this).addClass('color-active');
-                var color=$(this).css("background-color");
-                var section = $(this).parent().attr("data-section");
-                changeColorStyle(color,section);
-            });
-            //ZaNas
-            $('#pozadina-content .color-palet[data-section="zanas"] li').click(function(){
-                $('#pozadina-content .color-palet[data-section="zanas"] li.color-active').removeClass('color-active');
-                $(this).addClass('color-active');
-                var color=$(this).css("background-color");
-                var section = $(this).parent().attr("data-section");
-                changeColorStyle(color,section);
-            });
-            //footerZaNas
-            $('#pozadina-content .color-palet[data-section="footerZaNas"] li').click(function(){
-                $('#pozadina-content .color-palet[data-section="footerZaNas"] li.color-active').removeClass('color-active');
-                $(this).addClass('color-active');
-                var color=$(this).css("background-color");
-                var section = $(this).parent().attr("data-section");
-                changeColorStyle(color,section);
-            });
-            //portfolio
-            $('#pozadina-content .color-palet[data-section="portfolio"] li').click(function(){
-                $('#pozadina-content .color-palet[data-section="portfolio"] li.color-active').removeClass('color-active');
-                $(this).addClass('color-active');
-                var color=$(this).css("background-color");
-                var section = $(this).parent().attr("data-section");
-                changeColorStyle(color,section);
-            });
-            //footerPortfolio
-            $('#pozadina-content .color-palet[data-section="footerPortfolio"] li').click(function(){
-                $('#pozadina-content .color-palet[data-section="footerPortfolio"] li.color-active').removeClass('color-active');
-                $(this).addClass('color-active');
-                var color=$(this).css("background-color");
-                var section = $(this).parent().attr("data-section");
-                changeColorStyle(color,section);
-            });
-            //contact
-            $('#pozadina-content .color-palet[data-section="contact"] li').click(function(){
-                $('#pozadina-content .color-palet[data-section="contact"] li.color-active').removeClass('color-active');
-                $(this).addClass('color-active');
-                var color=$(this).css("background-color");
-                var section = $(this).parent().attr("data-section");
-                changeColorStyle(color,section);
-            });
-            //header
-            $('#pozadina-content .color-palet[data-section="header"] li').click(function(){
+                });
+                $('#select').change(function(){
+                    var fontFamilyValue = $('#select').val();
+                    $('body').css('font-family', fontFamilyValue);
+                });
+            //Background
+            //Section Selection
+                $("#pozadina-content .section:not(.pocetna-section)").hide();
+                $('#select-section').change(function(){
+                    var section = $('#select-section').val();
+                    $("#pozadina-content .section").hide();
+                    $("#pozadina-content .section."+section).show();
+                });
+                
+                //Pocetna
+                $('#pozadina-content .color-palet[data-section="pocetna"] li').click(function(){
+                    $('#pozadina-content .color-palet[data-section="pocetna"] li.color-active').removeClass('color-active');
+                    $(this).addClass('color-active');
+                    var color=$(this).css("background-color");
+                    var section = $(this).parent().attr("data-section");
+                    changeColorStyle(color,section);
+                });
+                //ZaNas
+                $('#pozadina-content .color-palet[data-section="zanas"] li').click(function(){
+                    $('#pozadina-content .color-palet[data-section="zanas"] li.color-active').removeClass('color-active');
+                    $(this).addClass('color-active');
+                    var color=$(this).css("background-color");
+                    var section = $(this).parent().attr("data-section");
+                    changeColorStyle(color,section);
+                });
+                //footerZaNas
+                $('#pozadina-content .color-palet[data-section="footerZaNas"] li').click(function(){
+                    $('#pozadina-content .color-palet[data-section="footerZaNas"] li.color-active').removeClass('color-active');
+                    $(this).addClass('color-active');
+                    var color=$(this).css("background-color");
+                    var section = $(this).parent().attr("data-section");
+                    changeColorStyle(color,section);
+                });
+                //portfolio
+                $('#pozadina-content .color-palet[data-section="portfolio"] li').click(function(){
+                    $('#pozadina-content .color-palet[data-section="portfolio"] li.color-active').removeClass('color-active');
+                    $(this).addClass('color-active');
+                    var color=$(this).css("background-color");
+                    var section = $(this).parent().attr("data-section");
+                    changeColorStyle(color,section);
+                });
+                //footerPortfolio
+                $('#pozadina-content .color-palet[data-section="footerPortfolio"] li').click(function(){
+                    $('#pozadina-content .color-palet[data-section="footerPortfolio"] li.color-active').removeClass('color-active');
+                    $(this).addClass('color-active');
+                    var color=$(this).css("background-color");
+                    var section = $(this).parent().attr("data-section");
+                    changeColorStyle(color,section);
+                });
+                //contact
+                $('#pozadina-content .color-palet[data-section="contact"] li').click(function(){
+                    $('#pozadina-content .color-palet[data-section="contact"] li.color-active').removeClass('color-active');
+                    $(this).addClass('color-active');
+                    var color=$(this).css("background-color");
+                    var section = $(this).parent().attr("data-section");
+                    changeColorStyle(color,section);
+                });
+                //header
+                $('#pozadina-content .color-palet[data-section="header"] li').click(function(){
 
-                $('#pozadina-content .color-palet[data-section="header"] li.color-active').removeClass('color-active');
-                $(this).addClass('color-active');
-                var color=$(this).css("background-color");
-                var section = $(this).parent().attr("data-section");
-                $('header .main-menu').css("background-color",color);
-            });
-            //footer
-            $('#pozadina-content .color-palet[data-section="footer"] li').click(function(){
-                $('#pozadina-content .color-palet[data-section="footer"] li.color-active').removeClass('color-active');
-                $(this).addClass('color-active');
-                var color=$(this).css("background-color");
-                var section = $(this).parent().attr("data-section");
-                $('footer').css("background-color",color);
-            });
+                    $('#pozadina-content .color-palet[data-section="header"] li.color-active').removeClass('color-active');
+                    $(this).addClass('color-active');
+                    var color=$(this).css("background-color");
+                    var section = $(this).parent().attr("data-section");
+                    changeColorStyle(color,section);
+                
+                });
+                //footer
+                $('#pozadina-content .color-palet[data-section="footer"] li').click(function(){
+                    $('#pozadina-content .color-palet[data-section="footer"] li.color-active').removeClass('color-active');
+                    $(this).addClass('color-active');
+                    var color=$(this).css("background-color");
+                    var section = $(this).parent().attr("data-section");
+                    changeColorStyle(color,section);
+                });
 
             //Thumbnail Image Upload Form
             $('.FileUpload1').change(function () {
@@ -967,7 +1136,14 @@
                 reader.onload = function (e) {
                     $(imgSelector).show();
                     $(imgSelector).css('background-image', 'url(' + e.target.result + ')');
-                    $('#'+section+' .fill-screen').css("background-image",'url(' + e.target.result + ')');
+                    if($('#'+section+' .fill-screen').length>0){
+                        $('#'+section+' .fill-screen').css("background-image",'url(' + e.target.result + ')');
+                        $('#'+section+' .fill-screen').css("background-color","");
+                    }
+                    else{
+                        $(section+' .fill-screen').css("background-image",'url(' + e.target.result + ')');
+                        $(section+' .fill-screen').css("background-color","");
+                    }
 
 
                 }

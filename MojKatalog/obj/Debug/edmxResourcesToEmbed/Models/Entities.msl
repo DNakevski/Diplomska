@@ -1,18 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="dbKatalogModelStoreContainer" CdmEntityContainer="dbKatalogEntities">
-    <EntitySetMapping Name="Katalozi">
-      <EntityTypeMapping TypeName="dbKatalogModel.Katalozi">
-        <MappingFragment StoreEntitySet="Katalozi">
-          <ScalarProperty Name="IdKatalozi" ColumnName="IdKatalozi" />
-          <ScalarProperty Name="NazivNaKatalog" ColumnName="NazivNaKatalog" />
-          <ScalarProperty Name="OpisNaKatalog" ColumnName="OpisNaKatalog" />
-          <ScalarProperty Name="DataNaKreiranje" ColumnName="DataNaKreiranje" />
-          <ScalarProperty Name="IdPoedinci" ColumnName="IdPoedinci" />
-          <ScalarProperty Name="IdKompanii" ColumnName="IdKompanii" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Kategorii">
       <EntityTypeMapping TypeName="dbKatalogModel.Kategorii">
         <MappingFragment StoreEntitySet="Kategorii">
@@ -110,5 +98,36 @@
         <ScalarProperty Name="IdPoraki" ColumnName="IdPoraki" />
       </EndProperty>
     </AssociationSetMapping>
+    <EntitySetMapping Name="Katalozi">
+      <EntityTypeMapping TypeName="dbKatalogModel.Katalozi">
+        <MappingFragment StoreEntitySet="Katalozi">
+          <ScalarProperty Name="IdKompanii" ColumnName="IdKompanii" />
+          <ScalarProperty Name="IdPoedinci" ColumnName="IdPoedinci" />
+          <ScalarProperty Name="DataNaKreiranje" ColumnName="DataNaKreiranje" />
+          <ScalarProperty Name="OpisNaKatalog" ColumnName="OpisNaKatalog" />
+          <ScalarProperty Name="NazivNaKatalog" ColumnName="NazivNaKatalog" />
+          <ScalarProperty Name="IdKatalozi" ColumnName="IdKatalozi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WebSiteSettings">
+      <EntityTypeMapping TypeName="dbKatalogModel.WebSiteSettings">
+        <MappingFragment StoreEntitySet="WebSiteSettings">
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+          <ScalarProperty Name="BGFooter" ColumnName="BGFooter" />
+          <ScalarProperty Name="BGMenu" ColumnName="BGMenu" />
+          <ScalarProperty Name="BGContact" ColumnName="BGContact" />
+          <ScalarProperty Name="BGFPortfolio" ColumnName="BGFPortfolio" />
+          <ScalarProperty Name="BGPortfolio" ColumnName="BGPortfolio" />
+          <ScalarProperty Name="BGFZaNas" ColumnName="BGFZaNas" />
+          <ScalarProperty Name="BGZaNas" ColumnName="BGZaNas" />
+          <ScalarProperty Name="BGPocetna" ColumnName="BGPocetna" />
+          <ScalarProperty Name="FontColor2" ColumnName="FontColor2" />
+          <ScalarProperty Name="FontColor1" ColumnName="FontColor1" />
+          <ScalarProperty Name="FontFamily" ColumnName="FontFamily" />
+          <ScalarProperty Name="IdKatalozi" ColumnName="IdKatalozi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

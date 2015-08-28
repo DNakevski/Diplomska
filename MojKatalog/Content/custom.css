@@ -580,6 +580,15 @@ input[readonly]
     }
 
 /*End Modal*/
+/*Begin WebSiteSettings*/
+.well-red
+{
+    background-color: rgba(243, 156, 18, 0.3) !important;
+    text-align: center;
+    color: #95a5a6; 
+}
+/*End WebSiteSettings*/
+
 
 
 

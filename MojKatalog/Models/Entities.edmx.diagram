@@ -5,21 +5,23 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="288103b3983e4f169eba1e97652daebc" Name="Diagram1">
-        <EntityTypeShape EntityType="dbKatalogModel.Katalozi" Width="1.5" PointX="5.25" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="dbKatalogModel.Kategorii" Width="1.5" PointX="7.5" PointY="3.25" IsExpanded="true" />
         <EntityTypeShape EntityType="dbKatalogModel.Klienti" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="dbKatalogModel.Kompanii" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="dbKatalogModel.Poedineci" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="dbKatalogModel.Poraki" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
         <EntityTypeShape EntityType="dbKatalogModel.Proizvodi" Width="1.5" PointX="9.75" PointY="3.125" IsExpanded="true" />
-        <AssociationConnector Association="dbKatalogModel.FK_Katalozi_Kompanii" ManuallyRouted="false" />
-        <AssociationConnector Association="dbKatalogModel.FK_Katalozi_Poedineci" ManuallyRouted="false" />
-        <AssociationConnector Association="dbKatalogModel.FK_Kategorii_Katalozi" ManuallyRouted="false" />
         <AssociationConnector Association="dbKatalogModel.FK_Kategorii_Kategorii" ManuallyRouted="false" />
         <AssociationConnector Association="dbKatalogModel.FK_Proizvodi_Kategorii" ManuallyRouted="false" />
         <AssociationConnector Association="dbKatalogModel.KompaniiKlienti" ManuallyRouted="false" />
         <AssociationConnector Association="dbKatalogModel.PoedinciKlienti" ManuallyRouted="false" />
         <AssociationConnector Association="dbKatalogModel.PorakiKlienti" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="dbKatalogModel.Katalozi" Width="1.5" PointX="5.25" PointY="3" />
+        <EntityTypeShape EntityType="dbKatalogModel.WebSiteSettings" Width="1.5" PointX="7.5" PointY="6.75" />
+        <AssociationConnector Association="dbKatalogModel.FK_Katalozi_Kompanii" />
+        <AssociationConnector Association="dbKatalogModel.FK_Katalozi_Poedineci" />
+        <AssociationConnector Association="dbKatalogModel.FK_Kategorii_Katalozi" />
+        <AssociationConnector Association="dbKatalogModel.FK_WebSiteSettings_Katalozi" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -16,8 +16,8 @@ namespace MojKatalog.Models
     {
         public Poedineci()
         {
-            this.Katalozi = new HashSet<Katalozi>();
             this.Klienti = new HashSet<Klienti>();
+            this.Katalozi = new HashSet<Katalozi>();
         }
     
         public int IdPoedineci { get; set; }
@@ -28,7 +28,7 @@ namespace MojKatalog.Models
         public string Mail { get; set; }
         public string Telefon { get; set; }
     
-        public virtual ICollection<Katalozi> Katalozi { get; set; }
         public virtual ICollection<Klienti> Klienti { get; set; }
+        public virtual ICollection<Katalozi> Katalozi { get; set; }
     }
 }

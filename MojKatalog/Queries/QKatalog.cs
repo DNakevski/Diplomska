@@ -30,14 +30,17 @@ namespace MojKatalog.Queries
 
         public List<ViewKataloziKategorii> IzlistajKatalozi(int id, LogedUserTypeEnum userType)
         {
-            int idpom;
             string stringpom;
             List<Katalozi> katalozi = AllKatalozi(id, userType);
             List<ViewKataloziKategorii> kataloziIkategorii = new List<ViewKataloziKategorii>();
 
             foreach(var katalog in katalozi)
             {
-                stringpom = ConvertStringListToString(katalog.Kategorii.Where(x => x.RoditelId == null).Select(x => x.NazivNaKategorija).ToList());
+                stringpom = ConvertStringListToString(katalog.Kategorii
+                    .Where(x => x.RoditelId == null)
+                    .Select(x => x.NazivNaKategorija)
+                    .ToList());
+
                 kataloziIkategorii.Add(new ViewKataloziKategorii
                               {
                                   ViewKatalozi = katalog,
