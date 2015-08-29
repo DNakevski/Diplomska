@@ -589,6 +589,16 @@ input[readonly]
 }
 /*End WebSiteSettings*/
 
+/*Error Messages*/
+.field-validation-error 
+{
+    color: red !important;
+}
 
+.input-validation-error 
+{
+    border-color: red !important;
+}
+/*END Error Messages*/
 
 

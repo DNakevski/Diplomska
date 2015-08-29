@@ -29,6 +29,7 @@ namespace MojKatalog.Controllers
         [HttpPost]
         public ActionResult IspratiMail(ViewPoraki vporaka, int[] selectedKlients)
         {
+
             Poraki novaPoraka = new Poraki();
             novaPoraka.Subject = vporaka.Subject;
             novaPoraka.Body = vporaka.Body;

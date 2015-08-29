@@ -18,6 +18,7 @@ namespace MojKatalog.Queries
                 Karakter=kl.Key.ToUpper(),
                 Klienti=kl.OrderBy(obj=>obj.Ime).ToList()
             }).ToList();
+
             return new ViewPoraki 
             { 
                 Body = "",
@@ -27,7 +28,10 @@ namespace MojKatalog.Queries
         }
         public List<ViewKlienti> PrebarajKontakti(int userId, string searchString)
         {
-             return _db.Klienti.Where(pr => pr.Ime.Contains(searchString)).GroupBy(k => k.Ime.Substring(0, 1)).Select(kl => new ViewKlienti
+             return _db.Klienti
+                .Where(pr => pr.Ime.Contains(searchString))
+                .GroupBy(k => k.Ime.Substring(0, 1))
+                .Select(kl => new ViewKlienti
             {
                 Karakter = kl.Key.ToUpper(),
                 Klienti = kl.OrderBy(obj => obj.Ime).ToList()
