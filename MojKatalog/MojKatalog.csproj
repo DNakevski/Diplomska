@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -231,7 +232,7 @@
     <Compile Include="Models\Kompanii.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Poedineci.cs">
+    <Compile Include="Models\Poedinci.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Poraki.cs">
@@ -243,6 +244,7 @@
     <Compile Include="Models\ViewModels\KataloziWebSiteViewModel.cs" />
     <Compile Include="Models\ViewModels\LogiranaKompanijaViewModel.cs" />
     <Compile Include="Models\ViewModels\LogiranPoedinecViewModel.cs" />
+    <Compile Include="Models\ViewModels\MailPageViewModel.cs" />
     <Compile Include="Models\ViewModels\ProizvodViewModel.cs" />
     <Compile Include="Models\ViewModels\ViewBreadcrumb.cs" />
     <Compile Include="Models\ViewModels\ViewKataloziKategorii.cs">
@@ -352,6 +354,16 @@
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Images\UserImages\Cover_0.jpg" />
     <Content Include="Images\UserImages\NoImage.jpg" />
+    <Content Include="Models\Entities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Entities.edmx</DependentUpon>
+      <LastGenOutput>Entities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Entities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Entities.edmx</DependentUpon>
+      <LastGenOutput>Entities.cs</LastGenOutput>
+    </Content>
     <Content Include="Plugins\jstree\.gitignore" />
     <Content Include="Plugins\jstree\bower.json" />
     <Content Include="Plugins\jstree\component.json" />
@@ -388,23 +400,6 @@
     <Content Include="Plugins\jstree\src\themes\mixins.less" />
     <Content Include="Plugins\jstree\src\themes\responsive.less" />
     <Content Include="Plugins\jstree\test\UNDER_CONTRUCTION" />
-    <EntityDeploy Include="Models\Entities.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Entities.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Entities.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Entities.edmx</DependentUpon>
-      <LastGenOutput>Entities.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\Entities.edmx.diagram">
-      <DependentUpon>Entities.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\Entities.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Entities.edmx</DependentUpon>
-      <LastGenOutput>Entities.cs</LastGenOutput>
-    </Content>
     <Content Include="Areas\Portfolio\Views\web.config" />
     <Content Include="Areas\Portfolio\Views\Portfolio\Index.cshtml" />
     <Content Include="Areas\Portfolio\Content\Fonts\PT Sans\PTC55F.ttf" />
@@ -446,6 +441,13 @@
     <Content Include="Areas\Portfolio\Content\Fonts\Raleway\Raleway-Thin.ttf" />
     <Content Include="Areas\Portfolio\Views\Portfolio\DodadiPortfolio.cshtml" />
     <Content Include="Areas\Portfolio\Views\Portfolio\IzmeniPortfolio.cshtml" />
+    <EntityDeploy Include="Models\Entities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Entities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Entities.edmx.diagram">
+      <DependentUpon>Entities.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Plugins\jstree\demo\basic\index.html" />
     <Content Include="Plugins\jstree\demo\filebrowser\data\root\asdf\New Text Document.txt" />

@@ -12,15 +12,17 @@ namespace MojKatalog.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Poedineci
+    public partial class Poedinci
     {
-        public Poedineci()
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Poedinci()
         {
-            this.Klienti = new HashSet<Klienti>();
             this.Katalozi = new HashSet<Katalozi>();
+            this.Poraki = new HashSet<Poraki>();
+            this.Klienti = new HashSet<Klienti>();
         }
     
-        public int IdPoedineci { get; set; }
+        public int IdPoedinci { get; set; }
         public string Ime { get; set; }
         public string Prezime { get; set; }
         public string KorisnickoIme { get; set; }
@@ -28,7 +30,11 @@ namespace MojKatalog.Models
         public string Mail { get; set; }
         public string Telefon { get; set; }
     
-        public virtual ICollection<Klienti> Klienti { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Katalozi> Katalozi { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Poraki> Poraki { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Klienti> Klienti { get; set; }
     }
 }

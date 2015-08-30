@@ -9,12 +9,23 @@ namespace MojKatalog.Queries
 {
     public class QKlient
     {
-        dbKatalogEntities _db = new dbKatalogEntities();
+        dbKatalogEntities _db;
+
+        public QKlient()
+        {
+            _db = new dbKatalogEntities();
+        }
+
+        public QKlient(dbKatalogEntities db)
+        {
+            _db = db;
+        }
+
         public List<Klienti> IzlistajKlientiZaPoedinec(int poedinecId)
         {
-            var poedinec = _db.Poedineci
+            var poedinec = _db.Poedinci
                 .Include(x => x.Klienti)
-                .Where(x => x.IdPoedineci == poedinecId)
+                .Where(x => x.IdPoedinci == poedinecId)
                 .FirstOrDefault();
 
             if (poedinec == null)
@@ -38,7 +49,7 @@ namespace MojKatalog.Queries
 
         public void DodadiKlientZaPoedinec(Klienti klient, int poedinecId)
         {
-            var poedinec = _db.Poedineci.Find(poedinecId);
+            var poedinec = _db.Poedinci.Find(poedinecId);
 
             if (poedinec == null)
                 return;//vakov poedinec ne e najden...treba da se hendla 

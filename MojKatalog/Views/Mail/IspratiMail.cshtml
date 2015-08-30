@@ -61,7 +61,7 @@
 
                                     <tr>
                                         <th>
-                                            <input type="checkbox" />
+                                            <input type="checkbox" id="checkAllClients"/>
                                         </th>
                                         <th>
                                             <span class="input-group input-group-sm">
@@ -158,6 +158,15 @@
                 }
 
                 return false;
+            });
+
+            $("#checkAllClients").click(function () {
+                if($(this).is(":checked")) {
+                    $("#modalKontakti input[name='selectedKlients']").prop('checked', true);
+                }
+                else {
+                    $("#modalKontakti input[name='selectedKlients']").prop('checked', false);
+                }
             });
     
         });

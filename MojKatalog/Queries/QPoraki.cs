@@ -10,7 +10,27 @@ namespace MojKatalog.Queries
 {
     public class QPoraki
     {
-        dbKatalogEntities _db = new dbKatalogEntities();
+        private dbKatalogEntities _db;
+
+        public QPoraki()
+        {
+            _db = new dbKatalogEntities();
+        }
+
+        public QPoraki(dbKatalogEntities db)
+        {
+            _db = db;
+        }
+
+        public MailPageViewModel GetPoraki()
+        {
+            var poraki = new MailPageViewModel();
+
+            poraki.IsprateniPoraki = _db.Poraki.ToList();
+            poraki.IzbrishaniPoraki = _db.Poraki.ToList();
+            poraki.SocuvaniPoraki = _db.Poraki.ToList();
+            return poraki;
+        }
 
         public ViewPoraki InicijalizirajViewPoraki(int userId)
         {
@@ -39,7 +59,7 @@ namespace MojKatalog.Queries
            
           
         }
-        public void IspratiPoraka(Poraki poraka)
+        public void IspratiISnimiPoraka(Poraki poraka)
         {
             string mailUser = "applicationclientsmail@gmail.com";
             string mailUserPwd = "applicationClientsPass";
@@ -50,20 +70,31 @@ namespace MojKatalog.Queries
             System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(mailUser, mailUserPwd);
             client.EnableSsl = true;
             client.Credentials = credentials;
-            foreach (Klienti klient in poraka.Klienti)
-            {
-                MailMessage mail = new MailMessage(mailUser, klient.Mail);
-                mail.Subject = poraka.Subject;
-                mail.Body = poraka.Body;
-                try
-                {
-                    client.Send(mail);
-                }
-                catch(Exception ex)
-                {
-                    throw ex;
-                }
-            }
+
+            //send the message to all the listed clients
+            //foreach (Klienti klient in poraka.Klienti)
+            //{
+            //    MailMessage mail = new MailMessage(mailUser, klient.Mail);
+            //    mail.Subject = poraka.Subject;
+            //    mail.Body = poraka.Body;
+            //    try
+            //    {
+            //        client.Send(mail);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        throw ex;
+            //    }
+            //}
+
+            //store the message to database
+            SocuvajPoraka(poraka);
+        }
+
+        public void SocuvajPoraka(Poraki poraka)
+        {
+            _db.Poraki.Add(poraka);
+            _db.SaveChanges();
         }
     }
 }
