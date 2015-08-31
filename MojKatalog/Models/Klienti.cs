@@ -14,10 +14,11 @@ namespace MojKatalog.Models
     
     public partial class Klienti
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Klienti()
         {
             this.Kompanii = new HashSet<Kompanii>();
-            this.Poedineci = new HashSet<Poedineci>();
+            this.Poedinci = new HashSet<Poedinci>();
             this.Poraki = new HashSet<Poraki>();
         }
     
@@ -28,8 +29,11 @@ namespace MojKatalog.Models
         public string Mail { get; set; }
         public string Telefon { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Kompanii> Kompanii { get; set; }
-        public virtual ICollection<Poedineci> Poedineci { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Poedinci> Poedinci { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Poraki> Poraki { get; set; }
     }
 }

@@ -14,6 +14,7 @@ namespace MojKatalog.Models
     
     public partial class Katalozi
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Katalozi()
         {
             this.Kategorii = new HashSet<Kategorii>();
@@ -27,7 +28,8 @@ namespace MojKatalog.Models
         public Nullable<int> IdKompanii { get; set; }
     
         public virtual Kompanii Kompanii { get; set; }
-        public virtual Poedineci Poedineci { get; set; }
+        public virtual Poedinci Poedinci { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Kategorii> Kategorii { get; set; }
         public virtual WebSiteSettings WebSiteSettings { get; set; }
     }

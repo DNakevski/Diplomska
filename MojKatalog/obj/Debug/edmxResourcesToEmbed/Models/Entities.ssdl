@@ -52,6 +52,18 @@
     <Property Name="IdKlienti" Type="int" Nullable="false" />
     <Property Name="IdKompanii" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="Poedinci">
+    <Key>
+      <PropertyRef Name="IdPoedinci" />
+    </Key>
+    <Property Name="IdPoedinci" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ime" Type="nvarchar" MaxLength="100" />
+    <Property Name="Prezime" Type="nvarchar" MaxLength="100" />
+    <Property Name="KorisnickoIme" Type="nvarchar" MaxLength="50" />
+    <Property Name="Lozinka" Type="nvarchar" MaxLength="50" />
+    <Property Name="Mail" Type="nvarchar" MaxLength="50" />
+    <Property Name="Telefon" Type="nvarchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="PoedinciKlienti">
     <Key>
       <PropertyRef Name="IdKlienti" />
@@ -60,18 +72,6 @@
     <Property Name="IdKlienti" Type="int" Nullable="false" />
     <Property Name="IdPoedinci" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="Poedineci">
-    <Key>
-      <PropertyRef Name="IdPoedineci" />
-    </Key>
-    <Property Name="IdPoedineci" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Ime" Type="nvarchar" MaxLength="100" />
-    <Property Name="Prezime" Type="nvarchar" MaxLength="100" />
-    <Property Name="KorisnickoIme" Type="nvarchar" MaxLength="50" />
-    <Property Name="Lozinka" Type="nvarchar" MaxLength="50" />
-    <Property Name="Mail" Type="nvarchar" MaxLength="50" />
-    <Property Name="Telefon" Type="nvarchar" MaxLength="50" />
-  </EntityType>
   <EntityType Name="Poraki">
     <Key>
       <PropertyRef Name="IdPoraki" />
@@ -79,7 +79,11 @@
     <Property Name="IdPoraki" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Subject" Type="nvarchar" MaxLength="100" />
     <Property Name="Body" Type="nvarchar(max)" />
+    <Property Name="IsSent" Type="bit" />
+    <Property Name="IsDeleted" Type="bit" />
     <Property Name="Date" Type="datetime" />
+    <Property Name="IdKompanii" Type="int" />
+    <Property Name="IdPoedinci" Type="int" />
   </EntityType>
   <EntityType Name="PorakiKlienti">
     <Key>
@@ -107,7 +111,6 @@
       <PropertyRef Name="IdKatalozi" />
     </Key>
     <Property Name="IdKatalozi" Type="int" Nullable="false" />
-    <Property Name="Naziv" Type="nvarchar(max)" />
     <Property Name="FontFamily" Type="nvarchar" MaxLength="50" />
     <Property Name="FontColor1" Type="nvarchar" MaxLength="50" />
     <Property Name="FontColor2" Type="nvarchar" MaxLength="50" />
@@ -119,6 +122,7 @@
     <Property Name="BGContact" Type="nvarchar(max)" />
     <Property Name="BGMenu" Type="nvarchar(max)" />
     <Property Name="BGFooter" Type="nvarchar(max)" />
+    <Property Name="Naziv" Type="nvarchar(max)" />
   </EntityType>
   <Association Name="FK_Katalozi_Kompanii">
     <End Role="Kompanii" Type="Self.Kompanii" Multiplicity="0..1">
@@ -135,13 +139,13 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Katalozi_Poedineci">
-    <End Role="Poedineci" Type="Self.Poedineci" Multiplicity="0..1">
+    <End Role="Poedinci" Type="Self.Poedinci" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
     </End>
     <End Role="Katalozi" Type="Self.Katalozi" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Poedineci">
-        <PropertyRef Name="IdPoedineci" />
+      <Principal Role="Poedinci">
+        <PropertyRef Name="IdPoedinci" />
       </Principal>
       <Dependent Role="Katalozi">
         <PropertyRef Name="IdPoedinci" />
@@ -217,15 +221,43 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_PoedinciKlienti_Poedineci">
-    <End Role="Poedineci" Type="Self.Poedineci" Multiplicity="1">
+    <End Role="Poedinci" Type="Self.Poedinci" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
     <End Role="PoedinciKlienti" Type="Self.PoedinciKlienti" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Poedineci">
-        <PropertyRef Name="IdPoedineci" />
+      <Principal Role="Poedinci">
+        <PropertyRef Name="IdPoedinci" />
       </Principal>
       <Dependent Role="PoedinciKlienti">
+        <PropertyRef Name="IdPoedinci" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Poraki_Kompanii">
+    <End Role="Kompanii" Type="Self.Kompanii" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Poraki" Type="Self.Poraki" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kompanii">
+        <PropertyRef Name="IdKompanii" />
+      </Principal>
+      <Dependent Role="Poraki">
+        <PropertyRef Name="IdKompanii" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Poraki_Poedinci">
+    <End Role="Poedinci" Type="Self.Poedinci" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Poraki" Type="Self.Poraki" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Poedinci">
+        <PropertyRef Name="IdPoedinci" />
+      </Principal>
+      <Dependent Role="Poraki">
         <PropertyRef Name="IdPoedinci" />
       </Dependent>
     </ReferentialConstraint>
@@ -292,8 +324,8 @@
     <EntitySet Name="Klienti" EntityType="Self.Klienti" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Kompanii" EntityType="Self.Kompanii" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="KompaniiKlienti" EntityType="Self.KompaniiKlienti" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Poedinci" EntityType="Self.Poedinci" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PoedinciKlienti" EntityType="Self.PoedinciKlienti" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Poedineci" EntityType="Self.Poedineci" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Poraki" EntityType="Self.Poraki" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PorakiKlienti" EntityType="Self.PorakiKlienti" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Proizvodi" EntityType="Self.Proizvodi" Schema="dbo" store:Type="Tables" />
@@ -303,7 +335,7 @@
       <End Role="Katalozi" EntitySet="Katalozi" />
     </AssociationSet>
     <AssociationSet Name="FK_Katalozi_Poedineci" Association="Self.FK_Katalozi_Poedineci">
-      <End Role="Poedineci" EntitySet="Poedineci" />
+      <End Role="Poedinci" EntitySet="Poedinci" />
       <End Role="Katalozi" EntitySet="Katalozi" />
     </AssociationSet>
     <AssociationSet Name="FK_Kategorii_Katalozi" Association="Self.FK_Kategorii_Katalozi">
@@ -327,8 +359,16 @@
       <End Role="PoedinciKlienti" EntitySet="PoedinciKlienti" />
     </AssociationSet>
     <AssociationSet Name="FK_PoedinciKlienti_Poedineci" Association="Self.FK_PoedinciKlienti_Poedineci">
-      <End Role="Poedineci" EntitySet="Poedineci" />
+      <End Role="Poedinci" EntitySet="Poedinci" />
       <End Role="PoedinciKlienti" EntitySet="PoedinciKlienti" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Poraki_Kompanii" Association="Self.FK_Poraki_Kompanii">
+      <End Role="Kompanii" EntitySet="Kompanii" />
+      <End Role="Poraki" EntitySet="Poraki" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Poraki_Poedinci" Association="Self.FK_Poraki_Poedinci">
+      <End Role="Poedinci" EntitySet="Poedinci" />
+      <End Role="Poraki" EntitySet="Poraki" />
     </AssociationSet>
     <AssociationSet Name="FK_PorakiKlienti_Klienti" Association="Self.FK_PorakiKlienti_Klienti">
       <End Role="Klienti" EntitySet="Klienti" />

@@ -14,6 +14,7 @@ namespace MojKatalog.Models
     
     public partial class Poraki
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Poraki()
         {
             this.Klienti = new HashSet<Klienti>();
@@ -22,8 +23,15 @@ namespace MojKatalog.Models
         public int IdPoraki { get; set; }
         public string Subject { get; set; }
         public string Body { get; set; }
+        public Nullable<bool> IsSent { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
+        public Nullable<int> IdKompanii { get; set; }
+        public Nullable<int> IdPoedinci { get; set; }
     
+        public virtual Kompanii Kompanii { get; set; }
+        public virtual Poedinci Poedinci { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Klienti> Klienti { get; set; }
     }
 }
