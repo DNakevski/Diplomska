@@ -1,147 +1,115 @@
 ﻿@model MojKatalog.Models.ViewModels.MailPageViewModel
-    @{
-        ViewBag.Title = "Index";
-    }
+@{
+    ViewBag.Title = "Index";
+}
 
 
-    <h3 class="page-title">Пошта <small>управување со пораки</small></h3>
-    <ul class="breadcrumb">
-        <li class="active">Пошта</li>
-    </ul>
-    <input type="hidden" id="activeLink" value="mailLink" />
-    <div class="container mail-container">
-        <div class="row row-content">
-            <div class="col-sm-3 col-md-2">
-                <a href="@Url.Action("IspratiMail")" class="btn btn-danger btn-block" role="button"><span class="glyphicon glyphicon-pencil"></span>Креирај</a>
-                <hr>
-                <ul class="nav nav-pills nav-stacked" role="tablist">
-                    <li class="active">
-                        <a href="#isprateniTab" data-toggle="tab" role="tab"><span class="badge pull-right">@Model.IsprateniPorakiCount</span> Испратени </a>
-                    </li>
-                    <li><a href="#izbrishaniTab" data-toggle="tab" role="tab"><span class="badge pull-right">@Model.IzbrishaniPorakiCount</span> Избришани</a></li>
-                    <li><a href="#socuvaniTab" data-toggle="tab" role="tab"><span class="badge pull-right">@Model.SocuvaniPorakiCount</span> Сочувани</a></li>
-                </ul>
-            </div>
-            <div class="col-sm-9 col-md-10">
-                <!-- Nav tabs -->
-                
-                <!-- Tab panes -->
-                <div class="tab-content">
-                    <div class="tab-pane fade in active" id="isprateniTab" role="tabpanel">
-                        <ul class="mail-actions">
-                            <li>
-                                <input class="checkbox-input check-all" type="checkbox" id="selectAllIsprateni" target="isprateni-check"/>
-                            </li>
-                            <li><span class="glyphicon glyphicon-refresh"></span></li>
-                            <li><span class="glyphicon glyphicon-trash"></span></li>
-                            <li class="pull-right">
-                                <span class="text-muted"><b>1</b>–<b>50</b> of <b>160</b></span>
-                                <div class="btn-group btn-group-sm">
-                                    <button type="button" class="btn btn-default">
-                                        <span class="glyphicon glyphicon-chevron-left"></span>
-                                    </button>
-                                    <button type="button" class="btn btn-default">
-                                        <span class="glyphicon glyphicon-chevron-right"></span>
-                                    </button>
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="list-group isprateni-container">
+<h3 class="page-title">Пошта <small>управување со пораки</small></h3>
+<ul class="breadcrumb">
+    <li class="active">Пошта</li>
+</ul>
+<input type="hidden" id="activeLink" value="mailLink" />
+<div class="container mail-container">
 
-                            @foreach (var poraka in Model.IsprateniPoraki)
-                            {
-                                var subject = (poraka.Subject.Length > 50) ? poraka.Subject.Substring(0, 50) + "..." : poraka.Subject;
-                                <a href="#" class="list-group-item">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="isprateni-check" value="@poraka.IdPoraki" style="margin-top:8px !important;"/>
-                                        </label>
-                                    </div>
-                                    <span class="glyphicon glyphicon-star-empty"></span><span class="name" style="min-width: 120px; display: inline-block;">Mark Otto</span> <span class="">@subject</span>
-                                    <span class="text-muted" style="font-size: 11px;">- Повеќе содржина</span> <span class="badge">@poraka.Date.Value.ToString("dd/MM/yyyy hh:mm:ss")</span> <span class="pull-right"></span>
-                                </a>
-                            }
-                           
-                        </div>
+    <div class="alert alert-danger" style="display:none;" id="errorContainer">
+        <span></span>
+    </div>
+
+    <div class="alert alert-success" style="display:none;" id="successContainer">
+        <span></span>
+    </div>
+
+    <div class="row row-content">
+        <div class="col-sm-3 col-md-2">
+            <a href="@Url.Action("IspratiMail")" class="btn btn-danger btn-block" role="button"><span class="glyphicon glyphicon-pencil"></span>Креирај</a>
+            <hr>
+            <ul class="nav nav-pills nav-stacked" role="tablist">
+                <li class="active">
+                    <a href="#isprateniTab" data-toggle="tab" role="tab"><span class="badge isprateni-badge pull-right">@Model.IsprateniPorakiCount</span> Испратени </a>
+                </li>
+                <li><a href="#izbrishaniTab" data-toggle="tab" role="tab"><span class="badge izbrishani-badge pull-right">@Model.IzbrishaniPorakiCount</span> Избришани</a></li>
+                <li><a href="#socuvaniTab" data-toggle="tab" role="tab"><span class="badge socuvani-badge pull-right">@Model.SocuvaniPorakiCount</span> Сочувани</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-md-10">
+            <!-- Nav tabs -->
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="isprateniTab" role="tabpanel">
+                    <ul class="mail-actions">
+                        <li>
+                            <input class="checkbox-input check-all" type="checkbox" id="selectAllIsprateni" target="isprateni-check" />
+                        </li>
+                        <li><a href="#" onclick="reLoadIsprateniTab(); return false;"><span class="glyphicon glyphicon-refresh"></span></a></li>
+                        <li><a href="#" onclick="deleteIsprateni(); return false;"><span class="glyphicon glyphicon-trash"></span></a></li>
+                        <li class="pull-right">
+                            <span class="text-muted"><b>1</b>–<b>50</b> of <b>160</b></span>
+                            <div class="btn-group btn-group-sm">
+                                <button type="button" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-chevron-left"></span>
+                                </button>
+                                <button type="button" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-chevron-right"></span>
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="list-group isprateni-container">
+
+                        @Html.Partial("Partials/_IsprateniPorakiPartial", Model.IsprateniPoraki)
+
                     </div>
-                    <div class="tab-pane fade in" id="izbrishaniTab" role="tabpanel">
-                        <ul class="mail-actions">
-                            <li>
-                                <input class="checkbox-input check-all" type="checkbox" id="selectAllIzbrishani" target="izbrishani-check"/>
-                            </li>
-                            <li><span class="glyphicon glyphicon-refresh"></span></li>
-                            <li><span class="glyphicon glyphicon-trash"></span></li>
-                            <li class="pull-right">
-                                <span class="text-muted"><b>1</b>–<b>50</b> of <b>160</b></span>
-                                <div class="btn-group btn-group-sm">
-                                    <button type="button" class="btn btn-default">
-                                        <span class="glyphicon glyphicon-chevron-left"></span>
-                                    </button>
-                                    <button type="button" class="btn btn-default">
-                                        <span class="glyphicon glyphicon-chevron-right"></span>
-                                    </button>
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="list-group izbrishani-container">
-                            
-                            @foreach (var poraka in Model.IzbrishaniPoraki)
-                            {
-                                var subject = (poraka.Subject.Length > 50) ? poraka.Subject.Substring(0, 50) + "..." : poraka.Subject;
-                                <a href="#" class="list-group-item">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="izbrishani-check" value="@poraka.IdPoraki" style="margin-top:8px !important;" />
-                                        </label>
-                                    </div>
-                                    <span class="glyphicon glyphicon-star-empty"></span><span class="name" style="min-width: 120px; display: inline-block;">Mark Otto</span> <span class="">@subject</span>
-                                    <span class="text-muted" style="font-size: 11px;">- Повеќе содржина</span> <span class="badge">@poraka.Date.Value.ToString("dd/MM/yyyy hh:mm:ss")</span> <span class="pull-right"></span>
-                                </a>
-                            }
-
-                        </div>
+                </div>
+                <div class="tab-pane fade in" id="izbrishaniTab" role="tabpanel">
+                    <ul class="mail-actions">
+                        <li>
+                            <input class="checkbox-input check-all" type="checkbox" id="selectAllIzbrishani" target="izbrishani-check" />
+                        </li>
+                        <li> <a href="#" onclick="reLoadIzbrishaniTab(); return false;"><span class="glyphicon glyphicon-refresh"></span></a></li>
+                        <li> <a href="#" onclick="deleteIzbrishani(); return false;"><span class="glyphicon glyphicon-trash"></span></a></li>
+                        <li class="pull-right">
+                            <span class="text-muted"><b>1</b>–<b>50</b> of <b>160</b></span>
+                            <div class="btn-group btn-group-sm">
+                                <button type="button" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-chevron-left"></span>
+                                </button>
+                                <button type="button" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-chevron-right"></span>
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="list-group izbrishani-container">
+                        @Html.Partial("Partials/_IzbrisaniPorakiPartial", Model.IzbrishaniPoraki)
                     </div>
-                    <div class="tab-pane fade in" id="socuvaniTab" role="tabpanel">
-                        <ul class="mail-actions">
-                            <li>
-                                <input class="checkbox-input check-all" type="checkbox"  id="selectAllSocuvani" target="socuvani-check"/>
-                            </li>
-                            <li><span class="glyphicon glyphicon-refresh"></span></li>
-                            <li><span class="glyphicon glyphicon-trash"></span></li>
-                            <li class="pull-right">
-                                <span class="text-muted"><b>1</b>–<b>50</b> of <b>160</b></span>
-                                <div class="btn-group btn-group-sm">
-                                    <button type="button" class="btn btn-default">
-                                        <span class="glyphicon glyphicon-chevron-left"></span>
-                                    </button>
-                                    <button type="button" class="btn btn-default">
-                                        <span class="glyphicon glyphicon-chevron-right"></span>
-                                    </button>
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="list-group socuvani-container">
-
-                            @foreach (var poraka in Model.SocuvaniPoraki)
-                            {
-                                var subject = (poraka.Subject.Length > 50) ? poraka.Subject.Substring(0, 50) + "..." : poraka.Subject;
-                                <a href="#" class="list-group-item">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="socuvani-check" value="@poraka.IdPoraki" style="margin-top:8px !important;" />
-                                        </label>
-                                    </div>
-                                    <span class="glyphicon glyphicon-star-empty"></span><span class="name" style="min-width: 120px; display: inline-block;">Mark Otto</span> <span class="">@subject</span>
-                                    <span class="text-muted" style="font-size: 11px;">- Повеќе содржина</span> <span class="badge">@poraka.Date.Value.ToString("dd/MM/yyyy hh:mm:ss")</span> <span class="pull-right"></span>
-                                </a>
-                            }
-
-                        </div>
+                </div>
+                <div class="tab-pane fade in" id="socuvaniTab" role="tabpanel">
+                    <ul class="mail-actions">
+                        <li>
+                            <input class="checkbox-input check-all" type="checkbox" id="selectAllSocuvani" target="socuvani-check" />
+                        </li>
+                        <li><a href="#" onclick="reLoadSocuvaniTab(); return false;"><span class="glyphicon glyphicon-refresh"></span></a></li>
+                        <li><a href="#" onclick="deleteSocuvani(); return false;"><span class="glyphicon glyphicon-trash"></span></a></li>
+                        <li class="pull-right">
+                            <span class="text-muted"><b>1</b>–<b>50</b> of <b>160</b></span>
+                            <div class="btn-group btn-group-sm">
+                                <button type="button" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-chevron-left"></span>
+                                </button>
+                                <button type="button" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-chevron-right"></span>
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="list-group socuvani-container">
+                        @Html.Partial("Partials/_SocuvaniPorakiPartial", Model.SocuvaniPoraki)
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 
 @section Scripts
@@ -153,13 +121,128 @@
             $(".check-all").click(function () {
                 var target = $(this).attr("target");
                 if ($(this).is(":checked")) {
-                    $("input[name="+ target +"]").prop("checked", true);
+                    $("input[name=" + target + "]").prop("checked", true);
                 }
                 else {
-                    $("input[name="+ target +"]").prop("checked", false);
+                    $("input[name=" + target + "]").prop("checked", false);
                 }
             });
 
         }); // --- END OF DOCUMENT READY --- //
-    </script>   
+
+        function reLoadIsprateniTab() {
+            $(".isprateni-container").fadeOut(500);
+            $.get("@Url.Action("GetIsprateniPartial", "Mail")", {}, function (data) {
+                $(".isprateni-container").html(data).fadeIn(500);
+                updateCounter("isprateni");
+            });
+        }
+
+        function reLoadIzbrishaniTab() {
+            $(".izbrishani-container").fadeOut(500);
+            $.get("@Url.Action("GetIzbrishaniPartial", "Mail")", {}, function (data) {
+                $(".izbrishani-container").html(data).fadeIn(500);
+                updateCounter("izbrishani");
+            });
+        }
+
+        function reLoadSocuvaniTab() {
+            $(".socuvani-container").fadeOut(500);
+            $.get("@Url.Action("GetSocuvaniPartial", "Mail")", {}, function (data) {
+                $(".socuvani-container").html(data).fadeIn(500);
+                updateCounter("socuvani");
+            });
+        }
+
+        function deleteIsprateni() {
+            if (!confirm("Дали сте сигурни?")) return false;
+
+            var values = getArrayValues("isprateni-check");
+            if (ValidateArray(values)) {
+                $.post("@Url.Action("DeleteIsprateni", "Mail")", { porakiIds: values }, function (data) {
+                    if (data.Status == "Success") {
+                        reLoadIsprateniTab();
+                        reLoadIzbrishaniTab();
+                        prikaziPoraka("success", "Пораките се успешно избришани.");
+                    }
+                });
+            }
+        }
+
+        function deleteIzbrishani() {
+            if (!confirm("Дали сте сигурни?")) return false;
+
+            var values = getArrayValues("izbrishani-check");
+            if (ValidateArray(values)) {
+                $.post("@Url.Action("DeleteIzbrishani", "Mail")", { porakiIds: values }, function (data) {
+                    if (data.Status == "Success") {
+                        reLoadIzbrishaniTab();
+                        prikaziPoraka("success", "Пораките се успешно избришани.");
+                    }
+                });
+            }
+        }
+
+        function deleteSocuvani() {
+            if (!confirm("Дали сте сигурни?")) return false;
+
+            var values = getArrayValues("socuvani-check");
+            if (ValidateArray(values)) {
+                $.post("@Url.Action("DeleteSocuvani", "Mail")", { porakiIds: values }, function (data) {
+                    if (data.Status == "Success") {
+                        reLoadSocuvaniTab();
+                        reLoadIzbrishaniTab();
+                        prikaziPoraka("success", "Пораките се успешно избришани.");
+                    }
+                });
+            }
+        }
+
+        //Functions for updating the counters
+        function updateCounter(type) {
+            var count = $("input[name=" + type + "-check]").length;
+            $("." + type + "-badge").html(count);
+        }
+
+        //Helper Functions
+        function getArrayValues(name) {
+            var array = new Array();
+
+            array = $("input[name=" + name + "]:checked").map(function () {
+                return $(this).val();
+            }).toArray();
+
+            return array;
+        }
+
+        function ValidateArray(array) {
+            if (array.length == 0) {
+                //show the error message
+                prikaziPoraka("danger", "Мора да селектирате некоја порака");
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+        function prikaziPoraka(status, message) {
+            $(".alert-" + status + " span").html(message);
+            $(".alert-" + status).slideDown("slow");
+            setTimeout(function () {
+                $(".alert-" + status).slideUp("slow");
+            }, 5000);
+        }
+    </script>
+
+
+}
+
+@section Styles
+{
+    <style type="text/css">
+        .mail-actions a span.glyphicon {
+            color: black !important;
+        }
+    </style>
 }

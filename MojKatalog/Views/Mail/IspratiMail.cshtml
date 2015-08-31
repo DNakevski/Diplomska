@@ -101,8 +101,8 @@
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" id="btn_zatvori">Затвори</button>
                             <button type="button" class="btn btn-primary" id="btn_izberi">Избери</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="btn_zatvori">Затвори</button>
                         </div>
                     </div>
                 </div>
@@ -112,7 +112,8 @@
             <br />
             <div class="form-group">
                 <div class="col-lg-10 col-lg-offset-1 col-md-offset-2">
-                    <button type="submit" class="btn btn-primary">Креирај </button>
+                    <button type="submit" class="btn btn-primary" name="action:IspratiMail" onclick="if(!confirm('Дали сте сигурни дека сакате да ја испратите пораката?')) return false;">Испрати </button>
+                    <button type="submit" class="btn btn-success" name="action:SocuvajPoraka" onclick="if(!confirm('Дали сте сигурни дека сакате да ја сочувате пораката?')) return false;">Сочувај </button>
                 </div>
             </div>
         </fieldset>

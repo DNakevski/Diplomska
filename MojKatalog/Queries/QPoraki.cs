@@ -24,11 +24,13 @@ namespace MojKatalog.Queries
 
         public MailPageViewModel GetPoraki()
         {
+            //TODO: Treba da se napravi da gi zima porakite spore Poedinec/Kompanija
+
             var poraki = new MailPageViewModel();
 
-            poraki.IsprateniPoraki = _db.Poraki.ToList();
-            poraki.IzbrishaniPoraki = _db.Poraki.ToList();
-            poraki.SocuvaniPoraki = _db.Poraki.ToList();
+            poraki.IsprateniPoraki = _db.Poraki.Where(x => x.IsSent == true && x.IsDeleted == false).ToList();
+            poraki.IzbrishaniPoraki = _db.Poraki.Where(x => x.IsDeleted == true).ToList();
+            poraki.SocuvaniPoraki = _db.Poraki.Where(x => x.IsSent == false && x.IsDeleted == false).ToList();
             return poraki;
         }
 
@@ -95,6 +97,82 @@ namespace MojKatalog.Queries
         {
             _db.Poraki.Add(poraka);
             _db.SaveChanges();
+        }
+
+        public List<Poraki> GetIsprateniPoraki()
+        {
+            //TODO: ovoj treba da se napravi da raboti spored Poedinec/Kompanija
+            return _db.Poraki.Where(x => x.IsSent == true && x.IsDeleted == false).ToList();
+        }
+
+        public List<Poraki> GetIzbrishaniPoraki()
+        {
+            //TODO: ovoj treba da se napravi da raboti spored Poedinec/Kompanija
+            return _db.Poraki.Where(x => x.IsDeleted == true).ToList();
+        }
+
+        public List<Poraki> GetSocuvaniPoraki()
+        {
+            //TODO: ovoj treba da se napravi da raboti spored Poedinec/Kompanija
+            return _db.Poraki.Where(x => x.IsSent == false && x.IsDeleted == false).ToList();
+        }
+
+        public bool DeleteIsprateniPoraki(List<int> porakiIds)
+        {
+            _db.Poraki
+                .Where(x => x.IsSent == true && x.IsDeleted == false && porakiIds.Contains(x.IdPoraki))
+                .ToList()
+                .ForEach(x => x.IsDeleted = true);
+
+            try
+            {
+                _db.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool DeleteIzbrishaniPoraki(List<int> porakiIds)
+        {
+            var poraki = _db.Poraki
+                .Where(x => x.IsDeleted == true && porakiIds.Contains(x.IdPoraki))
+                .ToList();
+
+            _db.Poraki.RemoveRange(poraki);
+
+            try
+            {
+                _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool DeleteSocuvaniPoraki(List<int> porakiIds)
+        {
+            _db.Poraki
+                .Where(x => x.IsSent == false && x.IsDeleted == false && porakiIds.Contains(x.IdPoraki))
+                .ToList()
+                .ForEach(x => x.IsDeleted = true);
+
+            try
+            {
+                _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
