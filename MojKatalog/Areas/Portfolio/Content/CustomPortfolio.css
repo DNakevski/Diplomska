@@ -126,7 +126,7 @@ text-decoration: none !important;
 {
     background-size: cover !important;
     background-repeat:no-repeat;
-    background-position:0px 0px;
+    background-position:50% 50%;
 }
 /*
     #footerZaNas .fill-screen h2{
@@ -493,6 +493,9 @@ header .affix{
 .image-uploaded {
     height: 189px;
     display: none;
+}
+#alert-content .alert-dismissible{
+    margin-top: 21px;
 }
 /*Begin Input File*/
 .btn-file

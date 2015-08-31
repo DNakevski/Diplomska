@@ -298,6 +298,7 @@
     <Content Include="Areas\Portfolio\Content\TextColor\Color-2\redLighter.css" />
     <Content Include="Areas\Portfolio\Content\TextColor\Color-2\white.css" />
     <Content Include="Areas\Portfolio\Images\AboutFooter.jpg" />
+    <Content Include="Areas\Portfolio\Images\DefaulImage.png" />
     <Content Include="Areas\Portfolio\Images\HomeBackgroundImage.jpg" />
     <Content Include="Areas\Portfolio\Scripts\draggable_background.js" />
     <Content Include="Areas\Portfolio\Scripts\jquery-1.10.2.js" />
