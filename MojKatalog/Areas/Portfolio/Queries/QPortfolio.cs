@@ -27,14 +27,15 @@ namespace MojKatalog.Areas.Portfolio.Queries
             wsettings.FontFamily = newWSettings.FontFamily;
             wsettings.FontColor1 = newWSettings.FontColor1;
             wsettings.FontColor2 = newWSettings.FontColor2;
-            wsettings.BGPocetna = newWSettings.BGPocetna;
-            wsettings.BGZaNas = newWSettings.BGZaNas;
-            wsettings.BGFZaNas = newWSettings.BGFZaNas;
-            wsettings.BGPortfolio = newWSettings.BGPortfolio;
-            wsettings.BGFPortfolio = newWSettings.BGFPortfolio;
-            wsettings.BGContact = newWSettings.BGContact;
-            wsettings.BGMenu = newWSettings.BGMenu;
-            wsettings.BGFooter = newWSettings.BGFooter;
+         
+            wsettings.BGPocetna = (newWSettings.BGPocetna != null) ? newWSettings.BGPocetna : wsettings.BGPocetna;
+            wsettings.BGZaNas = (newWSettings.BGZaNas != null) ? newWSettings.BGZaNas : wsettings.BGZaNas;
+            wsettings.BGFZaNas = (newWSettings.BGFZaNas != null) ? newWSettings.BGFZaNas : wsettings.BGFZaNas;
+            wsettings.BGPortfolio = (newWSettings.BGPortfolio != null) ? newWSettings.BGPortfolio : wsettings.BGPortfolio;
+            wsettings.BGFPortfolio = (newWSettings.BGFPortfolio != null) ? newWSettings.BGFPortfolio : wsettings.BGFPortfolio;
+            wsettings.BGContact = (newWSettings.BGContact != null) ? newWSettings.BGContact : wsettings.BGContact;
+            wsettings.BGMenu = (newWSettings.BGMenu != null) ? newWSettings.BGMenu : wsettings.BGMenu;
+            wsettings.BGFooter = (newWSettings.BGFooter != null) ? newWSettings.BGFooter : wsettings.BGFooter; 
             _db.SaveChanges();
 
         }
