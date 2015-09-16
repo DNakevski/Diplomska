@@ -23,3 +23,6 @@
 #portfolio .nav-tabs > li.active > a:focus{
     color: #ECF0F1 !important;
 }
+#portfolio  .nav-tabs {
+    border-bottom: 1px solid #ECF0F1 !important ;
+}

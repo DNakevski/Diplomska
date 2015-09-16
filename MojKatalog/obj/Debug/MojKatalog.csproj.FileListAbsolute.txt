@@ -349,3 +349,17 @@ C:\Users\Dragan\Documents\Visual Studio 2013\Projects\Diplomska\MojKatalog\bin\z
 C:\Users\Dragan\Documents\Visual Studio 2013\Projects\Diplomska\MojKatalog\obj\Debug\MojKatalog.csprojResolveAssemblyReference.cache
 C:\Users\Dragan\Documents\Visual Studio 2013\Projects\Diplomska\MojKatalog\obj\Debug\MojKatalog.dll
 C:\Users\Dragan\Documents\Visual Studio 2013\Projects\Diplomska\MojKatalog\obj\Debug\MojKatalog.pdb
+<<<<<<< HEAD
+=======
+C:\Users\Dragan\Documents\Visual Studio 2013\Projects\MojKatalog\MojKatalog\bin\System.Net.Http.Extensions.dll
+C:\Users\Dragan\Documents\Visual Studio 2013\Projects\MojKatalog\MojKatalog\bin\System.Net.Http.Primitives.dll
+C:\Users\Dragan\Documents\Visual Studio 2013\Projects\MojKatalog\MojKatalog\bin\Org.Mentalis.Security.Cryptography.dll
+C:\Users\Dragan\Documents\Visual Studio 2013\Projects\MojKatalog\MojKatalog\bin\Mono.Math.dll
+C:\Users\Dragan\Documents\Visual Studio 2013\Projects\MojKatalog\MojKatalog\bin\Antlr3.Runtime.pdb
+C:\Users\Dragan\Documents\Visual Studio 2013\Projects\MojKatalog\MojKatalog\bin\System.Net.Http.Extensions.xml
+C:\Users\Dragan\Documents\Visual Studio 2013\Projects\MojKatalog\MojKatalog\bin\System.Net.Http.Primitives.xml
+C:\Users\Dragan\Documents\Visual Studio 2013\Projects\MojKatalog\MojKatalog\bin\System.Web.Optimization.xml
+C:\Users\Dragan\Documents\Visual Studio 2013\Projects\MojKatalog\MojKatalog\bin\Org.Mentalis.Security.Cryptography.xml
+C:\Users\Dragan\Documents\Visual Studio 2013\Projects\MojKatalog\MojKatalog\bin\Mono.Math.xml
+C:\Users\Dragan\Documents\Visual Studio 2013\Projects\MojKatalog\MojKatalog\obj\Debug\MojKatalog.csproj.App.config
+>>>>>>> upstream/master

@@ -2,6 +2,8 @@
 @{
     Layout = null;
     int numberOfElements = 14;
+    string[] sections = { "pocetna", "zanas", "footerZaNas", "portfolio", "footerPortfolio", "contact", "header", "footer" };
+    string[] sectionTitles = { "Почетна", "За Нас", "За Нас Футер", "Портфолио", "Портфолио Футер", "Контакт", "Мени", "Футер" };
 }
 
 <!DOCTYPE html>
@@ -13,630 +15,230 @@
     <link href="~/Areas/Portfolio/Content/CustomPortfolio.css" rel="stylesheet" />
     <link href="" rel="stylesheet" id="style-color1" />
     <link href="" rel="stylesheet" id="style-color2" />
-
-
     <title>Index</title>
 </head>
 <body>
-    @*Editor Begin*@
-    <div id="editor-button">
-        <a class="background-editor-link">
-            <i class="glyphicon glyphicon-cog"></i>
-        </a>
-    </div>
-    <div id="editor">
-        <div id="editor-container">
-            <div class="modal-header">
-                <a class="activeNav" data-mnav="font-content"><h5 class="modal-title">ФОНТ</h5></a>
-                <a data-mnav="pozadina-content"><h5 class="modal-title">ПОЗАДИНА</h5></a>
+    @using (Ajax.BeginForm("IzmeniPortfolio", "Portfolio", new AjaxOptions { HttpMethod = "Post", OnSuccess = "SuccessNotification" }, new { enctype = "multipart/form-data", id = "editorForm" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <fieldset>
+            @Html.HiddenFor(model => model.IdKatalozi)
+            @Html.HiddenFor(model => model.Naziv)
+            @Html.HiddenFor(model => model.FontColor1)
+            @Html.HiddenFor(model => model.FontColor2)
+            @Html.HiddenFor(model => model.BGPocetna, new { @data_bgsection = "pocetna" })
+            @Html.HiddenFor(model => model.BGZaNas, new { @data_bgsection="zanas"})
+            @Html.HiddenFor(model => model.BGFZaNas, new { @data_bgsection = "footerZaNas" })
+            @Html.HiddenFor(model => model.BGPortfolio, new { @data_bgsection = "portfolio" })
+            @Html.HiddenFor(model => model.BGFPortfolio, new { @data_bgsection = "footerPortfolio" })
+            @Html.HiddenFor(model => model.BGContact, new { @data_bgsection = "contact" })
+            @Html.HiddenFor(model => model.BGMenu, new { @data_bgsection = "header" })
+            @Html.HiddenFor(model => model.BGFooter, new { @data_bgsection = "footer" })
+            
+            @*Editor Begin*@
+            <div id="editor-button">
+                <a class="background-editor-link">
+                    <i class="glyphicon glyphicon-cog"></i>
+                </a>
             </div>
-            @*Modal Font Content Begin*@
-            <div class="modal-body container-fluid" id="font-content">
-                <div class="row">
-                    <div class="col-xs-4 modal-col-left">
-                        <label class="label-control">Избери фонт:</label>
+            <div id="editor">
+                <div id="editor-container">
+                    <div class="modal-header">
+                        <a class="activeNav" data-mnav="font-content"><h5 class="modal-title">ФОНТ</h5></a>
+                        <a data-mnav="pozadina-content"><h5 class="modal-title">ПОЗАДИНА</h5></a>
                     </div>
-                    <div class="col-xs-8">
-                        <select class="form-control" id="select">
-                            <option value="PTSansNarrow">PT Sans Narrow</option>
-                            <option value="OpenSansLight">Open Sans Light</option>
-                            <option value="OpenSans-Regular">Open Sans Regular</option>
-                            <option value="Raleway-Regular">Raleway Regular</option>
-                        </select>
+                    @*Modal Alert*@
+                    <div class="container-fluid" id="alert-content">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="alert alert-dismissible alert-success">
+                                    Промените се успешно сочувани!
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                    @*Modal Font Content Begin*@
+                    <div class="modal-body container-fluid" id="font-content">
+                        <div class="row">
+                            <div class="col-xs-4 modal-col-left">
+                                <label class="label-control">Избери фонт:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                @Html.DropDownListFor(model => model.FontFamily, new SelectList(
+                                    new List<Object>{
+                                    new { value = "PTSansNarrow" , text = "PT Sans Narrow"  },
+                                    new { value = "OpenSansLight" , text = "Open Sans Light"  },
+                                    new { value = "OpenSans-Regular" , text = "Open Sans Regular" },
+                                    new { value = "Raleway-Regular" , text = "Raleway Regular" },
+                                    },
+                                    "value",
+                                    "text",2),
+                                    new { @id = "select", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4 modal-col-left">
+                                <label class="label-control">Избери боја:</label>
+                            </div>
+                            <div class="col-xs-8">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4 modal-col-left">
+                                <label class="label-control">1</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <ul class="color-palet">
+                                    <li class="color-darkBlueLighter" data-color="darkBlueLighter"></li>
+                                    <li class="color-darkBlueDarker color-active" data-color="darkBlueDarker"></li>
+                                    <li class="color-lightBlueLighter" data-color="lightBlueLighter"></li>
+                                    <li class="color-lightBlueDarker" data-color="lightBlueDarker"></li>
+                                    <li class="color-greenLighter" data-color="greenLighter"></li>
+                                    <li class="color-greenDarker" data-color="greenDarker"></li>
+                                    <li class="color-orangeLighter" data-color="orangeLighter"></li>
+                                    <li class="color-orangeDarker" data-color="orangeDarker"></li>
+                                    <li class="color-redLighter" data-color="redLighter"></li>
+                                    <li class="color-redDarker" data-color="redDarker"></li>
+                                    <li class="color-darkGreyLighter" data-color="darkGreyLighter"></li>
+                                    <li class="color-darkGreyDarker" data-color="darkGreyDarker"></li>
+                                    <li class="color-lightGreyLighter" data-color="lightGreyLighter"></li>
+                                    <li class="color-lightGreyDarker" data-color="lightGreyDarker"></li>
+                                    <li class="color-white" data-color="white"></li>
+                                    <li class="color-black" data-color="black"></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4 modal-col-left">
+                                <label class="label-control">2</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <ul class="color-palet">
+                                    <li class="color-darkBlueLighter" data-color="darkBlueLighter"></li>
+                                    <li class="color-darkBlueDarker" data-color="darkBlueDarker"></li>
+                                    <li class="color-lightBlueLighter" data-color="lightBlueLighter"></li>
+                                    <li class="color-lightBlueDarker" data-color="lightBlueDarker"></li>
+                                    <li class="color-greenLighter color-active" data-color="greenLighter"></li>
+                                    <li class="color-greenDarker" data-color="greenDarker"></li>
+                                    <li class="color-orangeLighter" data-color="orangeLighter"></li>
+                                    <li class="color-orangeDarker" data-color="orangeDarker"></li>
+                                    <li class="color-redLighter" data-color="redLighter"></li>
+                                    <li class="color-redDarker" data-color="redDarker"></li>
+                                    <li class="color-darkGreyLighter" data-color="darkGreyLighter"></li>
+                                    <li class="color-darkGreyDarker" data-color="darkGreyDarker"></li>
+                                    <li class="color-lightGreyLighter" data-color="lightGreyLighter"></li>
+                                    <li class="color-lightGreyDarker" data-color="lightGreyDarker"></li>
+                                    <li class="color-white" data-color="white"></li>
+                                    <li class="color-black" data-color="black"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    @*Modal Font Content End*@
+                    @*Modal Background Content Begin*@
+                    <div class="modal-body container-fluid" id="pozadina-content">
+
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <label class="label-control">Избери секција:</label>
+                            </div>
+                            <div class="col-xs-7">
+                                @*//TODO: Da se kreira Html.DropDownList*@
+                                <select class="form-control" id="select-section">
+                                    <option value="pocetna-section">Почетна</option>
+                                    <option value="zanas-section">За Нас</option>
+                                    <option value="footerZaNas-section">За Нас Футер</option>
+                                    <option value="portfolio-section">Портфолио</option>
+                                    <option value="footerPortfolio-section">Портфолио Футер</option>
+                                    <option value="contact-section">Контакт</option>
+                                    <option value="header-section">Мени</option>
+                                    <option value="footer-section">Футер</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        @for (int i = 0; i < sections.Length; i++)
+                        {
+                           @*<input type="hidden" name="dataUri" class="dataUri" id="dataUri-@(sections[i])" value="" />*@
+                            @*Pocetna Begin*@
+                            <div class="row section @(sections[i])-section">
+                                <div class="row section-header">
+                                    <h5><b>@sectionTitles[i]</b></h5>
+                                </div>
+                                <div class="row section-body-color">
+                                    <div class="col-xs-4">
+                                        <input class="pozadina-boja" name="pozadina-@(sections[i])" type="radio" value="boja">
+                                        Боја
+                                    </div>
+                                    <div class="col-xs-8">
+                                        @*//TODO: Da se kreira PartialView za color-palet*@
+                                        <ul class="color-palet" data-section="@(sections[i])">
+                                            <li class="color-darkBlueLighter" data-color="darkBlueLighter"></li>
+                                            <li class="color-darkBlueDarker color-active" data-color="darkBlueDarker"></li>
+                                            <li class="color-lightBlueLighter" data-color="lightBlueLighter"></li>
+                                            <li class="color-lightBlueDarker" data-color="lightBlueDarker"></li>
+                                            <li class="color-greenLighter" data-color="greenLighter"></li>
+                                            <li class="color-greenDarker" data-color="greenDarker"></li>
+                                            <li class="color-orangeLighter" data-color="orangeLighter"></li>
+                                            <li class="color-orangeDarker" data-color="orangeDarker"></li>
+                                            <li class="color-redLighter" data-color="redLighter"></li>
+                                            <li class="color-redDarker" data-color="redDarker"></li>
+                                            <li class="color-darkGreyLighter" data-color="darkGreyLighter"></li>
+                                            <li class="color-darkGreyDarker" data-color="darkGreyDarker"></li>
+                                            <li class="color-lightGreyLighter" data-color="lightGreyLighter"></li>
+                                            <li class="color-lightGreyDarker" data-color="lightGreyDarker"></li>
+                                            <li class="color-white" data-color="white"></li>
+                                            <li class="color-black" data-color="black"></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row section-body-image">
+                                    <div class="col-xs-4">
+                                        <input class="pozadina-slika" name="pozadina-@(sections[i])" type="radio" value="slika">
+                                        Слика
+                                    </div>
+                                    <div class="col-xs-8">
+                                        <div class="thumbnail">
+                                            <div class="image-uploaded Image1 fill-screen"></div>
+                                            <div class="caption">
+                                                @*Begin Input File*@
+                                                <form class="form-horizontal">
+                                                    <div class="form-group">
+                                                        <div class="input-group">
+                                                            <span class="input-group-btn">
+                                                                <span class="btn btn-primary btn-file">
+                                                                    Browse…
+                                                                   
+                                                                    <input class="FileUpload1" id="file_@i"  type="file" name="files@(i)" data-section="@(sections[i])">
+                                                                </span>
+                                                            </span>
+                                                            <input type="text" class="form-control image-input" readonly="" accept=".jpg,.png,.gif">
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                                @*End Input File*@
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @*Pocetna End*@
+                        }
+
+                    </div>
+                    @*Modal Background Content End*@
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Откажи</button>
+                        <button id="save" type="submit" class="btn btn-primary">Сочувај</button>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-xs-4 modal-col-left">
-                        <label class="label-control">Избери боја:</label>
-                    </div>
-                    <div class="col-xs-8">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-4 modal-col-left">
-                        <label class="label-control">1</label>
-                    </div>
-                    <div class="col-xs-8">
-                        <ul class="color-palet">
-                            <li class="color-darkBlueLighter" data-color="darkBlueLighter"></li>
-                            <li class="color-darkBlueDarker color-active" data-color="darkBlueDarker"></li>
-                            <li class="color-lightBlueLighter" data-color="lightBlueLighter"></li>
-                            <li class="color-lightBlueDarker" data-color="lightBlueDarker"></li>
-                            <li class="color-greenLighter" data-color="greenLighter"></li>
-                            <li class="color-greenDarker" data-color="greenDarker"></li>
-                            <li class="color-orangeLighter" data-color="orangeLighter"></li>
-                            <li class="color-orangeDarker" data-color="orangeDarker"></li>
-                            <li class="color-redLighter" data-color="redLighter"></li>
-                            <li class="color-redDarker" data-color="redDarker"></li>
-                            <li class="color-darkGreyLighter" data-color="darkGreyLighter"></li>
-                            <li class="color-darkGreyDarker" data-color="darkGreyDarker"></li>
-                            <li class="color-lightGreyLighter" data-color="lightGreyLighter"></li>
-                            <li class="color-lightGreyDarker" data-color="lightGreyDarker"></li>
-                            <li color="color-white" data-color="white"></li>
-                            <li class="color-black" data-color="black"></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-4 modal-col-left">
-                        <label class="label-control">2</label>
-                    </div>
-                    <div class="col-xs-8">
-                        <ul class="color-palet">
-                            <li class="color-darkBlueLighter" data-color="darkBlueLighter"></li>
-                            <li class="color-darkBlueDarker" data-color="darkBlueDarker"></li>
-                            <li class="color-lightBlueLighter" data-color="lightBlueLighter"></li>
-                            <li class="color-lightBlueDarker" data-color="lightBlueDarker"></li>
-                            <li class="color-greenLighter color-active" data-color="greenLighter"></li>
-                            <li class="color-greenDarker" data-color="greenDarker"></li>
-                            <li class="color-orangeLighter" data-color="orangeLighter"></li>
-                            <li class="color-orangeDarker" data-color="orangeDarker"></li>
-                            <li class="color-redLighter" data-color="redLighter"></li>
-                            <li class="color-redDarker" data-color="redDarker"></li>
-                            <li class="color-darkGreyLighter" data-color="darkGreyLighter"></li>
-                            <li class="color-darkGreyDarker" data-color="darkGreyDarker"></li>
-                            <li class="color-lightGreyLighter" data-color="lightGreyLighter"></li>
-                            <li class="color-lightGreyDarker" data-color="lightGreyDarker"></li>
-                            <li color="color-white" data-color="white"></li>
-                            <li class="color-black" data-color="black"></li>
-                        </ul>
-                    </div>
-                </div>
+
             </div>
-            @*Modal Font Content End*@
-            @*Modal Background Content Begin*@
-            <div class="modal-body container-fluid" id="pozadina-content">
-
-                <div class="row">
-                    <div class="col-xs-5">
-                        <label class="label-control">Избери секција:</label>
-                    </div>
-                    <div class="col-xs-7">
-                        <select class="form-control" id="select-section">
-                            <option value="pocetna-section">Почетна</option>
-                            <option value="zanas-section">За Нас</option>
-                            <option value="footerZaNas-section">За Нас Футер</option>
-                            <option value="portfolio-section">Портфолио</option>
-                            <option value="footerPortfolio-section">Портфолио Футер</option>
-                            <option value="contact-section">Контакт</option>
-                            <option value="header-section">Мени</option>
-                            <option value="footer-section">Футер</option>
-                        </select>
-                    </div>
-                </div>
-
-                @*Pocetna Begin*@
-                <div class="row section pocetna-section">
-                    <div class="row section-header">
-                        <h5><b>Почетна</b></h5>
-                    </div>
-                    <div class="row section-body-color">
-                        <div class="col-xs-4">
-                            <input id="pozadina-boja" name="pozadina" type="radio" value="boja">
-                            Боја
-                        </div>
-                        <div class="col-xs-8">
-                            <ul class="color-palet" data-section="pocetna">
-                                <li class="color-darkBlueLighter" data-color="darkBlueLighter"></li>
-                                <li class="color-darkBlueDarker color-active" data-color="darkBlueDarker"></li>
-                                <li class="color-lightBlueLighter" data-color="lightBlueLighter"></li>
-                                <li class="color-lightBlueDarker" data-color="lightBlueDarker"></li>
-                                <li class="color-greenLighter" data-color="greenLighter"></li>
-                                <li class="color-greenDarker" data-color="greenDarker"></li>
-                                <li class="color-orangeLighter" data-color="orangeLighter"></li>
-                                <li class="color-orangeDarker" data-color="orangeDarker"></li>
-                                <li class="color-redLighter" data-color="redLighter"></li>
-                                <li class="color-redDarker" data-color="redDarker"></li>
-                                <li class="color-darkGreyLighter" data-color="darkGreyLighter"></li>
-                                <li class="color-darkGreyDarker" data-color="darkGreyDarker"></li>
-                                <li class="color-lightGreyLighter" data-color="lightGreyLighter"></li>
-                                <li class="color-lightGreyDarker" data-color="lightGreyDarker"></li>
-                                <li class="color-white" data-color="white"></li>
-                                <li class="color-black" data-color="black"></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="row section-body-image">
-                        <div class="col-xs-4">
-                            <input id="pozadina-slika" name="pozadina" type="radio" value="slika">
-                            Слика
-                        </div>
-                        <div class="col-xs-8">
-                            <div class="thumbnail">
-                                <div class="image-uploaded Image1" style="background-image: url(../../../../Areas/Portfolio/Images/HomeBackgroundImage.jpg);"></div>
-                                <div class="caption">
-                                    @*Begin Input File*@
-                                    <form class="form-horizontal">
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <span class="input-group-btn">
-                                                    <span class="btn btn-primary btn-file">
-                                                        Browse…
-                                                        <input class="FileUpload1" type="file" name="file" multiple="" data-section="pocetna">
-                                                    </span>
-                                                </span>
-                                                <input type="text" class="form-control image-input" readonly="" accept=".jpg,.png,.gif">
-                                            </div>
-                                        </div>
-                                    </form>
-                                    @*End Input File*@
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @*Pocetna End*@
-
-                @*ZaNas Begin*@
-                <div class="row section zanas-section">
-                    <div class="row section-header">
-                        <h5><b>За Нас</b></h5>
-                    </div>
-                    <div class="row section-body-color">
-                        <div class="col-xs-4">
-                            <input id="pozadina-boja" name="pozadina" type="radio" value="boja">
-                            Боја
-                        </div>
-                        <div class="col-xs-8">
-                            <ul class="color-palet" data-section="zanas">
-                                <li class="color-darkBlueLighter" data-color="darkBlueLighter"></li>
-                                <li class="color-darkBlueDarker color-active" data-color="darkBlueDarker"></li>
-                                <li class="color-lightBlueLighter" data-color="lightBlueLighter"></li>
-                                <li class="color-lightBlueDarker" data-color="lightBlueDarker"></li>
-                                <li class="color-greenLighter color-active" data-color="greenLighter"></li>
-                                <li class="color-greenDarker" data-color="greenDarker"></li>
-                                <li class="color-orangeLighter" data-color="orangeLighter"></li>
-                                <li class="color-orangeDarker" data-color="orangeDarker"></li>
-                                <li class="color-redLighter" data-color="redLighter"></li>
-                                <li class="color-redDarker" data-color="redDarker"></li>
-                                <li class="color-darkGreyLighter" data-color="darkGreyLighter"></li>
-                                <li class="color-darkGreyDarker" data-color="darkGreyDarker"></li>
-                                <li class="color-lightGreyLighter" data-color="lightGreyLighter"></li>
-                                <li class="color-lightGreyDarker" data-color="lightGreyDarker"></li>
-                                <li class="color-white" data-color="white"></li>
-                                <li class="color-black" data-color="black"></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="row section-body-image">
-                        <div class="col-xs-4">
-                            <input id="pozadina-slika" name="pozadina" type="radio" value="slika">
-                            Слика
-                        </div>
-                        <div class="col-xs-8">
-                            <div class="thumbnail">
-                                <div class="image-uploaded Image1" style="background-image: url(../../../../Areas/Portfolio/Images/HomeBackgroundImage.jpg);"></div>
-                                <div class="caption">
-                                    @*Begin Input File*@
-                                    <form class="form-horizontal">
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <span class="input-group-btn">
-                                                    <span class="btn btn-primary btn-file">
-                                                        Browse…
-                                                        <input class="FileUpload1" type="file" name="file" multiple="" data-section="zanas">
-                                                    </span>
-                                                </span>
-                                                <input type="text" class="form-control image-input" readonly="" accept=".jpg,.png,.gif">
-                                            </div>
-                                        </div>
-                                    </form>
-                                    @*End Input File*@
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @*ZaNas End*@
-
-                @*ZaNasFooter Begin*@
-                <div class="row section footerZaNas-section">
-                    <div class="row section-header">
-                        <h5><b>За Нас Футер</b></h5>
-                    </div>
-                    <div class="row section-body-color">
-                        <div class="col-xs-4">
-                            @Html.RadioButton("pozadina", "boja", true)
-                            Боја
-                        </div>
-                        <div class="col-xs-8">
-                            <ul class="color-palet" data-section="footerZaNas">
-                                <li class="color-darkBlueLighter" data-color="darkBlueLighter"></li>
-                                <li class="color-darkBlueDarker" data-color="darkBlueDarker"></li>
-                                <li class="color-lightBlueLighter" data-color="lightBlueLighter"></li>
-                                <li class="color-lightBlueDarker" data-color="lightBlueDarker"></li>
-                                <li class="color-greenLighter color-active" data-color="greenLighter"></li>
-                                <li class="color-greenDarker" data-color="greenDarker"></li>
-                                <li class="color-orangeLighter" data-color="orangeLighter"></li>
-                                <li class="color-orangeDarker" data-color="orangeDarker"></li>
-                                <li class="color-redLighter" data-color="redLighter"></li>
-                                <li class="color-redDarker" data-color="redDarker"></li>
-                                <li class="color-darkGreyLighter" data-color="darkGreyLighter"></li>
-                                <li class="color-darkGreyDarker" data-color="darkGreyDarker"></li>
-                                <li class="color-lightGreyLighter" data-color="lightGreyLighter"></li>
-                                <li class="color-lightGreyDarker" data-color="lightGreyDarker"></li>
-                                <li class="color-white" data-color="white"></li>
-                                <li class="color-black" data-color="black"></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="row section-body-image">
-                        <div class="col-xs-4">
-                            @Html.RadioButton("pozadina", "slika")
-                            Слика
-                        </div>
-                        <div class="col-xs-8">
-                            <div class="thumbnail">
-                                <div class="image-uploaded Image1" style="background-image: url(../../../../Areas/Portfolio/Images/HomeBackgroundImage.jpg);"></div>
-                                <div class="caption">
-                                    @*Begin Input File*@
-                                    <form class="form-horizontal">
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <span class="input-group-btn">
-                                                    <span class="btn btn-primary btn-file">
-                                                        Browse…
-                                                        <input class="FileUpload1" type="file" name="file" multiple="" data-section="footerZaNas">
-                                                    </span>
-                                                </span>
-                                                <input type="text" class="form-control" readonly="" accept=".jpg,.png,.gif">
-                                            </div>
-                                        </div>
-                                    </form>
-
-                                    @*End Input File*@
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                @*ZaNasFooter End*@
-
-                @*Portfolio Begin*@
-                <div class="row section portfolio-section">
-                    <div class="row section-header">
-                        <h5><b>Портфолио</b></h5>
-                    </div>
-                    <div class="row section-body-color">
-                        <div class="col-xs-4">
-                            @Html.RadioButton("pozadina", "boja", true)
-                            Боја
-                        </div>
-                        <div class="col-xs-8">
-                            <ul class="color-palet" data-section="portfolio">
-                                <li class="color-darkBlueLighter" data-color="darkBlueLighter"></li>
-                                <li class="color-darkBlueDarker" data-color="darkBlueDarker"></li>
-                                <li class="color-lightBlueLighter" data-color="lightBlueLighter"></li>
-                                <li class="color-lightBlueDarker" data-color="lightBlueDarker"></li>
-                                <li class="color-greenLighter color-active" data-color="greenLighter"></li>
-                                <li class="color-greenDarker" data-color="greenDarker"></li>
-                                <li class="color-orangeLighter" data-color="orangeLighter"></li>
-                                <li class="color-orangeDarker" data-color="orangeDarker"></li>
-                                <li class="color-redLighter" data-color="redLighter"></li>
-                                <li class="color-redDarker" data-color="redDarker"></li>
-                                <li class="color-darkGreyLighter" data-color="darkGreyLighter"></li>
-                                <li class="color-darkGreyDarker" data-color="darkGreyDarker"></li>
-                                <li class="color-lightGreyLighter" data-color="lightGreyLighter"></li>
-                                <li class="color-lightGreyDarker" data-color="lightGreyDarker"></li>
-                                <li class="color-white" data-color="white"></li>
-                                <li class="color-black" data-color="black"></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="row section-body-image">
-                        <div class="col-xs-4">
-                            @Html.RadioButton("pozadina", "slika")
-                            Слика
-                        </div>
-                        <div class="col-xs-8">
-                            <div class="thumbnail">
-                                <div class="image-uploaded Image1" style="background-image: url(../../../../Areas/Portfolio/Images/HomeBackgroundImage.jpg);"></div>
-                                <div class="caption">
-                                    @*Begin Input File*@
-                                    <form class="form-horizontal">
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <span class="input-group-btn">
-                                                    <span class="btn btn-primary btn-file">
-                                                        Browse…
-                                                        <input class="FileUpload1" type="file" name="file" multiple="" data-section="portfolio">
-                                                    </span>
-                                                </span>
-                                                <input type="text" class="form-control" readonly="" accept=".jpg,.png,.gif">
-                                            </div>
-                                        </div>
-                                    </form>
-
-                                    @*End Input File*@
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                @*Portfolio End*@
-
-                @*PortfolioFooter Begin*@
-                <div class="row section footerPortfolio-section">
-                    <div class="row section-header">
-                        <h5><b>Портфолио Футер</b></h5>
-                    </div>
-                    <div class="row section-body-color">
-                        <div class="col-xs-4">
-                            @Html.RadioButton("pozadina", "boja", true)
-                            Боја
-                        </div>
-                        <div class="col-xs-8">
-                            <ul class="color-palet" data-section="footerPortfolio">
-                                <li class="color-darkBlueLighter" data-color="darkBlueLighter"></li>
-                                <li class="color-darkBlueDarker" data-color="darkBlueDarker"></li>
-                                <li class="color-lightBlueLighter" data-color="lightBlueLighter"></li>
-                                <li class="color-lightBlueDarker" data-color="lightBlueDarker"></li>
-                                <li class="color-greenLighter color-active" data-color="greenLighter"></li>
-                                <li class="color-greenDarker" data-color="greenDarker"></li>
-                                <li class="color-orangeLighter" data-color="orangeLighter"></li>
-                                <li class="color-orangeDarker" data-color="orangeDarker"></li>
-                                <li class="color-redLighter" data-color="redLighter"></li>
-                                <li class="color-redDarker" data-color="redDarker"></li>
-                                <li class="color-darkGreyLighter" data-color="darkGreyLighter"></li>
-                                <li class="color-darkGreyDarker" data-color="darkGreyDarker"></li>
-                                <li class="color-lightGreyLighter" data-color="lightGreyLighter"></li>
-                                <li class="color-lightGreyDarker" data-color="lightGreyDarker"></li>
-                                <li class="color-white" data-color="white"></li>
-                                <li class="color-black" data-color="black"></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="row section-body-image">
-                        <div class="col-xs-4">
-                            @Html.RadioButton("pozadina", "slika")
-                            Слика
-                        </div>
-                        <div class="col-xs-8">
-                            <div class="thumbnail">
-                                <div class="image-uploaded Image1" style="background-image: url(../../../../Areas/Portfolio/Images/HomeBackgroundImage.jpg);"></div>
-                                <div class="caption">
-                                    @*Begin Input File*@
-                                    <form class="form-horizontal">
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <span class="input-group-btn">
-                                                    <span class="btn btn-primary btn-file">
-                                                        Browse…
-                                                        <input class="FileUpload1" type="file" name="file" multiple="" data-section="footerPortfolio">
-                                                    </span>
-                                                </span>
-                                                <input type="text" class="form-control" readonly="" accept=".jpg,.png,.gif">
-                                            </div>
-                                        </div>
-                                    </form>
-
-                                    @*End Input File*@
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                @*PortfolioFooter End*@
-
-                @*Contact Begin*@
-                <div class="row section contact-section">
-                    <div class="row section-header">
-                        <h5><b>Контакт</b></h5>
-                    </div>
-                    <div class="row section-body-color">
-                        <div class="col-xs-4">
-                            @Html.RadioButton("pozadina", "boja", true)
-                            Боја
-                        </div>
-                        <div class="col-xs-8">
-                            <ul class="color-palet" data-section="contact">
-                                <li class="color-darkBlueLighter" data-color="darkBlueLighter"></li>
-                                <li class="color-darkBlueDarker" data-color="darkBlueDarker"></li>
-                                <li class="color-lightBlueLighter" data-color="lightBlueLighter"></li>
-                                <li class="color-lightBlueDarker" data-color="lightBlueDarker"></li>
-                                <li class="color-greenLighter color-active" data-color="greenLighter"></li>
-                                <li class="color-greenDarker" data-color="greenDarker"></li>
-                                <li class="color-orangeLighter" data-color="orangeLighter"></li>
-                                <li class="color-orangeDarker" data-color="orangeDarker"></li>
-                                <li class="color-redLighter" data-color="redLighter"></li>
-                                <li class="color-redDarker" data-color="redDarker"></li>
-                                <li class="color-darkGreyLighter" data-color="darkGreyLighter"></li>
-                                <li class="color-darkGreyDarker" data-color="darkGreyDarker"></li>
-                                <li class="color-lightGreyLighter" data-color="lightGreyLighter"></li>
-                                <li class="color-lightGreyDarker" data-color="lightGreyDarker"></li>
-                                <li class="color-white" data-color="white"></li>
-                                <li class="color-black" data-color="black"></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="row section-body-image">
-                        <div class="col-xs-4">
-                            @Html.RadioButton("pozadina", "slika")
-                            Слика
-                        </div>
-                        <div class="col-xs-8">
-                            <div class="thumbnail">
-                                <div class="image-uploaded Image1" style="background-image: url(../../../../Areas/Portfolio/Images/HomeBackgroundImage.jpg);"></div>
-                                <div class="caption">
-                                    @*Begin Input File*@
-                                    <form class="form-horizontal">
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <span class="input-group-btn">
-                                                    <span class="btn btn-primary btn-file">
-                                                        Browse…
-                                                        <input class="FileUpload1" type="file" name="file" multiple="" data-section="contact">
-                                                    </span>
-                                                </span>
-                                                <input type="text" class="form-control" readonly="" accept=".jpg,.png,.gif">
-                                            </div>
-                                        </div>
-                                    </form>
-                                    @*End Input File*@
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @*Contact End*@
-
-                @*Header Begin*@
-                <div class="row section header-section">
-                    <div class="row section-header">
-                        <h5><b>Хедер</b></h5>
-                    </div>
-                    <div class="row section-body-color">
-                        <div class="col-xs-4">
-                            @Html.RadioButton("pozadina", "boja", true)
-                            Боја
-                        </div>
-                        <div class="col-xs-8">
-                            <ul class="color-palet" data-section="header">
-                                <li class="color-darkBlueLighter" data-color="darkBlueLighter"></li>
-                                <li class="color-darkBlueDarker" data-color="darkBlueDarker"></li>
-                                <li class="color-lightBlueLighter" data-color="lightBlueLighter"></li>
-                                <li class="color-lightBlueDarker" data-color="lightBlueDarker"></li>
-                                <li class="color-greenLighter color-active" data-color="greenLighter"></li>
-                                <li class="color-greenDarker" data-color="greenDarker"></li>
-                                <li class="color-orangeLighter" data-color="orangeLighter"></li>
-                                <li class="color-orangeDarker" data-color="orangeDarker"></li>
-                                <li class="color-redLighter" data-color="redLighter"></li>
-                                <li class="color-redDarker" data-color="redDarker"></li>
-                                <li class="color-darkGreyLighter" data-color="darkGreyLighter"></li>
-                                <li class="color-darkGreyDarker" data-color="darkGreyDarker"></li>
-                                <li class="color-lightGreyLighter" data-color="lightGreyLighter"></li>
-                                <li class="color-lightGreyDarker" data-color="lightGreyDarker"></li>
-                                <li class="color-white" data-color="white"></li>
-                                <li class="color-black" data-color="black"></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="row section-body-image">
-                        <div class="col-xs-4">
-                            @Html.RadioButton("pozadina", "slika")
-                            Слика
-                        </div>
-                        <div class="col-xs-8">
-                            <div class="thumbnail">
-                                <div class="image-uploaded Image1" style="background-image: url(../../../../Areas/Portfolio/Images/HomeBackgroundImage.jpg);"></div>
-                                <div class="caption">
-                                    @*Begin Input File*@
-                                    <form class="form-horizontal">
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <span class="input-group-btn">
-                                                    <span class="btn btn-primary btn-file">
-                                                        Browse…
-                                                        <input class="FileUpload1" type="file" name="file" multiple="" data-section="header">
-                                                    </span>
-                                                </span>
-                                                <input type="text" class="form-control" readonly="" accept=".jpg,.png,.gif">
-                                            </div>
-                                        </div>
-                                    </form>
-                                    @*End Input File*@
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                @*Header End*@
-
-                @*Footer Begin*@
-                <div class="row section footer-section">
-                    <div class="row section-header">
-                        <h5><b>Футер</b></h5>
-                    </div>
-                    <div class="row section-body-color">
-                        <div class="col-xs-4">
-                            @Html.RadioButton("pozadina", "boja", true)
-                            Боја
-                        </div>
-                        <div class="col-xs-8">
-                            <ul class="color-palet" data-section="footer">
-                                <li class="color-darkBlueLighter" data-color="darkBlueLighter"></li>
-                                <li class="color-darkBlueDarker" data-color="darkBlueDarker"></li>
-                                <li class="color-lightBlueLighter" data-color="lightBlueLighter"></li>
-                                <li class="color-lightBlueDarker" data-color="lightBlueDarker"></li>
-                                <li class="color-greenLighter color-active" data-color="greenLighter"></li>
-                                <li class="color-greenDarker" data-color="greenDarker"></li>
-                                <li class="color-orangeLighter" data-color="orangeLighter"></li>
-                                <li class="color-orangeDarker" data-color="orangeDarker"></li>
-                                <li class="color-redLighter" data-color="redLighter"></li>
-                                <li class="color-redDarker" data-color="redDarker"></li>
-                                <li class="color-darkGreyLighter" data-color="darkGreyLighter"></li>
-                                <li class="color-darkGreyDarker" data-color="darkGreyDarker"></li>
-                                <li class="color-lightGreyLighter" data-color="lightGreyLighter"></li>
-                                <li class="color-lightGreyDarker" data-color="lightGreyDarker"></li>
-                                <li class="color-white" data-color="white"></li>
-                                <li class="color-black" data-color="black"></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="row section-body-image">
-                        <div class="col-xs-4">
-                            @Html.RadioButton("pozadina", "slika")
-                            Слика
-                        </div>
-                        <div class="col-xs-8">
-                            <div class="thumbnail">
-                                <div class="image-uploaded Image1" style="background-image: url(../../../../Areas/Portfolio/Images/HomeBackgroundImage.jpg);"></div>
-                                <div class="caption">
-                                    @*Begin Input File*@
-                                    <form class="form-horizontal">
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <span class="input-group-btn">
-                                                    <span class="btn btn-primary btn-file">
-                                                        Browse…
-                                                        <input class="FileUpload1" type="file" name="file" multiple="" data-section="footer">
-                                                    </span>
-                                                </span>
-                                                <input type="text" class="form-control" readonly="" accept=".jpg,.png,.gif">
-                                            </div>
-                                        </div>
-                                    </form>
-                                    @*End Input File*@
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @*Footer End*@
-            </div>
-            @*Modal Background Content End*@
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Откажи</button>
-                <button type="button" class="btn btn-primary">Сочувај</button>
-            </div>
-        </div>
-
-    </div>
-    @*Editor End*@
+            @*Editor End*@
+        </fieldset>
+    }
 
     @*Begin Section Pocetna*@
     <section id="pocetna" class="container-fluid">
@@ -730,7 +332,7 @@
                             <li class="active"><a href="#tab1" data-toggle="tab">Категорија 1</a></li>
                             <li><a href="#tab2" data-toggle="tab">Категорија 2</a></li>
                         </ul>
-                        <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ecf0f1;">
+                        <div class="tab-content" style="padding-bottom: 9px;">
                             <div class="tab-pane active" id="tab1">
                                 <p><span class="color-1">Категорија 1</span></p>
                                 <!--Well Begin-->
@@ -940,18 +542,25 @@
     <script src="~/Areas/Portfolio/Scripts/jquery-ui.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Areas/Portfolio/Scripts/draggable_background.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
     <script type="text/javascript">
-        var colors=["darkBlueLighter","darkBlueDarker","lightBlueLighter","lightBlueDarker","greenLighter","greenDarker","orangeLighter","orangeDarker","redLighter","redDarker","darkGreyLighter","darkGreyDarker","lightGreyLighter","lightGreyDarker","white","black"];
-        var sections=["pocetna","zanas","footerZaNas","portfolio","footerPortfolio","contact","header","footer"];
+
+    var colors=["darkBlueLighter","darkBlueDarker","lightBlueLighter","lightBlueDarker","greenLighter","greenDarker","orangeLighter","orangeDarker","redLighter","redDarker","darkGreyLighter","darkGreyDarker","lightGreyLighter","lightGreyDarker","white","black"];
+    var sections=["pocetna","zanas","footerZaNas","portfolio","footerPortfolio","contact","header","footer"];
+    var backgroundValues=['@(Model.BGPocetna)','@(Model.BGZaNas)','@(Model.BGFZaNas)','@(Model.BGPortfolio)','@(Model.BGFPortfolio)','@(Model.BGContact)','@(Model.BGMenu)','@(Model.BGFooter)'];
+        //Greska
         var radioButtonClickEvent= function(section){
-            $("." + section + "-section #pozadina-slika").click(function(){
+            $('.' + section + '-section .pozadina-slika[name="pozadina-'+section+'"]').click(function(){
                 $("." + section + "-section .color-palet li").css("opacity","0.5").addClass("removeHoverBorder");
 
                 var bg_img = "";
                 var imageContent = $("." + section + "-section .image-input").val();
                 if(imageContent.length > 0) {
+                  
                     var imageUrl = $("." + section + "-section .image-uploaded").css("background-image").slice(0, -1);
                     imageUrl = imageUrl.slice(4, imageUrl.length);
+                    
                     bg_img = imageUrl;
                 }
                 else {
@@ -960,442 +569,343 @@
                 changeBackgroundImageStyle(bg_img,section);
 
                 $("." + section + "-section .section-body-image .thumbnail").css("opacity","");
-                $("." + section + "-section .section-body-image .btn-primary").removeClass("btnRemoveHover").addClass("btn-primary");
+                $("." + section + "-section .section-body-image .btnRemoveHover").removeClass("btnRemoveHover").addClass("btn-primary");
                 $("." + section + "-section .section-body-image .thumbnail input").attr('disabled', false);
             });
-            $("." + section + "-section #pozadina-boja").click(function(){
+            $('.' + section + '-section .pozadina-boja[name="pozadina-'+section+'"]').click(function(){
                 $("." + section + "-section .color-palet li").css("opacity","").removeClass("removeHoverBorder");
-                var bgColor=$(".color-"+$("." + section + "-section .color-palet li.color-active").attr("data-color")).css("background-color");
+                var bgColor=$("." + section + "-section .color-palet li.color-active").attr("data-color");
                 changeColorStyle(bgColor,section);//website
 
                 $("." + section + "-section .section-body-image .thumbnail").css("opacity","0.5");
                 $("." + section + "-section .section-body-image .btn-primary").removeClass("btn-primary").addClass("btnRemoveHover");
                 $("." + section + "-section .section-body-image .thumbnail input").attr('disabled', true);
             });
-        }; 
-        var onLoad=function(){
-            var background;
-            var defaultBackgroundImage="/Areas/Portfolio/Images/HomeBackgroundImage.png";
-            var defaultBackgroundColor="darkBlueDarker";
-           /* $.each(editorSections, function(i, value ) {
-                alert(value);
-            });*/
-            // RadioButton ClickEvent
-            radioButtonClickEvent("zanas");
-           
-            //Font-Family
-            $('body').css('font-family', '@(Model.FontFamily)'); //website
-            $("select").val('@(Model.FontFamily)');//editor
-            //FontColor1
-            setColor1('@(Model.FontColor1)');//website
-            $('#font-content .color-palet:first li.color-active').removeClass('color-active');//editor
-            $("#font-content .color-palet:first li.color-"+'@(Model.FontColor1)').addClass('color-active');//editor
-            //FontColor2
-            setColor2('@(Model.FontColor2)');
-            $('#font-content .color-palet:last li.color-active').removeClass('color-active');//editor
-            $("#font-content .color-palet:last li.color-"+'@(Model.FontColor2)').addClass('color-active');//editor
-            //BGPocetna
-            background='@(Model.BGPocetna)';
-            if(isColor(background)){
-                var bgColor=$(".color-"+background).css("background-color");
-                changeColorStyle(bgColor,"pocetna");//website
-                $('.pocetna-section li.color-active').removeClass('color-active');//editor
-                $('.pocetna-section li.color-'+background).addClass('color-active');//editor
-                $(".pocetna-section #pozadina-boja").click();
-                //DefaultImage
-                $(".pocetna-section .Image1").show();//editor
-                $(".pocetna-section .Image1").css('background-image', 'url(' + defaultBackgroundImage + ')');//editor
-
-            }
-            else{
-                changeBackgroundImageStyle(background,"pocetna");//website
-                $(".pocetna-section .Image1").show();//editor
-                $(".pocetna-section .Image1").css('background-image', 'url(' + background + ')');//editor
-                $(".pocetna-section #pozadina-slika").click();
-            }
-
-
-            //BGZaNas
-            background='@(Model.BGZaNas)';
-            if(isValidHexColor(background)){
-                changeColorStyle(background,"zanas");
-            }
-            else{
-                changeBackgroundImageStyle(background,"zanas");
-            }
-            //BGFZaNas
-            background='@(Model.BGFZaNas)';
-            if(isValidHexColor(background)){
-                changeColorStyle(background,"footerZaNas");
-            }
-            else{
-                changeBackgroundImageStyle(background,"footerZaNas");
-            }
-            //BGPortfolio
-            background='@(Model.BGPortfolio)';
-            if(isValidHexColor(background)){
-                changeColorStyle(background,"portfolio");
-            }
-            else{
-                changeBackgroundImageStyle(background,"portfolio");
-            }
-            //BGFPortfolio
-            background='@(Model.BGFPortfolio)';
-            if(isValidHexColor(background)){
-                changeColorStyle(background,"footerPortfolio");
-            }
-            else{
-                changeBackgroundImageStyle(background,"footerPortfolio");
-            }
-            //BGContact
-            background='@(Model.BGContact)';
-            if(isValidHexColor(background)){
-                changeColorStyle(background,"contact");
-            }
-            else{
-                changeBackgroundImageStyle(background,"contact");
-            }
-            //BGMenu
-            background='@(Model.BGMenu)';
-            if(isValidHexColor(background)){
-                changeColorStyle(background,"header");
-            }
-            else{
-                changeBackgroundImageStyle(background,"header");
-            }
-            //BGFooter
-            background='@(Model.BGFooter)';
-            if(isValidHexColor(background)){
-                changeColorStyle(background,"footer");
-            }
-            else{
-                changeBackgroundImageStyle(background,"footer");
-            }
-            //Naziv
-            var naziv='@(Model.Naziv)';
-            var nazivArray=naziv.split(" ");
-            var arrayLength=nazivArray.length;
-            var nazivColor1=nazivArray.slice(0,arrayLength/2).join("");
-            var nazivColor2=nazivArray.slice(arrayLength/2,arrayLength).join("");
-            $(".brand .color-1").text(nazivColor1);
-            $(".brand .color-2").text(nazivColor2);
-
-
-
-
-        }
-        var isColor=function(color){
-            if($.inArray(color,colors)>-1){
-                return 1;
-            }
-            else{
-                return 0;
-            }
-        }
-        var isValidHexColor=function(color){
-            return  /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(color);
-        }
-        var setColor1=function(color1){
-            $('#style-color1').attr("href","/Areas/Portfolio/Content/TextColor/Color-1/"+color1+".css" );
         };
-        var setColor2=function(color2){
-            $('#style-color2').attr("href","/Areas/Portfolio/Content/TextColor/Color-2/"+color2+".css" );
-        };
-        var changeColorStyle=function(style,section){
 
-            if($('#'+section+' .fill-screen').length>0){
-                $('section#'+section+' .fill-screen:first').css("background-image","");
-                $('section#'+section+' .fill-screen:first').css("background-color",style);
+    var backgroundSettingsOnLoad=function(section,background,defaultBackgroundImage){
+        radioButtonClickEvent(section);
+        if(isColor(background)){
+            var bgColor=$(".color-"+background).attr("data-color");
+            changeColorStyle(bgColor,section);//website
+            $('.'+section+'-section li.color-active').removeClass('color-active');//editor
+            $('.'+section+'-section li.color-'+background).addClass('color-active');//editor
+            $("."+section+"-section .pozadina-boja").click();
+            //DefaultImage
+            $('.'+section+'-section .Image1').show();//editor
+            $('.'+section+'-section .Image1').css('background-image', 'url(' + defaultBackgroundImage + ')');//editor
+
+        }
+        else{
+            changeBackgroundImageStyle(background,section);//website
+            $('.'+section+'-section .Image1').show();//editor
+            $('.'+section+'-section .Image1').css('background-image', 'url(' + background + ')');//editor
+            $("."+section+"-section .pozadina-slika").click();
+
+        }
+
+
+
+    };
+    var colorPaletClickEvent=function(sect){
+
+        $('#pozadina-content .color-palet[data-section="'+sect+'"] li').click(function(){
+
+            if($('input[name=pozadina-'+sect+']:checked', '.'+sect+'-section').val()=="slika"){
+
+                return false;
             }else{
-                $(section+' .fill-screen').css("background-image","");
-                $(section+' .fill-screen').css("background-color",style);
-
+                $('#pozadina-content .color-palet[data-section="'+sect+'"] li.color-active').removeClass('color-active');
+                $(this).addClass('color-active');
+                var color=$(this).attr("data-color");
+                var section = $(this).parent().attr("data-section");
+                changeColorStyle(color,section);
             }
-        }
-        var changeBackgroundImageStyle=function(style,section){
-            if($('#'+section+' .fill-screen').length>0){
-                $('#'+section+' .fill-screen:first').css("background-image",'url(' +style + ')');
-                $('#'+section+' .fill-screen:first').css("background-color","");
-            }
-            else{
-                $(section+' .fill-screen').css("background-image",'url(' + style + ')');
-                $(section+' .fill-screen').css("background-color","");
-            }
-        }
-        $(document).ready(function () {
-            //OnLoad
-            onLoad();
-            //Draggable Begin
-            $('#default').backgroundDraggable();
-            $('#default').backgroundDraggable({
-                done: function() {
-                    backgroundPosition = $('div').css('background-position');
-                    console.log(backgroundPosition);
-                }
-            });
+        });
+    };
+    var onLoad=function(){
+        var background;
+        var defaultBackgroundImage="/Areas/Portfolio/Images/DefaulImage.png";
+        var defaultBackgroundColor="darkBlueDarker";
 
-            //Affix
-            $('.navbar').affix({
-                offset: {
-                    top: window.innerHeight
-                }
-            });
-            //Scrollspy
-            $("body").scrollspy({
-                target: ".navbar",
-                offset: 60
-            });
-
-            $("header").css("padding-top",window.innerHeight-60);
-
-
-            //SmoothScrolling
-            $('.main-menu a[href*=#]:not([href=#])').click(function (e) {
-                if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-                    var target = $(this.hash);
-                    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-                    if (target.length) {
-                        $('body').animate({
-                            scrollTop: target.offset().top - 59
-                        }, 1000);
-                        $(this).blur();
-                        return false;
-                    }
-                }
-            });
-
-            //SetDivToWindowInnerHeight
-            $(window).on("load resize", function () {
-                $("#pocetna").css("height", window.innerHeight);
-            });
-            //CarouselAndThumbnailGallery
-            $('[id^="myCarousel"]').carousel({
-                interval: 0
-            })
-
-            $('[id^="myCarousel"]').on('slid.bs.carousel', function () {
-                //alert("slid");
-            });
-
-            initializeTiles();
-            //Editor Begin
-            $('.modal-body#font-content').show();
-            $('.modal-body#pozadina-content').hide();
-
-            $('#editor-button').click(function()
-            {
-                $('#editor-button i').toggleClass('glyphicon-remove glyphicon-cog');
-                $('#editor-container').toggle("slide", { direction: "right" }, 1000);
-            });
-            $('.modal-header a').click(function(){
-                $('.activeNav').removeClass('activeNav');
-                $(this).addClass('activeNav');
-                $('.modal-body').hide();
-                $("#"+$(this).attr('data-mnav')).fadeIn("slow");
-
-            });
-            //Font
-            $('#font-content .color-palet:first li').click(function(){
-                $('#font-content .color-palet:first li.color-active').removeClass('color-active');
-                $(this).addClass('color-active');
-                var color1 =$(this).attr("data-color");
-                setColor1(color1);
-
-
-            });
-            $('#font-content .color-palet:last li').click(function(){
-                $('#font-content .color-palet:last li.color-active').removeClass('color-active');
-                $(this).addClass('color-active');
-                var color2 =$(this).attr("data-color");
-                setColor2(color2);
-
-            });
-            $('#select').change(function(){
-                var fontFamilyValue = $('#select').val();
-                $('body').css('font-family', fontFamilyValue);
-            });
-            //Background
-            //Section Selection
-            $("#pozadina-content .section:not(.pocetna-section)").hide();
-            $('#select-section').change(function(){
-                var section = $('#select-section').val();
-                $("#pozadina-content .section").hide();
-                $("#pozadina-content .section."+section).show();
-            });
-
-            //Pocetna
-            $('#pozadina-content .color-palet[data-section="pocetna"] li').click(function(){
-                if($('input[name=pozadina]:checked', '.pocetna-section').val()=="slika"){
-                    return false;
-                }else{
-                    $('#pozadina-content .color-palet[data-section="pocetna"] li.color-active').removeClass('color-active');
-                    $(this).addClass('color-active');
-                    var color=$(this).css("background-color");
-                    var section = $(this).parent().attr("data-section");
-                    changeColorStyle(color,section);
-                }
-            });
-            //ZaNas
-            $('#pozadina-content .color-palet[data-section="zanas"] li').click(function(){
-                $('#pozadina-content .color-palet[data-section="zanas"] li.color-active').removeClass('color-active');
-                $(this).addClass('color-active');
-                var color=$(this).css("background-color");
-                var section = $(this).parent().attr("data-section");
-                changeColorStyle(color,section);
-            });
-            //footerZaNas
-            $('#pozadina-content .color-palet[data-section="footerZaNas"] li').click(function(){
-                $('#pozadina-content .color-palet[data-section="footerZaNas"] li.color-active').removeClass('color-active');
-                $(this).addClass('color-active');
-                var color=$(this).css("background-color");
-                var section = $(this).parent().attr("data-section");
-                changeColorStyle(color,section);
-            });
-            //portfolio
-            $('#pozadina-content .color-palet[data-section="portfolio"] li').click(function(){
-                $('#pozadina-content .color-palet[data-section="portfolio"] li.color-active').removeClass('color-active');
-                $(this).addClass('color-active');
-                var color=$(this).css("background-color");
-                var section = $(this).parent().attr("data-section");
-                changeColorStyle(color,section);
-            });
-            //footerPortfolio
-            $('#pozadina-content .color-palet[data-section="footerPortfolio"] li').click(function(){
-                $('#pozadina-content .color-palet[data-section="footerPortfolio"] li.color-active').removeClass('color-active');
-                $(this).addClass('color-active');
-                var color=$(this).css("background-color");
-                var section = $(this).parent().attr("data-section");
-                changeColorStyle(color,section);
-            });
-            //contact
-            $('#pozadina-content .color-palet[data-section="contact"] li').click(function(){
-                $('#pozadina-content .color-palet[data-section="contact"] li.color-active').removeClass('color-active');
-                $(this).addClass('color-active');
-                var color=$(this).css("background-color");
-                var section = $(this).parent().attr("data-section");
-                changeColorStyle(color,section);
-            });
-            //header
-            $('#pozadina-content .color-palet[data-section="header"] li').click(function(){
-
-                $('#pozadina-content .color-palet[data-section="header"] li.color-active').removeClass('color-active');
-                $(this).addClass('color-active');
-                var color=$(this).css("background-color");
-                var section = $(this).parent().attr("data-section");
-                changeColorStyle(color,section);
-
-            });
-            //footer
-            $('#pozadina-content .color-palet[data-section="footer"] li').click(function(){
-                $('#pozadina-content .color-palet[data-section="footer"] li.color-active').removeClass('color-active');
-                $(this).addClass('color-active');
-                var color=$(this).css("background-color");
-                var section = $(this).parent().attr("data-section");
-                changeColorStyle(color,section);
-            });
-
-            //Thumbnail Image Upload Form
-            $('.FileUpload1').change(function () {
-                var section = $(this).attr("data-section");
-                var imgSelector='.'+section+'-section'+' .Image1';
-                $(imgSelector).hide();
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $(imgSelector).show();
-                    $(imgSelector).css('background-image', 'url(' + e.target.result + ')');
-                    if($('#'+section+' .fill-screen').length>0){
-                        $('#'+section+' .fill-screen:first').css("background-image",'url(' + e.target.result + ')');
-                        $('#'+section+' .fill-screen:first').css("background-color","");
-                    }
-                    else{
-                        $(section+' .fill-screen').css("background-image",'url(' + e.target.result + ')');
-                        $(section+' .fill-screen').css("background-color","");
-                    }
-
-
-                }
-                reader.readAsDataURL($(this)[0].files[0]);
-            });
-            $('.FileUpload1').click(function(){
-                if($('input[name=pozadina]:checked', '.pocetna-section').val()=="boja"){
-                    return false;
-                }else{
-                    return true;
-                }
-            });
-        
-
-
-
-
-            //Editor End
-        }); //END of document.ready
-
-        function initializeTiles() {
-            var elementsInGroup = getNumberOfItems();
-            var thumbnails = $(".flex-thumbnail");
-
-            for(var i = 0; i < thumbnails.length; i+=elementsInGroup) {
-                var active = (i == 0) ? " active" : "";
-                thumbnails.slice(i, i+elementsInGroup).wrapAll('<div class="item'+ active +'"><div class="row"></div></div>');
-            }
-            thumbnails = $(".flex1-thumbnail");
-            for(var i = 0; i < thumbnails.length; i+=elementsInGroup) {
-                var active = (i == 0) ? " active" : "";
-                thumbnails.slice(i, i+elementsInGroup).wrapAll('<div class="item'+ active +'"><div class="row"></div></div>');
-            }
-        }
-
-        function getNumberOfItems(){
-            var numberOfElements = @numberOfElements;
-            var numberOfItems = 0;
-            var elementsInGroup = 0;
-            //VisualBreakpoint=xs
-            if (window.matchMedia("(max-width: 767px)").matches) {
-                numberOfItems = Math.ceil(numberOfElements/4);
-                elementsInGroup = 4;
-            };
-            //VisualBreakpoint=sm
-            if (window.matchMedia("(min-width: 768px)").matches) {
-                numberOfItems = Math.ceil(numberOfElements/6);
-                elementsInGroup = 6;
-            };
-            //VisualBreakpoint=md
-            if (window.matchMedia("(min-width: 992px)").matches) {
-                numberOfItems = Math.ceil(numberOfElements/8);
-                elementsInGroup = 8;
-            };
-            //VisualBreakpoint=lg
-            if (window.matchMedia("(min-width: 1200px)").matches) {
-                numberOfItems = Math.ceil(numberOfElements/12);
-                elementsInGroup = 12;
-            };
-            return(elementsInGroup);
-        }
-
-
-
-        $(document).on('change', '.btn-file :file', function () {
-            var input = $(this),
-                numFiles = input.get(0).files ? input.get(0).files.length : 1,
-                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-            input.trigger('fileselect', [numFiles, label]);
+        //Font-Family
+        $('body').css('font-family', '@(Model.FontFamily)'); //website
+        $("select").val('@(Model.FontFamily)');//editor
+        //FontColor1
+        setColor1('@(Model.FontColor1)');//website
+        $('#font-content .color-palet:first li.color-active').removeClass('color-active');//editor
+        $("#font-content .color-palet:first li.color-"+'@(Model.FontColor1)').addClass('color-active');//editor
+        //FontColor2
+        setColor2('@(Model.FontColor2)');
+        $('#font-content .color-palet:last li.color-active').removeClass('color-active');//editor
+        $("#font-content .color-palet:last li.color-"+'@(Model.FontColor2)').addClass('color-active');//editor
+        //Backgrounds
+        $.each( sections, function( index, value ){
+            background=backgroundValues[index];
+            backgroundSettingsOnLoad(value,background,defaultBackgroundImage);
         });
 
-        $(document).ready(function () {
-            $('.btn-file :file').on('fileselect', function (event, numFiles, label) {
+        //Naziv
+        var naziv='@(Model.Naziv)';
+        var nazivArray=naziv.split(" ");
+        var arrayLength=nazivArray.length;
+        var nazivColor1=nazivArray.slice(0,arrayLength/2).join("");
+        var nazivColor2=nazivArray.slice(arrayLength/2,arrayLength).join("");
+        $(".brand .color-1").text(nazivColor1);
+        $(".brand .color-2").text(nazivColor2);
+    }
+    var isColor=function(color){
+        if($.inArray(color,colors)>-1){
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+    var isValidHexColor=function(color){
+        return  /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(color);
+    }
+    var setColor1=function(color1){
+        $('#style-color1').attr("href","/Areas/Portfolio/Content/TextColor/Color-1/"+color1+".css" );
+        //Change the value of Hidden element FontColor1
+        $("#FontColor1").val(color1);
+    }
+    var setColor2=function(color2){
+        $('#style-color2').attr("href","/Areas/Portfolio/Content/TextColor/Color-2/"+color2+".css" );
+        //Change the value of Hidden element FontColor2
+        $("#FontColor2").val(color2);
+    }
+    var changeColorStyle=function(style,section){
+        var bgColor=$('.color-palet[data-section="'+section+'"] li[data-color="'+style+'"]').css("background-color");
+        $('input[data-bgsection="'+section+'"]').val(style);
+        if($('#'+section+' .fill-screen').length>0){
+            $('section#'+section+' .fill-screen:first').css("background-image","");
+            $('section#'+section+' .fill-screen:first').css("background-color",bgColor);
+        }else{
+            $(section+' .fill-screen').css("background-image","");
+            $(section+' .fill-screen').css("background-color",bgColor);
 
-                var input = $(this).parents('.input-group').find(':text'),
-                    log = numFiles > 1 ? numFiles + ' files selected' : label;
+        }
+    }
+    var changeBackgroundImageStyle=function(style,section){
+        if(style.indexOf("/Areas/Portfolio/Images/")!=-1)
+        {
+            $('input[data-bgsection="'+section+'"]').val(style);
+        }
+        else
+        {
+            var uri=style;
+            var subUri = uri.split(',');
+               
+            $('input[data-bgsection="'+section+'"]').val(subUri[1]);
+        }
+        if($('#'+section+' .fill-screen').length>0){
+            $('#'+section+' .fill-screen:first').css("background-image",'url(' +style + ')');
+            $('#'+section+' .fill-screen:first').css("background-color","");
+        }
+        else{
+            $(section+' .fill-screen').css("background-image",'url(' + style + ')');
+            $(section+' .fill-screen').css("background-color","");
+        }
+    }
+    var SuccessNotification=function(){
+        //Editor Post Success
+        $("#alert-content").fadeIn("slow");
+        setTimeout(function() { $("#alert-content").fadeOut("slow"); }, 5000);
+    }
+    $(document).ready(function () {
 
-                if (input.length) {
-                    input.val(log);
-                } else {
-                    if (log) alert(log);
-                }
-
-            });
+        //OnLoad
+        onLoad();
+        $("#alert-content").hide();
+        //Draggable Begin
+        $('#default').backgroundDraggable();
+        $('#default').backgroundDraggable({
+            done: function() {
+                backgroundPosition = $('div').css('background-position');
+                console.log(backgroundPosition);
+            }
         });
+
+        //Affix
+        $('.navbar').affix({
+            offset: {
+                top: window.innerHeight
+            }
+        });
+        //Scrollspy
+        $("body").scrollspy({
+            target: ".navbar",
+            offset: 60
+        });
+
+        $("header").css("padding-top",window.innerHeight-60);
+
+
+        //SmoothScrolling
+        $('.main-menu a[href*=#]:not([href=#])').click(function (e) {
+            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                if (target.length) {
+                    $('body').animate({
+                        scrollTop: target.offset().top - 59
+                    }, 1000);
+                    $(this).blur();
+                    return false;
+                }
+            }
+        });
+
+        //SetDivToWindowInnerHeight
+        $(window).on("load resize", function () {
+            $("#pocetna").css("height", window.innerHeight);
+        });
+        //CarouselAndThumbnailGallery
+        $('[id^="myCarousel"]').carousel({
+            interval: 0
+        })
+
+        $('[id^="myCarousel"]').on('slid.bs.carousel', function () {
+            //alert("slid");
+        });
+
+        initializeTiles();
+        //Editor Begin
+        $('.modal-body#font-content').show();
+        $('.modal-body#pozadina-content').hide();
+
+        $('#editor-button').click(function()
+        {
+            $('#editor-button i').toggleClass('glyphicon-remove glyphicon-cog');
+            $('#editor-container').toggle("slide", { direction: "right" }, 1000);
+        });
+        $('.modal-header a').click(function(){
+            $('.activeNav').removeClass('activeNav');
+            $(this).addClass('activeNav');
+            $('.modal-body').hide();
+            $("#"+$(this).attr('data-mnav')).fadeIn("slow");
+
+        });
+        //Font
+        $('#font-content .color-palet:first li').click(function(){
+            $('#font-content .color-palet:first li.color-active').removeClass('color-active');
+            $(this).addClass('color-active');
+            var color1 =$(this).attr("data-color");
+            setColor1(color1);
+
+
+        });
+        $('#font-content .color-palet:last li').click(function(){
+            $('#font-content .color-palet:last li.color-active').removeClass('color-active');
+            $(this).addClass('color-active');
+            var color2 =$(this).attr("data-color");
+            setColor2(color2);
+
+        });
+        $('#select').change(function(){
+            var fontFamilyValue = $('#select').val();
+            $('body').css('font-family', fontFamilyValue);
+        });
+        //Background
+        //Section Selection
+        $("#pozadina-content .section:not(.pocetna-section)").hide();
+        $('#select-section').change(function(){
+            var section = $('#select-section').val();
+            $("#pozadina-content .section").hide();
+            $("#pozadina-content .section."+section).show();
+        });
+        $.each( sections, function( index, value ){
+            colorPaletClickEvent(value);
+        });
+
+        //Thumbnail Image Upload Form
+        $('.FileUpload1').change(function () {
+            var section = $(this).attr("data-section");
+            var imgSelector='.'+section+'-section'+' .Image1';
+            $(imgSelector).hide();
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $(imgSelector).show();
+                $(imgSelector).css('background-image', 'url(' + e.target.result + ')');
+                changeBackgroundImageStyle(e.target.result,section);
+                var uri=e.target.result;
+                var subUri = uri.split(',');
+
+                $('input[data-bgsection="'+section+'"]').val(subUri[1]);
+
+            }
+            reader.readAsDataURL($(this)[0].files[0]);
+        });
+
+        //Editor End
+    }); //END of document.ready
+
+    function initializeTiles() {
+        var elementsInGroup = getNumberOfItems();
+        var thumbnails = $(".flex-thumbnail");
+
+        for(var i = 0; i < thumbnails.length; i+=elementsInGroup) {
+            var active = (i == 0) ? " active" : "";
+            thumbnails.slice(i, i+elementsInGroup).wrapAll('<div class="item'+ active +'"><div class="row"></div></div>');
+        }
+        thumbnails = $(".flex1-thumbnail");
+        for(var i = 0; i < thumbnails.length; i+=elementsInGroup) {
+            var active = (i == 0) ? " active" : "";
+            thumbnails.slice(i, i+elementsInGroup).wrapAll('<div class="item'+ active +'"><div class="row"></div></div>');
+        }
+    }
+
+    function getNumberOfItems(){
+        var numberOfElements = @numberOfElements;
+        var numberOfItems = 0;
+        var elementsInGroup = 0;
+        //VisualBreakpoint=xs
+        if (window.matchMedia("(max-width: 767px)").matches) {
+            numberOfItems = Math.ceil(numberOfElements/4);
+            elementsInGroup = 4;
+        };
+        //VisualBreakpoint=sm
+        if (window.matchMedia("(min-width: 768px)").matches) {
+            numberOfItems = Math.ceil(numberOfElements/6);
+            elementsInGroup = 6;
+        };
+        //VisualBreakpoint=md
+        if (window.matchMedia("(min-width: 992px)").matches) {
+            numberOfItems = Math.ceil(numberOfElements/8);
+            elementsInGroup = 8;
+        };
+        //VisualBreakpoint=lg
+        if (window.matchMedia("(min-width: 1200px)").matches) {
+            numberOfItems = Math.ceil(numberOfElements/12);
+            elementsInGroup = 12;
+        };
+        return(elementsInGroup);
+    }
+
+
+
+    $(document).on('change', '.btn-file :file', function () {
+        var input = $(this),
+            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [numFiles, label]);
+    });
+
+    $(document).ready(function () {
+        $('.btn-file :file').on('fileselect', function (event, numFiles, label) {
+
+            var input = $(this).parents('.input-group').find(':text'),
+                log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+            if (input.length) {
+                input.val(log);
+            } else {
+                if (log) alert(log);
+            }
+
+        });
+    });
     </script>
 </body>
 </html>
