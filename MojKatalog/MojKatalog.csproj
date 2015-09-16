@@ -40,10 +40,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
@@ -214,6 +210,7 @@
     <Compile Include="Controllers\MailController.cs" />
     <Compile Include="Controllers\ProizvodController.cs" />
     <Compile Include="Controllers\WebSiteSettingsController.cs" />
+    <Compile Include="Filters\CustomAuthorize.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -259,6 +256,7 @@
     <Compile Include="Models\Proizvodi.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\LoggedInEntity.cs" />
     <Compile Include="Models\ViewModels\UploadImage.cs" />
     <Compile Include="Models\ViewModels\KataloziWebSiteViewModel.cs" />
     <Compile Include="Models\ViewModels\LogiranaKompanijaViewModel.cs" />
@@ -639,6 +637,7 @@
     <Content Include="Views\Mail\Partials\_IsprateniPorakiPartial.cshtml" />
     <Content Include="Views\Mail\Partials\_IzbrisaniPorakiPartial.cshtml" />
     <Content Include="Views\Mail\Partials\_SocuvaniPorakiPartial.cshtml" />
+    <Content Include="Views\Shared\_LoginLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -14,5 +14,6 @@ namespace MojKatalog.Models.ViewModels
         public string Logo { get; set; }
         public string Opis { get; set; }
         public string Telefon { get; set; }
+        public string Role { get; set; }
     }
 }
