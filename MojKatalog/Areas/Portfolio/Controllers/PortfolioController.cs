@@ -94,14 +94,40 @@ namespace MojKatalog.Areas.Portfolio.Controllers
         public JsonResult IzmeniPortfolio(WebSiteSettings wsettings)
         {
             WebSiteSettings oldWsettings = model.IzmeniPortfolioGet(wsettings.IdKatalozi);
-            wsettings.BGPocetna = CreateAndSaveImage(wsettings.BGPocetna, wsettings.IdKatalozi,"Pocetna", oldWsettings.BGPocetna);
-            wsettings.BGZaNas = CreateAndSaveImage(wsettings.BGZaNas, wsettings.IdKatalozi,"ZaNas", oldWsettings.BGZaNas);
-            wsettings.BGFZaNas = CreateAndSaveImage(wsettings.BGFZaNas, wsettings.IdKatalozi,"FooterZaNas", oldWsettings.BGFZaNas);
-            wsettings.BGPortfolio = CreateAndSaveImage(wsettings.BGPortfolio, wsettings.IdKatalozi,"Portfolio", oldWsettings.BGPortfolio);
-            wsettings.BGFPortfolio = CreateAndSaveImage(wsettings.BGFPortfolio, wsettings.IdKatalozi,"FooterPortfolio", oldWsettings.BGFPortfolio);
-            wsettings.BGContact = CreateAndSaveImage(wsettings.BGContact, wsettings.IdKatalozi,"Contact", oldWsettings.BGContact);
-            wsettings.BGMenu = CreateAndSaveImage(wsettings.BGMenu, wsettings.IdKatalozi,"Menu", oldWsettings.BGMenu);
-            wsettings.BGFooter = CreateAndSaveImage(wsettings.BGFooter, wsettings.IdKatalozi,"Footer", oldWsettings.BGFooter);
+            if (!ColorHelper.IsColor(wsettings.BGPocetna)) 
+            {
+                wsettings.BGPocetna = CreateAndSaveImage(wsettings.BGPocetna, wsettings.IdKatalozi, "Pocetna", oldWsettings.BGPocetna);
+            }
+            if (!ColorHelper.IsColor(wsettings.BGZaNas))
+            {
+                wsettings.BGZaNas = CreateAndSaveImage(wsettings.BGZaNas, wsettings.IdKatalozi, "ZaNas", oldWsettings.BGZaNas);
+            }
+            if (!ColorHelper.IsColor(wsettings.BGFZaNas)) 
+            {
+                wsettings.BGFZaNas = CreateAndSaveImage(wsettings.BGFZaNas, wsettings.IdKatalozi, "FooterZaNas", oldWsettings.BGFZaNas);
+            }
+            if (!ColorHelper.IsColor(wsettings.BGPortfolio))
+            {
+               wsettings.BGPortfolio = CreateAndSaveImage(wsettings.BGPortfolio, wsettings.IdKatalozi, "Portfolio", oldWsettings.BGPortfolio);
+            }
+            if (!ColorHelper.IsColor(wsettings.BGFPortfolio))
+            {
+                wsettings.BGFPortfolio = CreateAndSaveImage(wsettings.BGFPortfolio, wsettings.IdKatalozi, "FooterPortfolio", oldWsettings.BGFPortfolio);
+            }
+
+            if (!ColorHelper.IsColor(wsettings.BGContact))
+            {
+                wsettings.BGContact = CreateAndSaveImage(wsettings.BGContact, wsettings.IdKatalozi, "Contact", oldWsettings.BGContact);
+            }
+            if (!ColorHelper.IsColor(wsettings.BGMenu))
+            {
+                wsettings.BGMenu = CreateAndSaveImage(wsettings.BGMenu, wsettings.IdKatalozi, "Menu", oldWsettings.BGMenu);
+            }
+            if (!ColorHelper.IsColor(wsettings.BGFooter))
+            {
+                wsettings.BGFooter = CreateAndSaveImage(wsettings.BGFooter, wsettings.IdKatalozi, "Footer", oldWsettings.BGFooter);
+            }
+
             model.IzmeniPortfolioPost(wsettings);
            
 
@@ -125,5 +151,6 @@ namespace MojKatalog.Areas.Portfolio.Controllers
         {
             return View();
         }
+
     }
 }
