@@ -1,4 +1,4 @@
-﻿@model MojKatalog.Models.WebSiteSettings
+﻿@model MojKatalog.Models.ViewModels.WSettingsKatalogKorisnikViewModel
 @{
     Layout = null;
     int numberOfElements = 14;
@@ -23,18 +23,18 @@
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true)
         <fieldset>
-            @Html.HiddenFor(model => model.IdKatalozi)
-            @Html.HiddenFor(model => model.Naziv)
-            @Html.HiddenFor(model => model.FontColor1)
-            @Html.HiddenFor(model => model.FontColor2)
-            @Html.HiddenFor(model => model.BGPocetna, new { @data_bgsection = "pocetna" })
-            @Html.HiddenFor(model => model.BGZaNas, new { @data_bgsection="zanas"})
-            @Html.HiddenFor(model => model.BGFZaNas, new { @data_bgsection = "footerZaNas" })
-            @Html.HiddenFor(model => model.BGPortfolio, new { @data_bgsection = "portfolio" })
-            @Html.HiddenFor(model => model.BGFPortfolio, new { @data_bgsection = "footerPortfolio" })
-            @Html.HiddenFor(model => model.BGContact, new { @data_bgsection = "contact" })
-            @Html.HiddenFor(model => model.BGMenu, new { @data_bgsection = "header" })
-            @Html.HiddenFor(model => model.BGFooter, new { @data_bgsection = "footer" })
+            @Html.HiddenFor(model => model.WSettings.IdKatalozi)
+            @Html.HiddenFor(model => model.WSettings.Naziv)
+            @Html.HiddenFor(model => model.WSettings.FontColor1)
+            @Html.HiddenFor(model => model.WSettings.FontColor2)
+            @Html.HiddenFor(model => model.WSettings.BGPocetna, new { @data_bgsection = "pocetna" })
+            @Html.HiddenFor(model => model.WSettings.BGZaNas, new { @data_bgsection="zanas"})
+            @Html.HiddenFor(model => model.WSettings.BGFZaNas, new { @data_bgsection = "footerZaNas" })
+            @Html.HiddenFor(model => model.WSettings.BGPortfolio, new { @data_bgsection = "portfolio" })
+            @Html.HiddenFor(model => model.WSettings.BGFPortfolio, new { @data_bgsection = "footerPortfolio" })
+            @Html.HiddenFor(model => model.WSettings.BGContact, new { @data_bgsection = "contact" })
+            @Html.HiddenFor(model => model.WSettings.BGMenu, new { @data_bgsection = "header" })
+            @Html.HiddenFor(model => model.WSettings.BGFooter, new { @data_bgsection = "footer" })
             
             @*Editor Begin*@
             <div id="editor-button">
@@ -65,7 +65,7 @@
                                 <label class="label-control">Избери фонт:</label>
                             </div>
                             <div class="col-xs-8">
-                                @Html.DropDownListFor(model => model.FontFamily, new SelectList(
+                                @Html.DropDownListFor(model => model.WSettings.FontFamily, new SelectList(
                                     new List<Object>{
                                     new { value = "PTSansNarrow" , text = "PT Sans Narrow"  },
                                     new { value = "OpenSansLight" , text = "Open Sans Light"  },
@@ -548,7 +548,7 @@
 
     var colors=["darkBlueLighter","darkBlueDarker","lightBlueLighter","lightBlueDarker","greenLighter","greenDarker","orangeLighter","orangeDarker","redLighter","redDarker","darkGreyLighter","darkGreyDarker","lightGreyLighter","lightGreyDarker","white","black"];
     var sections=["pocetna","zanas","footerZaNas","portfolio","footerPortfolio","contact","header","footer"];
-    var backgroundValues=['@(Model.BGPocetna)','@(Model.BGZaNas)','@(Model.BGFZaNas)','@(Model.BGPortfolio)','@(Model.BGFPortfolio)','@(Model.BGContact)','@(Model.BGMenu)','@(Model.BGFooter)'];
+    var backgroundValues=['@(Model.WSettings.BGPocetna)','@(Model.WSettings.BGZaNas)','@(Model.WSettings.BGFZaNas)','@(Model.WSettings.BGPortfolio)','@(Model.WSettings.BGFPortfolio)','@(Model.WSettings.BGContact)','@(Model.WSettings.BGMenu)','@(Model.WSettings.BGFooter)'];
         //Greska
         var radioButtonClickEvent= function(section){
             $('.' + section + '-section .pozadina-slika[name="pozadina-'+section+'"]').click(function(){
@@ -629,16 +629,16 @@
         var defaultBackgroundColor="darkBlueDarker";
 
         //Font-Family
-        $('body').css('font-family', '@(Model.FontFamily)'); //website
-        $("select").val('@(Model.FontFamily)');//editor
+        $('body').css('font-family', '@(Model.WSettings.FontFamily)'); //website
+        $("select").val('@(Model.WSettings.FontFamily)');//editor
         //FontColor1
-        setColor1('@(Model.FontColor1)');//website
+        setColor1('@(Model.WSettings.FontColor1)');//website
         $('#font-content .color-palet:first li.color-active').removeClass('color-active');//editor
-        $("#font-content .color-palet:first li.color-"+'@(Model.FontColor1)').addClass('color-active');//editor
+        $("#font-content .color-palet:first li.color-"+'@(Model.WSettings.FontColor1)').addClass('color-active');//editor
         //FontColor2
-        setColor2('@(Model.FontColor2)');
+        setColor2('@(Model.WSettings.FontColor2)');
         $('#font-content .color-palet:last li.color-active').removeClass('color-active');//editor
-        $("#font-content .color-palet:last li.color-"+'@(Model.FontColor2)').addClass('color-active');//editor
+        $("#font-content .color-palet:last li.color-"+'@(Model.WSettings.FontColor2)').addClass('color-active');//editor
         //Backgrounds
         $.each( sections, function( index, value ){
             background=backgroundValues[index];
@@ -646,7 +646,7 @@
         });
 
         //Naziv
-        var naziv='@(Model.Naziv)';
+        var naziv='@(Model.WSettings.Naziv)';
         var nazivArray=naziv.split(" ");
         var arrayLength=nazivArray.length;
         var nazivColor1=nazivArray.slice(0,arrayLength/2).join("");

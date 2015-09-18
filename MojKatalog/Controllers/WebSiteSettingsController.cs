@@ -20,6 +20,7 @@ namespace MojKatalog.Controllers
         // GET: WebSiteSettings
         public ActionResult Index()
         {
+            //ToDo: Da se iskoristi sesiska promenliva definirana pri logiranje
             var poedinec = (LogiranPoedinecViewModel)Session["Poedinec"];
             var kompanija = (LogiranaKompanijaViewModel)Session["Kompanija"];
 
@@ -42,7 +43,8 @@ namespace MojKatalog.Controllers
         }
         public ActionResult IzmeniWebSite(int id, string tip)
         {
-            return RedirectToAction("Izmeni" + tip, tip, new { area = tip, id = id });
+            //ToDo: Koristenje na sesiska promenliva za logiran korisnik
+            return RedirectToAction("Izmeni" + tip, tip, new { area = tip, id = id, idKorisnik=1, korsisnikTip="Kompanija" });
         }
         public ActionResult IzbrisiWebSite(int id, string tip)
         {
