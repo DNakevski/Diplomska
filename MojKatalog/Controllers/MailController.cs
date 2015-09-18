@@ -7,9 +7,11 @@ using MojKatalog.Models;
 using MojKatalog.Models.ViewModels;
 using MojKatalog.Queries;
 using MojKatalog.Helpers;
+using MojKatalog.Filters;
 
 namespace MojKatalog.Controllers
 {
+    [CustomAuthorize(Roles = "Admin,Poedinec,Kompanija")]
     public class MailController : Controller
     {
         //
@@ -42,7 +44,7 @@ namespace MojKatalog.Controllers
         [MultipleButton(Name = "action", Argument = "IspratiMail")]
         public ActionResult IspratiMail(ViewPoraki vporaka, int[] selectedKlients)
         {
-
+            //TODO: treba da se implementira spored logiran user
             Poraki novaPoraka = new Poraki();
             novaPoraka.Subject = vporaka.Subject;
             novaPoraka.Body = vporaka.Body;
@@ -59,7 +61,7 @@ namespace MojKatalog.Controllers
         [MultipleButton(Name = "action", Argument = "SocuvajPoraka")]
         public ActionResult SocuvajPoraka(ViewPoraki vporaka, int[] selectedKlients)
         {
-
+            //TODO: treba da se implementira spored logiran user
             Poraki novaPoraka = new Poraki();
             novaPoraka.Subject = vporaka.Subject;
             novaPoraka.Body = vporaka.Body;
@@ -74,6 +76,7 @@ namespace MojKatalog.Controllers
 
         public ActionResult PrebarajKlienti(string searchString)
         {
+            //TODO: treba da se implementira spored logiran user
             ViewBag.SearchString = searchString;
             List<ViewKlienti> klienti = _poraki.PrebarajKontakti(1, searchString);
             return PartialView("_UpdateModalKlienti",klienti);
@@ -82,6 +85,7 @@ namespace MojKatalog.Controllers
         [HttpGet]
         public PartialViewResult GetIsprateniPartial()
         {
+            //TODO: treba da se implementira spored logiran user
             var poraki = _poraki.GetIsprateniPoraki();
             return PartialView("Partials/_IsprateniPorakiPartial", poraki);
         }
@@ -89,6 +93,7 @@ namespace MojKatalog.Controllers
         [HttpGet]
         public PartialViewResult GetIzbrishaniPartial()
         {
+            //TODO: treba da se implementira spored logiran user
             var poraki = _poraki.GetIzbrishaniPoraki();
             return PartialView("Partials/_IzbrisaniPorakiPartial", poraki);
         }
@@ -96,6 +101,7 @@ namespace MojKatalog.Controllers
         [HttpGet]
         public PartialViewResult GetSocuvaniPartial()
         {
+            //TODO: treba da se implementira spored logiran user
             var poraki = _poraki.GetSocuvaniPoraki();
             return PartialView("Partials/_SocuvaniPorakiPartial", poraki);
         }
@@ -103,6 +109,7 @@ namespace MojKatalog.Controllers
         [HttpPost]
         public JsonResult DeleteIsprateni(List<int> porakiIds)
         {
+            //TODO: treba da se implementira spored logiran user
             string status = "Fail";
 
             if (_poraki.DeleteIsprateniPoraki(porakiIds))
@@ -114,6 +121,7 @@ namespace MojKatalog.Controllers
         [HttpPost]
         public JsonResult DeleteIzbrishani(List<int> porakiIds)
         {
+            //TODO: treba da se implementira spored logiran user
             string status = "Fail";
 
             if (_poraki.DeleteIzbrishaniPoraki(porakiIds))
@@ -125,6 +133,7 @@ namespace MojKatalog.Controllers
         [HttpPost]
         public JsonResult DeleteSocuvani(List<int> porakiIds)
         {
+            //TODO: treba da se implementira spored logiran user
             string status = "Fail";
 
             if (_poraki.DeleteSocuvaniPoraki(porakiIds))

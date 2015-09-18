@@ -1,0 +1,20 @@
+﻿body {
+}
+
+
+.login-form {
+    margin-top: 100px;
+}
+
+fieldset {
+    border-bottom: 2px solid #dce4ec;
+}
+
+.help-block {
+    display: inline-block !important;
+}
+
+
+.validation-summary-errors ul li {
+    color: #e74c3c !important;
+}

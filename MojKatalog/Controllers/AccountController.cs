@@ -10,6 +10,7 @@ using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using MojKatalog.Filters;
 using MojKatalog.Models;
+using MojKatalog.Queries;
 
 namespace MojKatalog.Controllers
 {
@@ -17,12 +18,14 @@ namespace MojKatalog.Controllers
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
-        //
-        // GET: /Account/Login
+
+        QKlient _qKlient = new QKlient();
+
 
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            Session.Abandon();
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -35,26 +38,29 @@ namespace MojKatalog.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+            if (ModelState.IsValid)
             {
-                return RedirectToLocal(returnUrl);
+                var klient = _qKlient.GetLogiranKlient(model.UserName, model.Password);
+                if(klient != null)
+                {
+                    Session["LoggedInEntity"] = klient;
+                    return RedirectToLocal(returnUrl);
+                }
+                    
             }
 
             // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "The user name or password provided is incorrect.");
+            ModelState.AddModelError("", "Корисничкото Име или Лозинката не се совпаѓаат");
             return View(model);
         }
 
         //
         // POST: /Account/LogOff
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        
         public ActionResult LogOff()
         {
-            WebSecurity.Logout();
-
-            return RedirectToAction("Index", "Home");
+            Session.Abandon();
+            return RedirectToAction("Index", "Katalog");
         }
 
         //

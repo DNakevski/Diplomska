@@ -26,6 +26,9 @@
     <EntitySetMapping Name="Klienti">
       <EntityTypeMapping TypeName="dbKatalogModel.Klienti">
         <MappingFragment StoreEntitySet="Klienti">
+          <ScalarProperty Name="Lozinka" ColumnName="Lozinka" />
+          <ScalarProperty Name="OpisNaKlient" ColumnName="OpisNaKlient" />
+          <ScalarProperty Name="KorisnickoIme" ColumnName="KorisnickoIme" />
           <ScalarProperty Name="IdKlienti" ColumnName="IdKlienti" />
           <ScalarProperty Name="Ime" ColumnName="Ime" />
           <ScalarProperty Name="Prezime" ColumnName="Prezime" />

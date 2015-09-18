@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="dbKatalogModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="dbKatalogModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Katalozi">
           <Key>
             <PropertyRef Name="IdKatalozi" />
@@ -35,6 +35,9 @@
           <Property Name="NazivNaFirma" Type="nvarchar" MaxLength="50" />
           <Property Name="Mail" Type="nvarchar" MaxLength="50" />
           <Property Name="Telefon" Type="nvarchar" MaxLength="50" />
+          <Property Name="KorisnickoIme" Type="nvarchar" MaxLength="100" />
+          <Property Name="OpisNaKlient" Type="nvarchar(max)" />
+          <Property Name="Lozinka" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Kompanii">
           <Key>
@@ -392,8 +395,7 @@
             <End Role="WebSiteSettings" EntitySet="WebSiteSettings" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="dbKatalogModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -438,6 +440,9 @@
           <NavigationProperty Name="Kompanii" Relationship="Self.KompaniiKlienti" FromRole="Klienti" ToRole="Kompanii" />
           <NavigationProperty Name="Poedinci" Relationship="Self.PoedinciKlienti" FromRole="Klienti" ToRole="Poedinci" />
           <NavigationProperty Name="Poraki" Relationship="Self.PorakiKlienti" FromRole="Klienti" ToRole="Poraki" />
+          <Property Name="KorisnickoIme" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OpisNaKlient" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Lozinka" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Kompanii">
           <Key>
@@ -726,6 +731,9 @@
           <EntitySetMapping Name="Klienti">
             <EntityTypeMapping TypeName="dbKatalogModel.Klienti">
               <MappingFragment StoreEntitySet="Klienti">
+                <ScalarProperty Name="Lozinka" ColumnName="Lozinka" />
+                <ScalarProperty Name="OpisNaKlient" ColumnName="OpisNaKlient" />
+                <ScalarProperty Name="KorisnickoIme" ColumnName="KorisnickoIme" />
                 <ScalarProperty Name="IdKlienti" ColumnName="IdKlienti" />
                 <ScalarProperty Name="Ime" ColumnName="Ime" />
                 <ScalarProperty Name="Prezime" ColumnName="Prezime" />

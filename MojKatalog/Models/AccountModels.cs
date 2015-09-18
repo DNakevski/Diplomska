@@ -58,12 +58,12 @@ namespace MojKatalog.Models
     public class LoginModel
     {
         [Required]
-        [Display(Name = "User name")]
+        [Display(Name = "Корисничко име")]
         public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Лозинка")]
         public string Password { get; set; }
 
         [Display(Name = "Remember me?")]

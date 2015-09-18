@@ -1,4 +1,5 @@
-﻿using MojKatalog.Models.ViewModels;
+﻿using MojKatalog.Filters;
+using MojKatalog.Models.ViewModels;
 using MojKatalog.Queries;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Web.Mvc;
 
 namespace MojKatalog.Controllers
 {
+    [CustomAuthorize(Roles = "Admin,Poedinec,Kompanija")]
     public class WebSiteSettingsController : Controller
     {
         QKatalog _model;
@@ -20,21 +22,8 @@ namespace MojKatalog.Controllers
         // GET: WebSiteSettings
         public ActionResult Index()
         {
-            var poedinec = (LogiranPoedinecViewModel)Session["Poedinec"];
-            var kompanija = (LogiranaKompanijaViewModel)Session["Kompanija"];
-
-            //if(poedinec != null)
-            //{
-            //    return View(_model.IzlistajKatalozi(poedinec.IdPoedinec, Helpers.Enumerations.LogedUserTypeEnum.Poedinec));
-            //} 
-            //else
-            //{
-            //    return View(_model.IzlistajKatalozi(kompanija.IdKompanija, Helpers.Enumerations.LogedUserTypeEnum.Kompanija));
-            //}
-
-           // List<KataloziWebSiteViewModel> kataloziWeb = ;
-            //ovoj treba da se izbrishe
-           return View(modelw.KataloziWebSiteList(1, Helpers.Enumerations.LogedUserTypeEnum.Kompanija));
+            var user = (LoggedInEntity)Session["LoggedInEntity"];
+            return View(modelw.KataloziWebSiteList(user.Id, user.UserType));
         }
         public ActionResult KreirajWebSite(int id, string tip)
         {

@@ -8,6 +8,9 @@ using System.Web.Routing;
 
 namespace MojKatalog.Filters
 {
+    /// <summary>
+    /// [CustomAuthorize (Roles = "Admin,Poedinec,Kompanija")]
+    /// </summary>
     public class CustomAuthorize : ActionFilterAttribute, IActionFilter
     {
 
@@ -18,7 +21,7 @@ namespace MojKatalog.Filters
             List<string> roles = Roles.Split(',').ToList();
             bool authorized = true;
 
-            LogiranPoedinecViewModel user = (LogiranPoedinecViewModel)HttpContext.Current.Session["User"];
+            LoggedInEntity user = (LoggedInEntity)HttpContext.Current.Session["LoggedInEntity"];
 
             if (user == null || !roles.Contains(user.Role))
                 authorized = false;
@@ -26,7 +29,7 @@ namespace MojKatalog.Filters
 
             if (!authorized)
             {
-                RouteValueDictionary route = new RouteValueDictionary { { "Controller", "Home" }, { "Action", "Login" } };
+                RouteValueDictionary route = new RouteValueDictionary { { "Controller", "Account" }, { "Action", "Login" } };
                 filterContext.Result = new RedirectToRouteResult(route);
             }
 

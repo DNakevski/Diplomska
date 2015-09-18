@@ -215,6 +215,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\MappingHelper.cs" />
     <Compile Include="Helpers\ColorHelper.cs" />
     <Compile Include="Helpers\DateTimeHelpers.cs" />
     <Compile Include="Helpers\Enumerations\LogedUserTypeEnum.cs" />
@@ -329,6 +330,7 @@
     <Content Include="Content\bootstrap\css\bootstrap.min.css" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\custom.css" />
+    <Content Include="Content\login-layout.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -573,6 +575,7 @@
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\Proizvod\IndexJs.js" />
     <Content Include="SqlScripts\2015-08-31_RecreateTablesScript.sql" />
+    <Content Include="SqlScripts\2015-09-15_DodadiOpisIkorisnikoImeNaKlienti.sql" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

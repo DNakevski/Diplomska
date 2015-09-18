@@ -1,0 +1,8 @@
+ALTER TABLE Klienti
+ADD KorisnickoIme NVARCHAR(100)
+
+ALTER TABLE Klienti
+ADD OpisNaKlient NVARCHAR(MAX)
+
+ALTER TABLE Klienti
+ADD Lozinka NVARCHAR(100)

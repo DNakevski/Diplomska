@@ -24,7 +24,7 @@ namespace MojKatalog.Queries
 
         public MailPageViewModel GetPoraki()
         {
-            //TODO: Treba da se napravi da gi zima porakite spore Poedinec/Kompanija
+            //TODO: Treba da se napravi da gi zima porakite spored Poedinec/Kompanija
 
             var poraki = new MailPageViewModel();
 

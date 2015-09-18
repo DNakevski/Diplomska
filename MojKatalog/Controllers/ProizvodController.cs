@@ -9,9 +9,11 @@ using MojKatalog.Models;
 using MojKatalog.Models.ViewModels;
 using MojKatalog.Queries;
 using MojKatalog.Helpers;
+using MojKatalog.Filters;
 
 namespace MojKatalog.Controllers
 {
+    [CustomAuthorize(Roles = "Admin,Poedinec,Kompanija")]
     public class ProizvodController : Controller
     {
         //
@@ -20,21 +22,8 @@ namespace MojKatalog.Controllers
         QKategorija kategorija = new QKategorija();
         public ActionResult Index()
         {
-            var poedinec = (LogiranPoedinecViewModel)Session["Poedinec"];
-            var kompanija = (LogiranaKompanijaViewModel)Session["Kompanija"];
-
-            //if(poedinec != null)
-            //{
-            //    return View(model.IzlistajProizvodiKategorii(0, poedinec.IdPoedinec, Helpers.Enumerations.LogedUserTypeEnum.Poedinec));
-            //}
-            //else
-            //{
-            //    return View(model.IzlistajProizvodiKategorii(0, kompanija.IdKompanija, Helpers.Enumerations.LogedUserTypeEnum.Kompanija));
-            //}
-
-            //ovoj treba da se izbrishe
-            return View(model.IzlistajProizvodiKategorii(0, 1, Helpers.Enumerations.LogedUserTypeEnum.Kompanija));
-
+            var user = (LoggedInEntity)Session["LoggedInEntity"];
+            return View(model.IzlistajProizvodiKategorii(0, user.Id, user.UserType));
         }
         public ActionResult PregledajProizvodi(int id)
         {

@@ -41,6 +41,9 @@
     <NavigationProperty Name="Kompanii" Relationship="Self.KompaniiKlienti" FromRole="Klienti" ToRole="Kompanii" />
     <NavigationProperty Name="Poedinci" Relationship="Self.PoedinciKlienti" FromRole="Klienti" ToRole="Poedinci" />
     <NavigationProperty Name="Poraki" Relationship="Self.PorakiKlienti" FromRole="Klienti" ToRole="Poraki" />
+    <Property Name="KorisnickoIme" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="OpisNaKlient" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Lozinka" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Kompanii">
     <Key>

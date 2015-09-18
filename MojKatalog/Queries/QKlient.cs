@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using MojKatalog.Models;
+using MojKatalog.Models.ViewModels;
 using System.Data.Entity;
+using MojKatalog.Helpers;
 
 namespace MojKatalog.Queries
 {
@@ -94,5 +96,18 @@ namespace MojKatalog.Queries
             List<Klienti> pomKlienti=_db.Klienti.Where(x => id.Contains(x.IdKlienti)).ToList();
             return _db.Klienti.Where(x => id.Contains(x.IdKlienti)).ToList();
         }
+
+        #region Logika za logiranje
+
+        public LoggedInEntity GetLogiranKlient(string username, string password)
+        {
+           var klient = _db.Klienti.Where(x => x.KorisnickoIme == username && x.Lozinka == password).FirstOrDefault();
+
+            if (klient == null)
+                return null;
+
+            return MappingHelper.LoggedInEntityFromKlient(klient);
+        }
+        #endregion
     }
 }
