@@ -34,6 +34,7 @@ function CreateRootNode(id) {
 //Pocetok-Listanje na kategorii
 function IzlistajKategorii() {
     $.get("/Kategorija/IzlistajKategorii/", function (data) {
+       // alert(JSON.stringify(data));
         for (i = 0; i < data.length; i++) {
            // $("a[href='#collapse" + data[i].IdKatalog + "']").text(data[i].NazivNaKatalog+"ok");
             $("#jstree" + data[i].IdKatalog)

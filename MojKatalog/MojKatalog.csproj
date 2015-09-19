@@ -255,6 +255,8 @@
     <Compile Include="Models\Proizvodi.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\KatalogViewModel.cs" />
+    <Compile Include="Models\ViewModels\TreeViewModel.cs" />
     <Compile Include="Models\ViewModels\UploadImage.cs" />
     <Compile Include="Models\ViewModels\KataloziWebSiteViewModel.cs" />
     <Compile Include="Models\ViewModels\LogiranaKompanijaViewModel.cs" />

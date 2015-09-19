@@ -26,7 +26,9 @@ namespace MojKatalog.Areas.Portfolio.Queries
         {
             WSettingsKatalogKorisnikViewModel vmodel = new WSettingsKatalogKorisnikViewModel();
             vmodel.Katalog = _db.Katalozi.Find(idKatalog);
+            vmodel.Katalog.Kategorii = vmodel.Katalog.Kategorii.Where(x => x.RoditelId == null).ToList();
             vmodel.WSettings = _db.WebSiteSettings.Find(idKatalog);
+            
             if (korsisnikTip.Equals("Poedinec"))
             {
                 vmodel.Poedinec = _db.Poedinci.Find(idKorisnik);
@@ -35,6 +37,7 @@ namespace MojKatalog.Areas.Portfolio.Queries
             {
                 vmodel.Kompanija = _db.Kompanii.Find(idKorisnik);
             }
+            WSettingsKatalogKorisnikViewModel d = vmodel;
             return vmodel;
         }
         public void IzmeniPortfolioPost(WebSiteSettings newWSettings)

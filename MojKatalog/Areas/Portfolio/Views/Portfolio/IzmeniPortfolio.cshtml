@@ -329,108 +329,60 @@
                     <div class="tabbable">
                         <!-- Only required for left/right tabs -->
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="#tab1" data-toggle="tab">Категорија 1</a></li>
-                            <li><a href="#tab2" data-toggle="tab">Категорија 2</a></li>
+                            @foreach (var kategorija in Model.Katalog.Kategorii)
+                            {
+                                <li><a href="#tab@(kategorija.IdKategorii)" data-toggle="tab">@kategorija.NazivNaKategorija</a></li>
+                               
+                            }
+                            
                         </ul>
-                        <div class="tab-content" style="padding-bottom: 9px;">
-                            <div class="tab-pane active" id="tab1">
-                                <p><span class="color-1">Категорија 1</span></p>
-                                <!--Well Begin-->
-                                <div class="well-none">
-                                    <div id="myCarousel" class="carousel slide">
-                                        <!-- Carousel items -->
-                                        <div class="carousel-inner">
-                                            @for (int i = 0; i < numberOfElements; i++)
-                                            {
-                                                <div class="col col-xs-6 col-sm-4 col-md-3 col-lg-2 flex-thumbnail">
-                                                    <div class="thumbnail thumbnail-proizvodi" style="background-image: url(../../../../Areas/Portfolio/Images/DefaulImage.png)">
-                                                        <div class="caption">
-                                                            <h4>Proizvod</h4>
-                                                            <p>
-                                                                link
-                                                            </p>
+                        <div class="tab-content tab-thumbnails" style="padding-bottom: 9px;">
+                            @foreach (var kategorija in Model.Katalog.Kategorii)
+                            {
+                                <div class="tab-pane" id="tab@(kategorija.IdKategorii)">
+                                    <p><span class="color-1">@kategorija.NazivNaKategorija</span></p>
+                                    <!--Well Begin-->
+                                    <div class="well-none">
+                                        <div id="myCarousel@(kategorija.IdKategorii)" class="carousel slide">
+                                            <!-- Carousel items -->
+                                            <div class="carousel-inner">
+                                                @foreach (var proizvod in kategorija.Proizvodi)
+                                                {
+                                                    <div class="col col-xs-6 col-sm-4 col-md-3 col-lg-2 flex-thumbnail">
+                                                        <div class="thumbnail thumbnail-proizvodi" style="background-image: url(@proizvod.SlikaNaProizvod)">
+                                                            <div class="caption">
+                                                                <h4>Proizvod</h4>
+                                                                <p>
+                                                                    link
+                                                                </p>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            }
-                                            <!--/item-->
-                                            <!--/item-->
-                                            <!--/item-->
-                                        </div>
-                                        <!--/carousel-inner-->
-                                        <a class="left carousel-control" href="#myCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                                                }
 
-                                        <a class="right carousel-control" href="#myCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
-                                    </div>
-                                    <!--/myCarousel-->
-                                </div>
-                                <!--/well-->
-                                <p><em><span class="color-1">Подкатегории</span></em></p>
-
-                                <div class="tabbable" style="margin-left:20px; margin-right:20px;">
-                                    <!-- Only required for left/right tabs -->
-                                    <ul class="nav nav-tabs">
-                                        <li class="active"><a href="#tab2_1" data-toggle="tab">Категорија 2-1</a></li>
-                                        <li><a href="#tab2_2" data-toggle="tab">Категорија 2-2</a></li>
-                                    </ul>
-                                    <div class="tab-content">
-                                        <div class="tab-pane active" id="tab2_1">
-                                            <p><span class="color-1">Kategorija 2_1.</span></p>
-                                            <!--Well Begin-->
-                                            <div class="well-none">
-                                                <div id="myCarousel1" class="carousel slide">
-                                                    <!-- Carousel items -->
-                                                    <div class="carousel-inner">
-                                                        @for (int i = 0; i < numberOfElements; i++)
-                                                        {
-                                                            <div class="col col-xs-6 col-sm-4 col-md-3 col-lg-2 flex1-thumbnail">
-                                                                <div class="thumbnail thumbnail-proizvodi" style="background-image: url(../../../../Areas/Portfolio/Images/AboutFooter.jpg)">
-                                                                    <div class="caption">
-                                                                        <h4>Proizvod</h4>
-                                                                        <p>
-                                                                            link
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        }
-                                                        <!--/item-->
-                                                        <!--/item-->
-                                                        <!--/item-->
-                                                    </div>
-                                                    <!--/carousel-inner-->
-                                                    <a class="left carousel-control" href="#myCarousel1" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
-
-                                                    <a class="right carousel-control" href="#myCarousel1" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
-                                                </div>
-                                                <!--/myCarousel-->
                                             </div>
-                                            <!--/well-->
+                                            <!--/carousel-inner-->
+                                            <a class="left carousel-control" href="#myCarousel@(kategorija.IdKategorii)" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+
+                                            <a class="right carousel-control" href="#myCarousel@(kategorija.IdKategorii)" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
                                         </div>
-                                        <div class="tab-pane" id="tab2_2">
-                                            <p><span class="color-1">Категорија 2_2.</span></p>
-                                        </div>
+                                        <!--/myCarousel-->
+                                    </div>
+                                    <!--/well-->
+                                    <p><em><span class="color-1">Подкатегории</span></em></p>
+
+                                    <div class="tabbable" style="margin-left:20px; margin-right:20px;">
+                                        <!-- Only required for left/right tabs -->
+                                        <ul class="nav nav-tabs">
+                                            @foreach (var podkategorija in kategorija.Kategorii1) 
+                                            {
+                                                <li><a href="#tab@(podkategorija.IdKategorii)" data-toggle="tab">@podkategorija.NazivNaKategorija</a></li>
+                                            }
+                                        </ul>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="tab-pane" id="tab2">
-                                <p>Категорија 1_2.</p>
-                                <div class="tabbable" style="margin-left:20px; margin-right:20px;">
-                                    <!-- Only required for left/right tabs -->
-                                    <ul class="nav nav-tabs">
-                                        <li class="active"><a href="#tab2_1" data-toggle="tab">Section 1</a></li>
-                                        <li><a href="#tab2_2" data-toggle="tab">Section 2</a></li>
-                                    </ul>
-                                    <div class="tab-content">
-                                        <div class="tab-pane active" id="tab2_1">
-                                            <p><span class="color-1">I'm in Section 2_1.</span></p>
-                                        </div>
-                                        <div class="tab-pane" id="tab2_2">
-                                            <p><span class="color-1">Howdy, I'm in Section 2_2.</span></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            }
+                         
 
                         </div>
                     </div>
@@ -549,39 +501,39 @@
     var colors=["darkBlueLighter","darkBlueDarker","lightBlueLighter","lightBlueDarker","greenLighter","greenDarker","orangeLighter","orangeDarker","redLighter","redDarker","darkGreyLighter","darkGreyDarker","lightGreyLighter","lightGreyDarker","white","black"];
     var sections=["pocetna","zanas","footerZaNas","portfolio","footerPortfolio","contact","header","footer"];
     var backgroundValues=['@(Model.WSettings.BGPocetna)','@(Model.WSettings.BGZaNas)','@(Model.WSettings.BGFZaNas)','@(Model.WSettings.BGPortfolio)','@(Model.WSettings.BGFPortfolio)','@(Model.WSettings.BGContact)','@(Model.WSettings.BGMenu)','@(Model.WSettings.BGFooter)'];
-        //Greska
-        var radioButtonClickEvent= function(section){
-            $('.' + section + '-section .pozadina-slika[name="pozadina-'+section+'"]').click(function(){
-                $("." + section + "-section .color-palet li").css("opacity","0.5").addClass("removeHoverBorder");
+    //Greska
+    var radioButtonClickEvent= function(section){
+        $('.' + section + '-section .pozadina-slika[name="pozadina-'+section+'"]').click(function(){
+            $("." + section + "-section .color-palet li").css("opacity","0.5").addClass("removeHoverBorder");
 
-                var bg_img = "";
-                var imageContent = $("." + section + "-section .image-input").val();
-                if(imageContent.length > 0) {
-                  
-                    var imageUrl = $("." + section + "-section .image-uploaded").css("background-image").slice(0, -1);
-                    imageUrl = imageUrl.slice(4, imageUrl.length);
-                    
-                    bg_img = imageUrl;
-                }
-                else {
-                    bg_img = $("." + section + "-section .image-uploaded").css("background-image").replace(/.*Areas/,"/Areas").slice(0,-1);
-                }
-                changeBackgroundImageStyle(bg_img,section);
+            var bg_img = "";
+            var imageContent = $("." + section + "-section .image-input").val();
+            if(imageContent.length > 0) {
 
-                $("." + section + "-section .section-body-image .thumbnail").css("opacity","");
-                $("." + section + "-section .section-body-image .btnRemoveHover").removeClass("btnRemoveHover").addClass("btn-primary");
-                $("." + section + "-section .section-body-image .thumbnail input").attr('disabled', false);
-            });
-            $('.' + section + '-section .pozadina-boja[name="pozadina-'+section+'"]').click(function(){
-                $("." + section + "-section .color-palet li").css("opacity","").removeClass("removeHoverBorder");
-                var bgColor=$("." + section + "-section .color-palet li.color-active").attr("data-color");
-                changeColorStyle(bgColor,section);//website
+                var imageUrl = $("." + section + "-section .image-uploaded").css("background-image").slice(0, -1);
+                imageUrl = imageUrl.slice(4, imageUrl.length);
 
-                $("." + section + "-section .section-body-image .thumbnail").css("opacity","0.5");
-                $("." + section + "-section .section-body-image .btn-primary").removeClass("btn-primary").addClass("btnRemoveHover");
-                $("." + section + "-section .section-body-image .thumbnail input").attr('disabled', true);
-            });
-        };
+                bg_img = imageUrl;
+            }
+            else {
+                bg_img = $("." + section + "-section .image-uploaded").css("background-image").replace(/.*Areas/,"/Areas").slice(0,-1);
+            }
+            changeBackgroundImageStyle(bg_img,section);
+
+            $("." + section + "-section .section-body-image .thumbnail").css("opacity","");
+            $("." + section + "-section .section-body-image .btnRemoveHover").removeClass("btnRemoveHover").addClass("btn-primary");
+            $("." + section + "-section .section-body-image .thumbnail input").attr('disabled', false);
+        });
+        $('.' + section + '-section .pozadina-boja[name="pozadina-'+section+'"]').click(function(){
+            $("." + section + "-section .color-palet li").css("opacity","").removeClass("removeHoverBorder");
+            var bgColor=$("." + section + "-section .color-palet li.color-active").attr("data-color");
+            changeColorStyle(bgColor,section);//website
+
+            $("." + section + "-section .section-body-image .thumbnail").css("opacity","0.5");
+            $("." + section + "-section .section-body-image .btn-primary").removeClass("btn-primary").addClass("btnRemoveHover");
+            $("." + section + "-section .section-body-image .thumbnail input").attr('disabled', true);
+        });
+    };
 
     var backgroundSettingsOnLoad=function(section,background,defaultBackgroundImage){
         radioButtonClickEvent(section);
@@ -696,7 +648,7 @@
         {
             var uri=style;
             var subUri = uri.split(',');
-               
+
             $('input[data-bgsection="'+section+'"]').val(subUri[1]);
         }
         if($('#'+section+' .fill-screen').length>0){
@@ -714,7 +666,6 @@
         setTimeout(function() { $("#alert-content").fadeOut("slow"); }, 5000);
     }
     $(document).ready(function () {
-
         //OnLoad
         onLoad();
         $("#alert-content").hide();
@@ -766,9 +717,13 @@
             interval: 0
         })
 
+
         $('[id^="myCarousel"]').on('slid.bs.carousel', function () {
             //alert("slid");
         });
+
+        $("#portfolio .tabbable:first .nav li:first").addClass("active");
+        $("#portfolio .tabbable:first .tab-pane:first").addClass("active");
 
         initializeTiles();
         //Editor Begin
@@ -839,21 +794,23 @@
         });
 
         //Editor End
+
     }); //END of document.ready
 
     function initializeTiles() {
-        var elementsInGroup = getNumberOfItems();
-        var thumbnails = $(".flex-thumbnail");
+        //ToDo: Dinamicko generiranje na elementsInGroup
+        var elementsInGroup = 2;//getNumberOfItems();
+        $(".tab-thumbnails .tab-pane").each(function() {
 
-        for(var i = 0; i < thumbnails.length; i+=elementsInGroup) {
-            var active = (i == 0) ? " active" : "";
-            thumbnails.slice(i, i+elementsInGroup).wrapAll('<div class="item'+ active +'"><div class="row"></div></div>');
-        }
-        thumbnails = $(".flex1-thumbnail");
-        for(var i = 0; i < thumbnails.length; i+=elementsInGroup) {
-            var active = (i == 0) ? " active" : "";
-            thumbnails.slice(i, i+elementsInGroup).wrapAll('<div class="item'+ active +'"><div class="row"></div></div>');
-        }
+            var thumbnails = $(this).find(".flex-thumbnail");
+
+            for(var i = 0; i < thumbnails.length; i+=elementsInGroup) {
+                var active = (i == 0) ? " active" : "";
+                thumbnails.slice(i, i+elementsInGroup).wrapAll('<div class="item'+ active +'"><div class="row"></div></div>');
+            }
+        });
+
+
     }
 
     function getNumberOfItems(){
