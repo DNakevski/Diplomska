@@ -9,15 +9,15 @@ namespace MojKatalog.Helpers
 {
     public class MappingHelper
     {
-        public static LoggedInEntity LoggedInEntityFromKlient(Klienti klient)
+        public static LoggedInEntity LoggedInEntityFromKlient(Poedinci poedinec)
         {
             return new LoggedInEntity
             {
-                Id = klient.IdKlienti,
-                KorisnickoIme = klient.KorisnickoIme,
-                Mail = klient.Mail,
-                Naziv = klient.Ime + " " + klient.Prezime,
-                Telefon = klient.Telefon,
+                Id = poedinec.IdPoedinci,
+                KorisnickoIme = poedinec.KorisnickoIme,
+                Mail = poedinec.Mail,
+                Naziv = poedinec.Ime + " " + poedinec.Prezime,
+                Telefon = poedinec.Telefon,
                 Role = "Poedinec",
                 UserType = Helpers.Enumerations.LogedUserTypeEnum.Poedinec
             };

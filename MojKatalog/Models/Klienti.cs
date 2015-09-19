@@ -28,9 +28,6 @@ namespace MojKatalog.Models
         public string NazivNaFirma { get; set; }
         public string Mail { get; set; }
         public string Telefon { get; set; }
-        public string KorisnickoIme { get; set; }
-        public string OpisNaKlient { get; set; }
-        public string Lozinka { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Kompanii> Kompanii { get; set; }

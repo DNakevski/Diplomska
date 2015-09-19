@@ -19,7 +19,7 @@ namespace MojKatalog.Controllers
     public class AccountController : Controller
     {
 
-        QKlient _qKlient = new QKlient();
+        QPoedinec _qPoedinec = new QPoedinec();
 
 
         [AllowAnonymous]
@@ -40,7 +40,7 @@ namespace MojKatalog.Controllers
         {
             if (ModelState.IsValid)
             {
-                var klient = _qKlient.GetLogiranKlient(model.UserName, model.Password);
+                var klient = _qPoedinec.GetLogiranPoedinec(model.UserName, model.Password);
                 if(klient != null)
                 {
                     Session["LoggedInEntity"] = klient;
@@ -54,9 +54,7 @@ namespace MojKatalog.Controllers
             return View(model);
         }
 
-        //
-        // POST: /Account/LogOff
-        
+
         public ActionResult LogOff()
         {
             Session.Abandon();

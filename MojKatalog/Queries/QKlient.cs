@@ -97,17 +97,6 @@ namespace MojKatalog.Queries
             return _db.Klienti.Where(x => id.Contains(x.IdKlienti)).ToList();
         }
 
-        #region Logika za logiranje
-
-        public LoggedInEntity GetLogiranKlient(string username, string password)
-        {
-           var klient = _db.Klienti.Where(x => x.KorisnickoIme == username && x.Lozinka == password).FirstOrDefault();
-
-            if (klient == null)
-                return null;
-
-            return MappingHelper.LoggedInEntityFromKlient(klient);
-        }
-        #endregion
+        
     }
 }

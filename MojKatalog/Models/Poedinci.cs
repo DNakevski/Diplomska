@@ -29,6 +29,7 @@ namespace MojKatalog.Models
         public string Lozinka { get; set; }
         public string Mail { get; set; }
         public string Telefon { get; set; }
+        public string OpisNaPoedinec { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Katalozi> Katalozi { get; set; }

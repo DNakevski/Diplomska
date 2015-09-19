@@ -29,14 +29,15 @@ namespace MojKatalog.Controllers
 
         public ActionResult Index()
         {
-            //Treba da se napravi porakite da se zimaat spored Poedinec/Kompanija
-            var poraki = _poraki.GetPoraki();
+            var user = (LoggedInEntity)Session["LoggedInEntity"];
+            var poraki = _poraki.GetPoraki(user.Id, user.UserType);
             return View(poraki);
         }
         public ActionResult IspratiMail()
         {
+            var user = (LoggedInEntity)Session["LoggedInEntity"];
             ViewPoraki poraka = new ViewPoraki();
-            poraka = _poraki.InicijalizirajViewPoraki(1);
+            poraka = _poraki.InicijalizirajViewPoraki(user.Id, user.UserType);
             return View(poraka);
         }
 
@@ -44,15 +45,21 @@ namespace MojKatalog.Controllers
         [MultipleButton(Name = "action", Argument = "IspratiMail")]
         public ActionResult IspratiMail(ViewPoraki vporaka, int[] selectedKlients)
         {
-            //TODO: treba da se implementira spored logiran user
+            var user = (LoggedInEntity)Session["LoggedInEntity"];
+
             Poraki novaPoraka = new Poraki();
             novaPoraka.Subject = vporaka.Subject;
             novaPoraka.Body = vporaka.Body;
             novaPoraka.Date = DateTime.Now;
             novaPoraka.IsSent = true;
             novaPoraka.IsDeleted = false;
-            novaPoraka.IdPoedinci = 1;
             novaPoraka.Klienti = _klienti.ListaNaKlientiSporedId(selectedKlients);
+
+            if (user.UserType == Helpers.Enumerations.LogedUserTypeEnum.Poedinec)
+                novaPoraka.IdPoedinci = user.Id;
+            else
+                novaPoraka.IdKompanii = user.Id;
+            
             _poraki.IspratiISnimiPoraka(novaPoraka);
             return RedirectToAction("Index");
         }
@@ -61,55 +68,63 @@ namespace MojKatalog.Controllers
         [MultipleButton(Name = "action", Argument = "SocuvajPoraka")]
         public ActionResult SocuvajPoraka(ViewPoraki vporaka, int[] selectedKlients)
         {
-            //TODO: treba da se implementira spored logiran user
+            var user = (LoggedInEntity)Session["LoggedInEntity"];
+
             Poraki novaPoraka = new Poraki();
             novaPoraka.Subject = vporaka.Subject;
             novaPoraka.Body = vporaka.Body;
             novaPoraka.Date = DateTime.Now;
             novaPoraka.IsSent = false;
             novaPoraka.IsDeleted = false;
-            novaPoraka.IdPoedinci = 1;
             novaPoraka.Klienti = _klienti.ListaNaKlientiSporedId(selectedKlients);
+
+            if (user.UserType == Helpers.Enumerations.LogedUserTypeEnum.Poedinec)
+                novaPoraka.IdPoedinci = user.Id;
+            else
+                novaPoraka.IdKompanii = user.Id;
+            
             _poraki.SocuvajPoraka(novaPoraka);
             return RedirectToAction("Index");
         }
 
         public ActionResult PrebarajKlienti(string searchString)
         {
-            //TODO: treba da se implementira spored logiran user
+            var user = (LoggedInEntity)Session["LoggedInEntity"];
             ViewBag.SearchString = searchString;
-            List<ViewKlienti> klienti = _poraki.PrebarajKontakti(1, searchString);
+            List<ViewKlienti> klienti = (user.UserType == Helpers.Enumerations.LogedUserTypeEnum.Poedinec) ?
+                _poraki.PrebarajKontaktiZaPoedinec(user.Id, searchString) :
+                _poraki.PrebarajKontaktiZaKompanija(user.Id, searchString);
+
             return PartialView("_UpdateModalKlienti",klienti);
         }
 
         [HttpGet]
         public PartialViewResult GetIsprateniPartial()
         {
-            //TODO: treba da se implementira spored logiran user
-            var poraki = _poraki.GetIsprateniPoraki();
+            var user = (LoggedInEntity)Session["LoggedInEntity"];
+            var poraki = _poraki.GetIsprateniPoraki(user.Id, user.UserType);
             return PartialView("Partials/_IsprateniPorakiPartial", poraki);
         }
 
         [HttpGet]
         public PartialViewResult GetIzbrishaniPartial()
         {
-            //TODO: treba da se implementira spored logiran user
-            var poraki = _poraki.GetIzbrishaniPoraki();
+            var user = (LoggedInEntity)Session["LoggedInEntity"];
+            var poraki = _poraki.GetIzbrishaniPoraki(user.Id, user.UserType);
             return PartialView("Partials/_IzbrisaniPorakiPartial", poraki);
         }
 
         [HttpGet]
         public PartialViewResult GetSocuvaniPartial()
         {
-            //TODO: treba da se implementira spored logiran user
-            var poraki = _poraki.GetSocuvaniPoraki();
+            var user = (LoggedInEntity)Session["LoggedInEntity"];
+            var poraki = _poraki.GetSocuvaniPoraki(user.Id, user.UserType);
             return PartialView("Partials/_SocuvaniPorakiPartial", poraki);
         }
 
         [HttpPost]
         public JsonResult DeleteIsprateni(List<int> porakiIds)
         {
-            //TODO: treba da se implementira spored logiran user
             string status = "Fail";
 
             if (_poraki.DeleteIsprateniPoraki(porakiIds))
@@ -121,7 +136,6 @@ namespace MojKatalog.Controllers
         [HttpPost]
         public JsonResult DeleteIzbrishani(List<int> porakiIds)
         {
-            //TODO: treba da se implementira spored logiran user
             string status = "Fail";
 
             if (_poraki.DeleteIzbrishaniPoraki(porakiIds))
@@ -133,7 +147,6 @@ namespace MojKatalog.Controllers
         [HttpPost]
         public JsonResult DeleteSocuvani(List<int> porakiIds)
         {
-            //TODO: treba da se implementira spored logiran user
             string status = "Fail";
 
             if (_poraki.DeleteSocuvaniPoraki(porakiIds))

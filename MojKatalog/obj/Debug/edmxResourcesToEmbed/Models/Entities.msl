@@ -23,21 +23,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Klienti">
-      <EntityTypeMapping TypeName="dbKatalogModel.Klienti">
-        <MappingFragment StoreEntitySet="Klienti">
-          <ScalarProperty Name="Lozinka" ColumnName="Lozinka" />
-          <ScalarProperty Name="OpisNaKlient" ColumnName="OpisNaKlient" />
-          <ScalarProperty Name="KorisnickoIme" ColumnName="KorisnickoIme" />
-          <ScalarProperty Name="IdKlienti" ColumnName="IdKlienti" />
-          <ScalarProperty Name="Ime" ColumnName="Ime" />
-          <ScalarProperty Name="Prezime" ColumnName="Prezime" />
-          <ScalarProperty Name="NazivNaFirma" ColumnName="NazivNaFirma" />
-          <ScalarProperty Name="Mail" ColumnName="Mail" />
-          <ScalarProperty Name="Telefon" ColumnName="Telefon" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Kompanii">
       <EntityTypeMapping TypeName="dbKatalogModel.Kompanii">
         <MappingFragment StoreEntitySet="Kompanii">
@@ -55,6 +40,7 @@
     <EntitySetMapping Name="Poedinci">
       <EntityTypeMapping TypeName="dbKatalogModel.Poedinci">
         <MappingFragment StoreEntitySet="Poedinci">
+          <ScalarProperty Name="OpisNaPoedinec" ColumnName="OpisNaPoedinec" />
           <ScalarProperty Name="IdPoedinci" ColumnName="IdPoedinci" />
           <ScalarProperty Name="Ime" ColumnName="Ime" />
           <ScalarProperty Name="Prezime" ColumnName="Prezime" />
@@ -112,28 +98,40 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Klienti">
+      <EntityTypeMapping TypeName="dbKatalogModel.Klienti">
+        <MappingFragment StoreEntitySet="Klienti">
+          <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+          <ScalarProperty Name="Mail" ColumnName="Mail" />
+          <ScalarProperty Name="NazivNaFirma" ColumnName="NazivNaFirma" />
+          <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+          <ScalarProperty Name="Ime" ColumnName="Ime" />
+          <ScalarProperty Name="IdKlienti" ColumnName="IdKlienti" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="KompaniiKlienti" TypeName="dbKatalogModel.KompaniiKlienti" StoreEntitySet="KompaniiKlienti">
-      <EndProperty Name="Klienti">
-        <ScalarProperty Name="IdKlienti" ColumnName="IdKlienti" />
-      </EndProperty>
       <EndProperty Name="Kompanii">
         <ScalarProperty Name="IdKompanii" ColumnName="IdKompanii" />
       </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="PoedinciKlienti" TypeName="dbKatalogModel.PoedinciKlienti" StoreEntitySet="PoedinciKlienti">
       <EndProperty Name="Klienti">
         <ScalarProperty Name="IdKlienti" ColumnName="IdKlienti" />
       </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PoedinciKlienti" TypeName="dbKatalogModel.PoedinciKlienti" StoreEntitySet="PoedinciKlienti">
       <EndProperty Name="Poedinci">
         <ScalarProperty Name="IdPoedinci" ColumnName="IdPoedinci" />
       </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="PorakiKlienti" TypeName="dbKatalogModel.PorakiKlienti" StoreEntitySet="PorakiKlienti">
       <EndProperty Name="Klienti">
         <ScalarProperty Name="IdKlienti" ColumnName="IdKlienti" />
       </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PorakiKlienti" TypeName="dbKatalogModel.PorakiKlienti" StoreEntitySet="PorakiKlienti">
       <EndProperty Name="Poraki">
         <ScalarProperty Name="IdPoraki" ColumnName="IdPoraki" />
+      </EndProperty>
+      <EndProperty Name="Klienti">
+        <ScalarProperty Name="IdKlienti" ColumnName="IdKlienti" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

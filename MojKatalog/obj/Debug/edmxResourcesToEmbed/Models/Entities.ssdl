@@ -30,9 +30,6 @@
     <Property Name="NazivNaFirma" Type="nvarchar" MaxLength="50" />
     <Property Name="Mail" Type="nvarchar" MaxLength="50" />
     <Property Name="Telefon" Type="nvarchar" MaxLength="50" />
-    <Property Name="KorisnickoIme" Type="nvarchar" MaxLength="100" />
-    <Property Name="OpisNaKlient" Type="nvarchar(max)" />
-    <Property Name="Lozinka" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="Kompanii">
     <Key>
@@ -66,6 +63,7 @@
     <Property Name="Lozinka" Type="nvarchar" MaxLength="50" />
     <Property Name="Mail" Type="nvarchar" MaxLength="50" />
     <Property Name="Telefon" Type="nvarchar" MaxLength="50" />
+    <Property Name="OpisNaPoedinec" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="PoedinciKlienti">
     <Key>
