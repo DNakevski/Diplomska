@@ -326,7 +326,7 @@
                             <h />
                         </span>
                     </h2>
-                    <div class="tabbable">
+                    <div class="tabbable tabbable-current" id="tabbable0">
                         <!-- Only required for left/right tabs -->
                         <ul class="nav nav-tabs nav-kategorii">
                             @foreach (var kategorija in Model.Katalog.Kategorii)
@@ -338,7 +338,7 @@
                         </ul>
                         <div class="tab-content tab-thumbnails" style="padding-bottom: 9px;">
                             @foreach (var kategorija in Model.Katalog.Kategorii)
-                            {
+                            {   
                                 <div class="tab-pane" id="tab@(kategorija.IdKategorii)">
                                     <p><span class="color-1">@kategorija.NazivNaKategorija</span></p>
                                     <!--Well Begin-->
@@ -346,6 +346,7 @@
                                         <div id="myCarousel@(kategorija.IdKategorii)" class="carousel slide">
                                             <!-- Carousel items -->
                                             <div class="carousel-inner">
+                                                <input class="countPId" type="text" value="@(kategorija.Proizvodi.Count())">
                                                 @foreach (var proizvod in kategorija.Proizvodi)
                                                 {
                                                     <div class="col col-xs-6 col-sm-4 col-md-3 col-lg-2 flex-thumbnail">
@@ -607,14 +608,39 @@
         $(".brand .color-2").text(nazivColor2);
 
         //Galerija
-        $(".tabbable .nav-podkategorii li").click(function(){
-           
-            
+        $("body").on("click",".tabbable .nav-kategorii li",function(){
+            if(!$(this).closest(".tabbable").hasClass("tabbable-current")){
+                 var tabbableEl = $(this).closest(".tabbable").attr("id");
+                var pId = $(this).closest(".tabbable").attr("id").replace("tabbable","");
+                var url = "/Portfolio/Portfolio/DodadiGalerija/";
+
+                $.get(url, { parentId:pId, katalogId: @Model.Katalog.IdKatalozi } ,function (data) {
+                    $("#"+tabbableEl).html(data);
+                    $('[id^="myCarousel"]').carousel({
+                        interval: 0
+                    })
+    
+    
+                    $('[id^="myCarousel"]').on('slid.bs.carousel', function () {
+                        //alert("slid");
+                    });
+    
+                    $("#portfolio .nav-kategorii li:first").addClass("active");
+                    $("#portfolio  .tab-pane:first").addClass("active");
+                    initializeTiles();
+                });
+
+            }
+        });
+        $("body").on("click",".tabbable .nav-podkategorii li",function(){
+
             var pId=$(this).children("a").attr("data-parentId");
 
             var url = "/Portfolio/Portfolio/DodadiGalerija/";
             $.get(url, { parentId:pId, katalogId: @Model.Katalog.IdKatalozi } ,function (data) {
-                $(".tabbable:first .tab-content:last").html(data);
+                
+                $(".tabbable.tabbable-current").removeClass("tabbable-current");
+                $(".tab-content:last").html(data);
                 $('[id^="myCarousel"]').carousel({
                     interval: 0
                 })
@@ -628,9 +654,8 @@
                $("#portfolio  .tab-pane:first").addClass("active");
                initializeTiles();
             });
-
-
         });
+
       
     }
     var isColor=function(color){

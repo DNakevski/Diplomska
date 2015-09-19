@@ -1,6 +1,9 @@
 ﻿@model  IEnumerable<MojKatalog.Models.Kategorii>
+@if(ViewBag.ParentId == null ){
+    ViewBag.ParentId = 0;
+}
 
-<div class="tabbable">
+<div class="tabbable tabbable-current" id="tabbable@(ViewBag.ParentId)">
     <!-- Only required for left/right tabs -->
     <ul class="nav nav-tabs nav-kategorii">
         @foreach (var kategorija in Model)

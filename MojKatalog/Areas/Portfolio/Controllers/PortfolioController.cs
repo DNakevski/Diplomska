@@ -149,7 +149,12 @@ namespace MojKatalog.Areas.Portfolio.Controllers
         [HttpGet]
         public ActionResult DodadiGalerija(int? parentId, int? katalogId)
         {
+            if (parentId == 0)
+            {
+                parentId = null;
+            }
             List<Kategorii> pviewModel = model.IzlistajKategoriiSporedParentId(parentId, katalogId);
+            ViewBag.ParentId = parentId;
             return PartialView("_DodadiGalerija", pviewModel);
         }
         public ActionResult Test()
