@@ -1,50 +1,114 @@
 ﻿@model MojKatalog.Models.LoginModel
-
+@using MojKatalog.Helpers.Enumerations;
 @{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
     ViewBag.Title = "Log in";
+    var userType = (Model == null) ? 0 : (int)Model.UserType;
 }
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-</hgroup>
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3" style="margin-top:100px;">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#tab@((int)LogedUserTypeEnum.Poedinec)" aria-controls="tab@((int)LogedUserTypeEnum.Poedinec)" role="tab" data-toggle="tab">Поединец</a></li>
+            <li role="presentation"><a href="#tab@((int)LogedUserTypeEnum.Kompanija)" aria-controls="tab@((int)LogedUserTypeEnum.Kompanija)" role="tab" data-toggle="tab">Компанија</a></li>
+        </ul>
 
-<section id="loginForm">
-<h2>Use a local account to log in.</h2>
-@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="tab@((int)LogedUserTypeEnum.Poedinec)">
 
-    <fieldset>
-        <legend>Log in Form</legend>
-        <ol>
-            <li>
-                @Html.LabelFor(m => m.UserName)
-                @Html.TextBoxFor(m => m.UserName)
-                @Html.ValidationMessageFor(m => m.UserName)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Password)
-                @Html.PasswordFor(m => m.Password)
-                @Html.ValidationMessageFor(m => m.Password)
-            </li>
-            <li>
-                @Html.CheckBoxFor(m => m.RememberMe)
-                @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
-            </li>
-        </ol>
-        <input type="submit" value="Log in" />
-    </fieldset>
-    <p>
-        @Html.ActionLink("Register", "Register") if you don't have an account.
-    </p>
-}
-</section>
+                <div class="well bs-component">
+                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                        
+                        <input type="hidden" name="UserType" value="@((int)LogedUserTypeEnum.Poedinec)"/>
+                        <fieldset>
+                            <legend>Најава на поединец</legend>
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label"> Корисничко име</label>
+                                <div class="col-lg-8">
+                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Корисничко име" })
+                                </div>
 
-<section class="social" id="socialLoginForm">
-    <h2>Use another service to log in.</h2>
-    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
-</section>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label"> Лозинка</label>
+                                <div class="col-lg-8">
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Лозинка" })
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-8 col-lg-offset-4">
+                                    <button type="submit" class="btn btn-primary">Најави Се</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <p>
+                            @Html.ActionLink("Регистрирајте се", "Register") <span class="help-block"> доколку немате кориснички профил</span>
+                        </p>
+                    }
+                </div>
+
+            </div> <!-- END OF POEDINEC TAB-->
+
+            <div role="tabpanel" class="tab-pane" id="tab@((int)LogedUserTypeEnum.Kompanija)">
+                
+                <div class="well bs-component">
+                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+
+                        <input type="hidden" name="UserType" value="@((int)LogedUserTypeEnum.Kompanija)" />
+                        <fieldset>
+                            <legend>Најава на компанија</legend>
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label"> Корисничко име</label>
+                                <div class="col-lg-8">
+                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Корисничко име" })
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label"> Лозинка</label>
+                                <div class="col-lg-8">
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Лозинка" })
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-8 col-lg-offset-4">
+                                    <button type="submit" class="btn btn-primary">Најави Се</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <p>
+                            @Html.ActionLink("Регистрирајте се", "Register") <span class="help-block"> доколку немате кориснички профил</span>
+                        </p>
+                    }
+                </div>
+
+            </div><!-- END OF KOMPANIJA TAB-->
+        </div>
+
+    </div>
+</div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var userType = "@userType";
+            //open the apropriate tab
+            $(".nav-tabs a[href='#tab"+ userType +"']").tab("show");
+        });
+    </script>
 }

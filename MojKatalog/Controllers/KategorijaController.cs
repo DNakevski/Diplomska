@@ -7,10 +7,12 @@ using MojKatalog.Models;
 using MojKatalog.Queries;
 using Newtonsoft.Json;
 using MojKatalog.Models.ViewModels;
+using MojKatalog.Filters;
 
 namespace MojKatalog.Controllers
 {
-  
+
+    [CustomAuthorize(Roles = "Admin,Poedinec,Kompanija")]
     public class KategorijaController : Controller
     {
         //
@@ -19,27 +21,14 @@ namespace MojKatalog.Controllers
         QKatalog katalog = new QKatalog();
         public ActionResult Index()
         {
-            var poedinec = (LogiranPoedinecViewModel)Session["Poedinec"];
-            var kompanija = (LogiranaKompanijaViewModel)Session["Kompanija"];
-            KataloziIdINaziv[] m = katalog.KataloziIdINaziv(1, Helpers.Enumerations.LogedUserTypeEnum.Kompanija);
-            //if (poedinec != null)
-            //{
-            //    m = katalog.KataloziIdINaziv(1, Helpers.Enumerations.LogedUserTypeEnum.Poedinec);
-            //}
-            //else
-            //{
-            //    m = katalog.KataloziIdINaziv(1, Helpers.Enumerations.LogedUserTypeEnum.Kompanija);
-            //}
+            var user = (LoggedInEntity)Session["LoggedInEntity"];
+            KataloziIdINaziv[] m = katalog.KataloziIdINaziv(user.Id, user.UserType);
             
             ViewBag.DistinctKatalozi = m;
             KataloziIdINaziv [] lista = m;
             return View();
         }
-     /*   [HttpGet]
-        public ActionResult DodadiKategorija(int id) {
-           ViewBag.PanelId = id;
-           return PartialView("_DodadiKategorija");
-        }*/
+
         [HttpPost]
         public int DodadiKategorija(string naziv, int? roditel, int katalogId)
         {
@@ -66,18 +55,8 @@ namespace MojKatalog.Controllers
         [HttpGet]
         public ActionResult IzlistajKategorii()
         {
-            var poedinec = (LogiranPoedinecViewModel)Session["Poedinec"];
-            var kompanija = (LogiranaKompanijaViewModel)Session["Kompanija"];
-
-            //if(poedinec != null)
-            //{
-            //    return View(_model.IzlistajKatalozi(poedinec.IdPoedinec, Helpers.Enumerations.LogedUserTypeEnum.Poedinec));
-            //} 
-            //else
-            //{
-            //    return View(_model.IzlistajKatalozi(kompanija.IdKompanija, Helpers.Enumerations.LogedUserTypeEnum.Kompanija));
-            //}
-            return Json(model.IzlistajKatalozi(1, Helpers.Enumerations.LogedUserTypeEnum.Kompanija), JsonRequestBehavior.AllowGet);
+            var user = (LoggedInEntity)Session["LoggedInEntity"];
+            return Json(model.IzlistajKatalozi(user.Id, user.UserType), JsonRequestBehavior.AllowGet);
         }
 
     }

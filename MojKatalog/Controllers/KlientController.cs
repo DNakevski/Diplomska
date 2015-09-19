@@ -6,9 +6,11 @@ using System.Web.Mvc;
 using MojKatalog.Models;
 using MojKatalog.Queries;
 using MojKatalog.Models.ViewModels;
+using MojKatalog.Filters;
 
 namespace MojKatalog.Controllers
 {
+    [CustomAuthorize(Roles = "Admin,Poedinec,Kompanija")]
     public class KlientController : Controller
     {
         //
@@ -16,58 +18,54 @@ namespace MojKatalog.Controllers
         QKlient klient = new QKlient();
         public ActionResult Index()
         {
-            var poedinec = (LogiranPoedinecViewModel)Session["Poedinec"];
-            var kompanija = (LogiranaKompanijaViewModel)Session["Kompanija"];
+            var user = (LoggedInEntity)Session["LoggedInEntity"];
             List<Klienti> model = new List<Klienti>();
 
-            //if(poedinec != null)
-            //{
-            //    model = klient.IzlistajKlientiZaPoedinec(poedinec.IdPoedinec);
-            //}
-            //else
-            //{
-            //    model = klient.IzlistajKlientiZaKompanija(kompanija.IdKompanija);
-            //}
-
-            //ovoj treba da se odstrani
-            model = klient.IzlistajKlientiZaKompanija(1);
+            if (user.UserType == Helpers.Enumerations.LogedUserTypeEnum.Poedinec)
+            {
+                model = klient.IzlistajKlientiZaPoedinec(user.Id);
+            }
+            else if(user.UserType == Helpers.Enumerations.LogedUserTypeEnum.Kompanija)
+            {
+                model = klient.IzlistajKlientiZaKompanija(user.Id);
+            }
 
             return View(model);
         }
+
         public ActionResult DodadiKlient()
         {
             return View(new Klienti());
         }
+
         [HttpPost]
         public ActionResult DodadiKlient(Klienti newKlient)
         {
-            var poedinec = (LogiranPoedinecViewModel)Session["Poedinec"];
-            var kompanija = (LogiranaKompanijaViewModel)Session["Kompanija"];
+            var user = (LoggedInEntity)Session["LoggedInEntity"];
+            if (user.UserType == Helpers.Enumerations.LogedUserTypeEnum.Poedinec)
+            {
+                klient.DodadiKlientZaPoedinec(newKlient, user.Id);
+            }
+            else if (user.UserType == Helpers.Enumerations.LogedUserTypeEnum.Kompanija)
+            {
+                klient.DodadiKlientZaKompanija(newKlient, user.Id);
+            }
 
-            //if(poedinec != null)
-            //{
-            //    klient.DodadiKlientZaPoedinec(newKlient, poedinec.IdPoedinec);
-            //}
-            //else
-            //{
-            //    klient.DodadiKlientZaKompanija(newKlient, kompanija.IdKompanija);
-            //}
-
-            //ovj treba da se odstrani
-            klient.DodadiKlientZaKompanija(newKlient, 1);
-            
             return RedirectToAction("Index");
         }
+
         public ActionResult IzmeniKlient(int id)
         {
             return View(klient.VratiKlient(id));
         }
+
         [HttpPost]
         public ActionResult IzmeniKlient(Klienti newKlient)
         {
             klient.IzmeniKlient(newKlient);
             return RedirectToAction("Index");
         }
+
         public ActionResult IzbrisiKlient(int id)
         {
             klient.IzbrisiKlient(id);

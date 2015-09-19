@@ -27,11 +27,11 @@ namespace MojKatalog.Models
     
         public virtual DbSet<Katalozi> Katalozi { get; set; }
         public virtual DbSet<Kategorii> Kategorii { get; set; }
-        public virtual DbSet<Klienti> Klienti { get; set; }
         public virtual DbSet<Kompanii> Kompanii { get; set; }
         public virtual DbSet<Poedinci> Poedinci { get; set; }
         public virtual DbSet<Poraki> Poraki { get; set; }
         public virtual DbSet<Proizvodi> Proizvodi { get; set; }
         public virtual DbSet<WebSiteSettings> WebSiteSettings { get; set; }
+        public virtual DbSet<Klienti> Klienti { get; set; }
     }
 }

@@ -63,6 +63,7 @@
     <Property Name="Lozinka" Type="nvarchar" MaxLength="50" />
     <Property Name="Mail" Type="nvarchar" MaxLength="50" />
     <Property Name="Telefon" Type="nvarchar" MaxLength="50" />
+    <Property Name="OpisNaPoedinec" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="PoedinciKlienti">
     <Key>

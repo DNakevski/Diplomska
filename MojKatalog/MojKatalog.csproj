@@ -210,10 +210,12 @@
     <Compile Include="Controllers\MailController.cs" />
     <Compile Include="Controllers\ProizvodController.cs" />
     <Compile Include="Controllers\WebSiteSettingsController.cs" />
+    <Compile Include="Filters\CustomAuthorize.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\MappingHelper.cs" />
     <Compile Include="Helpers\ColorHelper.cs" />
     <Compile Include="Helpers\DateTimeHelpers.cs" />
     <Compile Include="Helpers\Enumerations\LogedUserTypeEnum.cs" />
@@ -255,6 +257,7 @@
     <Compile Include="Models\Proizvodi.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\LoggedInEntity.cs" />
     <Compile Include="Models\ViewModels\KatalogViewModel.cs" />
     <Compile Include="Models\ViewModels\TreeViewModel.cs" />
     <Compile Include="Models\ViewModels\UploadImage.cs" />
@@ -278,6 +281,8 @@
     <Compile Include="Queries\QKatalog.cs" />
     <Compile Include="Queries\QKategorija.cs" />
     <Compile Include="Queries\QKlient.cs" />
+    <Compile Include="Queries\QKompanija.cs" />
+    <Compile Include="Queries\QPoedinec.cs" />
     <Compile Include="Queries\QPoraki.cs" />
     <Compile Include="Queries\QProizvod.cs" />
     <Compile Include="Queries\QWebSiteSettings.cs" />
@@ -330,6 +335,7 @@
     <Content Include="Content\bootstrap\css\bootstrap.min.css" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\custom.css" />
+    <Content Include="Content\login-layout.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -575,6 +581,7 @@
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\Proizvod\IndexJs.js" />
     <Content Include="SqlScripts\2015-08-31_RecreateTablesScript.sql" />
+    <Content Include="SqlScripts\2015-09-19_AddOpisNapoedinecFieldInPoedinci.sql" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -639,6 +646,7 @@
     <Content Include="Views\Mail\Partials\_IsprateniPorakiPartial.cshtml" />
     <Content Include="Views\Mail\Partials\_IzbrisaniPorakiPartial.cshtml" />
     <Content Include="Views\Mail\Partials\_SocuvaniPorakiPartial.cshtml" />
+    <Content Include="Views\Shared\_LoginLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

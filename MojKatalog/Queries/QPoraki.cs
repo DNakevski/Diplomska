@@ -5,6 +5,8 @@ using System.Net.Mail;
 using System.Web;
 using MojKatalog.Models;
 using MojKatalog.Models.ViewModels;
+using MojKatalog.Helpers.Enumerations;
+using System.Data.Entity;
 
 namespace MojKatalog.Queries
 {
@@ -22,25 +24,56 @@ namespace MojKatalog.Queries
             _db = db;
         }
 
-        public MailPageViewModel GetPoraki()
+        public MailPageViewModel GetPoraki(int userId, LogedUserTypeEnum userType)
         {
-            //TODO: Treba da se napravi da gi zima porakite spore Poedinec/Kompanija
-
             var poraki = new MailPageViewModel();
 
-            poraki.IsprateniPoraki = _db.Poraki.Where(x => x.IsSent == true && x.IsDeleted == false).ToList();
-            poraki.IzbrishaniPoraki = _db.Poraki.Where(x => x.IsDeleted == true).ToList();
-            poraki.SocuvaniPoraki = _db.Poraki.Where(x => x.IsSent == false && x.IsDeleted == false).ToList();
+            if(userType == LogedUserTypeEnum.Poedinec)
+            {
+                poraki.IsprateniPoraki = _db.Poraki.Where(x => x.IdPoedinci == userId && x.IsSent == true && x.IsDeleted == false).ToList();
+                poraki.IzbrishaniPoraki = _db.Poraki.Where(x => x.IdPoedinci == userId && x.IsDeleted == true).ToList();
+                poraki.SocuvaniPoraki = _db.Poraki.Where(x => x.IdPoedinci == userId && x.IsSent == false && x.IsDeleted == false).ToList();
+            }
+            else if(userType == LogedUserTypeEnum.Kompanija)
+            {
+                poraki.IsprateniPoraki = _db.Poraki.Where(x => x.IdKompanii == userId && x.IsSent == true && x.IsDeleted == false).ToList();
+                poraki.IzbrishaniPoraki = _db.Poraki.Where(x => x.IdKompanii == userId && x.IsDeleted == true).ToList();
+                poraki.SocuvaniPoraki = _db.Poraki.Where(x => x.IdKompanii == userId && x.IsSent == false && x.IsDeleted == false).ToList();
+            }
+            
             return poraki;
         }
 
-        public ViewPoraki InicijalizirajViewPoraki(int userId)
+        public ViewPoraki InicijalizirajViewPoraki(int userId, LogedUserTypeEnum userType)
         {
-            List<ViewKlienti> klienti = _db.Klienti.GroupBy(k => k.Ime.Substring(0, 1)).Select(kl => new ViewKlienti { 
-                Karakter=kl.Key.ToUpper(),
-                Klienti=kl.OrderBy(obj=>obj.Ime).ToList()
-            }).ToList();
+            List<ViewKlienti> klienti = new List<ViewKlienti>();
 
+            if(userType == LogedUserTypeEnum.Poedinec)
+            {
+                var user = _db.Poedinci.FirstOrDefault(x => x.IdPoedinci == userId);
+                if(user != null)
+                {
+                    klienti = user.Klienti.GroupBy(k => k.Ime.Substring(0, 1)).Select(kl => new ViewKlienti
+                    {
+                        Karakter = kl.Key.ToUpper(),
+                        Klienti = kl.OrderBy(obj => obj.Ime).ToList()
+                    }).ToList();
+                }
+                
+            }
+            else if(userType == LogedUserTypeEnum.Kompanija)
+            {
+                var kompanija = _db.Kompanii.FirstOrDefault(x => x.IdKompanii == userId);
+                if(kompanija != null)
+                {
+                    klienti = kompanija.Klienti.GroupBy(k => k.Ime.Substring(0, 1)).Select(kl => new ViewKlienti
+                    {
+                        Karakter = kl.Key.ToUpper(),
+                        Klienti = kl.OrderBy(obj => obj.Ime).ToList()
+                    }).ToList();
+                }
+            }
+            
             return new ViewPoraki 
             { 
                 Body = "",
@@ -48,19 +81,49 @@ namespace MojKatalog.Queries
                 KlientiGrupirani = klienti
             };
         }
-        public List<ViewKlienti> PrebarajKontakti(int userId, string searchString)
+
+        public List<ViewKlienti> PrebarajKontaktiZaPoedinec(int userId, string searchString)
         {
-             return _db.Klienti
-                .Where(pr => pr.Ime.Contains(searchString))
+            searchString = searchString.ToLower();
+            List<ViewKlienti> klienti = new List<ViewKlienti>();
+
+            var poedinec = _db.Poedinci.Include(x => x.Klienti).FirstOrDefault(x => x.IdPoedinci == userId);
+            if(poedinec != null)
+            {
+                klienti = poedinec.Klienti
+                .Where(pr => pr.Ime.ToLower().Contains(searchString))
                 .GroupBy(k => k.Ime.Substring(0, 1))
                 .Select(kl => new ViewKlienti
-            {
-                Karakter = kl.Key.ToUpper(),
-                Klienti = kl.OrderBy(obj => obj.Ime).ToList()
-            }).ToList();
-           
-          
+                {
+                    Karakter = kl.Key.ToUpper(),
+                    Klienti = kl.OrderBy(obj => obj.Ime).ToList()
+                }).ToList();
+            }
+
+            return klienti;
         }
+
+        public List<ViewKlienti> PrebarajKontaktiZaKompanija(int kompanijaId, string searchString)
+        {
+            searchString = searchString.ToLower();
+            List<ViewKlienti> klienti = new List<ViewKlienti>();
+
+            var kompanija = _db.Kompanii.Include(x => x.Klienti).FirstOrDefault(x => x.IdKompanii == kompanijaId);
+            if(kompanija != null)
+            {
+                klienti = kompanija.Klienti
+               .Where(pr => pr.Ime.ToLower().Contains(searchString))
+               .GroupBy(k => k.Ime.Substring(0, 1))
+               .Select(kl => new ViewKlienti
+               {
+                   Karakter = kl.Key.ToUpper(),
+                   Klienti = kl.OrderBy(obj => obj.Ime).ToList()
+               }).ToList();
+            }
+            return klienti;
+        }
+
+
         public void IspratiISnimiPoraka(Poraki poraka)
         {
             string mailUser = "applicationclientsmail@gmail.com";
@@ -68,11 +131,11 @@ namespace MojKatalog.Queries
             SmtpClient client = new SmtpClient("smtp.gmail.com");
             client.Port = 587;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            //client.UseDefaultCredentials = false;
             System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(mailUser, mailUserPwd);
             client.EnableSsl = true;
             client.Credentials = credentials;
 
+            //TODO: Da se odkomentira za isprakjanje na mail
             //send the message to all the listed clients
             //foreach (Klienti klient in poraka.Klienti)
             //{
@@ -99,22 +162,51 @@ namespace MojKatalog.Queries
             _db.SaveChanges();
         }
 
-        public List<Poraki> GetIsprateniPoraki()
+        public List<Poraki> GetIsprateniPoraki(int userId, LogedUserTypeEnum userType)
         {
-            //TODO: ovoj treba da se napravi da raboti spored Poedinec/Kompanija
-            return _db.Poraki.Where(x => x.IsSent == true && x.IsDeleted == false).ToList();
+            List<Poraki> poraki = new List<Poraki>();
+
+            if(userType == LogedUserTypeEnum.Poedinec)
+            {
+                poraki = _db.Poraki.Where(x => x.IdPoedinci == userId && x.IsSent == true && x.IsDeleted == false).ToList();
+            }
+            else if(userType == LogedUserTypeEnum.Kompanija)
+            {
+                poraki = _db.Poraki.Where(x => x.IdKompanii == userId && x.IsSent == true && x.IsDeleted == false).ToList();
+            } 
+
+            return poraki;
         }
 
-        public List<Poraki> GetIzbrishaniPoraki()
+        public List<Poraki> GetIzbrishaniPoraki(int userId, LogedUserTypeEnum userType)
         {
-            //TODO: ovoj treba da se napravi da raboti spored Poedinec/Kompanija
-            return _db.Poraki.Where(x => x.IsDeleted == true).ToList();
+            var poraki = new List<Poraki>();
+            if(userType == LogedUserTypeEnum.Poedinec)
+            {
+                poraki = _db.Poraki.Where(x => x.IdPoedinci == userId && x.IsDeleted == true).ToList();
+            }
+            else if(userType == LogedUserTypeEnum.Kompanija)
+            {
+                poraki = _db.Poraki.Where(x => x.IdKompanii == userId && x.IsDeleted == true).ToList();
+            }
+
+            return poraki;
         }
 
-        public List<Poraki> GetSocuvaniPoraki()
+        public List<Poraki> GetSocuvaniPoraki(int userId, LogedUserTypeEnum userType)
         {
-            //TODO: ovoj treba da se napravi da raboti spored Poedinec/Kompanija
-            return _db.Poraki.Where(x => x.IsSent == false && x.IsDeleted == false).ToList();
+            var poraki = new List<Poraki>();
+            if(userType == LogedUserTypeEnum.Poedinec)
+            {
+                poraki = _db.Poraki.Where(x => x.IdPoedinci == userId && x.IsSent == false && x.IsDeleted == false).ToList();
+            }
+            else if(userType == LogedUserTypeEnum.Kompanija)
+            {
+                poraki = _db.Poraki.Where(x => x.IdKompanii == userId && x.IsSent == false && x.IsDeleted == false).ToList();
+            }
+            
+
+            return poraki;
         }
 
         public bool DeleteIsprateniPoraki(List<int> porakiIds)

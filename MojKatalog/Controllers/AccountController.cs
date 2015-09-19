@@ -10,6 +10,7 @@ using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using MojKatalog.Filters;
 using MojKatalog.Models;
+using MojKatalog.Queries;
 
 namespace MojKatalog.Controllers
 {
@@ -17,12 +18,15 @@ namespace MojKatalog.Controllers
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
-        //
-        // GET: /Account/Login
+
+        QPoedinec _qPoedinec = new QPoedinec();
+        QKompanija _qKompanija = new QKompanija();
+
 
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            Session.Abandon();
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -35,26 +39,30 @@ namespace MojKatalog.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+            if (ModelState.IsValid)
             {
-                return RedirectToLocal(returnUrl);
+                var user = (model.UserType == Helpers.Enumerations.LogedUserTypeEnum.Poedinec) ?
+                    _qPoedinec.GetLogiranPoedinec(model.UserName, model.Password) :
+                    _qKompanija.GetLogiranaKompanija(model.UserName, model.Password);
+
+                if(user != null)
+                {
+                    Session["LoggedInEntity"] = user;
+                    return RedirectToLocal(returnUrl);
+                }
+                    
             }
 
             // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "The user name or password provided is incorrect.");
+            ModelState.AddModelError("", "Корисничкото Име или Лозинката не се совпаѓаат");
             return View(model);
         }
 
-        //
-        // POST: /Account/LogOff
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            WebSecurity.Logout();
-
-            return RedirectToAction("Index", "Home");
+            Session.Abandon();
+            return RedirectToAction("Index", "Katalog");
         }
 
         //
@@ -79,8 +87,8 @@ namespace MojKatalog.Controllers
                 // Attempt to register the user
                 try
                 {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    WebSecurity.Login(model.UserName, model.Password);
+                    //WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
+                    //WebSecurity.Login(model.UserName, model.Password);
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)

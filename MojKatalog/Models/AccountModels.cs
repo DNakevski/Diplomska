@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MojKatalog.Helpers.Enumerations;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -58,13 +59,15 @@ namespace MojKatalog.Models
     public class LoginModel
     {
         [Required]
-        [Display(Name = "User name")]
+        [Display(Name = "Корисничко име")]
         public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Лозинка")]
         public string Password { get; set; }
+
+        public LogedUserTypeEnum UserType { get; set; }
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
@@ -73,19 +76,35 @@ namespace MojKatalog.Models
     public class RegisterModel
     {
         [Required]
-        [Display(Name = "User name")]
-        public string UserName { get; set; }
+        [Display(Name = "Име")]
+        public string Ime { get; set; }
+
+        [Required]
+        [Display(Name = "Презиме")]
+        public string Prezime { get; set; }
+
+        [Required]
+        [Display(Name = "Корисничко име")]
+        public string KorisnickoIme { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Лозинка")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Потврди лозинка")]
+        [Compare("Password", ErrorMessage = "Лозинката не се совпаѓа.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [DataType(DataType.EmailAddress, ErrorMessage ="Е-Маил адресата не е валидна")]
+        [Display(Name = "Е-Маил")]
+        public string Email { get; set; }
+
+        [Display(Name = "Телефон")]
+        public string Telefon { get; set; }
     }
 
     public class ExternalLogin
