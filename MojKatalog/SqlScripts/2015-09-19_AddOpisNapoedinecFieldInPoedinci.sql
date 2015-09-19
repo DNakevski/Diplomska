@@ -1,0 +1,2 @@
+ALTER TABLE Poedinci
+ADD OpisNaPoedinec NVARCHAR(MAX)
