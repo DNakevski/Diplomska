@@ -328,13 +328,13 @@
                     </h2>
                     <div class="tabbable">
                         <!-- Only required for left/right tabs -->
-                        <ul class="nav nav-tabs">
+                        <ul class="nav nav-tabs nav-kategorii">
                             @foreach (var kategorija in Model.Katalog.Kategorii)
                             {
-                                <li><a href="#tab@(kategorija.IdKategorii)" data-toggle="tab">@kategorija.NazivNaKategorija</a></li>
-                               
+                                <li><a href="#tab@(kategorija.IdKategorii)" data-parentId="@(kategorija.RoditelId)" data-toggle="tab">@kategorija.NazivNaKategorija</a></li>
+
                             }
-                            
+
                         </ul>
                         <div class="tab-content tab-thumbnails" style="padding-bottom: 9px;">
                             @foreach (var kategorija in Model.Katalog.Kategorii)
@@ -373,16 +373,16 @@
 
                                     <div class="tabbable" style="margin-left:20px; margin-right:20px;">
                                         <!-- Only required for left/right tabs -->
-                                        <ul class="nav nav-tabs">
-                                            @foreach (var podkategorija in kategorija.Kategorii1) 
+                                        <ul class="nav nav-tabs nav-podkategorii">
+                                            @foreach (var podkategorija in kategorija.Kategorii1)
                                             {
-                                                <li><a href="#tab@(podkategorija.IdKategorii)" data-toggle="tab">@podkategorija.NazivNaKategorija</a></li>
+                                                <li><a href="#tab@(podkategorija.IdKategorii)" data-parentId="@podkategorija.RoditelId" data-toggle="tab">@podkategorija.NazivNaKategorija</a></li>
                                             }
                                         </ul>
                                     </div>
                                 </div>
                             }
-                         
+
 
                         </div>
                     </div>
@@ -605,6 +605,33 @@
         var nazivColor2=nazivArray.slice(arrayLength/2,arrayLength).join("");
         $(".brand .color-1").text(nazivColor1);
         $(".brand .color-2").text(nazivColor2);
+
+        //Galerija
+        $(".tabbable .nav-podkategorii li").click(function(){
+           
+            
+            var pId=$(this).children("a").attr("data-parentId");
+
+            var url = "/Portfolio/Portfolio/DodadiGalerija/";
+            $.get(url, { parentId:pId, katalogId: @Model.Katalog.IdKatalozi } ,function (data) {
+                $(".tabbable:first .tab-content:last").html(data);
+                $('[id^="myCarousel"]').carousel({
+                    interval: 0
+                })
+    
+    
+               $('[id^="myCarousel"]').on('slid.bs.carousel', function () {
+                    //alert("slid");
+               });
+    
+                $("#portfolio .nav-kategorii li:first").addClass("active");
+               $("#portfolio  .tab-pane:first").addClass("active");
+               initializeTiles();
+            });
+
+
+        });
+      
     }
     var isColor=function(color){
         if($.inArray(color,colors)>-1){

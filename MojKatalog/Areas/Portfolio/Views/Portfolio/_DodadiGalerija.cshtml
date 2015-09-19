@@ -1,0 +1,65 @@
+﻿@model  IEnumerable<MojKatalog.Models.Kategorii>
+
+<div class="tabbable">
+    <!-- Only required for left/right tabs -->
+    <ul class="nav nav-tabs nav-kategorii">
+        @foreach (var kategorija in Model)
+        {
+            <li><a href="#tab@(kategorija.IdKategorii)" data-parentid="@(kategorija.RoditelId)" data-toggle="tab">@kategorija.NazivNaKategorija</a></li>
+
+        }
+
+    </ul>
+    <div class="tab-content tab-thumbnails" style="padding-bottom: 9px;">
+        @foreach (var kategorija in Model)
+        {
+            <div class="tab-pane" id="tab@(kategorija.IdKategorii)">
+                <p><span class="color-1">@kategorija.NazivNaKategorija</span></p>
+                <!--Well Begin-->
+                <div class="well-none">
+                    <div id="myCarousel@(kategorija.IdKategorii)" class="carousel slide">
+                        <!-- Carousel items -->
+                        <div class="carousel-inner">
+                            @foreach (var proizvod in kategorija.Proizvodi)
+                            {
+                                <div class="col col-xs-6 col-sm-4 col-md-3 col-lg-2 flex-thumbnail">
+                                    <div class="thumbnail thumbnail-proizvodi" style="background-image: url(@proizvod.SlikaNaProizvod)">
+                                        <div class="caption">
+                                            <h4>Proizvod</h4>
+                                            <p>
+                                                link
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                        <!--/carousel-inner-->
+                        <a class="left carousel-control" href="#myCarousel@(kategorija.IdKategorii)" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+
+                        <a class="right carousel-control" href="#myCarousel@(kategorija.IdKategorii)" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                    </div>
+                    <!--/myCarousel-->
+                </div>
+                <!--/well-->
+                <p><em><span class="color-1">Подкатегории</span></em></p>
+
+                <div class="tabbable" style="margin-left:20px; margin-right:20px;">
+                    <!-- Only required for left/right tabs -->
+                    <ul class="nav nav-tabs nav-podkategorii">
+                        @foreach (var podkategorija in kategorija.Kategorii1)
+                        {
+                            <li><a href="#tab@(podkategorija.IdKategorii)" data-parentid="@podkategorija.RoditelId" data-toggle="tab">@podkategorija.NazivNaKategorija</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        }
+
+
+    </div>
+</div>
+
+
+

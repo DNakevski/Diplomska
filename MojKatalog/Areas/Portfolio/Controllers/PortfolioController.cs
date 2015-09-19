@@ -146,7 +146,12 @@ namespace MojKatalog.Areas.Portfolio.Controllers
             //Pregled na website bez edit funkcionalnosti
             return View();
         }
-
+        [HttpGet]
+        public ActionResult DodadiGalerija(int? parentId, int? katalogId)
+        {
+            List<Kategorii> pviewModel = model.IzlistajKategoriiSporedParentId(parentId, katalogId);
+            return PartialView("_DodadiGalerija", pviewModel);
+        }
         public ActionResult Test()
         {
             return View();

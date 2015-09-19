@@ -37,7 +37,7 @@ namespace MojKatalog.Areas.Portfolio.Queries
             {
                 vmodel.Kompanija = _db.Kompanii.Find(idKorisnik);
             }
-            WSettingsKatalogKorisnikViewModel d = vmodel;
+           
             return vmodel;
         }
         public void IzmeniPortfolioPost(WebSiteSettings newWSettings)
@@ -58,6 +58,11 @@ namespace MojKatalog.Areas.Portfolio.Queries
             wsettings.BGFooter = (newWSettings.BGFooter != null) ? newWSettings.BGFooter : wsettings.BGFooter; 
             _db.SaveChanges();
 
+        }
+        public List<Kategorii> IzlistajKategoriiSporedParentId(int? parentId, int? katalogId)
+        {
+            List<Kategorii> pom = _db.Kategorii.Where(x => x.RoditelId == parentId && x.IdKatalozi == katalogId).ToList();
+            return pom;
         }
     }
 }
