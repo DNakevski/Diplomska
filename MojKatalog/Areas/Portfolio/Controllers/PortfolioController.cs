@@ -83,9 +83,9 @@ namespace MojKatalog.Areas.Portfolio.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult IzmeniPortfolio(int id) 
+        public ActionResult IzmeniPortfolio(int id, int idKorisnik, string korsisnikTip) 
         {
-            WebSiteSettings portfolioSettings = model.IzmeniPortfolioGet(id);
+            WSettingsKatalogKorisnikViewModel portfolioSettings = model.IzmeniPortfolioGet(id, idKorisnik, korsisnikTip);
             //Editiranje na vrednosti vo tabela WebSiteSettings
             return View(portfolioSettings);
         }
@@ -93,7 +93,7 @@ namespace MojKatalog.Areas.Portfolio.Controllers
         [ValidateAntiForgeryToken]
         public JsonResult IzmeniPortfolio(WebSiteSettings wsettings)
         {
-            WebSiteSettings oldWsettings = model.IzmeniPortfolioGet(wsettings.IdKatalozi);
+            WebSiteSettings oldWsettings = model.GetWsettings(wsettings.IdKatalozi);
             if (!ColorHelper.IsColor(wsettings.BGPocetna)) 
             {
                 wsettings.BGPocetna = CreateAndSaveImage(wsettings.BGPocetna, wsettings.IdKatalozi, "Pocetna", oldWsettings.BGPocetna);
@@ -146,7 +146,17 @@ namespace MojKatalog.Areas.Portfolio.Controllers
             //Pregled na website bez edit funkcionalnosti
             return View();
         }
-
+        [HttpGet]
+        public ActionResult DodadiGalerija(int? parentId, int? katalogId)
+        {
+            if (parentId == 0)
+            {
+                parentId = null;
+            }
+            List<Kategorii> pviewModel = model.IzlistajKategoriiSporedParentId(parentId, katalogId);
+            ViewBag.ParentId = parentId;
+            return PartialView("_DodadiGalerija", pviewModel);
+        }
         public ActionResult Test()
         {
             return View();

@@ -10,21 +10,6 @@ using System.Data.Entity;
 
 namespace MojKatalog.Queries
 {
-    public class TreeViewModel
-    {
-        public string id { get; set; }
-        public string parent { get; set; }
-        public string text { get; set; }
-
-    }
-    public class KatalogViewModel 
-    {
-        public int? IdKatalog { get; set; }
-        public string NazivNaKatalog { get; set; }
-        public IEnumerable<TreeViewModel> Trees { get; set; }
-    }
-
-   
     public class QKategorija
     {
         dbKatalogEntities _db = new dbKatalogEntities();

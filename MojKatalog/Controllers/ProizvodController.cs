@@ -51,7 +51,7 @@ namespace MojKatalog.Controllers
 
                 if (allowed.Contains(extension.ToLower()))
                 {
-                    string CoverPath = WebConfigurationManager.OpenWebConfiguration("/Views/Web.config").AppSettings.Settings["CoverPath"].Value;
+                    string CoverPath = "/Images/UserImages/";
                     string NewLocation = Server.MapPath("~") + CoverPath + "Cover_" + proizvod.IdProizvodi + extension;
                     string tip = file.GetType().ToString();
                     file.SaveAs(NewLocation);
@@ -99,7 +99,7 @@ namespace MojKatalog.Controllers
                 if (allowed.Contains(extension.ToLower()))
                 {
                     long addition = DateTime.Now.GetTimestampSeconds();
-                    string CoverPath = WebConfigurationManager.OpenWebConfiguration("/Views/Web.config").AppSettings.Settings["CoverPath"].Value;
+                    string CoverPath = "/Images/UserImages/";
                     proizvod.SlikaNaProizvod = CoverPath + "Cover_" + proizvod.IdProizvodi + "_" + addition + extension;
                     string NewLocation = Server.MapPath("~") + proizvod.SlikaNaProizvod;
                     string tip = file.GetType().ToString();

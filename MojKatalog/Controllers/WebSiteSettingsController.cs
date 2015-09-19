@@ -31,7 +31,8 @@ namespace MojKatalog.Controllers
         }
         public ActionResult IzmeniWebSite(int id, string tip)
         {
-            return RedirectToAction("Izmeni" + tip, tip, new { area = tip, id = id });
+            var user = (LoggedInEntity)Session["LoggedInEntity"];
+            return RedirectToAction("Izmeni" + tip, tip, new { area = tip, id = id, idKorisnik=user.Id, korsisnikTip=user.Role });
         }
         public ActionResult IzbrisiWebSite(int id, string tip)
         {

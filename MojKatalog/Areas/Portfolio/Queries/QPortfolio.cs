@@ -1,4 +1,5 @@
 ﻿using MojKatalog.Models;
+using MojKatalog.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,28 @@ namespace MojKatalog.Areas.Portfolio.Queries
             _db.WebSiteSettings.Add(portfolio);
             _db.SaveChanges();
         }
-        public WebSiteSettings IzmeniPortfolioGet(int idKatalog)
+
+        public WebSiteSettings GetWsettings(int id)
         {
-            return _db.WebSiteSettings.Find(idKatalog);
+            return _db.WebSiteSettings.Find(id);
+        }
+        public WSettingsKatalogKorisnikViewModel IzmeniPortfolioGet(int idKatalog, int idKorisnik, string korsisnikTip)
+        {
+            WSettingsKatalogKorisnikViewModel vmodel = new WSettingsKatalogKorisnikViewModel();
+            vmodel.Katalog = _db.Katalozi.Find(idKatalog);
+            vmodel.Katalog.Kategorii = vmodel.Katalog.Kategorii.Where(x => x.RoditelId == null).ToList();
+            vmodel.WSettings = _db.WebSiteSettings.Find(idKatalog);
+            
+            if (korsisnikTip.Equals("Poedinec"))
+            {
+                vmodel.Poedinec = _db.Poedinci.Find(idKorisnik);
+            }
+            else
+            {
+                vmodel.Kompanija = _db.Kompanii.Find(idKorisnik);
+            }
+           
+            return vmodel;
         }
         public void IzmeniPortfolioPost(WebSiteSettings newWSettings)
         {
@@ -38,6 +58,11 @@ namespace MojKatalog.Areas.Portfolio.Queries
             wsettings.BGFooter = (newWSettings.BGFooter != null) ? newWSettings.BGFooter : wsettings.BGFooter; 
             _db.SaveChanges();
 
+        }
+        public List<Kategorii> IzlistajKategoriiSporedParentId(int? parentId, int? katalogId)
+        {
+            List<Kategorii> pom = _db.Kategorii.Where(x => x.RoditelId == parentId && x.IdKatalozi == katalogId).ToList();
+            return pom;
         }
     }
 }
