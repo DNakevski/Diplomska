@@ -278,6 +278,7 @@
     <Compile Include="Queries\QKatalog.cs" />
     <Compile Include="Queries\QKategorija.cs" />
     <Compile Include="Queries\QKlient.cs" />
+    <Compile Include="Queries\QKompanija.cs" />
     <Compile Include="Queries\QPoedinec.cs" />
     <Compile Include="Queries\QPoraki.cs" />
     <Compile Include="Queries\QProizvod.cs" />

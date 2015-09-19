@@ -22,5 +22,19 @@ namespace MojKatalog.Helpers
                 UserType = Helpers.Enumerations.LogedUserTypeEnum.Poedinec
             };
         }
+
+        public static LoggedInEntity LoggedInEntityFromKompanija(Kompanii kompanija)
+        {
+            return new LoggedInEntity
+            {
+                Id = kompanija.IdKompanii,
+                KorisnickoIme = kompanija.KorisnickoIme,
+                Mail = kompanija.Mail,
+                Naziv = kompanija.NazivNaKompanija,
+                Telefon = kompanija.Telefon,
+                Role = "Kompanija",
+                UserType = Helpers.Enumerations.LogedUserTypeEnum.Kompanija
+            };
+        }
     }
 }

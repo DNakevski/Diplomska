@@ -20,6 +20,7 @@ namespace MojKatalog.Controllers
     {
 
         QPoedinec _qPoedinec = new QPoedinec();
+        QKompanija _qKompanija = new QKompanija();
 
 
         [AllowAnonymous]
@@ -40,10 +41,13 @@ namespace MojKatalog.Controllers
         {
             if (ModelState.IsValid)
             {
-                var klient = _qPoedinec.GetLogiranPoedinec(model.UserName, model.Password);
-                if(klient != null)
+                var user = (model.UserType == Helpers.Enumerations.LogedUserTypeEnum.Poedinec) ?
+                    _qPoedinec.GetLogiranPoedinec(model.UserName, model.Password) :
+                    _qKompanija.GetLogiranaKompanija(model.UserName, model.Password);
+
+                if(user != null)
                 {
-                    Session["LoggedInEntity"] = klient;
+                    Session["LoggedInEntity"] = user;
                     return RedirectToLocal(returnUrl);
                 }
                     
@@ -83,8 +87,8 @@ namespace MojKatalog.Controllers
                 // Attempt to register the user
                 try
                 {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    WebSecurity.Login(model.UserName, model.Password);
+                    //WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
+                    //WebSecurity.Login(model.UserName, model.Password);
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)
