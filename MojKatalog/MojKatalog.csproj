@@ -215,6 +215,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Exceptions\Exceptions.cs" />
     <Compile Include="Helpers\MappingHelper.cs" />
     <Compile Include="Helpers\ColorHelper.cs" />
     <Compile Include="Helpers\DateTimeHelpers.cs" />
@@ -647,12 +648,14 @@
     <Content Include="Views\Mail\Partials\_IzbrisaniPorakiPartial.cshtml" />
     <Content Include="Views\Mail\Partials\_SocuvaniPorakiPartial.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Views\Account\RegisterKompanija.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Portfolio\Models\" />
     <Folder Include="Areas\Portfolio\UploadedFiles\" />
     <Folder Include="Areas\Portfolio\Views\Shared\" />
+    <Folder Include="Images\CompanyImages\Logos\" />
     <Folder Include="UploadedFiles\" />
   </ItemGroup>
   <ItemGroup>

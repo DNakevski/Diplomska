@@ -51,7 +51,7 @@ namespace MojKatalog.Controllers
 
                 if (allowed.Contains(extension.ToLower()))
                 {
-                    string CoverPath = "/Images/UserImages/";
+                    string CoverPath = "/Images/UserImages/";//TODO: patekata treba da se zima od web.config
                     string NewLocation = Server.MapPath("~") + CoverPath + "Cover_" + proizvod.IdProizvodi + extension;
                     string tip = file.GetType().ToString();
                     file.SaveAs(NewLocation);
