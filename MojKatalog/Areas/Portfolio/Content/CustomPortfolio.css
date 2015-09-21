@@ -6,7 +6,7 @@
 @font-face {
     font-family: 'OpenSansLight';
     src: url('Fonts/Open Sans/OpenSans-Light.ttf') format('truetype');
-    font-size: 12px;
+    
 }
 @font-face {
     font-family: 'OpenSans-Regular';
@@ -51,11 +51,17 @@ section{
 }
 #contact{
     background-color: #ECF0F1;
-    color:white;
 }
 footer{
      background-color: #1a242f;
     color:white;
+}
+footer .section-content{
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 60px;
+    padding-right: 60px;
+    text-align: right;
 }
 footer h2{
     margin:0px !important;

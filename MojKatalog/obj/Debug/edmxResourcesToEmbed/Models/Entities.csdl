@@ -75,6 +75,7 @@
     <NavigationProperty Name="Kompanii" Relationship="Self.FK_Poraki_Kompanii" FromRole="Poraki" ToRole="Kompanii" />
     <NavigationProperty Name="Poedinci" Relationship="Self.FK_Poraki_Poedinci" FromRole="Poraki" ToRole="Poedinci" />
     <NavigationProperty Name="Klienti" Relationship="dbKatalogModel.PorakiKlienti" FromRole="Poraki" ToRole="Klienti" />
+    <Property Name="IsReceived" Type="Boolean" />
   </EntityType>
   <EntityType Name="Proizvodi">
     <Key>

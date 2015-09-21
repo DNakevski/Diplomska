@@ -3,7 +3,7 @@
     ViewBag.ParentId = 0;
 }
 
-<div class="tabbable tabbable-current" id="tabbable@(ViewBag.ParentId)">
+<div class="tabbable tabbable-current" id="tabbable0">
     <!-- Only required for left/right tabs -->
     <ul class="nav nav-tabs nav-kategorii">
         @foreach (var kategorija in Model)
@@ -16,13 +16,14 @@
     <div class="tab-content tab-thumbnails" style="padding-bottom: 9px;">
         @foreach (var kategorija in Model)
         {
-            <div class="tab-pane" id="tab@(kategorija.IdKategorii)">
+            <div class="tab-pane" id="tab@(kategorija.IdKategorii)" data-proizvodicount="@(kategorija.Proizvodi.Count())">
                 <p><span class="color-1">@kategorija.NazivNaKategorija</span></p>
                 <!--Well Begin-->
                 <div class="well-none">
                     <div id="myCarousel@(kategorija.IdKategorii)" class="carousel slide">
                         <!-- Carousel items -->
                         <div class="carousel-inner">
+                           
                             @foreach (var proizvod in kategorija.Proizvodi)
                             {
                                 <div class="col col-xs-6 col-sm-4 col-md-3 col-lg-2 flex-thumbnail">
@@ -63,6 +64,10 @@
 
     </div>
 </div>
+
+
+
+
 
 
 

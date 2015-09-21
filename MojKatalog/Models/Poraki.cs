@@ -28,6 +28,7 @@ namespace MojKatalog.Models
         public Nullable<System.DateTime> Date { get; set; }
         public Nullable<int> IdKompanii { get; set; }
         public Nullable<int> IdPoedinci { get; set; }
+        public Nullable<bool> IsReceived { get; set; }
     
         public virtual Kompanii Kompanii { get; set; }
         public virtual Poedinci Poedinci { get; set; }

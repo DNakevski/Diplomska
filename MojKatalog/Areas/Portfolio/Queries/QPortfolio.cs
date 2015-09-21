@@ -1,4 +1,5 @@
-﻿using MojKatalog.Models;
+﻿using MojKatalog.Helpers.Enumerations;
+using MojKatalog.Models;
 using MojKatalog.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -22,14 +23,14 @@ namespace MojKatalog.Areas.Portfolio.Queries
         {
             return _db.WebSiteSettings.Find(id);
         }
-        public WSettingsKatalogKorisnikViewModel IzmeniPortfolioGet(int idKatalog, int idKorisnik, string korsisnikTip)
+        public WSettingsKatalogKorisnikViewModel IzmeniPortfolioGet(int idKatalog, int idKorisnik, LogedUserTypeEnum userType)
         {
             WSettingsKatalogKorisnikViewModel vmodel = new WSettingsKatalogKorisnikViewModel();
             vmodel.Katalog = _db.Katalozi.Find(idKatalog);
             vmodel.Katalog.Kategorii = vmodel.Katalog.Kategorii.Where(x => x.RoditelId == null).ToList();
             vmodel.WSettings = _db.WebSiteSettings.Find(idKatalog);
             
-            if (korsisnikTip.Equals("Poedinec"))
+            if (userType == Helpers.Enumerations.LogedUserTypeEnum.Poedinec)
             {
                 vmodel.Poedinec = _db.Poedinci.Find(idKorisnik);
             }
@@ -63,6 +64,12 @@ namespace MojKatalog.Areas.Portfolio.Queries
         {
             List<Kategorii> pom = _db.Kategorii.Where(x => x.RoditelId == parentId && x.IdKatalozi == katalogId).ToList();
             return pom;
+        }
+
+        public void SocuvajPoraka(Poraki poraka)
+        {
+            _db.Poraki.Add(poraka);
+            _db.SaveChanges();
         }
     }
 }

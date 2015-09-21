@@ -85,6 +85,7 @@
     <Property Name="Date" Type="datetime" />
     <Property Name="IdKompanii" Type="int" />
     <Property Name="IdPoedinci" Type="int" />
+    <Property Name="IsReceived" Type="bit" />
   </EntityType>
   <EntityType Name="PorakiKlienti">
     <Key>

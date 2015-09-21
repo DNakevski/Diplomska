@@ -90,6 +90,7 @@
           <Property Name="Date" Type="datetime" />
           <Property Name="IdKompanii" Type="int" />
           <Property Name="IdPoedinci" Type="int" />
+          <Property Name="IsReceived" Type="bit" />
         </EntityType>
         <EntityType Name="PorakiKlienti">
           <Key>
@@ -472,6 +473,7 @@
           <NavigationProperty Name="Kompanii" Relationship="Self.FK_Poraki_Kompanii" FromRole="Poraki" ToRole="Kompanii" />
           <NavigationProperty Name="Poedinci" Relationship="Self.FK_Poraki_Poedinci" FromRole="Poraki" ToRole="Poedinci" />
           <NavigationProperty Name="Klienti" Relationship="dbKatalogModel.PorakiKlienti" FromRole="Poraki" ToRole="Klienti" />
+          <Property Name="IsReceived" Type="Boolean" />
         </EntityType>
         <EntityType Name="Proizvodi">
           <Key>
@@ -755,6 +757,7 @@
           <EntitySetMapping Name="Poraki">
             <EntityTypeMapping TypeName="dbKatalogModel.Poraki">
               <MappingFragment StoreEntitySet="Poraki">
+                <ScalarProperty Name="IsReceived" ColumnName="IsReceived" />
                 <ScalarProperty Name="IdPoraki" ColumnName="IdPoraki" />
                 <ScalarProperty Name="Subject" ColumnName="Subject" />
                 <ScalarProperty Name="Body" ColumnName="Body" />

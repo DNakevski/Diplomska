@@ -54,6 +54,7 @@
     <EntitySetMapping Name="Poraki">
       <EntityTypeMapping TypeName="dbKatalogModel.Poraki">
         <MappingFragment StoreEntitySet="Poraki">
+          <ScalarProperty Name="IsReceived" ColumnName="IsReceived" />
           <ScalarProperty Name="IdPoraki" ColumnName="IdPoraki" />
           <ScalarProperty Name="Subject" ColumnName="Subject" />
           <ScalarProperty Name="Body" ColumnName="Body" />
