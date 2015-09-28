@@ -1,14 +1,18 @@
 ﻿@model  IEnumerable<MojKatalog.Models.Kategorii>
-@if(ViewBag.ParentId == null ){
-    ViewBag.ParentId = 0;
-}
+@{
+    int _parentId = 0;
+    if(ViewBag.ParentId != null )
+    {
+        _parentId = Convert.ToInt32(ViewBag.ParentId.ToString());
+    }
+}       
 
-<div class="tabbable tabbable-current" id="tabbable0">
+<div class="tabbable tabbable-current" id="tabbable@(_parentId)">
     <!-- Only required for left/right tabs -->
     <ul class="nav nav-tabs nav-kategorii">
         @foreach (var kategorija in Model)
         {
-            <li><a href="#tab@(kategorija.IdKategorii)" data-parentid="@(kategorija.RoditelId)" data-toggle="tab">@kategorija.NazivNaKategorija</a></li>
+            <li><a href="#tab@(kategorija.IdKategorii)" data-parentid="@(kategorija.RoditelId)" data-kategorijaid="@(kategorija.IdKategorii)" data-toggle="tab">@kategorija.NazivNaKategorija</a></li>
 
         }
 
@@ -54,7 +58,7 @@
                     <ul class="nav nav-tabs nav-podkategorii">
                         @foreach (var podkategorija in kategorija.Kategorii1)
                         {
-                            <li><a href="#tab@(podkategorija.IdKategorii)" data-parentid="@podkategorija.RoditelId" data-toggle="tab">@podkategorija.NazivNaKategorija</a></li>
+                            <li><a href="#tab@(podkategorija.IdKategorii)" data-parentid="@podkategorija.RoditelId" data-kategorijaid="@podkategorija.IdKategorii" data-toggle="tab">@podkategorija.NazivNaKategorija</a></li>
                         }
                     </ul>
                 </div>

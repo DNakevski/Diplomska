@@ -56,7 +56,9 @@ namespace MojKatalog.Areas.Portfolio.Queries
             wsettings.BGFPortfolio = (newWSettings.BGFPortfolio != null) ? newWSettings.BGFPortfolio : wsettings.BGFPortfolio;
             wsettings.BGContact = (newWSettings.BGContact != null) ? newWSettings.BGContact : wsettings.BGContact;
             wsettings.BGMenu = (newWSettings.BGMenu != null) ? newWSettings.BGMenu : wsettings.BGMenu;
-            wsettings.BGFooter = (newWSettings.BGFooter != null) ? newWSettings.BGFooter : wsettings.BGFooter; 
+            wsettings.BGFooter = (newWSettings.BGFooter != null) ? newWSettings.BGFooter : wsettings.BGFooter;
+            wsettings.SodrzinaPortfolioF = newWSettings.SodrzinaPortfolioF;
+            wsettings.SodrzinaZaNasF = newWSettings.SodrzinaZaNasF;
             _db.SaveChanges();
 
         }

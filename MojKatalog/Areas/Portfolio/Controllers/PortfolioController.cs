@@ -10,9 +10,11 @@ using System.Web.Mvc;
 using System.Drawing;
 using MojKatalog.Models.ViewModels;
 using MojKatalog.Helpers;
+using MojKatalog.Filters;
 
 namespace MojKatalog.Areas.Portfolio.Controllers
 {
+    [CustomAuthorize(Roles = "Admin,Poedinec,Kompanija")]
     public class PortfolioController : Controller
     {
         QPortfolio model = new QPortfolio();
@@ -163,6 +165,7 @@ namespace MojKatalog.Areas.Portfolio.Controllers
             }
             List<Kategorii> pviewModel = model.IzlistajKategoriiSporedParentId(parentId, katalogId);
             ViewBag.ParentId = parentId;
+            ViewBag.KatalogId = katalogId;
             return PartialView("_DodadiGalerija", pviewModel);
         }
         [HttpPost]

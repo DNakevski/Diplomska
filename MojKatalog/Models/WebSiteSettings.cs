@@ -27,6 +27,8 @@ namespace MojKatalog.Models
         public string BGMenu { get; set; }
         public string BGFooter { get; set; }
         public string Naziv { get; set; }
+        public string SodrzinaZaNasF { get; set; }
+        public string SodrzinaPortfolioF { get; set; }
     
         public virtual Katalozi Katalozi { get; set; }
     }

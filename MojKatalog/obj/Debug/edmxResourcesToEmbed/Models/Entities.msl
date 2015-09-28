@@ -83,6 +83,8 @@
     <EntitySetMapping Name="WebSiteSettings">
       <EntityTypeMapping TypeName="dbKatalogModel.WebSiteSettings">
         <MappingFragment StoreEntitySet="WebSiteSettings">
+          <ScalarProperty Name="SodrzinaPortfolioF" ColumnName="SodrzinaPortfolioF" />
+          <ScalarProperty Name="SodrzinaZaNasF" ColumnName="SodrzinaZaNasF" />
           <ScalarProperty Name="IdKatalozi" ColumnName="IdKatalozi" />
           <ScalarProperty Name="FontFamily" ColumnName="FontFamily" />
           <ScalarProperty Name="FontColor1" ColumnName="FontColor1" />

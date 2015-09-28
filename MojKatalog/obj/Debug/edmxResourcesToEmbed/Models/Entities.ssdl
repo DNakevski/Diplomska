@@ -125,6 +125,8 @@
     <Property Name="BGMenu" Type="nvarchar(max)" />
     <Property Name="BGFooter" Type="nvarchar(max)" />
     <Property Name="Naziv" Type="nvarchar(max)" />
+    <Property Name="SodrzinaZaNasF" Type="nvarchar(max)" />
+    <Property Name="SodrzinaPortfolioF" Type="nvarchar(max)" />
   </EntityType>
   <Association Name="FK_Katalozi_Kompanii">
     <End Role="Kompanii" Type="Self.Kompanii" Multiplicity="0..1">

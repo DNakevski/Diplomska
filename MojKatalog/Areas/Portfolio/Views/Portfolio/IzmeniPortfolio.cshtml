@@ -52,6 +52,8 @@
             @Html.HiddenFor(model => model.WSettings.BGContact, new { @data_bgsection = "contact" })
             @Html.HiddenFor(model => model.WSettings.BGMenu, new { @data_bgsection = "header" })
             @Html.HiddenFor(model => model.WSettings.BGFooter, new { @data_bgsection = "footer" })
+            @Html.HiddenFor(model => model.WSettings.SodrzinaPortfolioF)
+            @Html.HiddenFor(model => model.WSettings.SodrzinaZaNasF)
 
             @*Editor Begin*@
             <div id="editor-button">
@@ -258,17 +260,18 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-4 modal-col-left">
-                                <label class="label-control">Избери боја:</label>
+                                <label class="label-control">Измени содржина на За Нас Футер:</label>
                             </div>
                             <div class="col-xs-8">
+                                <input class="form-control sodrzinaZaNasF" type="text" value="@(Model.WSettings.SodrzinaZaNasF)">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-xs-4 modal-col-left">
-                                <label class="label-control">1</label>
+                                <label class="label-control">Измени содржина на Портфолио Футер</label>
                             </div>
                             <div class="col-xs-8">
-                           
+                                <input class="form-control sodrzinaPortfolioF" type="text" value="@(Model.WSettings.SodrzinaPortfolioF)">
                             </div>
                         </div>
                 
@@ -364,9 +367,7 @@
             <div class="fill-screen" style="background-image: url(../../../../Areas/Portfolio/Images/AboutFooter.jpg)">
                 <div class="section-content">
                     <h2>
-                        <span class="color-1">THE DETAILS ARE NOT THE DETAILS</span>
-                        <br /> <strong><span class="color-2">THEY MAKE THE DESIGN</span></strong>
-                        <br /> <em><span class="color-1">KEEN THEMES</span></em>
+                        <span class="color-1"></span>
                     </h2>
                 </div>
             </div>
@@ -391,7 +392,7 @@
                         <ul class="nav nav-tabs nav-kategorii">
                             @foreach (var kategorija in Model.Katalog.Kategorii)
                             {
-                                <li><a href="#tab@(kategorija.IdKategorii)" data-parentid="@(kategorija.RoditelId)" data-toggle="tab">@kategorija.NazivNaKategorija</a></li>
+                                <li><a href="#tab@(kategorija.IdKategorii)" data-parentid="@(kategorija.RoditelId)" data-kategorijaid="@(kategorija.IdKategorii)" data-toggle="tab">@kategorija.NazivNaKategorija</a></li>
 
                             }
 
@@ -437,7 +438,7 @@
                                         <ul class="nav nav-tabs nav-podkategorii">
                                             @foreach (var podkategorija in kategorija.Kategorii1)
                                             {
-                                                <li><a href="#tab@(podkategorija.IdKategorii)" data-parentid="@podkategorija.RoditelId" data-toggle="tab">@podkategorija.NazivNaKategorija</a></li>
+                                                <li><a href="#tab@(podkategorija.IdKategorii)" data-parentid="@podkategorija.RoditelId" data-kategorijaid="@podkategorija.IdKategorii" data-toggle="tab">@podkategorija.NazivNaKategorija</a></li>
                                             }
                                         </ul>
                                     </div>
@@ -460,9 +461,7 @@
             <div class="fill-screen" style="background-image: url(../../../../Areas/Portfolio/Images/AboutFooter.jpg)">
                 <div class="section-content">
                     <h2>
-                        <span class="color-1">THE DETAILS ARE NOT THE DETAILS</span>
-                        <br /> <strong><span class="color-2">THEY MAKE THE DESIGN</span></strong>
-                        <br /> <em><span class="color-1">KEEN THEMES</span></em>
+                        <span class="color-2"></span>
                     </h2>
                 </div>
             </div>
@@ -595,130 +594,154 @@
 
     <script type="text/javascript">
 
-        var colors=["darkBlueLighter","darkBlueDarker","lightBlueLighter","lightBlueDarker","greenLighter","greenDarker","orangeLighter","orangeDarker","redLighter","redDarker","darkGreyLighter","darkGreyDarker","lightGreyLighter","lightGreyDarker","white","black"];
-        var sections=["pocetna","zanas","footerZaNas","portfolio","footerPortfolio","contact","header","footer"];
-        var backgroundValues=['@(Model.WSettings.BGPocetna)','@(Model.WSettings.BGZaNas)','@(Model.WSettings.BGFZaNas)','@(Model.WSettings.BGPortfolio)','@(Model.WSettings.BGFPortfolio)','@(Model.WSettings.BGContact)','@(Model.WSettings.BGMenu)','@(Model.WSettings.BGFooter)'];
+    var colors=["darkBlueLighter","darkBlueDarker","lightBlueLighter","lightBlueDarker","greenLighter","greenDarker","orangeLighter","orangeDarker","redLighter","redDarker","darkGreyLighter","darkGreyDarker","lightGreyLighter","lightGreyDarker","white","black"];
+    var sections=["pocetna","zanas","footerZaNas","portfolio","footerPortfolio","contact","header","footer"];
+    var backgroundValues=['@(Model.WSettings.BGPocetna)','@(Model.WSettings.BGZaNas)','@(Model.WSettings.BGFZaNas)','@(Model.WSettings.BGPortfolio)','@(Model.WSettings.BGFPortfolio)','@(Model.WSettings.BGContact)','@(Model.WSettings.BGMenu)','@(Model.WSettings.BGFooter)'];
 
-        var radioButtonClickEvent= function(section){
-            $('.' + section + '-section .pozadina-slika[name="pozadina-'+section+'"]').click(function(){
-                $("." + section + "-section .color-palet li").css("opacity","0.5").addClass("removeHoverBorder");
+    var radioButtonClickEvent= function(section){
+        $('.' + section + '-section .pozadina-slika[name="pozadina-'+section+'"]').click(function(){
+            $("." + section + "-section .color-palet li").css("opacity","0.5").addClass("removeHoverBorder");
 
-                var bg_img = "";
-                var imageContent = $("." + section + "-section .image-input").val();
-                if(imageContent.length > 0) {
+            var bg_img = "";
+            var imageContent = $("." + section + "-section .image-input").val();
+            if(imageContent.length > 0) {
 
-                    var imageUrl = $("." + section + "-section .image-uploaded").css("background-image").slice(0, -1);
-                    imageUrl = imageUrl.slice(4, imageUrl.length);
+                var imageUrl = $("." + section + "-section .image-uploaded").css("background-image").slice(0, -1);
+                imageUrl = imageUrl.slice(4, imageUrl.length);
 
-                    bg_img = imageUrl;
-                }
-                else {
-                    bg_img = $("." + section + "-section .image-uploaded").css("background-image").replace(/.*Areas/,"/Areas").slice(0,-1);
-                }
-                changeBackgroundImageStyle(bg_img,section);
-
-                $("." + section + "-section .section-body-image .thumbnail").css("opacity","");
-                $("." + section + "-section .section-body-image .btnRemoveHover").removeClass("btnRemoveHover").addClass("btn-primary");
-                $("." + section + "-section .section-body-image .thumbnail input").attr('disabled', false);
-            });
-            $('.' + section + '-section .pozadina-boja[name="pozadina-'+section+'"]').click(function(){
-                $("." + section + "-section .color-palet li").css("opacity","").removeClass("removeHoverBorder");
-                var bgColor=$("." + section + "-section .color-palet li.color-active").attr("data-color");
-                changeColorStyle(bgColor,section);//website
-
-                $("." + section + "-section .section-body-image .thumbnail").css("opacity","0.5");
-                $("." + section + "-section .section-body-image .btn-primary").removeClass("btn-primary").addClass("btnRemoveHover");
-                $("." + section + "-section .section-body-image .thumbnail input").attr('disabled', true);
-            });
-        };
-
-        var backgroundSettingsOnLoad=function(section,background,defaultBackgroundImage){
-            radioButtonClickEvent(section);
-            if(isColor(background)){
-                var bgColor=$(".color-"+background).attr("data-color");
-                changeColorStyle(bgColor,section);//website
-                $('.'+section+'-section li.color-active').removeClass('color-active');//editor
-                $('.'+section+'-section li.color-'+background).addClass('color-active');//editor
-                $("."+section+"-section .pozadina-boja").click();
-                //DefaultImage
-                $('.'+section+'-section .Image1').show();//editor
-                $('.'+section+'-section .Image1').css('background-image', 'url(' + defaultBackgroundImage + ')');//editor
-
+                bg_img = imageUrl;
             }
-            else{
-                changeBackgroundImageStyle(background,section);//website
-                $('.'+section+'-section .Image1').show();//editor
-                $('.'+section+'-section .Image1').css('background-image', 'url(' + background + ')');//editor
-                $("."+section+"-section .pozadina-slika").click();
-
+            else {
+                bg_img = $("." + section + "-section .image-uploaded").css("background-image").replace(/.*Areas/,"/Areas").slice(0,-1);
             }
+            changeBackgroundImageStyle(bg_img,section);
 
+            $("." + section + "-section .section-body-image .thumbnail").css("opacity","");
+            $("." + section + "-section .section-body-image .btnRemoveHover").removeClass("btnRemoveHover").addClass("btn-primary");
+            $("." + section + "-section .section-body-image .thumbnail input").attr('disabled', false);
+        });
+        $('.' + section + '-section .pozadina-boja[name="pozadina-'+section+'"]').click(function(){
+            $("." + section + "-section .color-palet li").css("opacity","").removeClass("removeHoverBorder");
+            var bgColor=$("." + section + "-section .color-palet li.color-active").attr("data-color");
+            changeColorStyle(bgColor,section);//website
 
+            $("." + section + "-section .section-body-image .thumbnail").css("opacity","0.5");
+            $("." + section + "-section .section-body-image .btn-primary").removeClass("btn-primary").addClass("btnRemoveHover");
+            $("." + section + "-section .section-body-image .thumbnail input").attr('disabled', true);
+        });
+    };
 
-        };
-        var colorPaletClickEvent=function(sect){
+    var backgroundSettingsOnLoad=function(section,background,defaultBackgroundImage){
+        radioButtonClickEvent(section);
+        if(isColor(background)){
+            var bgColor=$(".color-"+background).attr("data-color");
+            changeColorStyle(bgColor,section);//website
+            $('.'+section+'-section li.color-active').removeClass('color-active');//editor
+            $('.'+section+'-section li.color-'+background).addClass('color-active');//editor
+            $("."+section+"-section .pozadina-boja").click();
+            //DefaultImage
+            $('.'+section+'-section .Image1').show();//editor
+            $('.'+section+'-section .Image1').css('background-image', 'url(' + defaultBackgroundImage + ')');//editor
 
-            $('#pozadina-content .color-palet[data-section="'+sect+'"] li').click(function(){
-
-                if($('input[name=pozadina-'+sect+']:checked', '.'+sect+'-section').val()=="slika"){
-
-                    return false;
-                }else{
-                    $('#pozadina-content .color-palet[data-section="'+sect+'"] li.color-active').removeClass('color-active');
-                    $(this).addClass('color-active');
-                    var color=$(this).attr("data-color");
-                    var section = $(this).parent().attr("data-section");
-                    changeColorStyle(color,section);
-                }
-            });
-        };
-        var changeNazivNaWS=function(){
-            var naziv= $(".nazivNaWS").val();
-            var nazivArray=naziv.split(" ");
-            var arrayLength=nazivArray.length;
-            var nazivColor1=nazivArray.slice(0,arrayLength/2).join("");
-            var nazivColor2=nazivArray.slice(arrayLength/2,arrayLength).join("");
-            $(".brand .color-1").text(nazivColor1);
-            $(".brand .color-2").text(nazivColor2);
-            $("#WSettings_Naziv").val(naziv);
         }
-        var onLoad=function(){
-            var background;
-            var defaultBackgroundImage="/Areas/Portfolio/Images/DefaulImage.png";
-            var defaultBackgroundColor="darkBlueDarker";
+        else{
+            changeBackgroundImageStyle(background,section);//website
+            $('.'+section+'-section .Image1').show();//editor
+            $('.'+section+'-section .Image1').css('background-image', 'url(' + background + ')');//editor
+            $("."+section+"-section .pozadina-slika").click();
 
-            //Font-Family
-            $('body').css('font-family', '@(Model.WSettings.FontFamily)'); //website
-            $("select").val('@(Model.WSettings.FontFamily)');//editor
-            //FontColor1
-            setColor1('@(Model.WSettings.FontColor1)');//website
-            $('#font-content .color-palet:first li.color-active').removeClass('color-active');//editor
-            $("#font-content .color-palet:first li.color-"+'@(Model.WSettings.FontColor1)').addClass('color-active');//editor
-            //FontColor2
-            setColor2('@(Model.WSettings.FontColor2)');
-            $('#font-content .color-palet:last li.color-active').removeClass('color-active');//editor
-            $("#font-content .color-palet:last li.color-"+'@(Model.WSettings.FontColor2)').addClass('color-active');//editor
-            //Backgrounds
-            $.each( sections, function( index, value ){
-                background=backgroundValues[index];
-                backgroundSettingsOnLoad(value,background,defaultBackgroundImage);
-            });
+        }
 
-            //Naziv
-            changeNazivNaWS();
 
-            //Galerija
-            /* $(".proizvodiCount").each(function(index){
-                 alert($(this).val());
-             });*/
 
-            $("body").on("click",".tabbable .nav-kategorii li",function(){
-                if(!$(this).closest(".tabbable").hasClass("tabbable-current")){
-                    var tabbableEl = $(this).closest(".tabbable").attr("id");
-                    var pId = $(this).closest(".tabbable").attr("id").replace("tabbable","");
-                    var url = "/Portfolio/Portfolio/DodadiGalerija/";
+    };
+    var colorPaletClickEvent=function(sect){
 
-                    $.get(url, { parentId:pId, katalogId: @Model.Katalog.IdKatalozi } ,function (data) {
+        $('#pozadina-content .color-palet[data-section="'+sect+'"] li').click(function(){
+
+            if($('input[name=pozadina-'+sect+']:checked', '.'+sect+'-section').val()=="slika"){
+
+                return false;
+            }else{
+                $('#pozadina-content .color-palet[data-section="'+sect+'"] li.color-active').removeClass('color-active');
+                $(this).addClass('color-active');
+                var color=$(this).attr("data-color");
+                var section = $(this).parent().attr("data-section");
+                changeColorStyle(color,section);
+            }
+        });
+    };
+    var changeNazivNaWS=function(){
+        var naziv= $(".nazivNaWS").val();
+        var nazivArray=naziv.split(" ");
+        var arrayLength=nazivArray.length;
+        var nazivColor1=nazivArray.slice(0,arrayLength/2).join("");
+        var nazivColor2=nazivArray.slice(arrayLength/2,arrayLength).join("");
+        $(".brand .color-1").text(nazivColor1);
+        $(".brand .color-2").text(nazivColor2);
+        $("#WSettings_Naziv").val(naziv);
+    }
+    var changeSodrzinaZaNasF = function(){
+        var sval=$(".sodrzinaZaNasF").val();
+        $("#footerZaNas .section-content h2 span").text(sval);
+        $("#WSettings_SodrzinaZaNasF").val(sval);
+
+    }
+    var changeSodrzinaPortfoliF = function(){
+        var sval=$(".sodrzinaPortfolioF").val();
+        $("#footerPortfolio .section-content h2 span").text(sval);
+        $("#WSettings_SodrzinaPortfolioF").val(sval);
+    }
+
+    var portfolioAnimation=function(){
+        //Animacija Begin
+        $('.well-none').hide();
+        $('.well-none').show("slide", { direction: "up" },1000);
+        $('.nav-kategorii').hide();
+        $('.nav-kategorii').show("slide", { direction: "left" },1000);
+        $('.nav-podkategorii').hide();
+        $('.nav-podkategorii').show("slide", { direction: "right" },1000);
+        //Animacija End
+    }
+
+
+    var onLoad=function(){
+        var background;
+        var defaultBackgroundImage="/Areas/Portfolio/Images/DefaulImage.png";
+        var defaultBackgroundColor="darkBlueDarker";
+
+        //Font-Family
+        $('body').css('font-family', '@(Model.WSettings.FontFamily)'); //website
+        $("select").val('@(Model.WSettings.FontFamily)');//editor
+        //FontColor1
+        setColor1('@(Model.WSettings.FontColor1)');//website
+        $('#font-content .color-palet:first li.color-active').removeClass('color-active');//editor
+        $("#font-content .color-palet:first li.color-"+'@(Model.WSettings.FontColor1)').addClass('color-active');//editor
+        //FontColor2
+        setColor2('@(Model.WSettings.FontColor2)');
+        $('#font-content .color-palet:last li.color-active').removeClass('color-active');//editor
+        $("#font-content .color-palet:last li.color-"+'@(Model.WSettings.FontColor2)').addClass('color-active');//editor
+        //Backgrounds
+        $.each( sections, function( index, value ){
+            background=backgroundValues[index];
+            backgroundSettingsOnLoad(value,background,defaultBackgroundImage);
+        });
+
+        //Naziv
+        changeNazivNaWS();
+        //SodrzinaZaNasF
+        changeSodrzinaZaNasF();
+        changeSodrzinaPortfoliF();
+
+        //Galerija
+        $("body").on("click",".tabbable .nav-kategorii li",function(){
+            if(!$(this).closest(".tabbable").hasClass("tabbable-current")){
+                var tabbableEl = $(this).closest(".tabbable").attr("id");
+                var idKategorija = $(this).find("a").attr("data-kategorijaid");
+                var pId = $(this).closest(".tabbable").attr("id").replace("tabbable","");
+                var url = "/Portfolio/Portfolio/DodadiGalerija/";
+
+                $.get(url, { parentId:pId, katalogId: @Model.Katalog.IdKatalozi } ,function (data) {
                         $("#"+tabbableEl).html(data);
                         $('[id^="myCarousel"]').carousel({
                             interval: 0
@@ -729,9 +752,13 @@
                             //alert("slid");
                         });
 
-                        $("#portfolio .nav-kategorii li:first").addClass("active");
-                        $("#portfolio  .tab-pane:first").addClass("active");
+                        $("a[data-kategorijaid='"+ idKategorija +"']").parent().addClass("active");
+                        $("#tab" + idKategorija).addClass("active");
                         initializeTiles();
+                        $('.well-none').hide();
+                        $('.well-none').show("slide", { direction: "up" },1000);
+                        $('.nav-kategorii').hide();
+                        $('.nav-kategorii').show("slide", { direction: "left" },1000);
                         /*$(".proizvodiCount").each(function(index){
                             alert($(this).val());
                         });*/
@@ -742,9 +769,11 @@
             $("body").on("click",".tabbable .nav-podkategorii li",function(){
 
                 var pId=$(this).children("a").attr("data-parentId");
-
+                var idKatalog = parseInt("@Model.Katalog.IdKatalozi");
+                var idKategorija = $(this).find("a").attr("data-kategorijaid");
+                
                 var url = "/Portfolio/Portfolio/DodadiGalerija/";
-                $.get(url, { parentId:pId, katalogId: @Model.Katalog.IdKatalozi } ,function (data) {
+                $.get(url, { parentId:pId, katalogId: idKatalog } ,function (data) {
 
                     $(".tabbable.tabbable-current").removeClass("tabbable-current");
                     $(".tab-content:last").html(data);
@@ -757,9 +786,15 @@
                         //alert("slid");
                     });
 
-                    $("#portfolio .nav-kategorii li:first").addClass("active");
-                    $("#portfolio  .tab-pane:first").addClass("active");
+                    $("a[data-kategorijaid='"+ idKategorija +"']").parent().addClass("active");
+                    $("#tab" + idKategorija).addClass("active");
                     initializeTiles();
+                    $('.well-none').hide();
+                    $('.well-none').show("slide", { direction: "up" },1000);
+                    $('.nav-kategorii').hide();
+                    $('.nav-kategorii').show("slide", { direction: "left" },1000);
+                    $('.nav-podkategorii').hide();
+                    $('.nav-podkategorii').show("slide", { direction: "right" },1000);
                     /*$(".proizvodiCount").each(function(index){
                         alert($(this).val());
                     });*/
@@ -826,7 +861,7 @@
             //Editor Post Success
             $("#alert-content").fadeIn("slow");
             setTimeout(function() { $("#alert-content").fadeOut("slow"); }, 5000);
-        } 
+        }
         var SuccessMailNotification=function(){
             //Contact Post Success
             $(".poraka").val("");
@@ -838,6 +873,8 @@
         $(document).ready(function () {
             //OnLoad
             onLoad();
+            
+
             $("#alert-content").hide();
             $("#sent-success").hide();
             //Draggable Begin
@@ -876,6 +913,7 @@
                         $(this).blur();
                         return false;
                     }
+                  
                 }
             });
 
@@ -1013,6 +1051,17 @@
 
         $(document).on("change",".nazivNaWS",function(){
             changeNazivNaWS();
+        });
+        $(document).on("change",".sodrzinaZaNasF",function(){
+            changeSodrzinaZaNasF();
+        });
+        $(document).on("change",".sodrzinaPortfolioF",function(){
+            changeSodrzinaPortfoliF();
+        });
+
+        $(document).on("click",".tabbable .nav-tabs li",function(){
+            $('.well-none').hide();
+            $('.well-none').show("slide", { direction: "up" },1000);
         });
 
         $(document).on('change', '.btn-file :file', function () {
