@@ -2,22 +2,22 @@
 @using MojKatalog.Models.ViewModels
 @{
     Layout = null;
-    int numberOfElements = 14;
     string zanasText = "";
     string[] sections = { "pocetna", "zanas", "footerZaNas", "portfolio", "footerPortfolio", "contact", "header", "footer" };
     string[] sectionTitlesPoedinec = { "Почетна", "За Мене", "За Мене Футер", "Портфолио", "Портфолио Футер", "Контакт", "Мени", "Футер" };
     string[] sectionTitlesKompanija = { "Почетна", "За Нас", "За Нас Футер", "Портфолио", "Портфолио Футер", "Контакт", "Мени", "Футер" };
     string[] sectionTitles = null;
-    if(@Model.Poedinec!=null){
+    if (@Model.Poedinec != null)
+    {
         sectionTitles = sectionTitlesPoedinec;
         zanasText = "За мене";
     }
-    else 
+    else
     {
         sectionTitles = sectionTitlesKompanija;
         zanasText = "За нас";
     }
-   
+
 
     var user = (LoggedInEntity)Session["LoggedInEntity"];
 
@@ -274,7 +274,7 @@
                                 <input class="form-control sodrzinaPortfolioF" type="text" value="@(Model.WSettings.SodrzinaPortfolioF)">
                             </div>
                         </div>
-                
+
                     </div>
                     @*Modal Povece Content End*@
                     <div class="modal-footer">
@@ -339,7 +339,7 @@
                             {
                                 <span class="color-1">За</span> <span class="color-2">нас</span>
                             }
-                           
+
                             <h />
                         </span>
                     </h2>
@@ -387,71 +387,95 @@
                             <h />
                         </span>
                     </h2>
-                    <div class="tabbable tabbable-current" id="tabbable0">
-                        <!-- Only required for left/right tabs -->
-                        <ul class="nav nav-tabs nav-kategorii">
-                            @foreach (var kategorija in Model.Katalog.Kategorii)
-                            {
-                                <li><a href="#tab@(kategorija.IdKategorii)" data-parentid="@(kategorija.RoditelId)" data-kategorijaid="@(kategorija.IdKategorii)" data-toggle="tab">@kategorija.NazivNaKategorija</a></li>
+                    <p style="padding-top:30px;">
+                        <span class="color-1">
+                            @Model.Katalog.OpisNaKatalog
+                        </span>
+                    </p>
+                    <!--ModalCarousel Begin-->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div id="aarticlesCarousel" class="carousel">
+                                    </div>
 
-                            }
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        <!--ModalCarousel End-->
+                        <div class="tabbable tabbable-current" id="tabbable0">
+                            <!-- Only required for left/right tabs -->
+                            <ul class="nav nav-tabs nav-kategorii">
+                                @foreach (var kategorija in Model.Katalog.Kategorii)
+                                {
+                                    <li><a href="#tab@(kategorija.IdKategorii)" data-parentid="@(kategorija.RoditelId)" data-kategorijaid="@(kategorija.IdKategorii)" data-toggle="tab">@kategorija.NazivNaKategorija</a></li>
 
-                        </ul>
-                        <div class="tab-content tab-thumbnails" style="padding-bottom: 9px;">
-                            @foreach (var kategorija in Model.Katalog.Kategorii)
-                            {
-                                <div class="tab-pane" id="tab@(kategorija.IdKategorii)" data-proizvodicount="@(kategorija.Proizvodi.Count())">
-                                    <p><span class="color-1">@kategorija.NazivNaKategorija</span></p>
-                                    <!--Well Begin-->
-                                    <div class="well-none">
-                                        <div id="myCarousel@(kategorija.IdKategorii)" class="carousel slide">
-                                            <!-- Carousel items -->
-                                            <div class="carousel-inner">
+                                }
 
-                                                @foreach (var proizvod in kategorija.Proizvodi)
-                                                {
-                                                    <div class="col col-xs-6 col-sm-4 col-md-3 col-lg-2 flex-thumbnail">
-                                                        <div class="thumbnail thumbnail-proizvodi" style="background-image: url(@proizvod.SlikaNaProizvod)">
-                                                            <div class="caption">
-                                                                <h4>Proizvod</h4>
-                                                                <p>
-                                                                    link
-                                                                </p>
+                            </ul>
+                            <div class="tab-content tab-thumbnails" style="padding-bottom: 9px;">
+                                @foreach (var kategorija in Model.Katalog.Kategorii)
+                                {
+                                    <div class="tab-pane" id="tab@(kategorija.IdKategorii)" data-proizvodicount="@(kategorija.Proizvodi.Count())">
+                                        <p><span class="color-1">@kategorija.NazivNaKategorija</span></p>
+                                        <!--Well Begin-->
+                                        <div class="well-none">
+                                            <div id="myCarousel@(kategorija.IdKategorii)" class="carousel slide">
+                                                <!-- Carousel items -->
+                                                <div class="carousel-inner">
+
+                                                    @foreach (var proizvod in kategorija.Proizvodi)
+                                                    {
+                                                        <div class="col col-xs-6 col-sm-4 col-md-3 col-lg-2 flex-thumbnail">
+                                                            <div class="thumbnail thumbnail-proizvodi" style="background-image: url(@proizvod.SlikaNaProizvod)">
+                                                                <div class="caption">
+                                                                    <h4>Proizvod</h4>
+                                                                    <p>
+                                                                        <a data-toggle="modal" data-target="#myModal" title="Прегледај" style="color:white; cursor:pointer;" data-proizvodid="@proizvod.IdProizvodi">
+                                                                            <span class="glyphicon glyphicon-eye-open" style="color:white;"></span>
+                                                                        </a>
+                                                                    </p>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                }
+                                                    }
 
+                                                </div>
+                                                <!--/carousel-inner-->
+                                                <a class="left carousel-control" href="#myCarousel@(kategorija.IdKategorii)" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+
+                                                <a class="right carousel-control" href="#myCarousel@(kategorija.IdKategorii)" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
                                             </div>
-                                            <!--/carousel-inner-->
-                                            <a class="left carousel-control" href="#myCarousel@(kategorija.IdKategorii)" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
-
-                                            <a class="right carousel-control" href="#myCarousel@(kategorija.IdKategorii)" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                                            <!--/myCarousel-->
                                         </div>
-                                        <!--/myCarousel-->
+                                        <!--/well-->
+                                        <p><em><span class="color-1">Подкатегории</span></em></p>
+
+                                        <div class="tabbable" style="margin-left:20px; margin-right:20px;">
+                                            <!-- Only required for left/right tabs -->
+                                            <ul class="nav nav-tabs nav-podkategorii">
+                                                @foreach (var podkategorija in kategorija.Kategorii1)
+                                                {
+                                                    <li><a href="#tab@(podkategorija.IdKategorii)" data-parentid="@podkategorija.RoditelId" data-kategorijaid="@podkategorija.IdKategorii" data-toggle="tab">@podkategorija.NazivNaKategorija</a></li>
+                                                }
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <!--/well-->
-                                    <p><em><span class="color-1">Подкатегории</span></em></p>
-
-                                    <div class="tabbable" style="margin-left:20px; margin-right:20px;">
-                                        <!-- Only required for left/right tabs -->
-                                        <ul class="nav nav-tabs nav-podkategorii">
-                                            @foreach (var podkategorija in kategorija.Kategorii1)
-                                            {
-                                                <li><a href="#tab@(podkategorija.IdKategorii)" data-parentid="@podkategorija.RoditelId" data-kategorijaid="@podkategorija.IdKategorii" data-toggle="tab">@podkategorija.NazivNaKategorija</a></li>
-                                            }
-                                        </ul>
-                                    </div>
-                                </div>
-                            }
+                                }
 
 
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!--TabBable  End-->
+            <!--TabBable  End-->
     </section>
     @*End Section Portfolio*@
 
@@ -500,14 +524,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-xs-6"></div>
                                 <div class="col-xs-6" style="text-align:left; padding-left:30px;">
                                     <label class="color-2">Наслов</label>
                                 </div>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col-xs-6">
                                     <label class="color-2">Тел: @user.Telefon</label>
@@ -517,31 +541,31 @@
                                 </div>
 
                             </div>
-                            
+
                             <div class="row">
-                                <div class="col-xs-6" >
+                                <div class="col-xs-6">
                                     <label class="color-2">Мејл: @user.Mail</label>
                                 </div>
                                 <div class="col-xs-6" style="text-align:left; padding-left:30px;">
                                     <label class="color-2">Мејл</label>
                                 </div>
                             </div>
-                            
-                            <div class="row">
-                            <div class="col-xs-6"></div>
-                            <div class="col-xs-6">
 
-                                <input class="form-control poraka" name="Mail" type="text">
-                            </div>
+                            <div class="row">
+                                <div class="col-xs-6"></div>
+                                <div class="col-xs-6">
+
+                                    <input class="form-control poraka" name="Mail" type="text">
                                 </div>
+                            </div>
                             <div class="row">
                                 <div class="col-xs-6">
-                                    </div>
+                                </div>
                                 <div class="col-xs-6" style="text-align:left; padding-left: 30px;">
                                     <label class="color-2" for="Body">Порака</label>
                                 </div>
-                                </div>
-                            
+                            </div>
+
                             <div class="row">
                                 <div class="col-xs-6"></div>
                                 <div class="col-xs-6">
@@ -551,13 +575,14 @@
                             <div class="row">
                                 <div class="col-xs-6"><label></label></div>
                                 <div class="col-xs-6"></div>
-                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-xs-6"></div>
                                 <div class="col-xs-6" style="text-align:left; padding-left: 30px;">
                                     <button type="submit" class="btn btn-primary color-1" name="action:IspratiMail" onclick="if(!confirm('Дали сте сигурни дека сакате да ја испратите пораката?')) return false;" style="background-color:white;">
-    Испрати </button>
-                            </div>
+                                        Испрати
+                                    </button>
+                                </div>
                             </div>
                         }
                     </div>
@@ -572,15 +597,15 @@
         <div class="row">
             <div class="fill-screen">
                 <div class="section-content">
-                @if (Model.Kompanija != null)
-                {
-                    <span class="color-1">@Model.Kompanija.NazivNaKompanija</span>
-                }
-                else
-                {
-                    <span class="color-1">@Model.Poedinec.Ime @Model.Poedinec.Prezime</span>
-                }
-                    </div>
+                    @if (Model.Kompanija != null)
+                    {
+                        <span class="color-1">@Model.Kompanija.NazivNaKompanija</span>
+                    }
+                    else
+                    {
+                        <span class="color-1">@Model.Poedinec.Ime @Model.Poedinec.Prezime</span>
+                    }
+                </div>
             </div>
         </div>
     </footer>
@@ -594,154 +619,154 @@
 
     <script type="text/javascript">
 
-    var colors=["darkBlueLighter","darkBlueDarker","lightBlueLighter","lightBlueDarker","greenLighter","greenDarker","orangeLighter","orangeDarker","redLighter","redDarker","darkGreyLighter","darkGreyDarker","lightGreyLighter","lightGreyDarker","white","black"];
-    var sections=["pocetna","zanas","footerZaNas","portfolio","footerPortfolio","contact","header","footer"];
-    var backgroundValues=['@(Model.WSettings.BGPocetna)','@(Model.WSettings.BGZaNas)','@(Model.WSettings.BGFZaNas)','@(Model.WSettings.BGPortfolio)','@(Model.WSettings.BGFPortfolio)','@(Model.WSettings.BGContact)','@(Model.WSettings.BGMenu)','@(Model.WSettings.BGFooter)'];
+        var colors=["darkBlueLighter","darkBlueDarker","lightBlueLighter","lightBlueDarker","greenLighter","greenDarker","orangeLighter","orangeDarker","redLighter","redDarker","darkGreyLighter","darkGreyDarker","lightGreyLighter","lightGreyDarker","white","black"];
+        var sections=["pocetna","zanas","footerZaNas","portfolio","footerPortfolio","contact","header","footer"];
+        var backgroundValues=['@(Model.WSettings.BGPocetna)','@(Model.WSettings.BGZaNas)','@(Model.WSettings.BGFZaNas)','@(Model.WSettings.BGPortfolio)','@(Model.WSettings.BGFPortfolio)','@(Model.WSettings.BGContact)','@(Model.WSettings.BGMenu)','@(Model.WSettings.BGFooter)'];
 
-    var radioButtonClickEvent= function(section){
-        $('.' + section + '-section .pozadina-slika[name="pozadina-'+section+'"]').click(function(){
-            $("." + section + "-section .color-palet li").css("opacity","0.5").addClass("removeHoverBorder");
+        var radioButtonClickEvent= function(section){
+            $('.' + section + '-section .pozadina-slika[name="pozadina-'+section+'"]').click(function(){
+                $("." + section + "-section .color-palet li").css("opacity","0.5").addClass("removeHoverBorder");
 
-            var bg_img = "";
-            var imageContent = $("." + section + "-section .image-input").val();
-            if(imageContent.length > 0) {
+                var bg_img = "";
+                var imageContent = $("." + section + "-section .image-input").val();
+                if(imageContent.length > 0) {
 
-                var imageUrl = $("." + section + "-section .image-uploaded").css("background-image").slice(0, -1);
-                imageUrl = imageUrl.slice(4, imageUrl.length);
+                    var imageUrl = $("." + section + "-section .image-uploaded").css("background-image").slice(0, -1);
+                    imageUrl = imageUrl.slice(4, imageUrl.length);
 
-                bg_img = imageUrl;
+                    bg_img = imageUrl;
+                }
+                else {
+                    bg_img = $("." + section + "-section .image-uploaded").css("background-image").replace(/.*Areas/,"/Areas").slice(0,-1);
+                }
+                changeBackgroundImageStyle(bg_img,section);
+
+                $("." + section + "-section .section-body-image .thumbnail").css("opacity","");
+                $("." + section + "-section .section-body-image .btnRemoveHover").removeClass("btnRemoveHover").addClass("btn-primary");
+                $("." + section + "-section .section-body-image .thumbnail input").attr('disabled', false);
+            });
+            $('.' + section + '-section .pozadina-boja[name="pozadina-'+section+'"]').click(function(){
+                $("." + section + "-section .color-palet li").css("opacity","").removeClass("removeHoverBorder");
+                var bgColor=$("." + section + "-section .color-palet li.color-active").attr("data-color");
+                changeColorStyle(bgColor,section);//website
+
+                $("." + section + "-section .section-body-image .thumbnail").css("opacity","0.5");
+                $("." + section + "-section .section-body-image .btn-primary").removeClass("btn-primary").addClass("btnRemoveHover");
+                $("." + section + "-section .section-body-image .thumbnail input").attr('disabled', true);
+            });
+        };
+
+        var backgroundSettingsOnLoad=function(section,background,defaultBackgroundImage){
+            radioButtonClickEvent(section);
+            if(isColor(background)){
+                var bgColor=$(".color-"+background).attr("data-color");
+                changeColorStyle(bgColor,section);//website
+                $('.'+section+'-section li.color-active').removeClass('color-active');//editor
+                $('.'+section+'-section li.color-'+background).addClass('color-active');//editor
+                $("."+section+"-section .pozadina-boja").click();
+                //DefaultImage
+                $('.'+section+'-section .Image1').show();//editor
+                $('.'+section+'-section .Image1').css('background-image', 'url(' + defaultBackgroundImage + ')');//editor
+
             }
-            else {
-                bg_img = $("." + section + "-section .image-uploaded").css("background-image").replace(/.*Areas/,"/Areas").slice(0,-1);
+            else{
+                changeBackgroundImageStyle(background,section);//website
+                $('.'+section+'-section .Image1').show();//editor
+                $('.'+section+'-section .Image1').css('background-image', 'url(' + background + ')');//editor
+                $("."+section+"-section .pozadina-slika").click();
+
             }
-            changeBackgroundImageStyle(bg_img,section);
 
-            $("." + section + "-section .section-body-image .thumbnail").css("opacity","");
-            $("." + section + "-section .section-body-image .btnRemoveHover").removeClass("btnRemoveHover").addClass("btn-primary");
-            $("." + section + "-section .section-body-image .thumbnail input").attr('disabled', false);
-        });
-        $('.' + section + '-section .pozadina-boja[name="pozadina-'+section+'"]').click(function(){
-            $("." + section + "-section .color-palet li").css("opacity","").removeClass("removeHoverBorder");
-            var bgColor=$("." + section + "-section .color-palet li.color-active").attr("data-color");
-            changeColorStyle(bgColor,section);//website
 
-            $("." + section + "-section .section-body-image .thumbnail").css("opacity","0.5");
-            $("." + section + "-section .section-body-image .btn-primary").removeClass("btn-primary").addClass("btnRemoveHover");
-            $("." + section + "-section .section-body-image .thumbnail input").attr('disabled', true);
-        });
-    };
 
-    var backgroundSettingsOnLoad=function(section,background,defaultBackgroundImage){
-        radioButtonClickEvent(section);
-        if(isColor(background)){
-            var bgColor=$(".color-"+background).attr("data-color");
-            changeColorStyle(bgColor,section);//website
-            $('.'+section+'-section li.color-active').removeClass('color-active');//editor
-            $('.'+section+'-section li.color-'+background).addClass('color-active');//editor
-            $("."+section+"-section .pozadina-boja").click();
-            //DefaultImage
-            $('.'+section+'-section .Image1').show();//editor
-            $('.'+section+'-section .Image1').css('background-image', 'url(' + defaultBackgroundImage + ')');//editor
+        };
+        var colorPaletClickEvent=function(sect){
+
+            $('#pozadina-content .color-palet[data-section="'+sect+'"] li').click(function(){
+
+                if($('input[name=pozadina-'+sect+']:checked', '.'+sect+'-section').val()=="slika"){
+
+                    return false;
+                }else{
+                    $('#pozadina-content .color-palet[data-section="'+sect+'"] li.color-active').removeClass('color-active');
+                    $(this).addClass('color-active');
+                    var color=$(this).attr("data-color");
+                    var section = $(this).parent().attr("data-section");
+                    changeColorStyle(color,section);
+                }
+            });
+        };
+        var changeNazivNaWS=function(){
+            var naziv= $(".nazivNaWS").val();
+            var nazivArray=naziv.split(" ");
+            var arrayLength=nazivArray.length;
+            var nazivColor1=nazivArray.slice(0,arrayLength/2).join("");
+            var nazivColor2=nazivArray.slice(arrayLength/2,arrayLength).join("");
+            $(".brand .color-1").text(nazivColor1);
+            $(".brand .color-2").text(nazivColor2);
+            $("#WSettings_Naziv").val(naziv);
+        }
+        var changeSodrzinaZaNasF = function(){
+            var sval=$(".sodrzinaZaNasF").val();
+            $("#footerZaNas .section-content h2 span").text(sval);
+            $("#WSettings_SodrzinaZaNasF").val(sval);
 
         }
-        else{
-            changeBackgroundImageStyle(background,section);//website
-            $('.'+section+'-section .Image1').show();//editor
-            $('.'+section+'-section .Image1').css('background-image', 'url(' + background + ')');//editor
-            $("."+section+"-section .pozadina-slika").click();
+        var changeSodrzinaPortfoliF = function(){
+            var sval=$(".sodrzinaPortfolioF").val();
+            $("#footerPortfolio .section-content h2 span").text(sval);
+            $("#WSettings_SodrzinaPortfolioF").val(sval);
+        }
 
+        var portfolioAnimation=function(){
+            //Animacija Begin
+            $('.well-none').hide();
+            $('.well-none').show("slide", { direction: "up" },1000);
+            $('.nav-kategorii').hide();
+            $('.nav-kategorii').show("slide", { direction: "left" },1000);
+            $('.nav-podkategorii').hide();
+            $('.nav-podkategorii').show("slide", { direction: "right" },1000);
+            //Animacija End
         }
 
 
+        var onLoad=function(){
+            var background;
+            var defaultBackgroundImage="/Areas/Portfolio/Images/DefaulImage.png";
+            var defaultBackgroundColor="darkBlueDarker";
 
-    };
-    var colorPaletClickEvent=function(sect){
+            //Font-Family
+            $('body').css('font-family', '@(Model.WSettings.FontFamily)'); //website
+            $("select").val('@(Model.WSettings.FontFamily)');//editor
+            //FontColor1
+            setColor1('@(Model.WSettings.FontColor1)');//website
+            $('#font-content .color-palet:first li.color-active').removeClass('color-active');//editor
+            $("#font-content .color-palet:first li.color-"+'@(Model.WSettings.FontColor1)').addClass('color-active');//editor
+            //FontColor2
+            setColor2('@(Model.WSettings.FontColor2)');
+            $('#font-content .color-palet:last li.color-active').removeClass('color-active');//editor
+            $("#font-content .color-palet:last li.color-"+'@(Model.WSettings.FontColor2)').addClass('color-active');//editor
+            //Backgrounds
+            $.each( sections, function( index, value ){
+                background=backgroundValues[index];
+                backgroundSettingsOnLoad(value,background,defaultBackgroundImage);
+            });
 
-        $('#pozadina-content .color-palet[data-section="'+sect+'"] li').click(function(){
+            //Naziv
+            changeNazivNaWS();
+            //SodrzinaZaNasF
+            changeSodrzinaZaNasF();
+            changeSodrzinaPortfoliF();
 
-            if($('input[name=pozadina-'+sect+']:checked', '.'+sect+'-section').val()=="slika"){
+            //Galerija
+            $("body").on("click",".tabbable .nav-kategorii li",function(){
+                if(!$(this).closest(".tabbable").hasClass("tabbable-current")){
+                    var tabbableEl = $(this).closest(".tabbable").attr("id");
+                    var idKategorija = $(this).find("a").attr("data-kategorijaid");
+                    var pId = $(this).closest(".tabbable").attr("id").replace("tabbable","");
+                    var url = "/Portfolio/Portfolio/DodadiGalerija/";
 
-                return false;
-            }else{
-                $('#pozadina-content .color-palet[data-section="'+sect+'"] li.color-active').removeClass('color-active');
-                $(this).addClass('color-active');
-                var color=$(this).attr("data-color");
-                var section = $(this).parent().attr("data-section");
-                changeColorStyle(color,section);
-            }
-        });
-    };
-    var changeNazivNaWS=function(){
-        var naziv= $(".nazivNaWS").val();
-        var nazivArray=naziv.split(" ");
-        var arrayLength=nazivArray.length;
-        var nazivColor1=nazivArray.slice(0,arrayLength/2).join("");
-        var nazivColor2=nazivArray.slice(arrayLength/2,arrayLength).join("");
-        $(".brand .color-1").text(nazivColor1);
-        $(".brand .color-2").text(nazivColor2);
-        $("#WSettings_Naziv").val(naziv);
-    }
-    var changeSodrzinaZaNasF = function(){
-        var sval=$(".sodrzinaZaNasF").val();
-        $("#footerZaNas .section-content h2 span").text(sval);
-        $("#WSettings_SodrzinaZaNasF").val(sval);
-
-    }
-    var changeSodrzinaPortfoliF = function(){
-        var sval=$(".sodrzinaPortfolioF").val();
-        $("#footerPortfolio .section-content h2 span").text(sval);
-        $("#WSettings_SodrzinaPortfolioF").val(sval);
-    }
-
-    var portfolioAnimation=function(){
-        //Animacija Begin
-        $('.well-none').hide();
-        $('.well-none').show("slide", { direction: "up" },1000);
-        $('.nav-kategorii').hide();
-        $('.nav-kategorii').show("slide", { direction: "left" },1000);
-        $('.nav-podkategorii').hide();
-        $('.nav-podkategorii').show("slide", { direction: "right" },1000);
-        //Animacija End
-    }
-
-
-    var onLoad=function(){
-        var background;
-        var defaultBackgroundImage="/Areas/Portfolio/Images/DefaulImage.png";
-        var defaultBackgroundColor="darkBlueDarker";
-
-        //Font-Family
-        $('body').css('font-family', '@(Model.WSettings.FontFamily)'); //website
-        $("select").val('@(Model.WSettings.FontFamily)');//editor
-        //FontColor1
-        setColor1('@(Model.WSettings.FontColor1)');//website
-        $('#font-content .color-palet:first li.color-active').removeClass('color-active');//editor
-        $("#font-content .color-palet:first li.color-"+'@(Model.WSettings.FontColor1)').addClass('color-active');//editor
-        //FontColor2
-        setColor2('@(Model.WSettings.FontColor2)');
-        $('#font-content .color-palet:last li.color-active').removeClass('color-active');//editor
-        $("#font-content .color-palet:last li.color-"+'@(Model.WSettings.FontColor2)').addClass('color-active');//editor
-        //Backgrounds
-        $.each( sections, function( index, value ){
-            background=backgroundValues[index];
-            backgroundSettingsOnLoad(value,background,defaultBackgroundImage);
-        });
-
-        //Naziv
-        changeNazivNaWS();
-        //SodrzinaZaNasF
-        changeSodrzinaZaNasF();
-        changeSodrzinaPortfoliF();
-
-        //Galerija
-        $("body").on("click",".tabbable .nav-kategorii li",function(){
-            if(!$(this).closest(".tabbable").hasClass("tabbable-current")){
-                var tabbableEl = $(this).closest(".tabbable").attr("id");
-                var idKategorija = $(this).find("a").attr("data-kategorijaid");
-                var pId = $(this).closest(".tabbable").attr("id").replace("tabbable","");
-                var url = "/Portfolio/Portfolio/DodadiGalerija/";
-
-                $.get(url, { parentId:pId, katalogId: @Model.Katalog.IdKatalozi } ,function (data) {
+                    $.get(url, { parentId:pId, katalogId: @Model.Katalog.IdKatalozi } ,function (data) {
                         $("#"+tabbableEl).html(data);
                         $('[id^="myCarousel"]').carousel({
                             interval: 0
@@ -759,9 +784,7 @@
                         $('.well-none').show("slide", { direction: "up" },1000);
                         $('.nav-kategorii').hide();
                         $('.nav-kategorii').show("slide", { direction: "left" },1000);
-                        /*$(".proizvodiCount").each(function(index){
-                            alert($(this).val());
-                        });*/
+
                     });
 
                 }
@@ -771,7 +794,7 @@
                 var pId=$(this).children("a").attr("data-parentId");
                 var idKatalog = parseInt("@Model.Katalog.IdKatalozi");
                 var idKategorija = $(this).find("a").attr("data-kategorijaid");
-                
+
                 var url = "/Portfolio/Portfolio/DodadiGalerija/";
                 $.get(url, { parentId:pId, katalogId: idKatalog } ,function (data) {
 
@@ -795,9 +818,7 @@
                     $('.nav-kategorii').show("slide", { direction: "left" },1000);
                     $('.nav-podkategorii').hide();
                     $('.nav-podkategorii').show("slide", { direction: "right" },1000);
-                    /*$(".proizvodiCount").each(function(index){
-                        alert($(this).val());
-                    });*/
+
                 });
             });
 
@@ -873,7 +894,7 @@
         $(document).ready(function () {
             //OnLoad
             onLoad();
-            
+
 
             $("#alert-content").hide();
             $("#sent-success").hide();
@@ -913,9 +934,43 @@
                         $(this).blur();
                         return false;
                     }
-                  
+
                 }
             });
+            //SetCarouselImageGalleryToFitModalBody
+            $("body").on("click",".thumbnail-proizvodi a[data-toggle='modal']",function(){
+                $(".thumbnail-proizvodi a.clicked").removeClass("clicked");
+                $(this).addClass("clicked");
+        });
+            
+            $('#portfolio #myModal').on('shown.bs.modal', function () {
+                
+                var idKategorii= $(".tab-pane.active").attr("id").replace("tab","");
+                url="/Portfolio/Portfolio/IzlistajGalerija/"+idKategorii;
+                $.get(url,function(data){
+                    
+                    $("#portfolio .modal-body").html(data);
+                    $("#aarticlesCarousel .item:first").addClass("active");
+                    var modalBD = window.innerHeight;
+                    $("#portfolio .modal-backdrop").css("height", modalBD);
+                    $("#portfolio .modal-dialog").css("height", modalBD-10);
+                    $("#portfolio .modal-content").css("height", modalBD);
+                    $("#portfolio .modal-body").css("height", modalBD- $("#portfolio .modal-header").height()-40);
+                    $("#portfolio .carousel, #portfolio .carousel-inner").css("height", modalBD- $("#portfolio .modal-header").height()-80);
+                    $("#portfolio .carousel .item .fill-screen").css("height", modalBD- $("#portfolio .modal-header").height()-80);
+
+                    var proizvodId=$("a.clicked").attr("data-proizvodid");
+                    $(".modal-body .item.active").removeClass("active");
+                    $(".modal-body .item[data-proizvodid='"+proizvodId+"']").addClass("active");
+                    var modalHeaderText = $(".tabbable-current .nav-kategorii li.active a").text(); 
+                    $(".modal-header #myModalLabel").text(modalHeaderText);
+                    $(".opis").click(function(){
+                        $(this).find("i").toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
+                       $(".carousel-caption").toggle("slide", { direction: "up" }, 1000);
+                    });
+                });
+            });
+
 
             //SetDivToWindowInnerHeight
             $(window).on("load resize", function () {
@@ -936,19 +991,19 @@
 
             initializeTiles();
             //Editor Begin
-            $('.modal-body#font-content').show();
-            $('.modal-body#pozadina-content').hide();
-            $('.modal-body#povece-content').hide();
+            $('#editor .modal-body#font-content').show();
+            $('#editor .modal-body#pozadina-content').hide();
+            $('#editor .modal-body#povece-content').hide();
 
             $('#editor-button').click(function()
             {
                 $('#editor-button i').toggleClass('glyphicon-remove glyphicon-cog');
                 $('#editor-container').toggle("slide", { direction: "right" }, 1000);
             });
-            $('.modal-header a').click(function(){
+            $('#editor .modal-header a').click(function(){
                 $('.activeNav').removeClass('activeNav');
                 $(this).addClass('activeNav');
-                $('.modal-body').hide();
+                $('#editor .modal-body').hide();
                 $("#"+$(this).attr('data-mnav')).fadeIn("slow");
 
             });

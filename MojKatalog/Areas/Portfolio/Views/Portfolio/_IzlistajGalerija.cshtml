@@ -1,0 +1,43 @@
+﻿@model MojKatalog.Models.Kategorii
+
+
+<div id="aarticlesCarousel" class="carousel">
+
+    <div class="carousel-inner">
+        @foreach (var proizvod in Model.Proizvodi)
+        {
+            <div class="item" data-proizvodid="@proizvod.IdProizvodi">
+                <div class="fill-screen" style="background-image: url(@(proizvod.SlikaNaProizvod)"></div>
+                <div style="position: absolute; background-color:black; color:white; left:0px; top:0px; background: rgba(44, 62, 80, 0.75); width:30%; height:30px;">
+                    <a class="opis" style="position:absolute; top:10px; right:10px; color:white !important; cursor:pointer;">
+                        <i class="glyphicon glyphicon-chevron-down"></i>
+                    </a>
+                </div>
+                <div class="carousel-caption" style="position: absolute; background-color:black; color:white; left:0px; top:30px; background: rgba(44, 62, 80, 0.75); width:30%; height:100%;">
+                    <table class="table" style="margin-top:60px;">
+                        <thead>
+                            <tr>
+                                <th colspan="2" style="text-align:center;">@proizvod.NazivNaProizvod</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td colspan="2">@proizvod.Specifikacija</td></tr>
+                            <tr>
+                                <td style="text-align: right; width: 50%;">цена:</td>
+                                <td style="text-align:left;">@proizvod.Cena</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:right; width:50%;">попуст:</td>
+                                <td style="text-align:left;">@proizvod.Popust</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        }
+        <a class="left carousel-control" href="#aarticlesCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+
+        <a class="right carousel-control" href="#aarticlesCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+    </div>
+</div>

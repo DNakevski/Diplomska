@@ -67,7 +67,10 @@ namespace MojKatalog.Areas.Portfolio.Queries
             List<Kategorii> pom = _db.Kategorii.Where(x => x.RoditelId == parentId && x.IdKatalozi == katalogId).ToList();
             return pom;
         }
-
+        public Kategorii IzlistajKategorijaSporedKategoriiId(int kategoriiId)
+        {
+            return _db.Kategorii.Find(kategoriiId);
+        }
         public void SocuvajPoraka(Poraki poraka)
         {
             _db.Poraki.Add(poraka);

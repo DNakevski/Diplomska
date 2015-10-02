@@ -91,6 +91,7 @@ namespace MojKatalog.Areas.Portfolio.Controllers
             model.DodadiPortfolio(portfolioSettings);
             return View();
         }
+      
         [HttpGet]
         public ActionResult IzmeniPortfolio(int id) 
         {
@@ -155,6 +156,12 @@ namespace MojKatalog.Areas.Portfolio.Controllers
         {
             //Pregled na website bez edit funkcionalnosti
             return View();
+        }
+        [HttpGet]
+        public ActionResult IzlistajGalerija(int id)
+        {
+            Kategorii kategorija = model.IzlistajKategorijaSporedKategoriiId(id);
+            return PartialView("_IzlistajGalerija", kategorija);
         }
         [HttpGet]
         public ActionResult DodadiGalerija(int? parentId, int? katalogId)

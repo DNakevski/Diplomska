@@ -474,6 +474,7 @@
       <DependentUpon>Entities.edmx</DependentUpon>
     </Content>
     <Content Include="Areas\Portfolio\Views\Portfolio\_DodadiGalerija.cshtml" />
+    <Content Include="Areas\Portfolio\Views\Portfolio\_IzlistajGalerija.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Plugins\jstree\demo\basic\index.html" />
     <Content Include="Plugins\jstree\demo\filebrowser\data\root\asdf\New Text Document.txt" />
