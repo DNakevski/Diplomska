@@ -1,36 +1,30 @@
-﻿@model MojKatalog.Models.RegisterModel
+﻿@model MojKatalog.Models.RegisterKompanijaModel
+
 @{
     Layout = "~/Views/Shared/_LoginLayout.cshtml";
     ViewBag.Title = "Register";
 }
 
-
 <div class="row">
     <div class="col-lg-6 col-lg-offset-3" style="margin-top:100px;">
 
         <ul class="nav nav-tabs">
-            <li class="active"><a href="@Url.Action("Register", "Account")">Поединец</a></li>
-            <li><a href="@Url.Action("RegisterKompanija", "Account")">Компанија</a></li>
+            <li ><a href="@Url.Action("Register", "Account")">Поединец</a></li>
+            <li class="active"><a href="@Url.Action("RegisterKompanija", "Account")"> Компанија</a></li>
         </ul>
         <div class="well bs-component">
-            @using (Html.BeginForm("RegisterKompanija", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
+        @using (Html.BeginForm("RegisterKompanija", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true)
 
                 <fieldset>
-                    <legend>Регистрација на поединец</legend>
+                    <legend>Регистрација на компанија</legend>
+                   
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Ime, new { @class = "control-label col-lg-4" })
+                        @Html.LabelFor(m => m.Naziv, new { @class = "control-label col-lg-4" })
                         <div class="col-lg-8">
-                            @Html.TextBoxFor(m => m.Ime, new { @class = "form-control", placeholder = "Име" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Prezime, new { @class = "control-label col-lg-4" })
-                        <div class="col-lg-8">
-                            @Html.TextBoxFor(m => m.Prezime, new { @class = "form-control", placeholder = "Презиме" })
+                            @Html.TextBoxFor(m => m.Naziv, new { @class = "form-control", placeholder = "Назив" })
                         </div>
                     </div>
 
@@ -70,6 +64,23 @@
                     </div>
 
                     <div class="form-group">
+                        <label class="control-label col-lg-4">Лого</label>
+                        <div class="col-lg-8">
+                            @*Begin Input File*@
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <span class="btn btn-primary btn-file">
+                                        Browse…
+                                        <input type="file" name="file" multiple="">
+                                    </span>
+                                </span>
+                                <input type="text" class="form-control" readonly="">
+                            </div>
+                            @*End Input File*@
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <div class="col-lg-8 col-lg-offset-4">
                             <button type="submit" class="btn btn-primary">Регистрирај Се</button>
                         </div>
@@ -88,4 +99,28 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+<script type="text/javascript">
+        $(document).on('change', '.btn-file :file', function () {
+            var input = $(this),
+                numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [numFiles, label]);
+        });
+
+        $(document).ready(function () {
+            $('.btn-file :file').on('fileselect', function (event, numFiles, label) {
+
+                var input = $(this).parents('.input-group').find(':text'),
+                    log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+                if (input.length) {
+                    input.val(log);
+                } else {
+                    if (log) alert(log);
+                }
+
+            });
+        });
+</script>
 }

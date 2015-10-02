@@ -99,8 +99,38 @@ namespace MojKatalog.Models
         public string ConfirmPassword { get; set; }
 
         [Required]
-        [DataType(DataType.EmailAddress, ErrorMessage ="Е-Маил адресата не е валидна")]
         [Display(Name = "Е-Маил")]
+        [EmailAddress(ErrorMessage = "Е-Маил адресата не е валидна")]
+        public string Email { get; set; }
+
+        [Display(Name = "Телефон")]
+        public string Telefon { get; set; }
+    }
+
+    public class RegisterKompanijaModel
+    {
+        [Display(Name = "Назив")]
+        [Required]
+        public string Naziv { get; set; }
+
+        [Required]
+        [Display(Name = "Корисничко име")]
+        public string KorisnickoIme { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Лозинка")]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Потврди лозинка")]
+        [Compare("Password", ErrorMessage = "Лозинката не се совпаѓа.")]
+        public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "Е-Маил")]
+        [EmailAddress(ErrorMessage = "Е-Маил адресата не е валидна")]
         public string Email { get; set; }
 
         [Display(Name = "Телефон")]

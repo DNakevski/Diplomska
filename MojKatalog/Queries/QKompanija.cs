@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using MojKatalog.Helpers.Exceptions;
 
 namespace MojKatalog.Queries
 {
@@ -20,6 +21,60 @@ namespace MojKatalog.Queries
         public QKompanija(dbKatalogEntities db)
         {
             this._db = db;
+        }
+
+        public bool RegisterKompanija(RegisterKompanijaModel model, HttpPostedFileBase logo)
+        {
+            var kompanija = new Kompanii
+            {
+                KorisnickoIme = model.KorisnickoIme,
+                Lozinka = model.Password,
+                Mail = model.Email,
+                NazivNaKompanija = model.Naziv,
+                Telefon = model.Telefon
+            };
+
+            _db.Kompanii.Add(kompanija);
+            _db.SaveChanges();
+
+            //save the image if is provided
+            if (logo != null)
+            {
+                string[] allowed = { ".jpg", ".jpeg", ".png", ".gif" };
+                string extension = System.IO.Path.GetExtension(logo.FileName);
+
+                if (allowed.Contains(extension.ToLower()))
+                {
+                    string CoverPath = "/Images/CompanyImages/Logos/"; //TODO: patekata treba da se zima od web.cofig
+                    string imageName = "Logo_" + kompanija.IdKompanii + extension;
+                    string NewLocation = HttpContext.Current.Server.MapPath("~") + CoverPath + imageName;
+                    string tip = logo.GetType().ToString();
+                    logo.SaveAs(NewLocation);
+                    string path = CoverPath + imageName;
+
+                    kompanija.LogoNaKompanija = path;
+                    _db.SaveChanges();
+                }
+            }
+
+            return true;
+        }
+
+        public bool VerifyKompanijaRegistration(RegisterKompanijaModel model)
+        {
+            var kompanija = _db.Kompanii.FirstOrDefault(x => x.KorisnickoIme == model.KorisnickoIme || x.Mail == model.Email);
+            if(kompanija != null)
+            {
+                if (kompanija.KorisnickoIme == model.KorisnickoIme)
+                    throw new ExistingUsernameException("Корисничкото име веќе постои");
+
+                if (kompanija.Mail == model.Email)
+                    throw new ExistingEmailException("Е-Маил адресате веќе постои");
+
+                return false;
+            }
+
+            return true;
         }
 
         #region Logika za logiranje

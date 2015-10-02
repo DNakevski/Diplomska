@@ -11,6 +11,7 @@ using WebMatrix.WebData;
 using MojKatalog.Filters;
 using MojKatalog.Models;
 using MojKatalog.Queries;
+using MojKatalog.Helpers.Exceptions;
 
 namespace MojKatalog.Controllers
 {
@@ -87,13 +88,23 @@ namespace MojKatalog.Controllers
                 // Attempt to register the user
                 try
                 {
-                    //WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    //WebSecurity.Login(model.UserName, model.Password);
-                    return RedirectToAction("Index", "Home");
+                    var isVerified = _qPoedinec.VerifyPoedinecRegistration(model);
+                    if (isVerified)
+                        _qPoedinec.RegisterPoedinec(model);
+
+                    return RedirectToAction("Login", "Account");
                 }
-                catch (MembershipCreateUserException e)
+                catch(ExistingEmailException ex)
                 {
-                    ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+                    ModelState.AddModelError("", ex.Message);
+                }
+                catch(ExistingUsernameException ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("","Профилот не е успешно креиран.");
                 }
             }
 
@@ -101,6 +112,43 @@ namespace MojKatalog.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
+        public ActionResult RegisterKompanija()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult RegisterKompanija(RegisterKompanijaModel model, HttpPostedFileBase file)
+        {
+            if(ModelState.IsValid)
+            {
+                try
+                {
+                    var isVerified = _qKompanija.VerifyKompanijaRegistration(model);
+                    if (isVerified)
+                        _qKompanija.RegisterKompanija(model, file);
+
+                    return RedirectToAction("Login", "Account");
+                }
+                catch (ExistingEmailException ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+                catch (ExistingUsernameException ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Профилот не е успешно креиран");
+                }
+            }
+
+            return View(model);
+        }
         //
         // POST: /Account/Disassociate
 
