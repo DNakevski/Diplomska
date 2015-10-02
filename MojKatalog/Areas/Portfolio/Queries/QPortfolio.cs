@@ -1,4 +1,5 @@
-﻿using MojKatalog.Models;
+﻿using MojKatalog.Helpers.Enumerations;
+using MojKatalog.Models;
 using MojKatalog.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -22,14 +23,14 @@ namespace MojKatalog.Areas.Portfolio.Queries
         {
             return _db.WebSiteSettings.Find(id);
         }
-        public WSettingsKatalogKorisnikViewModel IzmeniPortfolioGet(int idKatalog, int idKorisnik, string korsisnikTip)
+        public WSettingsKatalogKorisnikViewModel IzmeniPortfolioGet(int idKatalog, int idKorisnik, LogedUserTypeEnum userType)
         {
             WSettingsKatalogKorisnikViewModel vmodel = new WSettingsKatalogKorisnikViewModel();
             vmodel.Katalog = _db.Katalozi.Find(idKatalog);
             vmodel.Katalog.Kategorii = vmodel.Katalog.Kategorii.Where(x => x.RoditelId == null).ToList();
             vmodel.WSettings = _db.WebSiteSettings.Find(idKatalog);
             
-            if (korsisnikTip.Equals("Poedinec"))
+            if (userType == Helpers.Enumerations.LogedUserTypeEnum.Poedinec)
             {
                 vmodel.Poedinec = _db.Poedinci.Find(idKorisnik);
             }
@@ -55,7 +56,9 @@ namespace MojKatalog.Areas.Portfolio.Queries
             wsettings.BGFPortfolio = (newWSettings.BGFPortfolio != null) ? newWSettings.BGFPortfolio : wsettings.BGFPortfolio;
             wsettings.BGContact = (newWSettings.BGContact != null) ? newWSettings.BGContact : wsettings.BGContact;
             wsettings.BGMenu = (newWSettings.BGMenu != null) ? newWSettings.BGMenu : wsettings.BGMenu;
-            wsettings.BGFooter = (newWSettings.BGFooter != null) ? newWSettings.BGFooter : wsettings.BGFooter; 
+            wsettings.BGFooter = (newWSettings.BGFooter != null) ? newWSettings.BGFooter : wsettings.BGFooter;
+            wsettings.SodrzinaPortfolioF = newWSettings.SodrzinaPortfolioF;
+            wsettings.SodrzinaZaNasF = newWSettings.SodrzinaZaNasF;
             _db.SaveChanges();
 
         }
@@ -63,6 +66,15 @@ namespace MojKatalog.Areas.Portfolio.Queries
         {
             List<Kategorii> pom = _db.Kategorii.Where(x => x.RoditelId == parentId && x.IdKatalozi == katalogId).ToList();
             return pom;
+        }
+        public Kategorii IzlistajKategorijaSporedKategoriiId(int kategoriiId)
+        {
+            return _db.Kategorii.Find(kategoriiId);
+        }
+        public void SocuvajPoraka(Poraki poraka)
+        {
+            _db.Poraki.Add(poraka);
+            _db.SaveChanges();
         }
     }
 }

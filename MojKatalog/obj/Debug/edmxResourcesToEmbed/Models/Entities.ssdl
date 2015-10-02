@@ -85,6 +85,7 @@
     <Property Name="Date" Type="datetime" />
     <Property Name="IdKompanii" Type="int" />
     <Property Name="IdPoedinci" Type="int" />
+    <Property Name="IsReceived" Type="bit" />
   </EntityType>
   <EntityType Name="PorakiKlienti">
     <Key>
@@ -124,6 +125,8 @@
     <Property Name="BGMenu" Type="nvarchar(max)" />
     <Property Name="BGFooter" Type="nvarchar(max)" />
     <Property Name="Naziv" Type="nvarchar(max)" />
+    <Property Name="SodrzinaZaNasF" Type="nvarchar(max)" />
+    <Property Name="SodrzinaPortfolioF" Type="nvarchar(max)" />
   </EntityType>
   <Association Name="FK_Katalozi_Kompanii">
     <End Role="Kompanii" Type="Self.Kompanii" Multiplicity="0..1">

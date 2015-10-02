@@ -10,9 +10,11 @@ using System.Web.Mvc;
 using System.Drawing;
 using MojKatalog.Models.ViewModels;
 using MojKatalog.Helpers;
+using MojKatalog.Filters;
 
 namespace MojKatalog.Areas.Portfolio.Controllers
 {
+    [CustomAuthorize(Roles = "Admin,Poedinec,Kompanija")]
     public class PortfolioController : Controller
     {
         QPortfolio model = new QPortfolio();
@@ -32,23 +34,30 @@ namespace MojKatalog.Areas.Portfolio.Controllers
         {
             if (imgStream!=null)
             {
-                long addition = DateTime.Now.GetTimestampSeconds();
-                string extension = ".jpeg";
-                byte[] bytes = Convert.FromBase64String(imgStream);
-
-                Image image;
-                using (MemoryStream ms = new MemoryStream(bytes))
+                if (imgStream.Contains("/Areas/Portfolio/"))
                 {
-                    image = Image.FromStream(ms);
+                    return imgStream;
                 }
-                string name = bgName + "_" + id + "_" + addition + extension;
-                string path = Path.Combine(Server.MapPath("~/Areas/Portfolio/UploadedFiles"), name);
-                Bitmap bitmap = new Bitmap(image);
-                bitmap.Save(path, System.Drawing.Imaging.ImageFormat.Jpeg);
-                //Se brise starata slika od likacijata
-                DeleteImage(oldValPath);
-                //Se vraca lokacija kade sto e socuvana slikata, koja treba da se socuva vo baza
-                return "/Areas/Portfolio/UploadedFiles/" + name;
+                else
+                {
+                    long addition = DateTime.Now.GetTimestampSeconds();
+                    string extension = ".jpeg";
+                    byte[] bytes = Convert.FromBase64String(imgStream);
+
+                    Image image;
+                    using (MemoryStream ms = new MemoryStream(bytes))
+                    {
+                        image = Image.FromStream(ms);
+                    }
+                    string name = bgName + "_" + id + "_" + addition + extension;
+                    string path = Path.Combine(Server.MapPath("~/Areas/Portfolio/UploadedFiles"), name);
+                    Bitmap bitmap = new Bitmap(image);
+                    bitmap.Save(path, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    //Se brise starata slika od likacijata
+                    DeleteImage(oldValPath);
+                    //Se vraca lokacija kade sto e socuvana slikata, koja treba da se socuva vo baza
+                    return "/Areas/Portfolio/UploadedFiles/" + name;
+                }
             }
             else
             {
@@ -69,11 +78,11 @@ namespace MojKatalog.Areas.Portfolio.Controllers
                 FontFamily = "OpenSans-Regular",
                 FontColor1 = "darkBlueDarker",
                 FontColor2 = "greenLighter",
-                BGPocetna = "~/Areas/Portfolio/Images/HomeBackgroundImage.jpg",
+                BGPocetna = "/Areas/Portfolio/Images/HomeBackgroundImage.jpg",
                 BGZaNas = "white",
-                BGFZaNas = "~/Areas/Portfolio/Images/AboutFooter.jpg",
+                BGFZaNas = "/Areas/Portfolio/Images/AboutFooter.jpg",
                 BGPortfolio = "white",
-                BGFPortfolio = "~/Areas/Portfolio/Images/AboutFooter.jpg",
+                BGFPortfolio = "/Areas/Portfolio/Images/AboutFooter.jpg",
                 BGContact = "lightGreyLighter",
                 BGMenu = "lightGreyLighter",
                 BGFooter = "lightGreyLighter"
@@ -82,10 +91,12 @@ namespace MojKatalog.Areas.Portfolio.Controllers
             model.DodadiPortfolio(portfolioSettings);
             return View();
         }
+      
         [HttpGet]
-        public ActionResult IzmeniPortfolio(int id, int idKorisnik, string korsisnikTip) 
+        public ActionResult IzmeniPortfolio(int id) 
         {
-            WSettingsKatalogKorisnikViewModel portfolioSettings = model.IzmeniPortfolioGet(id, idKorisnik, korsisnikTip);
+            var user = (LoggedInEntity)Session["LoggedInEntity"];
+            WSettingsKatalogKorisnikViewModel portfolioSettings = model.IzmeniPortfolioGet(id, user.Id, user.UserType);
             //Editiranje na vrednosti vo tabela WebSiteSettings
             return View(portfolioSettings);
         }
@@ -147,6 +158,12 @@ namespace MojKatalog.Areas.Portfolio.Controllers
             return View();
         }
         [HttpGet]
+        public ActionResult IzlistajGalerija(int id)
+        {
+            Kategorii kategorija = model.IzlistajKategorijaSporedKategoriiId(id);
+            return PartialView("_IzlistajGalerija", kategorija);
+        }
+        [HttpGet]
         public ActionResult DodadiGalerija(int? parentId, int? katalogId)
         {
             if (parentId == 0)
@@ -155,7 +172,26 @@ namespace MojKatalog.Areas.Portfolio.Controllers
             }
             List<Kategorii> pviewModel = model.IzlistajKategoriiSporedParentId(parentId, katalogId);
             ViewBag.ParentId = parentId;
+            ViewBag.KatalogId = katalogId;
             return PartialView("_DodadiGalerija", pviewModel);
+        }
+        [HttpPost]
+        public JsonResult IspratiPorakaOdWS(Poraki poraka) 
+        {
+            var user = (LoggedInEntity)Session["LoggedInEntity"];
+            poraka.Date = DateTime.Now;
+            poraka.IsSent = false;
+            poraka.IsDeleted = false;
+            poraka.IsReceived = true;
+          
+
+            if (user.UserType == Helpers.Enumerations.LogedUserTypeEnum.Poedinec)
+                poraka.IdPoedinci = user.Id;
+            else
+                poraka.IdKompanii = user.Id;
+
+            model.SocuvajPoraka(poraka);
+            return Json(new { Status = "Success" });
         }
         public ActionResult Test()
         {

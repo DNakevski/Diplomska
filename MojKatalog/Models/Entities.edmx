@@ -90,6 +90,7 @@
           <Property Name="Date" Type="datetime" />
           <Property Name="IdKompanii" Type="int" />
           <Property Name="IdPoedinci" Type="int" />
+          <Property Name="IsReceived" Type="bit" />
         </EntityType>
         <EntityType Name="PorakiKlienti">
           <Key>
@@ -129,6 +130,8 @@
           <Property Name="BGMenu" Type="nvarchar(max)" />
           <Property Name="BGFooter" Type="nvarchar(max)" />
           <Property Name="Naziv" Type="nvarchar(max)" />
+          <Property Name="SodrzinaZaNasF" Type="nvarchar(max)" />
+          <Property Name="SodrzinaPortfolioF" Type="nvarchar(max)" />
         </EntityType>
         <Association Name="FK_Katalozi_Kompanii">
           <End Role="Kompanii" Type="Self.Kompanii" Multiplicity="0..1">
@@ -472,6 +475,7 @@
           <NavigationProperty Name="Kompanii" Relationship="Self.FK_Poraki_Kompanii" FromRole="Poraki" ToRole="Kompanii" />
           <NavigationProperty Name="Poedinci" Relationship="Self.FK_Poraki_Poedinci" FromRole="Poraki" ToRole="Poedinci" />
           <NavigationProperty Name="Klienti" Relationship="dbKatalogModel.PorakiKlienti" FromRole="Poraki" ToRole="Klienti" />
+          <Property Name="IsReceived" Type="Boolean" />
         </EntityType>
         <EntityType Name="Proizvodi">
           <Key>
@@ -505,6 +509,8 @@
           <Property Name="BGFooter" MaxLength="Max" FixedLength="false" Unicode="true" Type="String" />
           <Property Name="Naziv" MaxLength="Max" FixedLength="false" Unicode="true" Type="String" />
           <NavigationProperty Name="Katalozi" Relationship="Self.FK_WebSiteSettings_Katalozi" FromRole="WebSiteSettings" ToRole="Katalozi" />
+          <Property Name="SodrzinaZaNasF" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SodrzinaPortfolioF" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Katalozi_Kompanii">
           <End Type="Self.Kompanii" Multiplicity="0..1" Role="Kompanii">
@@ -755,6 +761,7 @@
           <EntitySetMapping Name="Poraki">
             <EntityTypeMapping TypeName="dbKatalogModel.Poraki">
               <MappingFragment StoreEntitySet="Poraki">
+                <ScalarProperty Name="IsReceived" ColumnName="IsReceived" />
                 <ScalarProperty Name="IdPoraki" ColumnName="IdPoraki" />
                 <ScalarProperty Name="Subject" ColumnName="Subject" />
                 <ScalarProperty Name="Body" ColumnName="Body" />
@@ -783,6 +790,8 @@
           <EntitySetMapping Name="WebSiteSettings">
             <EntityTypeMapping TypeName="dbKatalogModel.WebSiteSettings">
               <MappingFragment StoreEntitySet="WebSiteSettings">
+                <ScalarProperty Name="SodrzinaPortfolioF" ColumnName="SodrzinaPortfolioF" />
+                <ScalarProperty Name="SodrzinaZaNasF" ColumnName="SodrzinaZaNasF" />
                 <ScalarProperty Name="IdKatalozi" ColumnName="IdKatalozi" />
                 <ScalarProperty Name="FontFamily" ColumnName="FontFamily" />
                 <ScalarProperty Name="FontColor1" ColumnName="FontColor1" />

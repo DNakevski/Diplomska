@@ -55,13 +55,19 @@
 </table>
 @helper FormatString(string val)
 {
-    if (val.Length > 45)
+    if (val == null)
     {
-        <text>@val.Substring(0, 45)...</text>
+        <text></text>
     }
-    else
-    {
-        <text>@val</text>
+    else { 
+        if (val.Length > 45)
+        {
+            <text>@val.Substring(0, 45)...</text>
+        }
+        else
+        {
+         <text>@val</text>
+        }
     }
 }
 

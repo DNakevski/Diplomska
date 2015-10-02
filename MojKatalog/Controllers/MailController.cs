@@ -53,6 +53,7 @@ namespace MojKatalog.Controllers
             novaPoraka.Date = DateTime.Now;
             novaPoraka.IsSent = true;
             novaPoraka.IsDeleted = false;
+            novaPoraka.IsReceived = false;
             novaPoraka.Klienti = _klienti.ListaNaKlientiSporedId(selectedKlients);
 
             if (user.UserType == Helpers.Enumerations.LogedUserTypeEnum.Poedinec)
@@ -76,6 +77,7 @@ namespace MojKatalog.Controllers
             novaPoraka.Date = DateTime.Now;
             novaPoraka.IsSent = false;
             novaPoraka.IsDeleted = false;
+            novaPoraka.IsReceived = false;
             novaPoraka.Klienti = _klienti.ListaNaKlientiSporedId(selectedKlients);
 
             if (user.UserType == Helpers.Enumerations.LogedUserTypeEnum.Poedinec)

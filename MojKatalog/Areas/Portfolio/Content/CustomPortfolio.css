@@ -6,7 +6,7 @@
 @font-face {
     font-family: 'OpenSansLight';
     src: url('Fonts/Open Sans/OpenSans-Light.ttf') format('truetype');
-    font-size: 12px;
+    
 }
 @font-face {
     font-family: 'OpenSans-Regular';
@@ -40,7 +40,8 @@ section{
     min-height: 100px;
 }
 #footerZaNas .section-content{
-    padding: 60px;
+    padding-left: 30% !important;
+    padding-right: 30% !important;
 }
 #portfolio{
     min-height: 434px !important;
@@ -49,13 +50,23 @@ section{
 #footerPortfolio{
     padding-top: 0px !important;
 }
+#footerPortfolio .section-content{
+    padding-left: 30% !important;
+    padding-right: 30% !important;
+}
 #contact{
     background-color: #ECF0F1;
-    color:white;
 }
 footer{
      background-color: #1a242f;
     color:white;
+}
+footer .section-content{
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 60px;
+    padding-right: 60px;
+    text-align: right;
 }
 footer h2{
     margin:0px !important;
@@ -149,7 +160,13 @@ text-decoration: none !important;
   border: none;
   background-color: none;
 }
-#portfolio .carousel-control {
+#portfolio .tabbable button
+{
+    background-color: transparent !important;
+    border: none !important;
+}
+
+#portfolio .tabbable .carousel-control {
     position: absolute;
     top: 0;
     left: 0;
@@ -160,19 +177,19 @@ text-decoration: none !important;
     text-align: center;
     text-shadow: none;
 }
-#portfolio .carousel-control.left {
+#portfolio .tabbable .carousel-control.left {
 	background-image: none;
 }
-#portfolio .carousel-control.right {
+#portfolio .tabbable .carousel-control.right {
   left: auto;
   right: 0;
   background-image: none;
 }
-#portfolio .carousel-control {
+#portfolio .tabbable .carousel-control {
   padding-top:10.25%;
   width:5%;
 }
-#portfolio .carousel{
+#portfolio .tabbable .carousel{
     height: 374px !important;
 }
 #portfolio .glyphicon-chevron-left,
@@ -370,11 +387,11 @@ header .affix{
     display: inline-block;
     padding-left: 10px !important;
 }
-.modal-body{
+#editor .modal-body{
     height: 260px;
     overflow-y: auto;
 }
-.modal-body .row{
+#editor .modal-body .row{
     margin-left: 0px !important;
   margin-right: 0px !important;
 }
@@ -535,3 +552,22 @@ input[readonly]
 }
 
 /*Editor End*/
+/*Portfolio Modal Begin*/
+#portfolio .modal
+{
+    padding-right:0px !important;
+}
+#portfolio .modal-dialog
+{
+    width: 100% !important;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+#portfolio .modal-footer
+{
+    text-align: left;
+}
+
+/*Portfolio Modal End*/

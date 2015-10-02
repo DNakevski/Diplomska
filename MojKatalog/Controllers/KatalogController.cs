@@ -46,7 +46,7 @@ namespace MojKatalog.Controllers
             {
                 katalog.IdKompanii = user.Id;
             }
-            
+            katalog.DataNaKreiranje = DateTime.Now;
             _model.DodadiKatalog(katalog);
             return RedirectToAction("Index");
         }

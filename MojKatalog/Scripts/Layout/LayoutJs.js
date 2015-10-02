@@ -11,6 +11,9 @@
     });
     //Kraj- Podesuvanje na efektot Slide na User drop-down meni (_Layout) 
     setActiveLink();
+    $(window).on("load resize", function () {
+        $(".table-container").css("min-height", window.innerHeight - $(".navigation-bar").height());
+    });
 });
 
 

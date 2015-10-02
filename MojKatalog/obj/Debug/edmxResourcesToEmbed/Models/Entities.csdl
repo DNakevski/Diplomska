@@ -75,6 +75,7 @@
     <NavigationProperty Name="Kompanii" Relationship="Self.FK_Poraki_Kompanii" FromRole="Poraki" ToRole="Kompanii" />
     <NavigationProperty Name="Poedinci" Relationship="Self.FK_Poraki_Poedinci" FromRole="Poraki" ToRole="Poedinci" />
     <NavigationProperty Name="Klienti" Relationship="dbKatalogModel.PorakiKlienti" FromRole="Poraki" ToRole="Klienti" />
+    <Property Name="IsReceived" Type="Boolean" />
   </EntityType>
   <EntityType Name="Proizvodi">
     <Key>
@@ -108,6 +109,8 @@
     <Property Name="BGFooter" MaxLength="Max" FixedLength="false" Unicode="true" Type="String" />
     <Property Name="Naziv" MaxLength="Max" FixedLength="false" Unicode="true" Type="String" />
     <NavigationProperty Name="Katalozi" Relationship="Self.FK_WebSiteSettings_Katalozi" FromRole="WebSiteSettings" ToRole="Katalozi" />
+    <Property Name="SodrzinaZaNasF" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SodrzinaPortfolioF" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <Association Name="FK_Katalozi_Kompanii">
     <End Type="Self.Kompanii" Multiplicity="0..1" Role="Kompanii">

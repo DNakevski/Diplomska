@@ -30,15 +30,15 @@ namespace MojKatalog.Queries
 
             if(userType == LogedUserTypeEnum.Poedinec)
             {
-                poraki.IsprateniPoraki = _db.Poraki.Where(x => x.IdPoedinci == userId && x.IsSent == true && x.IsDeleted == false).ToList();
+                poraki.IsprateniPoraki = _db.Poraki.Where(x => x.IdPoedinci == userId && x.IsSent == true && x.IsDeleted == false && x.IsReceived == false).ToList();
                 poraki.IzbrishaniPoraki = _db.Poraki.Where(x => x.IdPoedinci == userId && x.IsDeleted == true).ToList();
-                poraki.SocuvaniPoraki = _db.Poraki.Where(x => x.IdPoedinci == userId && x.IsSent == false && x.IsDeleted == false).ToList();
+                poraki.SocuvaniPoraki = _db.Poraki.Where(x => x.IdPoedinci == userId && x.IsSent == false && x.IsDeleted == false && x.IsReceived == false).ToList();
             }
             else if(userType == LogedUserTypeEnum.Kompanija)
             {
-                poraki.IsprateniPoraki = _db.Poraki.Where(x => x.IdKompanii == userId && x.IsSent == true && x.IsDeleted == false).ToList();
+                poraki.IsprateniPoraki = _db.Poraki.Where(x => x.IdKompanii == userId && x.IsSent == true && x.IsDeleted == false && x.IsReceived == false).ToList();
                 poraki.IzbrishaniPoraki = _db.Poraki.Where(x => x.IdKompanii == userId && x.IsDeleted == true).ToList();
-                poraki.SocuvaniPoraki = _db.Poraki.Where(x => x.IdKompanii == userId && x.IsSent == false && x.IsDeleted == false).ToList();
+                poraki.SocuvaniPoraki = _db.Poraki.Where(x => x.IdKompanii == userId && x.IsSent == false && x.IsDeleted == false && x.IsReceived == false).ToList();
             }
             
             return poraki;
@@ -168,11 +168,11 @@ namespace MojKatalog.Queries
 
             if(userType == LogedUserTypeEnum.Poedinec)
             {
-                poraki = _db.Poraki.Where(x => x.IdPoedinci == userId && x.IsSent == true && x.IsDeleted == false).ToList();
+                poraki = _db.Poraki.Where(x => x.IdPoedinci == userId && x.IsSent == true && x.IsDeleted == false && x.IsReceived == false).ToList();
             }
             else if(userType == LogedUserTypeEnum.Kompanija)
             {
-                poraki = _db.Poraki.Where(x => x.IdKompanii == userId && x.IsSent == true && x.IsDeleted == false).ToList();
+                poraki = _db.Poraki.Where(x => x.IdKompanii == userId && x.IsSent == true && x.IsDeleted == false && x.IsReceived == false).ToList();
             } 
 
             return poraki;
@@ -198,13 +198,29 @@ namespace MojKatalog.Queries
             var poraki = new List<Poraki>();
             if(userType == LogedUserTypeEnum.Poedinec)
             {
-                poraki = _db.Poraki.Where(x => x.IdPoedinci == userId && x.IsSent == false && x.IsDeleted == false).ToList();
+                poraki = _db.Poraki.Where(x => x.IdPoedinci == userId && x.IsSent == false && x.IsDeleted == false && x.IsReceived == false).ToList();
             }
             else if(userType == LogedUserTypeEnum.Kompanija)
             {
-                poraki = _db.Poraki.Where(x => x.IdKompanii == userId && x.IsSent == false && x.IsDeleted == false).ToList();
+                poraki = _db.Poraki.Where(x => x.IdKompanii == userId && x.IsSent == false && x.IsDeleted == false && x.IsReceived == false).ToList();
             }
             
+
+            return poraki;
+        }
+
+        public List<Poraki> GetPrimeniPoraki(int userId, LogedUserTypeEnum userType)
+        {
+            var poraki = new List<Poraki>();
+            if (userType == LogedUserTypeEnum.Poedinec)
+            {
+                poraki = _db.Poraki.Where(x => x.IdPoedinci == userId && x.IsReceived == true).ToList();
+            }
+            else if (userType == LogedUserTypeEnum.Kompanija)
+            {
+                poraki = _db.Poraki.Where(x => x.IdKompanii == userId && x.IsReceived == true).ToList();
+            }
+
 
             return poraki;
         }
@@ -251,7 +267,26 @@ namespace MojKatalog.Queries
         public bool DeleteSocuvaniPoraki(List<int> porakiIds)
         {
             _db.Poraki
-                .Where(x => x.IsSent == false && x.IsDeleted == false && porakiIds.Contains(x.IdPoraki))
+                .Where(x => x.IsSent == false && x.IsDeleted == false && x.IsReceived == false && porakiIds.Contains(x.IdPoraki))
+                .ToList()
+                .ForEach(x => x.IsDeleted = true);
+
+            try
+            {
+                _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool DeletePrimeniPoraki(List<int> porakiIds)
+        {
+            _db.Poraki
+                .Where(x => x.IsReceived == true && porakiIds.Contains(x.IdPoraki))
                 .ToList()
                 .ForEach(x => x.IsDeleted = true);
 
