@@ -258,6 +258,9 @@
     <Compile Include="Models\Proizvodi.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sysdiagrams.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ViewModels\LoggedInEntity.cs" />
     <Compile Include="Models\ViewModels\KatalogViewModel.cs" />
     <Compile Include="Models\ViewModels\TreeViewModel.cs" />
@@ -650,6 +653,7 @@
     <Content Include="Views\Mail\Partials\_SocuvaniPorakiPartial.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Views\Account\RegisterKompanija.cshtml" />
+    <Content Include="Views\Mail\Partials\_PregledajPoraka.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

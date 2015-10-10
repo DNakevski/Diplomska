@@ -91,6 +91,7 @@
           <Property Name="IdKompanii" Type="int" />
           <Property Name="IdPoedinci" Type="int" />
           <Property Name="IsReceived" Type="bit" />
+          <Property Name="SenderMail" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="PorakiKlienti">
           <Key>
@@ -112,6 +113,16 @@
           <Property Name="SlikaNaProizvod" Type="nvarchar(max)" />
           <Property Name="Dostapnost" Type="bit" />
           <Property Name="IdKategorii" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="WebSiteSettings">
           <Key>
@@ -338,6 +349,7 @@
           <EntitySet Name="Poraki" EntityType="Self.Poraki" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PorakiKlienti" EntityType="Self.PorakiKlienti" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Proizvodi" EntityType="Self.Proizvodi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WebSiteSettings" EntityType="Self.WebSiteSettings" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Katalozi_Kompanii" Association="Self.FK_Katalozi_Kompanii">
             <End Role="Kompanii" EntitySet="Kompanii" />
@@ -476,6 +488,7 @@
           <NavigationProperty Name="Poedinci" Relationship="Self.FK_Poraki_Poedinci" FromRole="Poraki" ToRole="Poedinci" />
           <NavigationProperty Name="Klienti" Relationship="dbKatalogModel.PorakiKlienti" FromRole="Poraki" ToRole="Klienti" />
           <Property Name="IsReceived" Type="Boolean" />
+          <Property Name="SenderMail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Proizvodi">
           <Key>
@@ -675,6 +688,7 @@
             <End Role="Klienti" EntitySet="Klienti" />
             <End Role="Poraki" EntitySet="Poraki" />
           </AssociationSet>
+          <EntitySet Name="sysdiagrams" EntityType="dbKatalogModel.sysdiagrams" />
           </EntityContainer>
         <EntityType Name="Klienti">
           <Key>
@@ -702,6 +716,16 @@
           <End Type="dbKatalogModel.Klienti" Role="Klienti" Multiplicity="*" />
           <End Type="dbKatalogModel.Poraki" Role="Poraki" Multiplicity="*" />
         </Association>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -761,6 +785,7 @@
           <EntitySetMapping Name="Poraki">
             <EntityTypeMapping TypeName="dbKatalogModel.Poraki">
               <MappingFragment StoreEntitySet="Poraki">
+                <ScalarProperty Name="SenderMail" ColumnName="SenderMail" />
                 <ScalarProperty Name="IsReceived" ColumnName="IsReceived" />
                 <ScalarProperty Name="IdPoraki" ColumnName="IdPoraki" />
                 <ScalarProperty Name="Subject" ColumnName="Subject" />
@@ -844,6 +869,17 @@
               <ScalarProperty Name="IdKlienti" ColumnName="IdKlienti" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="dbKatalogModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

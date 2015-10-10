@@ -29,6 +29,7 @@ namespace MojKatalog.Models
         public Nullable<int> IdKompanii { get; set; }
         public Nullable<int> IdPoedinci { get; set; }
         public Nullable<bool> IsReceived { get; set; }
+        public string SenderMail { get; set; }
     
         public virtual Kompanii Kompanii { get; set; }
         public virtual Poedinci Poedinci { get; set; }

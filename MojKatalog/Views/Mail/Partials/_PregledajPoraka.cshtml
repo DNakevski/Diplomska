@@ -1,0 +1,52 @@
+﻿@model MojKatalog.Models.Poraki
+@{
+    var klients = Model.Klienti.ToList();
+    string names = "";
+    foreach (var klient in klients)
+    {
+        names = klient.Ime + " " + klient.Prezime + ";";
+    }
+    names = names.Substring(0, names.Length - 1);
+}
+
+<div class="well bs-component">
+    @using (@Html.BeginForm("IspratiMail", "Mail", FormMethod.Post, new { @class = "form-horizontal", id = "emailForm" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        
+
+
+        <fieldset>
+            <legend>Порака</legend>
+
+            <div class="error-summary" style="display:none; color:red;"></div>
+
+            <div class="form-group">
+                @Html.Label("Примачи", new { @class = "col-lg-1 col-md-2 control-label" })
+                <div class="col-lg-10">
+                   <text class="form-control" style="background-color:#ECF0F1;">@names</text>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Subject, new { @class = "col-lg-1 col-md-2 control-label" })
+                <div class="col-lg-10">
+                    <text class="form-control" style="background-color:#ECF0F1;">
+                        @Model.Subject
+                    </text>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Body, new { @class = "col-lg-1 col-md-2 control-label" })
+                <div class="col-lg-10">
+                    <text class="form-control" style="background-color:#ECF0F1; min-height:200px;">
+                        <p>@Model.Body</p>
+                    </text>
+                </div>
+            </div>
+
+           
+        </fieldset>
+    }
+</div>

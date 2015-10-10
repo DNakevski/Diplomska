@@ -157,5 +157,11 @@ namespace MojKatalog.Controllers
             return Json(new { Status = status });
         }
 
+        [HttpGet]
+        public ActionResult IzlistajPoraka(int idPoraka)
+        {
+            Poraki poraka = _poraki.VratiPorakaSporedId(idPoraka);
+            return PartialView("Partials/_PregledajPoraka", poraka);
+        }
     }
 }

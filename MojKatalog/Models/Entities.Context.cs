@@ -33,5 +33,6 @@ namespace MojKatalog.Models
         public virtual DbSet<Proizvodi> Proizvodi { get; set; }
         public virtual DbSet<WebSiteSettings> WebSiteSettings { get; set; }
         public virtual DbSet<Klienti> Klienti { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     }
 }

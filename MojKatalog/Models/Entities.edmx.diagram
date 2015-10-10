@@ -24,6 +24,7 @@
         <AssociationConnector Association="dbKatalogModel.KompaniiKlienti" />
         <AssociationConnector Association="dbKatalogModel.PoedinciKlienti" />
         <AssociationConnector Association="dbKatalogModel.PorakiKlienti" />
+        <EntityTypeShape EntityType="dbKatalogModel.sysdiagrams" Width="1.5" PointX="8.375" PointY="7.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

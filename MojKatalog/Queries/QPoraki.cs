@@ -135,24 +135,21 @@ namespace MojKatalog.Queries
             client.EnableSsl = true;
             client.Credentials = credentials;
 
-            //TODO: Da se odkomentira za isprakjanje na mail
-            //send the message to all the listed clients
-            //foreach (Klienti klient in poraka.Klienti)
-            //{
-            //    MailMessage mail = new MailMessage(mailUser, klient.Mail);
-            //    mail.Subject = poraka.Subject;
-            //    mail.Body = poraka.Body;
-            //    try
-            //    {
-            //        client.Send(mail);
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        throw ex;
-            //    }
-            //}
+            foreach (Klienti klient in poraka.Klienti)
+            {
+                MailMessage mail = new MailMessage(mailUser, klient.Mail);
+                mail.Subject = poraka.Subject;
+                mail.Body = poraka.Body;
+                try
+                {
+                    client.Send(mail);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
 
-            //store the message to database
             SocuvajPoraka(poraka);
         }
 
@@ -168,11 +165,17 @@ namespace MojKatalog.Queries
 
             if(userType == LogedUserTypeEnum.Poedinec)
             {
-                poraki = _db.Poraki.Where(x => x.IdPoedinci == userId && x.IsSent == true && x.IsDeleted == false && x.IsReceived == false).ToList();
+                poraki = _db.Poraki
+                    .Include(x => x.Klienti)
+                    .Where(x => x.IdPoedinci == userId && x.IsSent == true && x.IsDeleted == false && x.IsReceived == false)
+                    .ToList();
             }
             else if(userType == LogedUserTypeEnum.Kompanija)
             {
-                poraki = _db.Poraki.Where(x => x.IdKompanii == userId && x.IsSent == true && x.IsDeleted == false && x.IsReceived == false).ToList();
+                poraki = _db.Poraki
+                    .Include(x => x.Klienti)
+                    .Where(x => x.IdKompanii == userId && x.IsSent == true && x.IsDeleted == false && x.IsReceived == false)
+                    .ToList();
             } 
 
             return poraki;
@@ -183,11 +186,17 @@ namespace MojKatalog.Queries
             var poraki = new List<Poraki>();
             if(userType == LogedUserTypeEnum.Poedinec)
             {
-                poraki = _db.Poraki.Where(x => x.IdPoedinci == userId && x.IsDeleted == true).ToList();
+                poraki = _db.Poraki
+                    .Include(x => x.Klienti)
+                    .Where(x => x.IdPoedinci == userId && x.IsDeleted == true)
+                    .ToList();
             }
             else if(userType == LogedUserTypeEnum.Kompanija)
             {
-                poraki = _db.Poraki.Where(x => x.IdKompanii == userId && x.IsDeleted == true).ToList();
+                poraki = _db.Poraki
+                    .Include(x => x.Klienti)
+                    .Where(x => x.IdKompanii == userId && x.IsDeleted == true)
+                    .ToList();
             }
 
             return poraki;
@@ -300,6 +309,10 @@ namespace MojKatalog.Queries
             }
 
             return true;
+        }
+        public Poraki VratiPorakaSporedId(int idPoraka)
+        {
+            return _db.Poraki.Find(idPoraka);
         }
     }
 }

@@ -76,6 +76,7 @@
     <NavigationProperty Name="Poedinci" Relationship="Self.FK_Poraki_Poedinci" FromRole="Poraki" ToRole="Poedinci" />
     <NavigationProperty Name="Klienti" Relationship="dbKatalogModel.PorakiKlienti" FromRole="Poraki" ToRole="Klienti" />
     <Property Name="IsReceived" Type="Boolean" />
+    <Property Name="SenderMail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Proizvodi">
     <Key>
@@ -275,6 +276,7 @@
       <End Role="Klienti" EntitySet="Klienti" />
       <End Role="Poraki" EntitySet="Poraki" />
     </AssociationSet>
+    <EntitySet Name="sysdiagrams" EntityType="dbKatalogModel.sysdiagrams" />
   </EntityContainer>
   <EntityType Name="Klienti">
     <Key>
@@ -302,4 +304,14 @@
     <End Type="dbKatalogModel.Klienti" Role="Klienti" Multiplicity="*" />
     <End Type="dbKatalogModel.Poraki" Role="Poraki" Multiplicity="*" />
   </Association>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
 </Schema>

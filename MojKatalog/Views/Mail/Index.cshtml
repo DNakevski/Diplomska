@@ -129,6 +129,25 @@
             });
 
         }); // --- END OF DOCUMENT READY --- //
+        $("body").on("click", ".isprateni-container .list-group-item a", function () {
+            var idPoraka = $(this).attr("data-idPoraka");
+            reLoadIzlistajPoraka(idPoraka,"isprateni-container");
+        });
+        $("body").on("click", ".izbrishani-container .list-group-item a", function () {
+            var idPoraka = $(this).attr("data-idPoraka");
+            reLoadIzlistajPoraka(idPoraka, "izbrishani-container");
+        });
+        $("body").on("click", ".socuvani-container .list-group-item a", function () {
+            var idPoraka = $(this).attr("data-idPoraka");
+            reLoadIzlistajPoraka(idPoraka, "socuvani-container");
+        });
+
+        function reLoadIzlistajPoraka(id,container) {
+            $("."+container).fadeOut(500);
+            $.get("@Url.Action("IzlistajPoraka", "Mail")", {idPoraka:id}, function (data) {
+                $("."+container).html(data).fadeIn(500);
+            });
+        }
 
         function reLoadIsprateniTab() {
             $(".isprateni-container").fadeOut(500);
