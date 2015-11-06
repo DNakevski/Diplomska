@@ -16,7 +16,6 @@ using MojKatalog.Helpers.Exceptions;
 namespace MojKatalog.Controllers
 {
     [Authorize]
-    [InitializeSimpleMembership]
     public class AccountController : Controller
     {
 
