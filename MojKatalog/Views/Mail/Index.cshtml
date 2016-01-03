@@ -25,10 +25,11 @@
             <hr>
             <ul class="nav nav-pills nav-stacked" role="tablist">
                 <li class="active">
-                    <a href="#isprateniTab" data-toggle="tab" role="tab"><span class="badge isprateni-badge pull-right">@Model.IsprateniPorakiCount</span> Испратени </a>
+                    <a href="#isprateniTab" onclick="reLoadIsprateniTab(); return false;" data-toggle="tab" role="tab"><span class="badge isprateni-badge pull-right">@Model.IsprateniPorakiCount</span> Испратени </a>
                 </li>
-                <li><a href="#izbrishaniTab" data-toggle="tab" role="tab"><span class="badge izbrishani-badge pull-right">@Model.IzbrishaniPorakiCount</span> Избришани</a></li>
-                <li><a href="#socuvaniTab" data-toggle="tab" role="tab"><span class="badge socuvani-badge pull-right">@Model.SocuvaniPorakiCount</span> Сочувани</a></li>
+                <li><a href="#primeniTab" onclick="reLoadPrimeniTab(); return false;" data-toggle="tab" role="tab"><span class="badge primeni-badge pull-right">@Model.PrimeniPorakiCount</span> Примени</a></li>
+                <li><a href="#izbrishaniTab" onclick="reLoadIzbrishaniTab(); return false;" data-toggle="tab" role="tab"><span class="badge izbrishani-badge pull-right">@Model.IzbrishaniPorakiCount</span> Избришани</a></li>
+                <li><a href="#socuvaniTab" onclick="reLoadSocuvaniTab(); return false;" data-toggle="tab" role="tab"><span class="badge socuvani-badge pull-right">@Model.SocuvaniPorakiCount</span> Сочувани</a></li>
             </ul>
         </div>
         <div class="col-sm-9 col-md-10">
@@ -58,6 +59,29 @@
 
                         @Html.Partial("Partials/_IsprateniPorakiPartial", Model.IsprateniPoraki)
 
+                    </div>
+                </div>
+                <div class="tab-pane fade in" id="primeniTab" role="tabpanel">
+                    <ul class="mail-actions">
+                        <li>
+                            <input class="checkbox-input check-all" type="checkbox" id="selectAllPrimeni" target="primeni-check" />
+                        </li>
+                        <li> <a href="#" onclick="reLoadPrimeniTab(); return false;"><span class="glyphicon glyphicon-refresh"></span></a></li>
+                        <li> <a href="#" onclick="deletePrimeni(); return false;"><span class="glyphicon glyphicon-trash"></span></a></li>
+                        <li class="pull-right">
+                            <span class="text-muted"><b>1</b>–<b>50</b> of <b>160</b></span>
+                            <div class="btn-group btn-group-sm">
+                                <button type="button" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-chevron-left"></span>
+                                </button>
+                                <button type="button" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-chevron-right"></span>
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="list-group primeni-container">
+                        @Html.Partial("Partials/_PrimeniPorakiPartial", Model.PrimeniPoraki)
                     </div>
                 </div>
                 <div class="tab-pane fade in" id="izbrishaniTab" role="tabpanel">
@@ -133,6 +157,10 @@
             var idPoraka = $(this).attr("data-idPoraka");
             reLoadIzlistajPoraka(idPoraka,"isprateni-container");
         });
+        $("body").on("click", ".primeni-container .list-group-item a", function () {
+            var idPoraka = $(this).attr("data-idPoraka");
+            reLoadIzlistajPoraka(idPoraka, "primeni-container");
+        });
         $("body").on("click", ".izbrishani-container .list-group-item a", function () {
             var idPoraka = $(this).attr("data-idPoraka");
             reLoadIzlistajPoraka(idPoraka, "izbrishani-container");
@@ -143,22 +171,28 @@
         });
 
         function reLoadIzlistajPoraka(id,container) {
-            $("."+container).fadeOut(500);
+            $("."+container).hide();
             $.get("@Url.Action("IzlistajPoraka", "Mail")", {idPoraka:id}, function (data) {
                 $("."+container).html(data).fadeIn(500);
             });
         }
 
         function reLoadIsprateniTab() {
-            $(".isprateni-container").fadeOut(500);
+            $(".isprateni-container").hide();
             $.get("@Url.Action("GetIsprateniPartial", "Mail")", {}, function (data) {
                 $(".isprateni-container").html(data).fadeIn(500);
                 updateCounter("isprateni");
             });
         }
-
+        function reLoadPrimeniTab() {
+            $(".primeni-container").hide();
+            $.get("@Url.Action("GetPrimeniPartial", "Mail")", {}, function (data) {
+                $(".primeni-container").html(data).fadeIn(500);
+                updateCounter("primeni");
+            });
+        }
         function reLoadIzbrishaniTab() {
-            $(".izbrishani-container").fadeOut(500);
+            $(".izbrishani-container").hide();
             $.get("@Url.Action("GetIzbrishaniPartial", "Mail")", {}, function (data) {
                 $(".izbrishani-container").html(data).fadeIn(500);
                 updateCounter("izbrishani");
@@ -166,7 +200,7 @@
         }
 
         function reLoadSocuvaniTab() {
-            $(".socuvani-container").fadeOut(500);
+            $(".socuvani-container").hide();
             $.get("@Url.Action("GetSocuvaniPartial", "Mail")", {}, function (data) {
                 $(".socuvani-container").html(data).fadeIn(500);
                 updateCounter("socuvani");
@@ -186,6 +220,20 @@
                     }
                 });
             }
+        }
+        function deletePrimeni() {
+            if (!confirm("Дали сте сигурни?")) return false;
+
+            var values = getArrayValues("primeni-check");
+            if (ValidateArray(values)) {
+                $.post("@Url.Action("DeletePrimeni", "Mail")", { porakiIds: values }, function (data) {
+                    if (data.Status == "Success") {
+                        reLoadPrimeniTab();
+                        reLoadIzbrishaniTab();
+                        prikaziPoraka("success", "Пораките се успешно избришани.");
+                    }
+                });
+        }
         }
 
         function deleteIzbrishani() {

@@ -13,9 +13,39 @@ namespace MojKatalog.Areas.Portfolio.Queries
     {
         dbKatalogEntities _db = new dbKatalogEntities();
 
-        public void DodadiPortfolio(WebSiteSettings portfolio)
+        public void DodadiPortfolio(int idKatalog, int idKorisnik, LogedUserTypeEnum userType)
         {
-            _db.WebSiteSettings.Add(portfolio);
+            string nazivNaWebSite = "";
+           
+            if (userType == Helpers.Enumerations.LogedUserTypeEnum.Poedinec)
+            {
+                Poedinci poedinec = _db.Poedinci.Find(idKorisnik);
+                nazivNaWebSite = poedinec.Ime + " " + poedinec.Prezime;
+            }
+            else
+            {
+                Kompanii kompanija = _db.Kompanii.Find(idKorisnik);
+                nazivNaWebSite = kompanija.NazivNaKompanija;
+            }
+            WebSiteSettings wsettings = new WebSiteSettings
+            {
+                IdKatalozi = idKatalog,
+                FontFamily = "OpenSans-Regular",
+                FontColor1 = "darkBlueDarker",
+                FontColor2 = "greenLighter",
+                BGPocetna = "/Areas/Portfolio/Images/HomeBackgroundImage.jpg",
+                BGZaNas = "white",
+                BGFZaNas = "/Areas/Portfolio/Images/AboutFooter.jpg",
+                BGPortfolio = "white",
+                BGFPortfolio = "/Areas/Portfolio/Images/AboutFooter.jpg",
+                BGContact = "lightGreyLighter",
+                BGMenu = "lightGreyLighter",
+                BGFooter = "lightGreyLighter",
+                Naziv = nazivNaWebSite,
+                SodrzinaZaNasF = "The details are not details , they make the design",
+                SodrzinaPortfolioF = "The details are not details , they make the design"
+            };
+            _db.WebSiteSettings.Add(wsettings);
             _db.SaveChanges();
         }
 

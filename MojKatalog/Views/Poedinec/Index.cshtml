@@ -1,0 +1,82 @@
+﻿@model MojKatalog.Models.Poedinci
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="well bs-component">
+    @using (Html.BeginForm("RegisterKompanija", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <legend>Регистрација на поединец</legend>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Ime, new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8">
+                    @Html.TextBoxFor(m => m.Ime, new { @class = "form-control", placeholder = "Име" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Prezime, new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8">
+                    @Html.TextBoxFor(m => m.Prezime, new { @class = "form-control", placeholder = "Презиме" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.KorisnickoIme, new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8">
+                    @Html.TextBoxFor(m => m.KorisnickoIme, new { @class = "form-control", placeholder = "Корисничко име" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Lozinka, new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8">
+                    @Html.PasswordFor(m => m.Lozinka, new { @class = "form-control", placeholder = "Лозинка" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Mail, new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8">
+                    @Html.PasswordFor(m => m.Mail, new { @class = "form-control", placeholder = "Mail" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Telefon, new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8">
+                    @Html.PasswordFor(m => m.Telefon, new { @class = "form-control", placeholder = "Телефон" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.OpisNaPoedinec, new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8">
+                    @Html.PasswordFor(m => m.OpisNaPoedinec, new { @class = "form-control", placeholder = "Опис на поединец" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Telefon, new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8">
+                    @Html.TextBoxFor(m => m.Telefon, new { @class = "form-control", placeholder = "Телефон" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-8 col-lg-offset-4">
+                    <button type="submit" class="btn btn-primary">Регистрирај Се</button>
+                </div>
+            </div>
+        </fieldset>
+                <p>
+                    @Html.ActionLink("Најави се", "Login")
+                </p>
+    }
+</div>
+
+
+
+

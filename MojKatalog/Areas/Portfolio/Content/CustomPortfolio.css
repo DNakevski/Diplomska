@@ -57,6 +57,12 @@ section{
 #contact{
     background-color: #ECF0F1;
 }
+#contact .form-control{
+    border-radius: 0px !important;
+}
+#contact .btn{
+    border-radius: 0px !important;
+}
 footer{
      background-color: #1a242f;
     color:white;
@@ -406,14 +412,34 @@ header .affix{
   background-color: #95a5a6 !important;
   padding: 8px;
 }
+#home-button{
+  z-index: 1001;
+  position: fixed;
+  top: 70px;
+  right: 0;
+  background-color: #95a5a6 !important;
+  padding: 8px;
+}
 #editor-button:hover{
+     background-color: #798D8F !important;
+}
+#home-button:hover{
      background-color: #798D8F !important;
 }
 #editor-button a{
     display: block;
     line-height: 0 !important;
+    cursor: pointer;
+}
+#home-button a{
+    display: block;
+    line-height: 0 !important;
 }
 #editor-button i{
+    color: white !important;
+    font-size: 25px;
+}
+#home-button i{
     color: white !important;
     font-size: 25px;
 }

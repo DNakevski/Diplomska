@@ -7,7 +7,13 @@
     {
         names = klient.Ime + " " + klient.Prezime + ";";
     }
-    names = names.Substring(0, names.Length - 1) + "...";
+    try
+    {
+        names = names.Substring(0, names.Length - 1) + "...";
+    }
+    catch(Exception e) {
+        names = poraka.SenderMail;
+    }
     var subject = (poraka.Subject.Length > 50) ? poraka.Subject.Substring(0, 50) + "..." : poraka.Subject;
     <div class="list-group-item">
         <div class="checkbox">

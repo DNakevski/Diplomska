@@ -23,16 +23,16 @@ namespace MojKatalog.Areas.Portfolio.Controllers
 
             string fullPath = Request.MapPath("~" + oldValPath);
 
-            if (System.IO.File.Exists(fullPath))
+            if (System.IO.File.Exists(fullPath) && oldValPath!= "/Areas/Portfolio/Images/HomeBackgroundImage.jpg" && oldValPath!= "/Areas/Portfolio/Images/AboutFooter.jpg")
             {
                 System.IO.File.Delete(fullPath);
             }
         }
- 
-        
-        private string CreateAndSaveImage(string imgStream,int id,string bgName, string oldValPath)
+
+
+        private string CreateAndSaveImage(string imgStream, int id, string bgName, string oldValPath)
         {
-            if (imgStream!=null)
+            if (imgStream != null)
             {
                 if (imgStream.Contains("/Areas/Portfolio/"))
                 {
@@ -63,37 +63,22 @@ namespace MojKatalog.Areas.Portfolio.Controllers
             {
                 return null;
             }
-           
+
         }
         // GET: Portfolio/Portfolio
         public ActionResult Index()
         {
             return View();
         }
-        public ActionResult DodadiPortfolio(int id) 
+        public ActionResult DodadiPortfolio(int id)
         {
-            WebSiteSettings portfolioSettings = new WebSiteSettings
-            {
-                IdKatalozi = id,
-                FontFamily = "OpenSans-Regular",
-                FontColor1 = "darkBlueDarker",
-                FontColor2 = "greenLighter",
-                BGPocetna = "/Areas/Portfolio/Images/HomeBackgroundImage.jpg",
-                BGZaNas = "white",
-                BGFZaNas = "/Areas/Portfolio/Images/AboutFooter.jpg",
-                BGPortfolio = "white",
-                BGFPortfolio = "/Areas/Portfolio/Images/AboutFooter.jpg",
-                BGContact = "lightGreyLighter",
-                BGMenu = "lightGreyLighter",
-                BGFooter = "lightGreyLighter"
-            };
-            //Insert vo tabela WebSiteSettings so default vrednosti
-            model.DodadiPortfolio(portfolioSettings);
-            return View();
+            var user = (LoggedInEntity)Session["LoggedInEntity"];
+            model.DodadiPortfolio(id, user.Id, user.UserType);
+            return RedirectToAction("IzmeniPortfolio", new {id = id });
         }
-      
+
         [HttpGet]
-        public ActionResult IzmeniPortfolio(int id) 
+        public ActionResult IzmeniPortfolio(int id)
         {
             var user = (LoggedInEntity)Session["LoggedInEntity"];
             WSettingsKatalogKorisnikViewModel portfolioSettings = model.IzmeniPortfolioGet(id, user.Id, user.UserType);
@@ -105,7 +90,7 @@ namespace MojKatalog.Areas.Portfolio.Controllers
         public JsonResult IzmeniPortfolio(WebSiteSettings wsettings)
         {
             WebSiteSettings oldWsettings = model.GetWsettings(wsettings.IdKatalozi);
-            if (!ColorHelper.IsColor(wsettings.BGPocetna)) 
+            if (!ColorHelper.IsColor(wsettings.BGPocetna))
             {
                 wsettings.BGPocetna = CreateAndSaveImage(wsettings.BGPocetna, wsettings.IdKatalozi, "Pocetna", oldWsettings.BGPocetna);
             }
@@ -113,13 +98,13 @@ namespace MojKatalog.Areas.Portfolio.Controllers
             {
                 wsettings.BGZaNas = CreateAndSaveImage(wsettings.BGZaNas, wsettings.IdKatalozi, "ZaNas", oldWsettings.BGZaNas);
             }
-            if (!ColorHelper.IsColor(wsettings.BGFZaNas)) 
+            if (!ColorHelper.IsColor(wsettings.BGFZaNas))
             {
                 wsettings.BGFZaNas = CreateAndSaveImage(wsettings.BGFZaNas, wsettings.IdKatalozi, "FooterZaNas", oldWsettings.BGFZaNas);
             }
             if (!ColorHelper.IsColor(wsettings.BGPortfolio))
             {
-               wsettings.BGPortfolio = CreateAndSaveImage(wsettings.BGPortfolio, wsettings.IdKatalozi, "Portfolio", oldWsettings.BGPortfolio);
+                wsettings.BGPortfolio = CreateAndSaveImage(wsettings.BGPortfolio, wsettings.IdKatalozi, "Portfolio", oldWsettings.BGPortfolio);
             }
             if (!ColorHelper.IsColor(wsettings.BGFPortfolio))
             {
@@ -140,9 +125,9 @@ namespace MojKatalog.Areas.Portfolio.Controllers
             }
 
             model.IzmeniPortfolioPost(wsettings);
-           
 
-            return Json(new { Status = "Success"});
+
+            return Json(new { Status = "Success" });
         }
 
         public ActionResult IzbrisiPortfolio()
@@ -152,7 +137,7 @@ namespace MojKatalog.Areas.Portfolio.Controllers
 
         }
 
-        public ActionResult PregledajPortfolio() 
+        public ActionResult PregledajPortfolio()
         {
             //Pregled na website bez edit funkcionalnosti
             return View();
@@ -176,14 +161,14 @@ namespace MojKatalog.Areas.Portfolio.Controllers
             return PartialView("_DodadiGalerija", pviewModel);
         }
         [HttpPost]
-        public JsonResult IspratiPorakaOdWS(Poraki poraka) 
+        public JsonResult IspratiPorakaOdWS(Poraki poraka)
         {
             var user = (LoggedInEntity)Session["LoggedInEntity"];
             poraka.Date = DateTime.Now;
             poraka.IsSent = false;
             poraka.IsDeleted = false;
             poraka.IsReceived = true;
-          
+
 
             if (user.UserType == Helpers.Enumerations.LogedUserTypeEnum.Poedinec)
                 poraka.IdPoedinci = user.Id;

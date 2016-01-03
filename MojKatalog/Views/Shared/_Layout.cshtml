@@ -1,4 +1,9 @@
-﻿<html lang="en">
+﻿@using MojKatalog.Models.ViewModels
+@using MojKatalog.Helpers.Enumerations
+@{ 
+    LoggedInEntity user = (LoggedInEntity)Session["LoggedInEntity"];
+}
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <title>@ViewBag.Title - My ASP.NET MVC Application</title>
@@ -21,11 +26,19 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle username-dropdown" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-user glyphicon-user-css" aria-hidden="true"></span>
-                            <span class="username">UserName
+                            <span class="username">@user.KorisnickoIme
                             </span>
                             <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#"><span class="glyphicon glyphicon-user glyphicon-dropdown-css" aria-hidden="true"></span>Мој профил</a></li>
+                            @if (user.UserType == LogedUserTypeEnum.Poedinec)
+                            {
+                                <li><a href="@Url.Action("Index","Poedinec")"><span class="glyphicon glyphicon-user glyphicon-dropdown-css" aria-hidden="true"></span>Мој профил</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="@Url.Action("Index","Kompanija")"><span class="glyphicon glyphicon-user glyphicon-dropdown-css" aria-hidden="true"></span>Мој профил</a></li>
+                            }
+
                             <li class="divider"></li>
                             <li><a href="@Url.Action("Login","Account")"><span class="glyphicon glyphicon-off glyphicon-dropdown-css" aria-hidden="true"></span>Одлогирај се</a></li>
                         </ul>

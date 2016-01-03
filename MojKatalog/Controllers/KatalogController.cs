@@ -20,12 +20,12 @@ namespace MojKatalog.Controllers
         {
             _model = new QKatalog();
         }
-        
+
         public ActionResult Index()
         {
             var user = (LoggedInEntity)Session["LoggedInEntity"];
             return View(_model.IzlistajKatalozi(user.Id, user.UserType));
-            
+
         }
 
         [HttpGet]
@@ -66,11 +66,11 @@ namespace MojKatalog.Controllers
         {
             return View(_model.VratiKatalog(id));
         }
-        public JsonResult VratiDrvoZaKatalog(int id) 
+        public JsonResult VratiDrvoZaKatalog(int id)
         {
             QKategorija qKategorija = new QKategorija();
             var model = qKategorija.IzlistajSporedId(id);
-            return Json(model,JsonRequestBehavior.AllowGet);
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
         public ActionResult IzbrisiKatalog(int id)

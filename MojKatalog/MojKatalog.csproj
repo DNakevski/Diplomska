@@ -207,7 +207,9 @@
     <Compile Include="Controllers\KatalogController.cs" />
     <Compile Include="Controllers\KategorijaController.cs" />
     <Compile Include="Controllers\KlientController.cs" />
+    <Compile Include="Controllers\KompanijaController.cs" />
     <Compile Include="Controllers\MailController.cs" />
+    <Compile Include="Controllers\PoedinecController.cs" />
     <Compile Include="Controllers\ProizvodController.cs" />
     <Compile Include="Controllers\WebSiteSettingsController.cs" />
     <Compile Include="Filters\CustomAuthorize.cs" />
@@ -654,6 +656,9 @@
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Views\Account\RegisterKompanija.cshtml" />
     <Content Include="Views\Mail\Partials\_PregledajPoraka.cshtml" />
+    <Content Include="Views\Mail\Partials\_PrimeniPorakiPartial.cshtml" />
+    <Content Include="Views\Kompanija\Index.cshtml" />
+    <Content Include="Views\Poedinec\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

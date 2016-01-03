@@ -6,7 +6,16 @@
     {
         names = klient.Ime + " " + klient.Prezime + ";";
     }
-    names = names.Substring(0, names.Length - 1);
+
+    try
+    {
+        names = names.Substring(0, names.Length - 1);
+    }
+    catch(Exception e)
+    {
+        names = Model.SenderMail;
+    }
+
 }
 
 <div class="well bs-component">

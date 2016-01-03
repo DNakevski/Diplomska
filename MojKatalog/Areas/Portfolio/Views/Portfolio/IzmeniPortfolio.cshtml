@@ -61,6 +61,11 @@
                     <i class="glyphicon glyphicon-cog"></i>
                 </a>
             </div>
+            <div id="home-button">
+                <a class="background-editor-link" href="/WebSiteSettings/">
+                    <i class="glyphicon glyphicon-home"></i>
+                </a>
+            </div>
             <div id="editor">
                 <div id="editor-container">
                     <div class="modal-header">
@@ -635,10 +640,12 @@
                     imageUrl = imageUrl.slice(4, imageUrl.length);
 
                     bg_img = imageUrl;
+                   
                 }
                 else {
-                    bg_img = $("." + section + "-section .image-uploaded").css("background-image").replace(/.*Areas/,"/Areas").slice(0,-1);
+                    bg_img = $("." + section + "-section .image-uploaded").css("background-image").replace(/.*Areas/,"/Areas").slice(0,-2);
                 }
+               
                 changeBackgroundImageStyle(bg_img,section);
 
                 $("." + section + "-section .section-body-image .thumbnail").css("opacity","");

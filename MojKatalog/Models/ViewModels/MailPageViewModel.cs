@@ -10,6 +10,7 @@ namespace MojKatalog.Models.ViewModels
         public IEnumerable<Poraki> IsprateniPoraki { get; set; }
         public IEnumerable<Poraki> IzbrishaniPoraki { get; set; }
         public IEnumerable<Poraki> SocuvaniPoraki { get; set; }
+        public IEnumerable<Poraki> PrimeniPoraki { get; set; }
 
         public int IsprateniPorakiCount
         {
@@ -32,6 +33,14 @@ namespace MojKatalog.Models.ViewModels
             get
             {
                 return (SocuvaniPoraki == null) ? 0 : SocuvaniPoraki.Count();
+            }
+        }
+
+        public int PrimeniPorakiCount
+        {
+            get
+            {
+                return (PrimeniPoraki == null) ? 0 : PrimeniPoraki.Count();
             }
         }
     }

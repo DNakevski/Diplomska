@@ -109,6 +109,14 @@ namespace MojKatalog.Controllers
         }
 
         [HttpGet]
+        public PartialViewResult GetPrimeniPartial()
+        {
+            var user = (LoggedInEntity)Session["LoggedInEntity"];
+            var poraki = _poraki.GetPrimeniPoraki(user.Id, user.UserType);
+            return PartialView("Partials/_PrimeniPorakiPartial", poraki);
+        }
+
+        [HttpGet]
         public PartialViewResult GetIzbrishaniPartial()
         {
             var user = (LoggedInEntity)Session["LoggedInEntity"];
@@ -123,13 +131,24 @@ namespace MojKatalog.Controllers
             var poraki = _poraki.GetSocuvaniPoraki(user.Id, user.UserType);
             return PartialView("Partials/_SocuvaniPorakiPartial", poraki);
         }
-
+        
         [HttpPost]
         public JsonResult DeleteIsprateni(List<int> porakiIds)
         {
             string status = "Fail";
 
             if (_poraki.DeleteIsprateniPoraki(porakiIds))
+                status = "Success";
+
+            return Json(new { Status = status });
+        }
+
+        [HttpPost]
+        public JsonResult DeletePrimeni(List<int> porakiIds)
+        {
+            string status = "Fail";
+
+            if (_poraki.DeletePrimeniPoraki(porakiIds))
                 status = "Success";
 
             return Json(new { Status = status });

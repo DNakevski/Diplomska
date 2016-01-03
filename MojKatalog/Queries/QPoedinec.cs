@@ -76,6 +76,12 @@ namespace MojKatalog.Queries
 
             return MappingHelper.LoggedInEntityFromKlient(poedinec);
         }
+
+        public Poedinci GetPoedinec(int id)
+        {
+            return _db.Poedinci.Find(id);
+        }
+
         #endregion
     }
 }
