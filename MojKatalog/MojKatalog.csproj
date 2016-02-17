@@ -383,6 +383,7 @@
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Images\CompanyImages\Logos\2-1221.jpg" />
     <Content Include="Images\UserImages\Cover_0.jpg" />
     <Content Include="Images\UserImages\NoImage.jpg" />
     <Content Include="Models\Entities.Context.tt">
@@ -661,14 +662,17 @@
     <Content Include="Views\Kompanija\Index.cshtml" />
     <Content Include="Views\Poedinec\Index.cshtml" />
     <Content Include="Views\Poedinec\IzmeniPoedinecInfo.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Account\ChangePassword.cshtml" />
+=======
+    <Content Include="Views\Kompanija\IzmeniKompanijaInfo.cshtml" />
+>>>>>>> upstream/master
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Portfolio\Models\" />
     <Folder Include="Areas\Portfolio\UploadedFiles\" />
     <Folder Include="Areas\Portfolio\Views\Shared\" />
-    <Folder Include="Images\CompanyImages\Logos\" />
     <Folder Include="UploadedFiles\" />
   </ItemGroup>
   <ItemGroup>

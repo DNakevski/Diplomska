@@ -605,5 +605,16 @@ input[readonly]
     padding-top: 12px;
 }
 /*END Profile*/
+/*BEGIN Image Upload*/
+.image-uploaded {
+    height: 189px;
+}
+.fill-screen
+{
+    background-size: cover !important;
+    background-repeat:no-repeat;
+    background-position:50% 50%;
+}
+/*END Image Upload*/
 
 

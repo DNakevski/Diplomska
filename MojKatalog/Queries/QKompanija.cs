@@ -95,6 +95,7 @@ namespace MojKatalog.Queries
             return _db.Kompanii.Find(id);
         }
 
+<<<<<<< HEAD
 
         public bool ChangePassword(int kompanijaId, string newPassword)
         {
@@ -116,6 +117,18 @@ namespace MojKatalog.Queries
                 return false;
             }
 
+=======
+        public void SetKompanija(Kompanii newKompanija)
+        {
+            Kompanii kompanija = _db.Kompanii.Find(newKompanija.IdKompanii);
+            kompanija.NazivNaKompanija = newKompanija.NazivNaKompanija;
+            kompanija.KorisnickoIme = newKompanija.KorisnickoIme;
+            kompanija.Lozinka = newKompanija.Lozinka;
+            kompanija.OpisNaKompanija = newKompanija.OpisNaKompanija;
+            kompanija.Mail = newKompanija.Mail;
+
+            _db.SaveChanges();
+>>>>>>> upstream/master
         }
     }
 }

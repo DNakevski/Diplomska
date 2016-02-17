@@ -1,0 +1,171 @@
+﻿@model MojKatalog.Models.Kompanii
+
+@{
+    ViewBag.Title = "IzmeniKompanijaInfo";
+}
+
+<h3 class="page-title">Податоци за компанијата <small>преглед и измена на податоците</small></h3>
+<div class="well bs-component">
+    @using (Html.BeginForm("IzmeniKompanijaInfo", "Kompanija", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            @Html.HiddenFor(model => model.IdKompanii)
+            <legend></legend>
+            <div class="form-group">
+
+                @Html.LabelFor(m => m.NazivNaKompanija, new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8">
+                    @Html.TextBoxFor(m => m.NazivNaKompanija, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.NazivNaKompanija)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.KorisnickoIme, new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8">
+                    @Html.TextBoxFor(m => m.KorisnickoIme, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.KorisnickoIme)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Lozinka, new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8">
+                    @Html.TextBoxFor(m => m.Lozinka, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Lozinka)
+                </div>
+            </div>
+
+        
+            <div class="form-group">
+                @Html.LabelFor(m => m.OpisNaKompanija, new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8">
+                    @Html.TextAreaFor(m => m.OpisNaKompanija, new { @class = "form-control", style = "height:100px;" })
+                    @Html.ValidationMessageFor(m => m.OpisNaKompanija)
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Mail, new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8">
+                    @Html.TextBoxFor(m => m.Mail, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Mail)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Telefon, new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8">
+                    @Html.TextBoxFor(m => m.Telefon, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Telefon)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.LogoNaKompanija, new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8">
+                    <div class="thumbnail">
+                        <div class="image-uploaded Image1 fill-screen" style="background-image: url(@(Model.LogoNaKompanija));"></div>
+                        <div class="caption">
+                            @*Begin Input File*@
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <span class="btn btn-primary btn-file">
+                                                Browse…
+                                                <input class="FileUpload1" type="file">
+                                            </span>
+                                        </span>
+                                        <input type="text" class="form-control image-input" readonly="" accept=".jpg,.png,.gif">
+                                    </div>
+                                </div>
+                            </form>
+                            @*End Input File*@
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+            
+
+            <div class="form-group">
+                <div class="col-lg-8 col-lg-offset-4">
+                    <button type="submit" class="btn btn-primary">Сочувај</button>
+                    <button type="button" class="btn btn-default">Откажи</button>
+                </div>
+            </div>
+        </fieldset>
+
+    }
+</div>
+<script src="~/Areas/Portfolio/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Areas/Portfolio/Scripts/jquery-ui.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".btn-default").click(function () {
+            var url = "/Kompanija/Index/";
+            window.location.href = url;
+        });
+        //FileUpload
+        $('.FileUpload1').change(function () {
+            $('.Image1').hide();
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('.Image1').show();
+                $('.Image1').css('background-image', 'url(' + e.target.result + ')');
+
+            }
+            reader.readAsDataURL($(this)[0].files[0]);
+        });
+
+        
+    });
+    $(document).on('change', '.btn-file :file', function () {
+        var input = $(this),
+            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [numFiles, label]);
+    });
+
+
+
+    $(document).ready(function () {
+        $('.btn-file :file').on('fileselect', function (event, numFiles, label) {
+
+            var input = $(this).parents('.input-group').find(':text'),
+                log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+            if (input.length) {
+                input.val(log);
+            } else {
+                if (log) alert(log);
+            }
+
+        });
+    });
+    /*
+    
+      var bg_img = "";
+                var imageContent = $("." + section + "-section .image-input").val();
+                if(imageContent.length > 0) {
+
+                    var imageUrl = $("." + section + "-section .image-uploaded").css("background-image").slice(0, -1);
+                    imageUrl = imageUrl.slice(4, imageUrl.length);
+
+                    bg_img = imageUrl;
+                   
+                }
+                else {
+                    bg_img = $("." + section + "-section .image-uploaded").css("background-image").replace(/.*Areas/,"/Areas").slice(0,-2);
+                }
+    */
+</script>
+
+
+
+

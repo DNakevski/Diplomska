@@ -11,18 +11,27 @@ namespace MojKatalog.Controllers
 {
     public class KompanijaController : Controller
     {
-        QKompanija _qpoedinec = new QKompanija();
+        QKompanija _qkompanija = new QKompanija();
         public ActionResult Index()
         {
             var user = (LoggedInEntity)Session["LoggedInEntity"];
-            Kompanii model = _qpoedinec.GetKompanija(user.Id);
+            Kompanii model = _qkompanija.GetKompanija(user.Id);
             return View(model);
         }
-        public ActionResult IzmeniPoedinecInfo()
+        public ActionResult IzmeniKompanijaInfo()
         {
             var user = (LoggedInEntity)Session["LoggedInEntity"];
-            Kompanii model = _qpoedinec.GetKompanija(user.Id);
+            Kompanii model = _qkompanija.GetKompanija(user.Id);
             return View(model);
         }
+
+        [HttpPost]
+        public ActionResult IzmeniKompanijaInfo(Kompanii newKompanija)
+        {
+          
+            _qkompanija.SetKompanija(newKompanija);
+            return View(newKompanija);
+        }
+
     }
 }
