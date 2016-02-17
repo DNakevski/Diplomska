@@ -76,11 +76,34 @@ namespace MojKatalog.Queries
 
             return MappingHelper.LoggedInEntityFromKlient(poedinec);
         }
-
+        
         public Poedinci GetPoedinec(int id)
         {
             return _db.Poedinci.Find(id);
         }
+
+        public bool ChangePassword(int userId, string newPassword)
+        {
+            var user = _db.Poedinci.Find(userId);
+            if(user == null)
+            {
+                throw new Exception("Корисникот не постои");
+            }
+
+            user.Lozinka = newPassword;
+
+            try
+            {
+                _db.SaveChanges();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+            
+        }
+
 
         #endregion
     }

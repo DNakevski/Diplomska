@@ -28,7 +28,7 @@
                             <div class="form-group">
                                 <label class="col-lg-4 control-label"> Корисничко име</label>
                                 <div class="col-lg-8">
-                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Корисничко име", Value="ime1" })
+                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Корисничко име" })
                                 </div>
 
                             </div>
@@ -36,7 +36,7 @@
                             <div class="form-group">
                                 <label class="col-lg-4 control-label"> Лозинка</label>
                                 <div class="col-lg-8">
-                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Лозинка", Value="lozinka1" })
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Лозинка"})
                                 </div>
 
                             </div>
@@ -47,8 +47,12 @@
                                 </div>
                             </div>
                         </fieldset>
+                        <br />
                         <p>
-                            @Html.ActionLink("Регистрирајте се", "Register") <span class="help-block"> доколку немате кориснички профил</span>
+                            @Html.ActionLink("Регистрирајте се", "Register")
+                        </p>
+                        <p>
+                            @Html.ActionLink("Промени лозинка", "ChangePassword", new { userType = (int)LogedUserTypeEnum.Poedinec })
                         </p>
                     }
                 </div>
@@ -88,8 +92,12 @@
                                 </div>
                             </div>
                         </fieldset>
+                        <br />
                         <p>
-                            @Html.ActionLink("Регистрирајте се", "RegisterKompanija") <span class="help-block"> доколку немате кориснички профил</span>
+                            @Html.ActionLink("Регистрирајте се", "RegisterKompanija")
+                        </p>
+                        <p>
+                            @Html.ActionLink("Промени лозинка", "ChangePassword", new { userType = (int)LogedUserTypeEnum.Kompanija })
                         </p>
                     }
                 </div>

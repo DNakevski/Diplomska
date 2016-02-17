@@ -662,7 +662,11 @@
     <Content Include="Views\Kompanija\Index.cshtml" />
     <Content Include="Views\Poedinec\Index.cshtml" />
     <Content Include="Views\Poedinec\IzmeniPoedinecInfo.cshtml" />
+<<<<<<< HEAD
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+=======
     <Content Include="Views\Kompanija\IzmeniKompanijaInfo.cshtml" />
+>>>>>>> upstream/master
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

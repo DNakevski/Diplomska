@@ -41,18 +41,18 @@ namespace MojKatalog.Models
     {
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Current password")]
+        [Display(Name = "Стара лозинка")]
         public string OldPassword { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "Лозинката треба да има минимум {2} карактери.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "New password")]
+        [Display(Name = "Нова лозинка")]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [Display(Name = "Потврди нова лозинка")]
+        [Compare("NewPassword", ErrorMessage = "Лозинката не се совпаѓа.")]
         public string ConfirmPassword { get; set; }
     }
 
@@ -135,6 +135,32 @@ namespace MojKatalog.Models
 
         [Display(Name = "Телефон")]
         public string Telefon { get; set; }
+    }
+
+    public class ChangePasswordModel
+    {
+        public LogedUserTypeEnum UserType { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Корисничко име")]
+        public string UserName { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Стара лозинка")]
+        public string OldPassword { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "Лозинката треба да има минимум {2} карактери.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Нова лозинка")]
+        public string NewPassword { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Потврди нова лозинка")]
+        [Compare("NewPassword", ErrorMessage = "Лозинката не се совпаѓа.")]
+        public string ConfirmPassword { get; set; }
     }
 
     public class ExternalLogin
