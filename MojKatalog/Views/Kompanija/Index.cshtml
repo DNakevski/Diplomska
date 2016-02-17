@@ -1,7 +1,72 @@
-﻿
+﻿@model MojKatalog.Models.Kompanii
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Kompanija Info</h2>
+<h3 class="page-title">Податоци за компанијата <small>преглед и измена на податоците</small></h3>
+<div class="well bs-component">
+    @using (Html.BeginForm("IzmeniKompanijaInfo", "Kompanija", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <legend></legend>
+            <div class="form-group">
+                @Html.LabelFor(m => m.NazivNaKompanija, new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8 control-text">
+                    <text> @Model.NazivNaKompanija </text>
+                </div>
+            </div>
+
+         
+            <div class="form-group">
+                @Html.LabelFor(m => m.KorisnickoIme, new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8 control-text">
+                    <text>@Model.KorisnickoIme</text>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Lozinka, new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8 control-text">
+                    <text>@Model.Lozinka</text>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.OpisNaKompanija, new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8 control-text">
+                    <text>@Model.OpisNaKompanija</text>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Mail, new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8 control-text">
+                    <text>@Model.Mail</text>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Telefon, new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8 control-text">
+                    <text>@Model.Telefon</text>
+                </div>
+            </div>
+            
+
+
+
+            <div class="form-group">
+                <div class="col-lg-8 col-lg-offset-4">
+                    <button type="submit" class="btn btn-primary">Измени</button>
+                </div>
+            </div>
+        </fieldset>
+
+    }
+</div>
+
+
+
 

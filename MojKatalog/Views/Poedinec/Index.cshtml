@@ -3,77 +3,71 @@
     ViewBag.Title = "Index";
 }
 
+<h3 class="page-title">Податоци за корисникот <small>преглед и измена на податоците</small></h3>
 <div class="well bs-component">
-    @using (Html.BeginForm("RegisterKompanija", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
+    @using (Html.BeginForm("IzmeniPoedinecInfo", "Poedinec", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
             {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true)
 
         <fieldset>
-            <legend>Регистрација на поединец</legend>
+            <legend></legend>
             <div class="form-group">
                 @Html.LabelFor(m => m.Ime, new { @class = "control-label col-lg-4" })
-                <div class="col-lg-8">
-                    @Html.TextBoxFor(m => m.Ime, new { @class = "form-control", placeholder = "Име" })
+                <div class="col-lg-8 control-text">
+                    <text> @Model.Ime </text>
                 </div>
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(m => m.Prezime, new { @class = "control-label col-lg-4" })
-                <div class="col-lg-8">
-                    @Html.TextBoxFor(m => m.Prezime, new { @class = "form-control", placeholder = "Презиме" })
+                <div class="col-lg-8 control-text">
+                    <text>@Model.Prezime</text>
                 </div>
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(m => m.KorisnickoIme, new { @class = "control-label col-lg-4" })
-                <div class="col-lg-8">
-                    @Html.TextBoxFor(m => m.KorisnickoIme, new { @class = "form-control", placeholder = "Корисничко име" })
+                <div class="col-lg-8 control-text">
+                    <text>@Model.KorisnickoIme</text>
                 </div>
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(m => m.Lozinka, new { @class = "control-label col-lg-4" })
-                <div class="col-lg-8">
-                    @Html.PasswordFor(m => m.Lozinka, new { @class = "form-control", placeholder = "Лозинка" })
+                <div class="col-lg-8 control-text">
+                    <text>@Model.Lozinka</text>
                 </div>
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(m => m.Mail, new { @class = "control-label col-lg-4" })
-                <div class="col-lg-8">
-                    @Html.PasswordFor(m => m.Mail, new { @class = "form-control", placeholder = "Mail" })
+                <div class="col-lg-8 control-text">
+                    <text>@Model.Mail</text>
                 </div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(m => m.Telefon, new { @class = "control-label col-lg-4" })
-                <div class="col-lg-8">
-                    @Html.PasswordFor(m => m.Telefon, new { @class = "form-control", placeholder = "Телефон" })
+                <div class="col-lg-8 control-text">
+                    <text>@Model.Telefon</text>
                 </div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(m => m.OpisNaPoedinec, new { @class = "control-label col-lg-4" })
-                <div class="col-lg-8">
-                    @Html.PasswordFor(m => m.OpisNaPoedinec, new { @class = "form-control", placeholder = "Опис на поединец" })
+                <div class="col-lg-8 control-text">
+                    <text>@Model.OpisNaPoedinec</text>
                 </div>
             </div>
 
-            <div class="form-group">
-                @Html.LabelFor(m => m.Telefon, new { @class = "control-label col-lg-4" })
-                <div class="col-lg-8">
-                    @Html.TextBoxFor(m => m.Telefon, new { @class = "form-control", placeholder = "Телефон" })
-                </div>
-            </div>
+         
 
             <div class="form-group">
                 <div class="col-lg-8 col-lg-offset-4">
-                    <button type="submit" class="btn btn-primary">Регистрирај Се</button>
+                    <button type="submit" class="btn btn-primary">Измени</button>
                 </div>
             </div>
         </fieldset>
-                <p>
-                    @Html.ActionLink("Најави се", "Login")
-                </p>
+               
     }
 </div>
 

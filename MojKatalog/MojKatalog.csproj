@@ -659,6 +659,7 @@
     <Content Include="Views\Mail\Partials\_PrimeniPorakiPartial.cshtml" />
     <Content Include="Views\Kompanija\Index.cshtml" />
     <Content Include="Views\Poedinec\Index.cshtml" />
+    <Content Include="Views\Poedinec\IzmeniPoedinecInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

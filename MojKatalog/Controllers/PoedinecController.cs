@@ -19,5 +19,11 @@ namespace MojKatalog.Controllers
             Poedinci model = _qpoedinec.GetPoedinec(user.Id);
             return View(model);
         }
+        public ActionResult IzmeniPoedinecInfo()
+        {
+            var user = (LoggedInEntity)Session["LoggedInEntity"];
+            Poedinci model = _qpoedinec.GetPoedinec(user.Id);
+            return View(model);
+        }
     }
 }

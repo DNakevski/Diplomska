@@ -89,5 +89,10 @@ namespace MojKatalog.Queries
             return MappingHelper.LoggedInEntityFromKompanija(kompanija);
         }
         #endregion
+
+        public Kompanii GetKompanija(int id)
+        {
+            return _db.Kompanii.Find(id);
+        }
     }
 }

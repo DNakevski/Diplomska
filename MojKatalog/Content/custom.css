@@ -600,4 +600,10 @@ input[readonly]
 }
 /*END Error Messages*/
 
+/*BEGIN Profile*/
+.control-text{
+    padding-top: 12px;
+}
+/*END Profile*/
+
 

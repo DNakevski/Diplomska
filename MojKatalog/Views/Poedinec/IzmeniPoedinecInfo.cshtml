@@ -1,0 +1,96 @@
+﻿@model MojKatalog.Models.Poedinci
+
+@{
+    ViewBag.Title = "IzmeniPoedinecInfo";
+}
+
+<h3 class="page-title">Податоци за корисникот <small>преглед и измена на податоците</small></h3>
+<div class="well bs-component">
+    @using (Html.BeginForm("IzmeniPoedinecInfo", "Poedinec", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <legend></legend>
+            <div class="form-group">
+                
+                @Html.LabelFor(m => m.Ime, new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8">
+                    @Html.TextBoxFor(m => m.Ime, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Ime)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Prezime, new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8">
+                    @Html.TextBoxFor(m => m.Prezime, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Prezime)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.KorisnickoIme, new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8">
+                    @Html.TextBoxFor(m => m.KorisnickoIme, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.KorisnickoIme)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Lozinka, new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8">
+                    @Html.TextBoxFor(m => m.Lozinka, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Lozinka)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Mail, new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8">
+                    @Html.TextBoxFor(m => m.Mail, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Mail)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Telefon, new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8">
+                    @Html.TextBoxFor(m => m.Telefon, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Telefon)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.OpisNaPoedinec, new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8">
+                    @Html.TextAreaFor(m => m.OpisNaPoedinec, new { @class = "form-control", style="height:100px;"})
+                    @Html.ValidationMessageFor(m => m.OpisNaPoedinec)
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <div class="col-lg-8 col-lg-offset-4">
+                    <button type="submit" class="btn btn-primary">Сочувај</button>
+                    <button type="button" class="btn btn-default">Откажи</button>
+                </div>
+            </div>
+        </fieldset>
+
+    }
+</div>
+<script src="~/Areas/Portfolio/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Areas/Portfolio/Scripts/jquery-ui.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".btn-default").click(function () {
+            var url = "/Poedinec/Index/";
+            window.location.href = url;
+        });
+    });
+</script>
+
+
+
+
