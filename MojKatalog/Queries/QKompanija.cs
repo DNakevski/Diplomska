@@ -94,5 +94,17 @@ namespace MojKatalog.Queries
         {
             return _db.Kompanii.Find(id);
         }
+
+        public void SetKompanija(Kompanii newKompanija)
+        {
+            Kompanii kompanija = _db.Kompanii.Find(newKompanija.IdKompanii);
+            kompanija.NazivNaKompanija = newKompanija.NazivNaKompanija;
+            kompanija.KorisnickoIme = newKompanija.KorisnickoIme;
+            kompanija.Lozinka = newKompanija.Lozinka;
+            kompanija.OpisNaKompanija = newKompanija.OpisNaKompanija;
+            kompanija.Mail = newKompanija.Mail;
+
+            _db.SaveChanges();
+        }
     }
 }

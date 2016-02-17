@@ -5,11 +5,9 @@
 
 <h3 class="page-title">Податоци за компанијата <small>преглед и измена на податоците</small></h3>
 <div class="well bs-component">
-    @using (Html.BeginForm("IzmeniKompanijaInfo", "Kompanija", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
+    @using (Html.BeginForm("IzmeniKompanijaInfo", "Kompanija", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Get, new { @class = "form-horizontal" }))
             {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true)
-
+      
         <fieldset>
             <legend></legend>
             <div class="form-group">
