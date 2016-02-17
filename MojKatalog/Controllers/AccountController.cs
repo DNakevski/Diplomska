@@ -12,6 +12,7 @@ using MojKatalog.Filters;
 using MojKatalog.Models;
 using MojKatalog.Queries;
 using MojKatalog.Helpers.Exceptions;
+using MojKatalog.Helpers.Enumerations;
 
 namespace MojKatalog.Controllers
 {
@@ -24,8 +25,11 @@ namespace MojKatalog.Controllers
 
 
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public ActionResult Login(string returnUrl, ManageMessageId? message)
         {
+            if (message.HasValue)
+                ViewBag.StatusMessage = message.Value == ManageMessageId.ChangePasswordSuccess ? "Лозинката е успешно променета" : "";
+
             Session.Abandon();
             ViewBag.ReturnUrl = returnUrl;
             return View();
@@ -45,12 +49,12 @@ namespace MojKatalog.Controllers
                     _qPoedinec.GetLogiranPoedinec(model.UserName, model.Password) :
                     _qKompanija.GetLogiranaKompanija(model.UserName, model.Password);
 
-                if(user != null)
+                if (user != null)
                 {
                     Session["LoggedInEntity"] = user;
                     return RedirectToLocal(returnUrl);
                 }
-                    
+
             }
 
             // If we got this far, something failed, redisplay form
@@ -93,17 +97,17 @@ namespace MojKatalog.Controllers
 
                     return RedirectToAction("Login", "Account");
                 }
-                catch(ExistingEmailException ex)
+                catch (ExistingEmailException ex)
                 {
                     ModelState.AddModelError("", ex.Message);
                 }
-                catch(ExistingUsernameException ex)
+                catch (ExistingUsernameException ex)
                 {
                     ModelState.AddModelError("", ex.Message);
                 }
                 catch (Exception ex)
                 {
-                    ModelState.AddModelError("","Профилот не е успешно креиран.");
+                    ModelState.AddModelError("", "Профилот не е успешно креиран.");
                 }
             }
 
@@ -122,7 +126,7 @@ namespace MojKatalog.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult RegisterKompanija(RegisterKompanijaModel model, HttpPostedFileBase file)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
@@ -179,7 +183,7 @@ namespace MojKatalog.Controllers
 
         //
         // GET: /Account/Manage
-
+        [AllowAnonymous]
         public ActionResult Manage(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
@@ -394,6 +398,49 @@ namespace MojKatalog.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+        }
+        [AllowAnonymous]
+        public ActionResult ChangePassword(LogedUserTypeEnum userType = 0)
+        {
+            //validate the userType parameter
+            if ((int)userType > 1)
+                return RedirectToAction("Login");
+
+            var model = new ChangePasswordModel();
+            model.UserType = userType;
+            return View(model);
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult ChangePassword(ChangePasswordModel model)
+        {
+            if(ModelState.IsValid)
+            {
+                var user = (model.UserType == Helpers.Enumerations.LogedUserTypeEnum.Poedinec) ?
+                    _qPoedinec.GetLogiranPoedinec(model.UserName, model.OldPassword) :
+                    _qKompanija.GetLogiranaKompanija(model.UserName, model.OldPassword);
+
+                if(user != null)
+                {
+                    Func<int, string, bool> changePassFunc = null;
+                    if (model.UserType == Helpers.Enumerations.LogedUserTypeEnum.Poedinec)
+                        changePassFunc = _qPoedinec.ChangePassword;
+                    else if (model.UserType == Helpers.Enumerations.LogedUserTypeEnum.Kompanija)
+                        changePassFunc = _qKompanija.ChangePassword;
+
+                    if (changePassFunc != null && changePassFunc(user.Id, model.NewPassword))
+                        return RedirectToAction("Login", new { message = ManageMessageId.ChangePasswordSuccess });
+                    else
+                        ModelState.AddModelError("", "Лозинката не е успешно променета");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Корисничкото Име или Лозинката не се совпаѓаат");
+                }
+                
+            }
+            //If we got this far, something failed, redisplay form
+            return View(model);
         }
 
         public enum ManageMessageId

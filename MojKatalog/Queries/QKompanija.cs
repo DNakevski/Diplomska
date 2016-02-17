@@ -94,5 +94,28 @@ namespace MojKatalog.Queries
         {
             return _db.Kompanii.Find(id);
         }
+
+
+        public bool ChangePassword(int kompanijaId, string newPassword)
+        {
+            var kompanija = _db.Kompanii.Find(kompanijaId);
+            if (kompanija == null)
+            {
+                throw new Exception("Корисникот не постои");
+            }
+
+            kompanija.Lozinka = newPassword;
+
+            try
+            {
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+        }
     }
 }

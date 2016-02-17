@@ -589,6 +589,7 @@
     <Content Include="Scripts\Proizvod\IndexJs.js" />
     <Content Include="SqlScripts\2015-08-31_RecreateTablesScript.sql" />
     <Content Include="SqlScripts\2015-09-19_AddOpisNapoedinecFieldInPoedinci.sql" />
+    <Content Include="SqlScripts\2016-02-17_RecreateTablesScript.sql" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -660,6 +661,7 @@
     <Content Include="Views\Kompanija\Index.cshtml" />
     <Content Include="Views\Poedinec\Index.cshtml" />
     <Content Include="Views\Poedinec\IzmeniPoedinecInfo.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
