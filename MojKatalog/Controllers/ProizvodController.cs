@@ -69,9 +69,7 @@ namespace MojKatalog.Controllers
             Proizvodi proizvod = model.VratiProizvod(idProizvod);
             return View(proizvod);
         }
-        public void IzbrisiProizvod()
-        {
-        }
+       
         [HttpGet]
         public ActionResult IzmeniProizvod(int idProizvod, int idKategorija)
         {
@@ -108,6 +106,13 @@ namespace MojKatalog.Controllers
             }
             model.IzmeniProizvod(proizvod);
             return RedirectToAction("PregledajProizvod", new { idProizvod = proizvod.IdProizvodi, idKategorija= proizvod.IdKategorii});
+        }
+
+        [HttpGet]
+        public ActionResult IzbrisiProizvod(int idProizvod, int idKategorija)
+        {
+            model.IzbrisiProizvod(idProizvod);
+            return RedirectToAction("PregledajProizvodi", new { id = idKategorija });
         }
     }
 }

@@ -85,5 +85,13 @@ namespace MojKatalog.Queries
                 Specifikacija = proizvod.Specifikacija
             };
         }
+        public void IzbrisiProizvod(int id)
+        {
+            Proizvodi proizvod = _db.Proizvodi.Find(id);
+            _db.Proizvodi.Remove(proizvod);
+            _db.SaveChanges();
+        }
+
+
     }
 }

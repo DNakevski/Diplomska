@@ -55,7 +55,7 @@
                                 <a href="@Url.Action("IzmeniProizvod", new { idProizvod = proizvod.IdProizvodi, idKategorija = Model.IdKategorii })" title="Измени">
                                     <span class="glyphicon glyphicon-edit"></span>
                                 </a>&nbsp 
-                                <a href="@Url.Action("IzbrisiProizvod", new { id = proizvod.IdProizvodi })" onClick="if(!confirm('Дали сте сигурни?')) return false;" title="Избриши">
+                                <a href="@Url.Action("IzbrisiProizvod", new { idProizvod = proizvod.IdProizvodi, idKategorija = Model.IdKategorii })" onClick="if(!confirm('Дали сте сигурни?')) return false;" title="Избриши">
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </a>&nbsp 
                                 <a href="@Url.Action("PregledajProizvod", new { idProizvod = proizvod.IdProizvodi, idKategorija = Model.IdKategorii })" title="Прегледај">
