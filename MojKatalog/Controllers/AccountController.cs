@@ -52,7 +52,7 @@ namespace MojKatalog.Controllers
                 if (user != null)
                 {
                     Session["LoggedInEntity"] = user;
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Index", "Katalog");
                 }
 
             }

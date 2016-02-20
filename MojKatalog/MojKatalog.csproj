@@ -265,6 +265,7 @@
     </Compile>
     <Compile Include="Models\ViewModels\LoggedInEntity.cs" />
     <Compile Include="Models\ViewModels\KatalogViewModel.cs" />
+    <Compile Include="Models\ViewModels\PublishedWebSiteViewModel.cs" />
     <Compile Include="Models\ViewModels\TreeViewModel.cs" />
     <Compile Include="Models\ViewModels\UploadImage.cs" />
     <Compile Include="Models\ViewModels\KataloziWebSiteViewModel.cs" />
@@ -433,7 +434,6 @@
     <Content Include="Plugins\jstree\src\themes\responsive.less" />
     <Content Include="Plugins\jstree\test\UNDER_CONTRUCTION" />
     <Content Include="Areas\Portfolio\Views\web.config" />
-    <Content Include="Areas\Portfolio\Views\Portfolio\Index.cshtml" />
     <Content Include="Areas\Portfolio\Content\Fonts\PT Sans\PTC55F.ttf" />
     <Content Include="Areas\Portfolio\Content\Fonts\PT Sans\PTC75F.ttf" />
     <Content Include="Areas\Portfolio\Content\Fonts\PT Sans\PTN57F.ttf" />
@@ -452,7 +452,6 @@
     <Content Include="Areas\Portfolio\Content\Fonts\Open Sans\OpenSans-Regular.ttf" />
     <Content Include="Areas\Portfolio\Content\Fonts\Open Sans\OpenSans-Semibold.ttf" />
     <Content Include="Areas\Portfolio\Content\Fonts\Open Sans\OpenSans-SemiboldItalic.ttf" />
-    <Content Include="Areas\Portfolio\Views\Portfolio\Test.cshtml" />
     <Content Include="Areas\Portfolio\Content\Fonts\Raleway\Raleway-Black-Italic.ttf" />
     <Content Include="Areas\Portfolio\Content\Fonts\Raleway\Raleway-Black.ttf" />
     <Content Include="Areas\Portfolio\Content\Fonts\Raleway\Raleway-Bold-Italic.ttf" />
@@ -471,8 +470,6 @@
     <Content Include="Areas\Portfolio\Content\Fonts\Raleway\Raleway-SemiBold.ttf" />
     <Content Include="Areas\Portfolio\Content\Fonts\Raleway\Raleway-Thin-Italic.ttf" />
     <Content Include="Areas\Portfolio\Content\Fonts\Raleway\Raleway-Thin.ttf" />
-    <Content Include="Areas\Portfolio\Views\Portfolio\DodadiPortfolio.cshtml" />
-    <Content Include="Areas\Portfolio\Views\Portfolio\IzmeniPortfolio.cshtml" />
     <EntityDeploy Include="Models\Entities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Entities.Designer.cs</LastGenOutput>
@@ -480,6 +477,10 @@
     <Content Include="Models\Entities.edmx.diagram">
       <DependentUpon>Entities.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\Portfolio\Views\Portfolio\DodadiPortfolio.cshtml" />
+    <Content Include="Areas\Portfolio\Views\Portfolio\Index.cshtml" />
+    <Content Include="Areas\Portfolio\Views\Portfolio\IzmeniPortfolio.cshtml" />
+    <Content Include="Areas\Portfolio\Views\Portfolio\Test.cshtml" />
     <Content Include="Areas\Portfolio\Views\Portfolio\_DodadiGalerija.cshtml" />
     <Content Include="Areas\Portfolio\Views\Portfolio\_IzlistajGalerija.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
@@ -664,6 +665,8 @@
     <Content Include="Views\Poedinec\IzmeniPoedinecInfo.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Kompanija\IzmeniKompanijaInfo.cshtml" />
+    <Content Include="Views\Shared\_HomeLayout.cshtml" />
+    <Content Include="Views\Home\PrikaziSajt.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

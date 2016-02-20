@@ -81,7 +81,7 @@ namespace MojKatalog.Areas.Portfolio.Controllers
         public ActionResult IzmeniPortfolio(int id)
         {
             var user = (LoggedInEntity)Session["LoggedInEntity"];
-            WSettingsKatalogKorisnikViewModel portfolioSettings = model.IzmeniPortfolioGet(id, user.Id, user.UserType);
+            WSettingsKatalogKorisnikViewModel portfolioSettings = model.IzmeniPortfolioGet(id);
             //Editiranje na vrednosti vo tabela WebSiteSettings
             return View(portfolioSettings);
         }
