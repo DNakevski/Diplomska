@@ -92,6 +92,24 @@ namespace MojKatalog.Queries
             }
             
         }
+
+        public List<PublishedWebSiteViewModel> GetAllPublishedWebSites()
+        {
+            var models = _db.Katalozi.Include("Kompanii").Include("Poedinci")
+                .Select(x => new PublishedWebSiteViewModel
+                {
+                    WebSiteId = x.IdKatalozi,
+                    DataNaKreiranje = x.DataNaKreiranje,
+                    ImageUrl = "",
+                    Naziv = x.NazivNaKatalog,
+                    Opis = x.OpisNaKatalog,
+                    Sopstvenik = (x.Kompanii != null) ? x.Kompanii.NazivNaKompanija : x.Poedinci.Ime + " " + x.Poedinci.Prezime 
+                })
+                .ToList();
+
+            return models;
+        }
+
         private string ConvertStringListToString(List<string> lista)
         {
             string resultString = "";

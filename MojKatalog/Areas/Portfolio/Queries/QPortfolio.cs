@@ -53,22 +53,14 @@ namespace MojKatalog.Areas.Portfolio.Queries
         {
             return _db.WebSiteSettings.Find(id);
         }
-        public WSettingsKatalogKorisnikViewModel IzmeniPortfolioGet(int idKatalog, int idKorisnik, LogedUserTypeEnum userType)
+        public WSettingsKatalogKorisnikViewModel IzmeniPortfolioGet(int idKatalog)
         {
             WSettingsKatalogKorisnikViewModel vmodel = new WSettingsKatalogKorisnikViewModel();
             vmodel.Katalog = _db.Katalozi.Find(idKatalog);
             vmodel.Katalog.Kategorii = vmodel.Katalog.Kategorii.Where(x => x.RoditelId == null).ToList();
-            vmodel.WSettings = _db.WebSiteSettings.Find(idKatalog);
-            
-            if (userType == Helpers.Enumerations.LogedUserTypeEnum.Poedinec)
-            {
-                vmodel.Poedinec = _db.Poedinci.Find(idKorisnik);
-            }
-            else
-            {
-                vmodel.Kompanija = _db.Kompanii.Find(idKorisnik);
-            }
-           
+            vmodel.WSettings = vmodel.Katalog.WebSiteSettings;
+            vmodel.Poedinec = vmodel.Katalog.Poedinci;
+            vmodel.Kompanija = vmodel.Katalog.Kompanii;
             return vmodel;
         }
         public void IzmeniPortfolioPost(WebSiteSettings newWSettings)

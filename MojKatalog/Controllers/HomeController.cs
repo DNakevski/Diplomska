@@ -1,20 +1,33 @@
-﻿using System;
+﻿using MojKatalog.Areas.Portfolio.Queries;
+using MojKatalog.Queries;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using MojKatalog.Filters;
 
 namespace MojKatalog.Controllers
 {
     public class HomeController : Controller
     {
-        [CustomAuthorize (Roles = "Admin,Poedinec,Kompanija")]
+        private QKatalog _katalogDb;
+        QPortfolio _portfolioDb = new QPortfolio();
+
+        public HomeController()
+        {
+            _katalogDb = new QKatalog();
+        }
+
         public ActionResult Index()
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
+            var model = _katalogDb.GetAllPublishedWebSites();
+            return View(model);
+        }
 
-            return View();
+        public ActionResult PrikaziSajt(int Id)
+        {
+            var model = _portfolioDb.IzmeniPortfolioGet(Id);
+            return View(model);
         }
 
         public ActionResult About()

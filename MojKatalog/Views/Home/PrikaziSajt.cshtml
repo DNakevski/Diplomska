@@ -738,10 +738,15 @@
 
 
         var onLoad=function(){
+            //disable all the buttons that are available only in edit mode
+            $("#home-button").hide();
+            $("#editor-button").hide();
+
+
             var background;
             var defaultBackgroundImage="/Areas/Portfolio/Images/DefaulImage.png";
             var defaultBackgroundColor="darkBlueDarker";
-
+            
             //Font-Family
             $('body').css('font-family', '@(Model.WSettings.FontFamily)'); //website
             $("select").val('@(Model.WSettings.FontFamily)');//editor
