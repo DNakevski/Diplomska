@@ -14,6 +14,10 @@ namespace MojKatalog.Models.ViewModels
         public string NazivNaKatalog { get; set; }
         [DisplayName("Веб Сајт")]
         public string Naziv { get; set; }
+        [DisplayName("Објавен")]
+        public bool Objaven { get; set; }
+        [DisplayName("Датум на објавување")]
+        public DateTime? DatumObjaven { get; set; }
 
     }
 }

@@ -20,8 +20,9 @@ namespace MojKatalog.Controllers
             _model = new QKatalog();
         }
         // GET: WebSiteSettings
-        public ActionResult Index()
+        public ActionResult Index(string status = "")
         {
+            ViewBag.Status = status;
             var user = (LoggedInEntity)Session["LoggedInEntity"];
             return View(modelw.KataloziWebSiteList(user.Id, user.UserType));
         }
@@ -33,9 +34,30 @@ namespace MojKatalog.Controllers
         {
             return RedirectToAction("Izmeni" + tip, tip, new { area = tip, id = id});
         }
-        public ActionResult IzbrisiWebSite(int id, string tip)
+        public ActionResult IzbrisiWebSite(int id)
         {
-            return View();
+            if(modelw.DeleteWebSajt(id))
+                return RedirectToAction("Index", new { status = "deleted" });
+            else
+                return RedirectToAction("Index", new { status = "error" });
+        }
+
+        [HttpPost]
+        public JsonResult PublishSite(int siteId)
+        {
+            string status = "published";
+            if (!modelw.PublishWebSite(siteId))
+                status = "error";
+            return Json(new { status = status });
+        }
+        [HttpPost]
+        public JsonResult UnpublishSite(int siteId)
+        {
+            string status = "unpublished";
+            if (!modelw.UnPublishWebSite(siteId))
+                status = "error";
+
+            return Json(new { status = status });
         }
     }
 }

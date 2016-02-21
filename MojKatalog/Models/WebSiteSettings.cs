@@ -29,6 +29,9 @@ namespace MojKatalog.Models
         public string Naziv { get; set; }
         public string SodrzinaZaNasF { get; set; }
         public string SodrzinaPortfolioF { get; set; }
+        public bool Objaven { get; set; }
+        public Nullable<System.DateTime> DatumObjaven { get; set; }
+        public string CoverUrl { get; set; }
     
         public virtual Katalozi Katalozi { get; set; }
     }

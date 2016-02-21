@@ -43,6 +43,7 @@
     <Property Name="LogoNaKompanija" Type="nvarchar(max)" />
     <Property Name="OpisNaKompanija" Type="nvarchar(max)" />
     <Property Name="Telefon" Type="nvarchar" MaxLength="50" />
+    <Property Name="ProfilnaSlika" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="KompaniiKlienti">
     <Key>
@@ -64,6 +65,7 @@
     <Property Name="Mail" Type="nvarchar" MaxLength="50" />
     <Property Name="Telefon" Type="nvarchar" MaxLength="50" />
     <Property Name="OpisNaPoedinec" Type="nvarchar(max)" />
+    <Property Name="ProfilnaSlika" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="PoedinciKlienti">
     <Key>
@@ -109,16 +111,6 @@
     <Property Name="Dostapnost" Type="bit" />
     <Property Name="IdKategorii" Type="int" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
   <EntityType Name="WebSiteSettings">
     <Key>
       <PropertyRef Name="IdKatalozi" />
@@ -138,6 +130,9 @@
     <Property Name="Naziv" Type="nvarchar(max)" />
     <Property Name="SodrzinaZaNasF" Type="nvarchar(max)" />
     <Property Name="SodrzinaPortfolioF" Type="nvarchar(max)" />
+    <Property Name="Objaven" Type="bit" Nullable="false" />
+    <Property Name="DatumObjaven" Type="datetime" />
+    <Property Name="CoverUrl" Type="nvarchar(max)" />
   </EntityType>
   <Association Name="FK_Katalozi_Kompanii">
     <End Role="Kompanii" Type="Self.Kompanii" Multiplicity="0..1">
@@ -344,7 +339,6 @@
     <EntitySet Name="Poraki" EntityType="Self.Poraki" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PorakiKlienti" EntityType="Self.PorakiKlienti" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Proizvodi" EntityType="Self.Proizvodi" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="WebSiteSettings" EntityType="Self.WebSiteSettings" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Katalozi_Kompanii" Association="Self.FK_Katalozi_Kompanii">
       <End Role="Kompanii" EntitySet="Kompanii" />

@@ -260,9 +260,6 @@
     <Compile Include="Models\Proizvodi.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\ViewModels\LoggedInEntity.cs" />
     <Compile Include="Models\ViewModels\KatalogViewModel.cs" />
     <Compile Include="Models\ViewModels\PublishedWebSiteViewModel.cs" />
@@ -332,6 +329,7 @@
     <Content Include="Areas\Portfolio\Images\AboutFooter.jpg" />
     <Content Include="Areas\Portfolio\Images\DefaulImage.png" />
     <Content Include="Areas\Portfolio\Images\HomeBackgroundImage.jpg" />
+    <Content Include="Areas\Portfolio\Images\portfolio.jpg" />
     <Content Include="Areas\Portfolio\Scripts\draggable_background.js" />
     <Content Include="Areas\Portfolio\Scripts\jquery-1.10.2.js" />
     <Content Include="Areas\Portfolio\Scripts\jquery-ui.js" />
@@ -343,6 +341,7 @@
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\custom.css" />
     <Content Include="Content\login-layout.css" />
+    <Content Include="Content\resources\portfolio.jpg" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -470,6 +469,12 @@
     <Content Include="Areas\Portfolio\Content\Fonts\Raleway\Raleway-SemiBold.ttf" />
     <Content Include="Areas\Portfolio\Content\Fonts\Raleway\Raleway-Thin-Italic.ttf" />
     <Content Include="Areas\Portfolio\Content\Fonts\Raleway\Raleway-Thin.ttf" />
+    <Content Include="Areas\Portfolio\Views\Portfolio\DodadiPortfolio.cshtml" />
+    <Content Include="Areas\Portfolio\Views\Portfolio\Index.cshtml" />
+    <Content Include="Areas\Portfolio\Views\Portfolio\IzmeniPortfolio.cshtml" />
+    <Content Include="Areas\Portfolio\Views\Portfolio\Test.cshtml" />
+    <Content Include="Areas\Portfolio\Views\Portfolio\_DodadiGalerija.cshtml" />
+    <Content Include="Areas\Portfolio\Views\Portfolio\_IzlistajGalerija.cshtml" />
     <EntityDeploy Include="Models\Entities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Entities.Designer.cs</LastGenOutput>
@@ -477,12 +482,6 @@
     <Content Include="Models\Entities.edmx.diagram">
       <DependentUpon>Entities.edmx</DependentUpon>
     </Content>
-    <Content Include="Areas\Portfolio\Views\Portfolio\DodadiPortfolio.cshtml" />
-    <Content Include="Areas\Portfolio\Views\Portfolio\Index.cshtml" />
-    <Content Include="Areas\Portfolio\Views\Portfolio\IzmeniPortfolio.cshtml" />
-    <Content Include="Areas\Portfolio\Views\Portfolio\Test.cshtml" />
-    <Content Include="Areas\Portfolio\Views\Portfolio\_DodadiGalerija.cshtml" />
-    <Content Include="Areas\Portfolio\Views\Portfolio\_IzlistajGalerija.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Plugins\jstree\demo\basic\index.html" />
     <Content Include="Plugins\jstree\demo\filebrowser\data\root\asdf\New Text Document.txt" />
@@ -592,6 +591,9 @@
     <Content Include="SqlScripts\2015-08-31_RecreateTablesScript.sql" />
     <Content Include="SqlScripts\2015-09-19_AddOpisNapoedinecFieldInPoedinci.sql" />
     <Content Include="SqlScripts\2016-02-17_RecreateTablesScript.sql" />
+    <Content Include="SqlScripts\2016-02-20_AddObjavenAndDateObjavenColumns.sql" />
+    <Content Include="SqlScripts\2016-02-21_AddCoverUrlColumn.sql" />
+    <Content Include="SqlScripts\2016-02-21_AddProfilnaSlikaColumns.sql" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

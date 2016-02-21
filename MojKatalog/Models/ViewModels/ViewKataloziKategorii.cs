@@ -10,7 +10,15 @@ namespace MojKatalog.Models.ViewModels
 {
     public class ViewKataloziKategorii
     {
-        public Katalozi ViewKatalozi { get; set; }
+        public int IdKatalog { get; set; }
+        [Display(Name="Назив")]
+        public string Naziv { get; set; }
+        [Display(Name = "Опис")]
+        public string Opis { get; set; }
+        [Display(Name = "Дата на креирање")]
+        public DateTime? DataNaKreiranje { get; set; }
+        [Display(Name = "Објавен")]
+        public bool Objaven { get; set; }
         [DisplayName("Категории")]
         public string ViewKategorii { get; set; }
     }

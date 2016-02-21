@@ -17,13 +17,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ViewKatalozi.NazivNaKatalog)
+                @Html.DisplayNameFor(model => model.Naziv)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ViewKatalozi.OpisNaKatalog)
+                @Html.DisplayNameFor(model => model.Opis)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ViewKatalozi.DataNaKreiranje)
+                @Html.DisplayNameFor(model => model.DataNaKreiranje)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ViewKategorii)
@@ -37,21 +37,21 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ViewKatalozi.NazivNaKatalog)
+                    @Html.DisplayFor(modelItem => item.Naziv)
                 </td>
                 <td>
-                    @FormatString(item.ViewKatalozi.OpisNaKatalog)
+                    @FormatString(item.Opis)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ViewKatalozi.DataNaKreiranje)
+                    @Html.DisplayFor(modelItem => item.DataNaKreiranje)
                 </td>
                 <td>
                     @FormatString(item.ViewKategorii)
                 </td>
                 <td>
-                    <a href="@Url.Action("IzmeniKatalog", new { id = item.ViewKatalozi.IdKatalozi })" title="Измени"><span class="glyphicon glyphicon-edit"></span></a>&nbsp 
-                    <a href="@Url.Action("IzbrisiKatalog", new { id = item.ViewKatalozi.IdKatalozi })" onClick="if(!confirm('Дали сте сигурни?')) return false;" title="Избриши"><span class="glyphicon glyphicon-trash"></span></a>&nbsp 
-                    <a href="@Url.Action("PregledajKatalog", new { id = item.ViewKatalozi.IdKatalozi })" title="Прегледај"><span class="glyphicon glyphicon-eye-open"></span></a>
+                    <a href="@Url.Action("IzmeniKatalog", new { id = item.IdKatalog })" title="Измени"><span class="glyphicon glyphicon-edit"></span></a>&nbsp 
+                    <a href="@Url.Action("IzbrisiKatalog", new { id = item.IdKatalog })" onClick="if(!confirm('Дали сте сигурни?')) return false;" title="Избриши"><span class="glyphicon glyphicon-trash"></span></a>&nbsp 
+                    <a href="@Url.Action("PregledajKatalog", new { id = item.IdKatalog })" title="Прегледај"><span class="glyphicon glyphicon-eye-open"></span></a>
                 </td>
             </tr>
            

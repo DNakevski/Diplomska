@@ -1,0 +1,2 @@
+ALTER TABLE WebSiteSettings
+ADD CoverUrl NVARCHAR(MAX) NULL
