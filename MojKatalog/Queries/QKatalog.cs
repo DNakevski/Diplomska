@@ -42,9 +42,12 @@ namespace MojKatalog.Queries
                     .ToList());
 
                 kataloziIkategorii.Add(new ViewKataloziKategorii
-                              {
-                                  ViewKatalozi = katalog,
-                                  ViewKategorii = stringpom
+                {
+                                IdKatalog = katalog.IdKatalozi,
+                                Naziv = katalog.NazivNaKatalog,
+                                Opis = katalog.OpisNaKatalog,
+                                DataNaKreiranje = katalog.DataNaKreiranje,
+                                ViewKategorii = stringpom
                               });
             }
 
@@ -95,12 +98,13 @@ namespace MojKatalog.Queries
 
         public List<PublishedWebSiteViewModel> GetAllPublishedWebSites()
         {
-            var models = _db.Katalozi.Include("Kompanii").Include("Poedinci")
+            var models = _db.Katalozi.Include(x => x.Kategorii).Include(x => x.Poedinci).Include(x => x.WebSiteSettings)
+                .Where(x => x.WebSiteSettings != null && x.WebSiteSettings.Objaven == true)
                 .Select(x => new PublishedWebSiteViewModel
                 {
                     WebSiteId = x.IdKatalozi,
                     DataNaKreiranje = x.DataNaKreiranje,
-                    ImageUrl = "",
+                    ImageUrl = (x.WebSiteSettings != null && x.WebSiteSettings.CoverUrl != null && x.WebSiteSettings.CoverUrl != "") ? x.WebSiteSettings.CoverUrl : "~/Content/resources/portfolio.jpg",
                     Naziv = x.NazivNaKatalog,
                     Opis = x.OpisNaKatalog,
                     Sopstvenik = (x.Kompanii != null) ? x.Kompanii.NazivNaKompanija : x.Poedinci.Ime + " " + x.Poedinci.Prezime 

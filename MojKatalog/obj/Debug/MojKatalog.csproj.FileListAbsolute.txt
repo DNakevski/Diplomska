@@ -294,6 +294,8 @@ C:\Users\Andi\Documents\Visual Studio 2015\Projects\Diplomska\MojKatalog\bin\zh-
 C:\Users\Andi\Documents\Visual Studio 2015\Projects\Diplomska\MojKatalog\obj\Debug\MojKatalog.csproj.App.config
 C:\Users\Andi\Documents\Visual Studio 2015\Projects\Diplomska\MojKatalog\obj\Debug\MojKatalog.dll
 C:\Users\Andi\Documents\Visual Studio 2015\Projects\Diplomska\MojKatalog\obj\Debug\MojKatalog.pdb
+=======
+C:\Users\Andi\Documents\Visual Studio 2015\Projects\Diplomska\MojKatalog\obj\Debug\MojKatalog.csprojResolveAssemblyReference.cache
 C:\Users\Dragan\Documents\Visual Studio 2015\Projects\Diplomska\MojKatalog\bin\MojKatalog.dll.config
 C:\Users\Dragan\Documents\Visual Studio 2015\Projects\Diplomska\MojKatalog\bin\MojKatalog.dll
 C:\Users\Dragan\Documents\Visual Studio 2015\Projects\Diplomska\MojKatalog\bin\MojKatalog.pdb
@@ -390,8 +392,6 @@ C:\Users\Dragan\Documents\Visual Studio 2015\Projects\Diplomska\MojKatalog\bin\r
 C:\Users\Dragan\Documents\Visual Studio 2015\Projects\Diplomska\MojKatalog\bin\zh-Hans\System.Spatial.resources.dll
 C:\Users\Dragan\Documents\Visual Studio 2015\Projects\Diplomska\MojKatalog\bin\zh-Hant\System.Spatial.resources.dll
 C:\Users\Dragan\Documents\Visual Studio 2015\Projects\Diplomska\MojKatalog\obj\Debug\MojKatalog.csproj.App.config
-C:\Users\Dragan\Documents\Visual Studio 2015\Projects\Diplomska\MojKatalog\obj\Debug\MojKatalog.csprojResolveAssemblyReference.cache
 C:\Users\Dragan\Documents\Visual Studio 2015\Projects\Diplomska\MojKatalog\obj\Debug\MojKatalog.dll
 C:\Users\Dragan\Documents\Visual Studio 2015\Projects\Diplomska\MojKatalog\obj\Debug\MojKatalog.pdb
-=======
-C:\Users\Andi\Documents\Visual Studio 2015\Projects\Diplomska\MojKatalog\obj\Debug\MojKatalog.csprojResolveAssemblyReference.cache
+C:\Users\Dragan\Documents\Visual Studio 2015\Projects\Diplomska\MojKatalog\obj\Debug\MojKatalog.csprojResolveAssemblyReference.cache

@@ -124,6 +124,11 @@ namespace MojKatalog.Areas.Portfolio.Controllers
                 wsettings.BGFooter = CreateAndSaveImage(wsettings.BGFooter, wsettings.IdKatalozi, "Footer", oldWsettings.BGFooter);
             }
 
+            if (!ColorHelper.IsColor(wsettings.CoverUrl))
+            {
+                wsettings.CoverUrl = CreateAndSaveImage(wsettings.CoverUrl, wsettings.IdKatalozi, "Cover", oldWsettings.CoverUrl);
+            }
+
             model.IzmeniPortfolioPost(wsettings);
 
 

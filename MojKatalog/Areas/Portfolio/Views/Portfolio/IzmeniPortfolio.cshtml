@@ -20,6 +20,7 @@
 
 
     var user = (LoggedInEntity)Session["LoggedInEntity"];
+    var coverImageUrl = (Model.WSettings != null && Model.WSettings.CoverUrl != null) ? Model.WSettings.CoverUrl : Url.Content("~/Areas/Portfolio/Images/portfolio.jpg");
 
 }
 
@@ -54,6 +55,7 @@
             @Html.HiddenFor(model => model.WSettings.BGFooter, new { @data_bgsection = "footer" })
             @Html.HiddenFor(model => model.WSettings.SodrzinaPortfolioF)
             @Html.HiddenFor(model => model.WSettings.SodrzinaZaNasF)
+            @Html.HiddenFor(model => model.WSettings.CoverUrl)
 
             @*Editor Begin*@
             <div id="editor-button">
@@ -277,6 +279,34 @@
                             </div>
                             <div class="col-xs-8">
                                 <input class="form-control sodrzinaPortfolioF" type="text" value="@(Model.WSettings.SodrzinaPortfolioF)">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4 modal-col-left">
+                                <label class="label-control">Слика за веб страна:</label>
+                            </div>
+                            <div class="col-xs-8">
+                                <div class="thumbnail">
+                                    <div class="fill-screen cover-image-thumbnail" style="height:190px;"></div>
+                                    <div class="caption">
+                                        @*Begin Input File*@
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-btn">
+                                                        <span class="btn btn-primary btn-file">
+                                                            Browse…
+                                                            <input class="cover-photo" id="coverPhoto" type="file">
+                                                        </span>
+                                                    </span>
+                                                    <input type="text" class="form-control image-input" readonly="" accept=".jpg,.png,.gif">
+                                                </div>
+                                            </div>
+                                        </form>
+                                        @*End Input File*@
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -687,8 +717,14 @@
 
 
         };
-        var colorPaletClickEvent=function(sect){
 
+        var coverPhotoSetup= function(coverImageUrl)
+        {
+            $('.cover-image-thumbnail').show();
+            $('.cover-image-thumbnail').css('background-image', 'url(' + coverImageUrl + ')');
+        }
+
+        var colorPaletClickEvent=function(sect){
             $('#pozadina-content .color-palet[data-section="'+sect+'"] li').click(function(){
 
                 if($('input[name=pozadina-'+sect+']:checked', '.'+sect+'-section').val()=="slika"){
@@ -764,6 +800,8 @@
             //SodrzinaZaNasF
             changeSodrzinaZaNasF();
             changeSodrzinaPortfoliF();
+
+            coverPhotoSetup("@coverImageUrl");
 
             //Galerija
             $("body").on("click",".tabbable .nav-kategorii li",function(){
@@ -845,12 +883,12 @@
         var setColor1=function(color1){
             $('#style-color1').attr("href","/Areas/Portfolio/Content/TextColor/Color-1/"+color1+".css" );
             //Change the value of Hidden element FontColor1
-            $("#FontColor1").val(color1);
+            $("#WSettings_FontColor1").val(color1);
         }
         var setColor2=function(color2){
             $('#style-color2').attr("href","/Areas/Portfolio/Content/TextColor/Color-2/"+color2+".css" );
             //Change the value of Hidden element FontColor2
-            $("#FontColor2").val(color2);
+            $("#WSettings_FontColor2").val(color2);
         }
         var changeColorStyle=function(style,section){
             var bgColor=$('.color-palet[data-section="'+section+'"] li[data-color="'+style+'"]').css("background-color");
@@ -1060,6 +1098,22 @@
                     var subUri = uri.split(',');
 
                     $('input[data-bgsection="'+section+'"]').val(subUri[1]);
+
+                }
+                reader.readAsDataURL($(this)[0].files[0]);
+            });
+
+            $('.cover-photo').change(function () {
+                var imgSelector='.cover-image-thumbnail';
+                $(imgSelector).hide();
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $(imgSelector).show();
+                    $(imgSelector).css('background-image', 'url(' + e.target.result + ')');
+                    var uri=e.target.result;
+                    var subUri = uri.split(',');
+
+                    $('#WSettings_CoverUrl').val(subUri[1]);
 
                 }
                 reader.readAsDataURL($(this)[0].files[0]);

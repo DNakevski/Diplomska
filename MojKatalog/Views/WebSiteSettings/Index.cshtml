@@ -10,14 +10,69 @@
 <div class="well well-sm well-red">
     Креирај веб сајт за понудениве каталози
 </div>
+
+    @{
+        if (ViewBag.Status == "published")
+        {
+            <div class="alert alert-success" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                Сајтот е успешно објавен!
+
+            </div>
+        }
+
+        if (ViewBag.Status == "unpublished")
+        {
+            <div class="alert alert-success" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                Сајтот е успешно отстранет!
+
+            </div>
+        }
+
+        if (ViewBag.Status == "deleted")
+        {
+            <div class="alert alert-success" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                Сајтот е успешно избришан!
+
+            </div>
+        }
+
+        if (ViewBag.Status == "error")
+        {
+            <div class="alert alert-danger" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                Имаше грешка во процесот, обидете со повторно подоцна.
+
+            </div>
+        }
+
+
+    }
+
 <table class="table table-striped table-hover">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.NazivNaKatalog)
+                Назив на каталог
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Naziv)
+                Назив на сајт
+            </th>
+            <th>
+                Објавен
+            </th>
+            <th>
+                Датум на објавување
             </th>
             <th>Акции</th>
         </tr>
@@ -26,18 +81,36 @@
 
         @foreach (var item in Model)
         {
+            string objaven = (item.Objaven) ? "Да" : "Не";
+            string datumObjaven = (item.DatumObjaven != null) ? item.DatumObjaven.Value.ToString("dd-MM-yyyy") : " / ";
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.NazivNaKatalog)
+                    @item.NazivNaKatalog
                 </td>
                 <td>
                     @FormatString(item.Naziv)
                 </td>
                 <td>
+                    @objaven
+                </td>
+                <td>
+                    @datumObjaven
+                </td>
+                <td>
                     @if (item.HasWebSite)
                     {
                         <a href="@Url.Action("IzmeniWebSite", new { id = item.IdKatalozi, tip = "Portfolio" })" title="Измени"><span class="glyphicon glyphicon-edit"></span></a>
-                        <a href="@Url.Action("IzbrisiWebSite", new { id = item.IdKatalozi, tip = "Portfolio" })" title="Избриши"><span class="glyphicon glyphicon-trash"></span></a>
+                        if (item.Objaven)
+                        {
+                            <a href="#" title="Отстрани" id="publishLink" onclick="manageSite(@item.IdKatalozi, 'unpublish'); return false;"><span class="glyphicon glyphicon-remove-circle"></span></a>
+                            <a href="#" title="Објави" style="display:none;"  id="unpublishLink" onclick="manageSite(@item.IdKatalozi, 'publish'); return false;"><span class="glyphicon glyphicon-ok-circle"></span></a>
+                        }
+                        else
+                        {
+                            <a href="#" title="Отстрани" style="display:none;"  id="publishLink" onclick="manageSite(@item.IdKatalozi, 'unpublish'); return false;"><span class="glyphicon glyphicon-remove-circle"></span></a>
+                            <a href="#" title="Објави" id="unpublishLink" onclick="manageSite(@item.IdKatalozi, 'publish'); return false;"><span class="glyphicon glyphicon-ok-circle"></span></a>
+                        }
+                        <a href="@Url.Action("IzbrisiWebSite", new { id = item.IdKatalozi})" onclick="if(!confirm('Дали сте сигурни?')) return false;" title="Избриши"><span class="glyphicon glyphicon-trash"></span></a>
                     }
                     else
                     {
@@ -71,3 +144,53 @@
     }
 }
 
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+        });
+
+        function manageSite(siteId, action)
+        {
+
+
+            if(action == "publish")
+            {
+                if (!confirm("Дали сте сигурни дека сакате да го објавите овој сајт?"))
+                    return false;
+
+                var url = "@Url.Action("PublishSite", "WebSiteSettings")";
+                $.post(url, { siteId: siteId }, function (data) {
+                    if (data.status == "published") {
+                        var redirectUrl = "@Url.Action("Index", "WebSiteSettings", new { status = "published"})";
+                        window.location = redirectUrl;
+                    }
+                    else if (data.status == "error")
+                    {
+                        var redirectUrl = "@Url.Action("Index", "WebSiteSettings", new { status = "error"})";
+                        window.location = redirectUrl;
+                    }
+                });
+            }
+            else if(action == "unpublish")
+            {
+                if (!confirm("Дали сте сигурни дека сакате да го отстраните овој сајт?"))
+                    return false;
+
+                var url = "@Url.Action("UnpublishSite", "WebSiteSettings")";
+                $.post(url, { siteId: siteId }, function (data) {
+                    if (data.status == "unpublished") {
+                        var redirectUrl = "@Url.Action("Index", "WebSiteSettings", new { status = "unpublished"})";
+                        window.location = redirectUrl;
+                    }
+                    else if (data.status == "error") {
+                        var redirectUrl = "@Url.Action("Index", "WebSiteSettings", new { status = "error"})";
+                        window.location = redirectUrl;
+                    }
+                });
+            }
+        }
+
+    </script>
+}

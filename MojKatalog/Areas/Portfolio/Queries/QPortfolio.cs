@@ -43,7 +43,9 @@ namespace MojKatalog.Areas.Portfolio.Queries
                 BGFooter = "lightGreyLighter",
                 Naziv = nazivNaWebSite,
                 SodrzinaZaNasF = "The details are not details , they make the design",
-                SodrzinaPortfolioF = "The details are not details , they make the design"
+                SodrzinaPortfolioF = "The details are not details , they make the design",
+                Objaven = false
+                
             };
             _db.WebSiteSettings.Add(wsettings);
             _db.SaveChanges();
@@ -79,6 +81,7 @@ namespace MojKatalog.Areas.Portfolio.Queries
             wsettings.BGContact = (newWSettings.BGContact != null) ? newWSettings.BGContact : wsettings.BGContact;
             wsettings.BGMenu = (newWSettings.BGMenu != null) ? newWSettings.BGMenu : wsettings.BGMenu;
             wsettings.BGFooter = (newWSettings.BGFooter != null) ? newWSettings.BGFooter : wsettings.BGFooter;
+            wsettings.CoverUrl = (newWSettings.CoverUrl != null) ? newWSettings.CoverUrl : wsettings.CoverUrl;
             wsettings.SodrzinaPortfolioF = newWSettings.SodrzinaPortfolioF;
             wsettings.SodrzinaZaNasF = newWSettings.SodrzinaZaNasF;
             _db.SaveChanges();

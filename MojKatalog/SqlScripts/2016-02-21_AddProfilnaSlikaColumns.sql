@@ -1,0 +1,5 @@
+ALTER TABLE Kompanii
+ADD ProfilnaSlika NVARCHAR(MAX) NULL
+
+ALTER TABLE Poedinci
+ADD ProfilnaSlika NVARCHAR(MAX) NULL
