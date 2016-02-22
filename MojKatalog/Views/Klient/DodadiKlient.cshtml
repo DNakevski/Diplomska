@@ -4,10 +4,10 @@
     ViewBag.Title = "DodadiKlient";
 }
 <input type="hidden" id="activeLink" value="klientLink" />
-<h3 class="page-title">Додади Клиент <small>креирање на нов клиент</small></h3>
+<h3 class="page-title">Додади Контакт <small>креирање на нов контакт</small></h3>
 <ul class="breadcrumb">
-    <li class="active"><a href="@Url.Action("Index", "Klient")">Клиенти</a></li>
-    <li class="active">Додади Клиент</li>
+    <li class="active"><a href="@Url.Action("Index", "Klient")">Контакти</a></li>
+    <li class="active">Додади Контакт</li>
 </ul>
 <div class="well bs-component">
  @using (Html.BeginForm("DodadiKlient", "Klient", FormMethod.Post, new { @class = "form-horizontal" })) {
@@ -15,7 +15,7 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Клиент</legend>
+        <legend>Контакт</legend>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Ime, new { @class = "col-lg-1 col-md-2 control-label"})
