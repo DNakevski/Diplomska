@@ -121,8 +121,11 @@ namespace MojKatalog.Queries
             kompanija.NazivNaKompanija = newKompanija.NazivNaKompanija;
             kompanija.KorisnickoIme = newKompanija.KorisnickoIme;
             kompanija.Lozinka = newKompanija.Lozinka;
-            kompanija.OpisNaKompanija = newKompanija.OpisNaKompanija;
             kompanija.Mail = newKompanija.Mail;
+            kompanija.OpisNaKompanija = newKompanija.OpisNaKompanija;
+            kompanija.Telefon = newKompanija.Telefon;
+            kompanija.LogoNaKompanija = newKompanija.LogoNaKompanija;
+            kompanija.ProfilnaSlika = newKompanija.ProfilnaSlika;
 
             _db.SaveChanges();
         }

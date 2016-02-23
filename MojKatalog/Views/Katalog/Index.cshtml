@@ -35,7 +35,7 @@
 
         @foreach (var item in Model)
         {
-            <tr>
+            <tr id="row-@(item.IdKatalog)">
                 <td>
                     @Html.DisplayFor(modelItem => item.Naziv)
                 </td>
@@ -71,3 +71,13 @@
     <text>@val</text>
     }
 }
+<script src="~/Areas/Portfolio/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Areas/Portfolio/Scripts/jquery-ui.js"></script>
+<script src="~/Scripts/effects.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#" + "@ViewBag.RowSuccess").addClass("success fade").addClass("in");
+        setTimeout(function () { 
+            $("#" + "@ViewBag.RowSuccess").removeClass("success", 3000, "linear"); }, 5000);
+    });
+    </script>

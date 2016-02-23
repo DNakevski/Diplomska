@@ -11,7 +11,7 @@ namespace MojKatalog.Models.ViewModels
     public class ViewKataloziKategorii
     {
         public int IdKatalog { get; set; }
-        [Display(Name="Назив")]
+        [Display(Name="Каталог")]
         public string Naziv { get; set; }
         [Display(Name = "Опис")]
         public string Opis { get; set; }

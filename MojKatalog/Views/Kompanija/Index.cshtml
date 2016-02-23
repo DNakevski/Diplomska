@@ -5,18 +5,32 @@
 
 <h3 class="page-title">Податоци за компанијата <small>преглед и измена на податоците</small></h3>
 <div class="well bs-component">
-    @using (Html.BeginForm("IzmeniKompanijaInfo", "Kompanija", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Get, new { @class = "form-horizontal" }))
+    @using (Html.BeginForm("IzmeniKompanijaInfo", "Kompanija", FormMethod.Get, new { @class = "form-horizontal" }))
             {
-      
         <fieldset>
             <legend></legend>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ProfilnaSlika, new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8">
+                    <div class="thumbnail" style="width:210px; margin-bottom: 0px;">
+                        @if (Model.ProfilnaSlika != null)
+                        {
+                            <div class="image-uploaded Image2 fill-screen" style="background-image: url(@(Model.ProfilnaSlika));"></div>
+                        }
+                        else
+                        {
+                            <div class="image-uploaded Image2 fill-screen" style="background-image: url(../../Images/Profile/ProfileImage.jpg); width:200px; height:200px;"></div>
+                        }
+                    </div>
+
+                </div>
+            </div>
             <div class="form-group">
                 @Html.LabelFor(m => m.NazivNaKompanija, new { @class = "control-label col-lg-4" })
                 <div class="col-lg-8 control-text">
                     <text> @Model.NazivNaKompanija </text>
                 </div>
             </div>
-
          
             <div class="form-group">
                 @Html.LabelFor(m => m.KorisnickoIme, new { @class = "control-label col-lg-4" })
@@ -52,6 +66,15 @@
                 </div>
             </div>
             
+            <div class="form-group">
+                @Html.LabelFor(m => m.LogoNaKompanija, new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8">
+                    <div class="thumbnail">
+                        <div class="image-uploaded Image1 fill-screen" style="background-image: url(@(Model.LogoNaKompanija));"></div>
+                       
+                    </div>
+                </div>
+            </div>
 
 
 

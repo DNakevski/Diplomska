@@ -62,7 +62,6 @@ namespace MojKatalog.Queries
             Katalozi katalog = VratiKatalog(newKatalog.IdKatalozi);
             katalog.NazivNaKatalog = newKatalog.NazivNaKatalog;
             katalog.OpisNaKatalog = newKatalog.OpisNaKatalog;
-            katalog.DataNaKreiranje = newKatalog.DataNaKreiranje;
             _db.SaveChanges();
         }
         public void IzbrisiKatalog(int id)

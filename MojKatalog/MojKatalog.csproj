@@ -383,7 +383,8 @@
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Images\CompanyImages\Logos\2-1221.jpg" />
+    <Content Include="Images\CompanyImages\Logos\Logo_1_1456191275.jpeg" />
+    <Content Include="Images\Profile\ProfileImage.jpg" />
     <Content Include="Images\UserImages\Cover_0.jpg" />
     <Content Include="Images\UserImages\NoImage.jpg" />
     <Content Include="Models\Entities.Context.tt">
@@ -564,6 +565,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\custom.js" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\effects.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
@@ -675,6 +677,7 @@
     <Folder Include="Areas\Portfolio\Models\" />
     <Folder Include="Areas\Portfolio\UploadedFiles\" />
     <Folder Include="Areas\Portfolio\Views\Shared\" />
+    <Folder Include="Images\CompanyImages\Profile\" />
     <Folder Include="UploadedFiles\" />
   </ItemGroup>
   <ItemGroup>

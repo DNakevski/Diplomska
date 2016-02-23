@@ -6,7 +6,7 @@
     string hrefvar = "#collapse" + idnew;
     string idvar = "collapse" + idnew;
 }
-
+<input type="hidden" id="activeLink" value="katalogLink" />
 <h3 class="page-title">Измени Каталог <small>едитирање на постоечки каталог</small></h3>
 <ul class="breadcrumb">
     <li class="active"><a href="@Url.Action("Index", "Katalog")">Каталози</a></li>
@@ -58,6 +58,7 @@
             <div class="form-group">
                 <div class="col-lg-10 col-lg-offset-1 col-md-offset-2">
                     <button type="submit" class="btn btn-primary">Измени </button>
+                    <button type="button" class="btn btn-default">Откажи</button>
                 </div>
             </div>
         </fieldset>

@@ -21,8 +21,16 @@ namespace MojKatalog.Controllers
             _model = new QKatalog();
         }
 
-        public ActionResult Index()
+        public ActionResult Index(int ? id)
         {
+            if (id != null)
+            {
+                ViewBag.RowSuccess = "row-" + id;
+            }
+            else
+            {
+                ViewBag.RowSuccess = "";
+            }
             var user = (LoggedInEntity)Session["LoggedInEntity"];
             return View(_model.IzlistajKatalozi(user.Id, user.UserType));
 
@@ -61,7 +69,7 @@ namespace MojKatalog.Controllers
         public ActionResult IzmeniKatalog(Katalozi katalog)
         {
             _model.IzmeniKatalog(katalog);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { id =katalog.IdKatalozi});
         }
         public ActionResult PregledajKatalog(int id)
         {

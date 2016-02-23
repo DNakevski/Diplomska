@@ -4,7 +4,7 @@
     ViewBag.Title = "PregledajKatalog";
     int idnew = Model.IdKatalozi;
 }
-
+<input type="hidden" id="activeLink" value="katalogLink" />
 <h3 class="page-title">Прегледај Каталог <small>детален преглед на Каталог</small></h3>
 <ul class="breadcrumb">
     <li><a href="@Url.Action("Index", "Katalog")">Каталози</a></li>
@@ -30,8 +30,10 @@
                 </div>
             </div>
 
+
+
             <div class="form-group">
-                <label class="col-lg-1 col-md-2 control-label">Креиран на</label>
+               @Html.LabelFor(model => model.DataNaKreiranje, new { @class = "col-lg-1 col-md-2 control-label" }):
                 <div class="col-lg-10" style="padding-top:12px;">
                      @if (Model.DataNaKreiranje.HasValue)
                     {
@@ -44,16 +46,15 @@
                 </div>
             </div>
 
-
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-1 col-md-offset-2">
+                    <button type="button" class="btn btn-default">Назад</button>
+                </div>
+            </div>
         </fieldset>
     </form>
 </div>
 
-
-<p>
-    @Html.ActionLink("Измени", "IzmeniKatalog", new { id = Model.IdKatalozi }) |
-    @Html.ActionLink("Назад кон листата", "Index")
-</p>
 @section KategorijaIndexStyles
 {
     <link rel="stylesheet" href="~/Plugins/jstree/dist/themes/default/style.min.css" />

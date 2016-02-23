@@ -1,4 +1,8 @@
 ﻿$(document).ready(function () {
+        $(".btn-default").click(function () {
+            var url = "/Katalog/Index/";
+            window.location.href = url;
+        });
     var idKatalog = $("#IdKatalozi").val();
    // alert(idKatalog);
     $.get("/Katalog/VratiDrvoZaKatalog", { id: idKatalog }, function (data) {

@@ -2,20 +2,72 @@
 
 @{
     ViewBag.Title = "IzmeniKompanijaInfo";
+    var status = ViewBag.Status;
 }
 
 <h3 class="page-title">Податоци за компанијата <small>преглед и измена на податоците</small></h3>
 <div class="well bs-component">
-    @using (Html.BeginForm("IzmeniKompanijaInfo", "Kompanija", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
+    @using (Html.BeginForm("IzmeniKompanijaInfo", "Kompanija", FormMethod.Post, new { enctype = "multipart/form-data", id = "editorForm", @class = "form-horizontal" }))
             {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true)
 
         <fieldset>
             @Html.HiddenFor(model => model.IdKompanii)
+            @Html.HiddenFor(model => model.LogoNaKompanija)
+            @Html.HiddenFor(model => model.ProfilnaSlika)
             <legend></legend>
-            <div class="form-group">
+            @*Modal Alert*@
 
+            @if (ViewBag.Status == "success")
+            {
+                <div class="container-fluid" id="alert-content">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="alert alert-dismissible alert-success">
+                                Промените се успешно сочувани!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.ProfilnaSlika, new { @class = "control-label col-lg-4" })
+                <div class="col-lg-8">
+                    <div class="thumbnail" style="width:210px; margin-bottom:0px;">
+                        @if (Model.ProfilnaSlika != null)
+                        {
+                            <div class="image-uploaded Image2 fill-screen" style="background-image: url(@(Model.ProfilnaSlika));"></div>
+                        }
+                        else
+                        {
+                            <div class="image-uploaded Image2 fill-screen" style="background-image: url(../../Images/Profile/ProfileImage.jpg); width:200px; height:200px;"></div>
+                        }
+                        <div class="caption" style="padding-bottom:0px;">
+                            @*Begin Input File*@
+                            <form class="form-horizontal">
+                                <div class="form-group" style="margin-bottom:0px;">
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <span class="btn btn-primary btn-file">
+                                                Browse…
+                                                <input class="FileUpload2" type="file">
+                                            </span>
+                                        </span>
+                                        <input type="text" class="form-control image-input" readonly="" accept=".jpg,.png,.gif">
+                                    </div>
+                                </div>
+                            </form>
+                            @*End Input File*@
+
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+           
+            <div class="form-group">
                 @Html.LabelFor(m => m.NazivNaKompanija, new { @class = "control-label col-lg-4" })
                 <div class="col-lg-8">
                     @Html.TextBoxFor(m => m.NazivNaKompanija, new { @class = "form-control" })
@@ -69,10 +121,10 @@
                 <div class="col-lg-8">
                     <div class="thumbnail">
                         <div class="image-uploaded Image1 fill-screen" style="background-image: url(@(Model.LogoNaKompanija));"></div>
-                        <div class="caption">
+                        <div class="caption" style="padding-bottom:0px;">
                             @*Begin Input File*@
-                            <form class="form-horizontal">
-                                <div class="form-group">
+                            <form class="form-horizontal" style="margin-bottom:0px;">
+                                <div class="form-group" style="margin-bottom:0px;">
                                     <div class="input-group">
                                         <span class="input-group-btn">
                                             <span class="btn btn-primary btn-file">
@@ -106,7 +158,16 @@
 <script src="~/Areas/Portfolio/Scripts/jquery-1.10.2.js"></script>
 <script src="~/Areas/Portfolio/Scripts/jquery-ui.js"></script>
 <script type="text/javascript">
+    
     $(document).ready(function () {
+       
+        var status = "@status";
+        if (status == "success")
+        {
+            $("#alert-content").hide().fadeIn("slow");
+            setTimeout(function () { $("#alert-content").fadeOut("slow"); }, 5000);
+        }
+
         $(".btn-default").click(function () {
             var url = "/Kompanija/Index/";
             window.location.href = url;
@@ -118,6 +179,22 @@
             reader.onload = function (e) {
                 $('.Image1').show();
                 $('.Image1').css('background-image', 'url(' + e.target.result + ')');
+                var uri = e.target.result;
+                var subUri = uri.split(',');
+                $("#LogoNaKompanija").val(subUri[1]);
+
+            }
+            reader.readAsDataURL($(this)[0].files[0]);
+        });
+        $('.FileUpload2').change(function () {
+            $('.Image2').hide();
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('.Image2').show();
+                $('.Image2').css('background-image', 'url(' + e.target.result + ')');
+                var uri = e.target.result;
+                var subUri = uri.split(',');
+                $("#ProfilnaSlika").val(subUri[1]);
 
             }
             reader.readAsDataURL($(this)[0].files[0]);
@@ -148,22 +225,7 @@
 
         });
     });
-    /*
-    
-      var bg_img = "";
-                var imageContent = $("." + section + "-section .image-input").val();
-                if(imageContent.length > 0) {
-
-                    var imageUrl = $("." + section + "-section .image-uploaded").css("background-image").slice(0, -1);
-                    imageUrl = imageUrl.slice(4, imageUrl.length);
-
-                    bg_img = imageUrl;
-                   
-                }
-                else {
-                    bg_img = $("." + section + "-section .image-uploaded").css("background-image").replace(/.*Areas/,"/Areas").slice(0,-2);
-                }
-    */
+  
 </script>
 
 
