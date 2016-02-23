@@ -38,6 +38,7 @@
             <legend>Каталог</legend>
             @Html.HiddenFor(model => model.IdKategorii, new { Value = @ViewBag.IdKategorija })
              @Html.HiddenFor(model => model.IdProizvodi)
+            @Html.HiddenFor(model => model.SlikaNaProizvod)
             <div class="form-group">
                 @Html.LabelFor(model => model.NazivNaProizvod, new { @class = "col-lg-2 col-md-3 control-label" })
                 <div class="col-lg-10">
@@ -73,22 +74,43 @@
                 </div>
             </div>
 
+
+            @*Begin Dodadi slika*@
             <div class="form-group">
-                @Html.LabelFor(model => model.SlikaNaProizvod, new { @class = "col-lg-2 col-md-3 control-label" })
+                @Html.LabelFor(m => m.SlikaNaProizvod, new { @class = "control-label col-lg-2 col-md-3" })
                 <div class="col-lg-10">
-                    @*Begin Input File*@
-                    <div class="input-group">
-                        <span class="input-group-btn">
-                            <span class="btn btn-primary btn-file">Browse…
-                                <input type="file" name="file" multiple="">
-                            </span>
-                        </span>
-                        <input type="text" class="form-control" readonly="">
+                    <div class="thumbnail" style="width:410px;">
+                        @if (Model.SlikaNaProizvod == null)
+                        {
+                            <div class="image-uploaded Image1 fill-screen" style="background-image: url('/Images/UserImages/NoCover.jpg'); width:400px; height:400px;"></div>
+                        }
+                        else
+                        {
+                            <div class="image-uploaded Image1 fill-screen" style="background-image: url(@(Model.SlikaNaProizvod)); width:400px; height:400px;"></div>
+                        }
+                       
+                        <div class="caption" style="padding-bottom:0px;">
+                            @*Begin Input File*@
+                            <form class="form-horizontal" style="margin-bottom:0px;">
+                                <div class="form-group" style="margin-bottom:0px;">
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <span class="btn btn-primary btn-file">
+                                                Browse…
+                                                <input class="FileUpload1" type="file">
+                                            </span>
+                                        </span>
+                                        <input type="text" class="form-control image-input" readonly="" accept=".jpg,.png,.gif">
+                                    </div>
+                                </div>
+                            </form>
+                            @*End Input File*@
+
+                        </div>
                     </div>
-                    @*End Input File*@
                 </div>
             </div>
-
+            @*End Dodadi slika*@
             <div class="form-group">
                 @Html.LabelFor(model => model.Dostapnost, new { @class = "col-lg-2 col-md-3 control-label" })
                 <div class="col-lg-10">
@@ -117,6 +139,20 @@
         });
 
         $(document).ready(function () {
+            //FileUpload
+            $('.FileUpload1').change(function () {
+                $('.Image1').hide();
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('.Image1').show();
+                    $('.Image1').css('background-image', 'url(' + e.target.result + ')');
+                    var uri = e.target.result;
+                    var subUri = uri.split(',');
+                    $("#SlikaNaProizvod").val(subUri[1]);
+
+                }
+                reader.readAsDataURL($(this)[0].files[0]);
+            });
             $('.btn-file :file').on('fileselect', function (event, numFiles, label) {
 
                 var input = $(this).parents('.input-group').find(':text'),

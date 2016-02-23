@@ -387,6 +387,7 @@
     <Content Include="Images\CompanyImages\Logos\Logo_1_1456191275.jpeg" />
     <Content Include="Images\Profile\ProfileImage.jpg" />
     <Content Include="Images\UserImages\Cover_0.jpg" />
+    <Content Include="Images\UserImages\NoCover.jpg" />
     <Content Include="Images\UserImages\NoImage.jpg" />
     <Content Include="Models\Entities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
