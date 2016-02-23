@@ -333,6 +333,7 @@
     <Content Include="Areas\Portfolio\Scripts\draggable_background.js" />
     <Content Include="Areas\Portfolio\Scripts\jquery-1.10.2.js" />
     <Content Include="Areas\Portfolio\Scripts\jquery-ui.js" />
+    <Content Include="Content\bootstrap\confirm-bootstrap-master\confirm-bootstrap-master\confirm-bootstrap.js" />
     <Content Include="Content\bootstrap\css\bootstrap-theme-flaty.css" />
     <Content Include="Content\bootstrap\css\bootstrap-theme.css" />
     <Content Include="Content\bootstrap\css\bootstrap-theme.min.css" />
@@ -386,6 +387,7 @@
     <Content Include="Images\CompanyImages\Logos\Logo_1_1456191275.jpeg" />
     <Content Include="Images\Profile\ProfileImage.jpg" />
     <Content Include="Images\UserImages\Cover_0.jpg" />
+    <Content Include="Images\UserImages\NoCover.jpg" />
     <Content Include="Images\UserImages\NoImage.jpg" />
     <Content Include="Models\Entities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -483,6 +485,8 @@
     <Content Include="Models\Entities.edmx.diagram">
       <DependentUpon>Entities.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\bootstrap\confirm-bootstrap-master\confirm-bootstrap-master\package.json" />
+    <Content Include="Content\bootstrap\confirm-bootstrap-master\confirm-bootstrap-master\README.md" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Plugins\jstree\demo\basic\index.html" />
     <Content Include="Plugins\jstree\demo\filebrowser\data\root\asdf\New Text Document.txt" />

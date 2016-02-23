@@ -57,7 +57,7 @@ namespace MojKatalog.Controllers
 
             katalog.DataNaKreiranje = DateTime.Now;
             _model.DodadiKatalog(katalog);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new {id=katalog.IdKatalozi });
         }
         [HttpGet]
         public ActionResult IzmeniKatalog(int id)
@@ -85,7 +85,7 @@ namespace MojKatalog.Controllers
         public ActionResult IzbrisiKatalog(int id)
         {
             _model.IzbrisiKatalog(id);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index",new {id=0});
         }
 
 

@@ -163,6 +163,7 @@
     {
         text-decoration: none !important;
         color: #95A5A6 !important;
+        cursor: pointer!important;
     }
 
 .panel-accordion .navbar

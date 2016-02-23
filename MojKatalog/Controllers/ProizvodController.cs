@@ -10,6 +10,7 @@ using MojKatalog.Models.ViewModels;
 using MojKatalog.Queries;
 using MojKatalog.Helpers;
 using MojKatalog.Filters;
+using System.Drawing;
 
 namespace MojKatalog.Controllers
 {
@@ -20,6 +21,54 @@ namespace MojKatalog.Controllers
         // GET: /Proizvod/
         QProizvod model = new QProizvod();
         QKategorija kategorija = new QKategorija();
+        private void DeleteImage(string oldValPath)
+        {
+
+            string fullPath = Request.MapPath("~" + oldValPath);
+
+            if (System.IO.File.Exists(fullPath))
+            {
+                System.IO.File.Delete(fullPath);
+            }
+        }
+
+
+        private string CreateAndSaveImage(string imgStream, int id, string bgName, string oldValPath, string folderName)
+        {
+            //folderName= Logos or Profile
+            if (imgStream != null)
+            {
+                if (imgStream.Contains("/Images/" + folderName + "/"))
+                {
+                    return imgStream;
+                }
+                else
+                {
+                    long addition = DateTime.Now.GetTimestampSeconds();
+                    string extension = ".jpeg";
+                    byte[] bytes = Convert.FromBase64String(imgStream);
+
+                    Image image;
+                    using (MemoryStream ms = new MemoryStream(bytes))
+                    {
+                        image = Image.FromStream(ms);
+                    }
+                    string name = bgName + "_" + id + "_" + addition + extension;
+                    string path = Path.Combine(Server.MapPath("~/Images/" + folderName + "/"), name);
+                    Bitmap bitmap = new Bitmap(image);
+                    bitmap.Save(path, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    //Se brise starata slika od likacijata
+                    DeleteImage(oldValPath);
+                    //Se vraca lokacija kade sto e socuvana slikata, koja treba da se socuva vo baza
+                    return "/Images/" + folderName + "/" + name;
+                }
+            }
+            else
+            {
+                return null;
+            }
+
+        }
         public ActionResult Index()
         {
             var user = (LoggedInEntity)Session["LoggedInEntity"];
@@ -41,24 +90,12 @@ namespace MojKatalog.Controllers
             return View(new ProizvodViewModel());
         }
         [HttpPost]
-        public ActionResult DodadiProizvod(Proizvodi proizvod, HttpPostedFileBase file, int id)
+        [ValidateAntiForgeryToken]
+        public ActionResult DodadiProizvod(Proizvodi proizvod, int id)
         {
-            model.DodadiProizvod(proizvod);
-            if (file != null)
-            {
-                string[] allowed = { ".jpg", ".jpeg", ".png", ".gif" };
-                string extension = System.IO.Path.GetExtension(file.FileName);
-
-                if (allowed.Contains(extension.ToLower()))
-                {
-                    string CoverPath = "/Images/UserImages/";//TODO: patekata treba da se zima od web.config
-                    string NewLocation = Server.MapPath("~") + CoverPath + "Cover_" + proizvod.IdProizvodi + extension;
-                    string tip = file.GetType().ToString();
-                    file.SaveAs(NewLocation);
-                    string path = CoverPath + "Cover_" + proizvod.IdProizvodi + extension;
-                    model.IzmeniPateka(path, proizvod);
-                }
-            }
+            Proizvodi oldProizvod = model.VratiProizvod(proizvod.IdProizvodi);
+            proizvod.SlikaNaProizvod = CreateAndSaveImage(proizvod.SlikaNaProizvod, proizvod.IdProizvodi, "Logo", oldProizvod.SlikaNaProizvod, "UserImages");
+          
             return RedirectToAction("PregledajProizvodi", new { id = id });
         }
         public ActionResult PregledajProizvod(int idProizvod, int idKategorija)
