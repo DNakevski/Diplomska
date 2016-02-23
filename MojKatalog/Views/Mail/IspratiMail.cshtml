@@ -33,6 +33,14 @@
 
                 </div>
             </div>
+
+            <div class="form-group">
+                <div class="col-lg-1 col-md-2"></div>
+                <div class="col-lg-10" id="selectedUsersContainer">
+                   
+                </div>
+            </div>
+
             <div class="form-group">
                 @Html.LabelFor(model => model.Subject, new { @class = "col-lg-1 col-md-2 control-label" })
                 <div class="col-lg-10">
@@ -83,13 +91,13 @@
                                         </tr>
                                         foreach (var klient in klientiGroup.Klienti)
                                         {
-                                            <tr>
+                                            <tr id="userRow_@(klient.IdKlienti)">
                                                 <td>
                                                     <input type="checkbox" name="selectedKlients" value="@klient.IdKlienti" />
                                                 </td>
                                                 <td>
-                                                    <label>@klient.Ime</label>
-                                                    <label>@klient.Prezime</label>
+                                                    <label class="lbl-klient-ime">@klient.Ime</label>
+                                                    <label class="lbl-klient-prezime">@klient.Prezime</label>
                                                     <br />
                                                     <small>@klient.Mail</small>
                                                 </td>
@@ -138,10 +146,12 @@
 
             $("#btn_izberi").click(function () {
                 $("#modalKontakti").modal("hide");
+                UpdateSelectedKlients();
             });
 
             $("#btn_zatvori").click(function () {
                 $("#modalKontakti input[name='selectedKlients']").attr('checked', false);
+                UpdateSelectedKlients();
             });
 
             $(".btn-search-contacts").click(function () {
@@ -160,6 +170,7 @@
 
                 return false;
             });
+
 
             $("#checkAllClients").click(function () {
                 if($(this).is(":checked")) {
@@ -188,6 +199,23 @@
                 $(".error-summary").show();
             }
             return isSelected;
+        }
+
+        function UpdateSelectedKlients()
+        {
+            $("#selectedUsersContainer").html("");
+            html = "";
+            $("#modalKontakti input[name='selectedKlients']").each(function () {
+                if ($(this).is(":checked")) {
+                    var value = $(this).val();
+                    var ime = $("#userRow_" + value).find(".lbl-klient-ime").html();
+                    var prezime = $("#userRow_" + value).find(".lbl-klient-prezime").html();
+
+                    html += "<span class='badge' style='margin-left:3px;'>"+ ime +" " + prezime +" </span>";
+                }
+            });
+
+            $("#selectedUsersContainer").html(html);
         }
     </script>
 }

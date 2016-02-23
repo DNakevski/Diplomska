@@ -42,7 +42,7 @@ namespace MojKatalog.Queries
                 poraki.SocuvaniPoraki = _db.Poraki.Where(x => x.IdKompanii == userId && x.IsSent == false && x.IsDeleted == false && x.IsReceived == false).ToList();
                 poraki.PrimeniPoraki = _db.Poraki.Where(x => x.IdKompanii == userId && x.IsSent == false && x.IsDeleted == false && x.IsReceived == true).ToList();
             }
-            
+
             return poraki;
         }
 

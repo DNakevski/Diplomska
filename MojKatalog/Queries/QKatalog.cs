@@ -103,8 +103,9 @@ namespace MojKatalog.Queries
                 {
                     WebSiteId = x.IdKatalozi,
                     DataNaKreiranje = x.DataNaKreiranje,
-                    ImageUrl = (x.WebSiteSettings != null && x.WebSiteSettings.CoverUrl != null && x.WebSiteSettings.CoverUrl != "") ? x.WebSiteSettings.CoverUrl : "~/Content/resources/portfolio.jpg",
-                    Naziv = x.NazivNaKatalog,
+                    ImageUrl = (x.WebSiteSettings != null && x.WebSiteSettings.CoverUrl != null && x.WebSiteSettings.CoverUrl != "")
+                    ? x.WebSiteSettings.CoverUrl : "/Areas/Portfolio/Images/portfolio.jpg",
+                    Naziv = (x.WebSiteSettings != null) ? x.WebSiteSettings.Naziv : "",
                     Opis = x.OpisNaKatalog,
                     Sopstvenik = (x.Kompanii != null) ? x.Kompanii.NazivNaKompanija : x.Poedinci.Ime + " " + x.Poedinci.Prezime 
                 })

@@ -4,11 +4,11 @@
 {
     var klients = poraka.Klienti.Take(3).ToList();
     string names="";
-    foreach(var klient in klients) 
+    foreach(var klient in klients)
     {
-        names = klient.Ime + " " + klient.Prezime + ";";
+        names += klient.Ime + " " + klient.Prezime + ";";
     }
-    names = names.Substring(0, names.Length - 1)+"...";
+    names = (names != "") ? names.Substring(0, names.Length - 1) + "..." : "";
     var subject = (poraka.Subject.Length > 50) ? poraka.Subject.Substring(0, 50) + "..." : poraka.Subject;
     <div class="list-group-item">
         <div class="checkbox">

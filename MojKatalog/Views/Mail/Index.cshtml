@@ -69,15 +69,7 @@
                         <li> <a href="#" onclick="reLoadPrimeniTab(); return false;"><span class="glyphicon glyphicon-refresh"></span></a></li>
                         <li> <a href="#" onclick="deletePrimeni(); return false;"><span class="glyphicon glyphicon-trash"></span></a></li>
                         <li class="pull-right">
-                            <span class="text-muted"><b>1</b>–<b>50</b> of <b>160</b></span>
-                            <div class="btn-group btn-group-sm">
-                                <button type="button" class="btn btn-default">
-                                    <span class="glyphicon glyphicon-chevron-left"></span>
-                                </button>
-                                <button type="button" class="btn btn-default">
-                                    <span class="glyphicon glyphicon-chevron-right"></span>
-                                </button>
-                            </div>
+                           
                         </li>
                     </ul>
                     <div class="list-group primeni-container">
@@ -138,6 +130,7 @@
 
 @section Scripts
 {
+    <script src="~/Scripts/custom-pagination.js"></script>
     <script type="text/javascript">
 
         $(document).ready(function () {
@@ -151,6 +144,9 @@
                     $("input[name=" + target + "]").prop("checked", false);
                 }
             });
+
+            $("#isprateniTab").paginate();
+           
 
         }); // --- END OF DOCUMENT READY --- //
         $("body").on("click", ".isprateni-container .list-group-item a", function () {
@@ -182,6 +178,7 @@
             $.get("@Url.Action("GetIsprateniPartial", "Mail")", {}, function (data) {
                 $(".isprateni-container").html(data).fadeIn(500);
                 updateCounter("isprateni");
+                $("#isprateniTab").paginate();
             });
         }
         function reLoadPrimeniTab() {
@@ -189,6 +186,7 @@
             $.get("@Url.Action("GetPrimeniPartial", "Mail")", {}, function (data) {
                 $(".primeni-container").html(data).fadeIn(500);
                 updateCounter("primeni");
+                $("#primeniTab").paginate();
             });
         }
         function reLoadIzbrishaniTab() {
@@ -196,6 +194,7 @@
             $.get("@Url.Action("GetIzbrishaniPartial", "Mail")", {}, function (data) {
                 $(".izbrishani-container").html(data).fadeIn(500);
                 updateCounter("izbrishani");
+                $("#izbrishaniTab").paginate();
             });
         }
 
@@ -204,6 +203,7 @@
             $.get("@Url.Action("GetSocuvaniPartial", "Mail")", {}, function (data) {
                 $(".socuvani-container").html(data).fadeIn(500);
                 updateCounter("socuvani");
+                $("#socuvaniTab").paginate();
             });
         }
 
